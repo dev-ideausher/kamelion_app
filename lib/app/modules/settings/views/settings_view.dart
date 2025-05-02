@@ -1,0 +1,232 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:kamelion/app/components/common_image_view.dart';
+import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
+import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/responsive_size.dart';
+import 'package:kamelion/app/services/text_style_util.dart';
+import 'package:kamelion/generated/locales.g.dart';
+
+import '../controllers/settings_controller.dart';
+
+class SettingsView extends GetView<SettingsController> {
+  const SettingsView({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SettingAppBar(),
+            20.kheightBox,
+            SettingTab(
+              title: LocaleKeys.account.tr,
+              subTitle1: LocaleKeys.notification.tr,
+              subTitle2: LocaleKeys.reset_password.tr,
+              ontap1: () {},
+              onTap2: () {},
+            ),
+            15.kheightBox,
+            SettingTab(
+              title: LocaleKeys.profile.tr,
+              subTitle1: LocaleKeys.edit_profile.tr,
+              subTitle2: LocaleKeys.reset_password.tr,
+              ontap1: () {
+                Get.toNamed(Routes.EDIT_PROFILE);
+              },
+              onTap2: () {},
+            ),
+            15.kheightBox,
+            SettingTab(
+              title: LocaleKeys.privacy.tr,
+              subTitle1: LocaleKeys.notification.tr,
+              subTitle2: LocaleKeys.reset_password.tr,
+              ontap1: () {},
+              onTap2: () {},
+            ),
+            15.kheightBox,
+            SettingTab(
+              title: LocaleKeys.notifications.tr,
+              subTitle1: LocaleKeys.notification.tr,
+              subTitle2: LocaleKeys.reset_password.tr,
+              ontap1: () {},
+              onTap2: () {},
+            ),
+            15.kheightBox,
+            SettingTab(
+              title: LocaleKeys.help.tr,
+              subTitle1: LocaleKeys.notification.tr,
+              subTitle2: LocaleKeys.reset_password.tr,
+              ontap1: () {},
+              onTap2: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SettingAppBar extends StatelessWidget {
+  SettingAppBar({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          height: context.height * 0.23, // 30% of screen height
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: ColorUtil(context).brandColor3, // Change to your brand color
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.ksp),
+              bottomRight: Radius.circular(20.ksp),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: ColorUtil(context).black.withOpacity(0.1),
+                blurRadius: 10.ksp,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          padding: EdgeInsets.only(left: 20.ksp, right: 20.ksp),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                10.kheightBox,
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: ColorUtil(context).brandColor4,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 6.0.ksp),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: ColorUtil(context).white,
+                            size: 15.ksp,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                10.kheightBox,
+                Text(
+                  LocaleKeys.settings.tr,
+                  style: TextStyleUtil.genSans500(fontSize: 20.ksp),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SettingTab extends StatelessWidget {
+  SettingTab({
+    super.key,
+    required this.title,
+    required this.subTitle1,
+    required this.subTitle2,
+    required this.onTap2,
+    required this.ontap1,
+  });
+
+  String title, subTitle1, subTitle2;
+  Function ontap1, onTap2;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            20.kwidthBox,
+            Text(
+              title,
+              style: TextStyleUtil.genSans500(
+                fontSize: 12.9.ksp,
+                color: ColorUtil(context).black,
+              ),
+            ),
+            10.kheightBox,
+          ],
+        ),
+        10.kheightBox,
+        InkWell(
+          onTap: () => ontap1(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0.ksp),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.0.ksp,
+                vertical: 8.ksp,
+              ),
+              decoration: BoxDecoration(
+                color: ColorUtil(context).white,
+                border: Border.all(color: ColorUtil(context).grey),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(6.ksp),
+                ), // Rounded corners
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    subTitle1,
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 11.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios, size: 12.ksp),
+                ],
+              ),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => onTap2(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0.ksp),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.0.ksp,
+                vertical: 8.ksp,
+              ),
+              decoration: BoxDecoration(
+                color: ColorUtil(context).white,
+                border: Border.all(color: ColorUtil(context).grey),
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(6.ksp),
+                ), // Rounded corners
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    subTitle2,
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 11.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios, size: 12.ksp),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}

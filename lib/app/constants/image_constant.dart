@@ -1,0 +1,60 @@
+class ImageConstant {
+  //SVGs
+  static String svgLogo = 'assets/images/logo.svg';
+  static String logoWithText = 'assets/svg/logo_with_text.svg';
+  static String keyLogo = 'assets/svg/key_logo.svg';
+  static String cleoSayingHi = 'assets/svg/cleo_saying_hi.svg';
+  static String cleoAskingQuestion = 'assets/svg/cleo_asking_question.svg';
+  static String cleoWriting = 'assets/svg/cleo_writing.svg';
+  static String cleoBlinking = 'assets/svg/cleo_blinking.svg';
+  static String homeSelected = 'assets/svg/home_selected.svg';
+  static String homeUnselected = 'assets/svg/home_unselected.svg';
+  static String mentalGymSelected = 'assets/svg/muscle_gym_selected.svg';
+  static String mentalGymUnselected = 'assets/svg/muscle_gym_unselected.svg';
+  static String activitySelected = 'assets/svg/activity_selected.svg';
+  static String activityUnselected = 'assets/svg/activity_unselected.svg';
+  static String communitySelected = 'assets/svg/community_selected.svg';
+  static String communityUnselected = 'assets/svg/community_unselected.svg';
+  static String profielSelected = 'assets/svg/profile_selected.svg';
+  static String profielUnselected = 'assets/svg/profile_unselected.svg';
+  static String goldMedal = 'assets/svg/gold_medal.svg';
+  static String silverMedal = 'assets/svg/silver_medal.svg';
+  static String bronzeModel = 'assets/svg/bronze_medal.svg';
+  static String settingIcon = 'assets/svg/setting_icon.svg';
+  static String smileIcon = 'assets/svg/smile_icon.svg';
+  static String calenderIcon = 'assets/svg/calender_icon.svg';
+  static String pencilIcon = 'assets/svg/pencil_icon.svg';
+  static String notebookIcon = 'assets/svg/notebook_icon.svg';
+  static String flameIcon = 'assets/svg/flame_icon.svg';
+  static String coinIcon = 'assets/svg/coin_icon.svg';
+  static String unHappyMood = 'assets/svg/unhappy_mood.svg';
+  static String sadMood = 'assets/svg/sad_mood.svg';
+  static String normalMood = 'assets/svg/normal_mood.svg';
+  static String goodMood = 'assets/svg/good_mood.svg';
+  static String happyMood = 'assets/svg/happy_mood.svg';
+  static String addIcon = 'assets/svg/add_icon.svg';
+  static String myCharacterLogo = 'assets/svg/my_character_logo.svg';
+  static String socialLifeIcon = 'assets/svg/social_life_icon.svg';
+  static String healthIcon = 'assets/svg/health_icon.svg';
+  static String myMindIcon = 'assets/svg/my_mind_icon.svg';
+  static String dummyCoverImage = 'assets/svg/dummy_cover_image.svg';
+  static String starPattern = 'assets/svg/star_pattern.svg';
+  static String circleBg = 'assets/svg/circle_bg.svg';
+  static String dumbelWhiteIcon = 'assets/svg/dumbel_white_icon.svg';
+
+  //PNGs
+  static String pngNewsBanner = 'assets/images/news_banner.png';
+  static String splashScreenBg = 'assets/png/splash_screen_bg.png';
+  static String authDirectionBg = 'assets/png/auth_direction_bg.png';
+  static String curveWhiteContainer = 'assets/png/curve_white_container.png';
+  static String rewardCard1 = 'assets/png/reward_card_1.png';
+  static String rewardCard2 = 'assets/png/reward_card_2.png';
+  static String rewardCard3 = 'assets/png/reward_card_3.png';
+  static String rewardCard4 = 'assets/png/reward_card_4.png';
+  static String rewardCard5 = 'assets/png/reward_card_5.png';
+  static String rewardCard6 = 'assets/png/reward_card_6.png';
+  static String rewardCard7 = 'assets/png/reward_card_7.png';
+  static String rewardCard8 = 'assets/png/reward_card_8.png';
+  static String pencilIconDark = 'assets/png/pencil_icon_dark.png';
+  static String mentalGymsWhileIcon = 'assets/png/muscle_white_icon.png';
+}
