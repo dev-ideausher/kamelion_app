@@ -24,7 +24,7 @@ class ActiveWorkouts extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 14.0.ksp),
               child: Text(
-                "Active Workouts",
+                Get.find<MentalGymController>().viewAllTitle.value,
                 style: TextStyleUtil.genSans400(
                   fontSize: 16.ksp,
                   color: ColorUtil(context).black,
@@ -34,8 +34,16 @@ class ActiveWorkouts extends StatelessWidget {
             ),
           ],
         ),
-        ...Get.find<MentalGymController>().activeWorkouts.map((mood) {
-          return ActiveWorkoutCards();
+        ...Get.find<MentalGymController>().viewAllMentalGymList.map((mood) {
+          return ActiveWorkoutCards(
+            isSaved: true,
+            title: mood.title ?? "",
+            subtitle: mood.title ?? "",
+            imageUrl: mood.thumbnail!.url ?? "",
+            onTap: () {
+              Get.find<MentalGymController>().getWorkoutDetails(mood.sId ?? "");
+            },
+          );
         }).toList(),
       ],
     );

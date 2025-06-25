@@ -24,6 +24,6 @@ class GetStorageService extends GetxService {
   set isLoggedIn(bool val) => _runData.write('isLoggedIn', (val));
 
   void logout() {
-    _runData.erase();
+    _runData.remove("jwToken");
   }
 }

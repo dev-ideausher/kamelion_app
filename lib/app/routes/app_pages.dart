@@ -1,20 +1,48 @@
 import 'package:get/get.dart';
 
+import '../modules/activities/bindings/activities_binding.dart';
+import '../modules/activities/views/activities_view.dart';
 import '../modules/authDirection/bindings/auth_direction_binding.dart';
 import '../modules/authDirection/views/auth_direction_view.dart';
+import '../modules/challengeDetails/bindings/challenge_details_binding.dart';
+import '../modules/challengeDetails/views/challenge_details_view.dart';
+import '../modules/challenges/bindings/challenges_binding.dart';
+import '../modules/challenges/views/challenges_view.dart';
+import '../modules/commentBottomSheet/bindings/comment_bottom_sheet_binding.dart';
+import '../modules/commentBottomSheet/views/comment_bottom_sheet_view.dart';
+import '../modules/community/bindings/community_binding.dart';
+import '../modules/community/views/community_view.dart';
+import '../modules/communityPosts/bindings/community_posts_binding.dart';
+import '../modules/communityPosts/views/community_posts_view.dart';
+import '../modules/courseComplete/bindings/course_complete_binding.dart';
+import '../modules/courseComplete/views/course_complete_view.dart';
 import '../modules/createAvatar/bindings/create_avatar_binding.dart';
 import '../modules/createAvatar/views/avatar_name_view.dart';
 import '../modules/createAvatar/views/create_avatar_view.dart';
+import '../modules/createCommunity/bindings/create_community_binding.dart';
+import '../modules/createCommunity/views/create_community_view.dart';
+import '../modules/createPost/bindings/create_post_binding.dart';
+import '../modules/createPost/views/create_post_view.dart';
+import '../modules/createTimeLine/bindings/create_time_line_binding.dart';
+import '../modules/createTimeLine/views/create_time_line_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
+import '../modules/forgotPassword/views/forgot_password_view.dart';
+import '../modules/getSchool/bindings/get_school_binding.dart';
+import '../modules/getSchool/views/get_school_view.dart';
 import '../modules/getStarted/bindings/get_started_binding.dart';
 import '../modules/getStarted/views/get_started_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/journaling/bindings/journaling_binding.dart';
+import '../modules/journaling/views/journaling_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/mentalGym/bindings/mental_gym_binding.dart';
 import '../modules/mentalGym/views/mental_gym_view.dart';
+import '../modules/mindFullHours/bindings/mind_full_hours_binding.dart';
+import '../modules/mindFullHours/views/mind_full_hours_view.dart';
 import '../modules/moodSelectionForm/bindings/mood_selection_form_binding.dart';
 import '../modules/moodSelectionForm/views/mood_selection_form_view.dart';
 import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
@@ -23,12 +51,20 @@ import '../modules/onboardingQuestions/bindings/onboarding_questions_binding.dar
 import '../modules/onboardingQuestions/views/onboarding_questions_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/quizeComplete/bindings/quize_complete_binding.dart';
+import '../modules/quizeComplete/views/quize_complete_view.dart';
+import '../modules/quize_collect_coin/bindings/quize_collect_coin_binding.dart';
+import '../modules/quize_collect_coin/views/quize_collect_coin_view.dart';
+import '../modules/searchMentalGym/bindings/search_mental_gym_binding.dart';
+import '../modules/searchMentalGym/views/search_mental_gym_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/signUp/bindings/sign_up_binding.dart';
 import '../modules/signUp/views/sign_up_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/support/bindings/support_binding.dart';
+import '../modules/support/views/support_view.dart';
 import '../modules/workoutDetails/bindings/workout_details_binding.dart';
 import '../modules/workoutDetails/views/workout_details_view.dart';
 
@@ -37,7 +73,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVIGATION_BAR;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(name: _Paths.HOME, page: () => HomeView(), binding: HomeBinding()),
@@ -120,6 +156,96 @@ class AppPages {
       name: _Paths.WORKOUT_DETAILS,
       page: () => const WorkoutDetailsView(),
       binding: WorkoutDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.COURSE_COMPLETE,
+      page: () => const CourseCompleteView(),
+      binding: CourseCompleteBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZE_COMPLETE,
+      page: () => const QuizeCompleteView(),
+      binding: QuizeCompleteBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMMUNITY,
+      page: () => CommunityView(),
+      binding: CommunityBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_COMMUNITY,
+      page: () => const CreateCommunityView(),
+      binding: CreateCommunityBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMMUNITY_POSTS,
+      page: () => const CommunityPostsView(),
+      binding: CommunityPostsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_POST,
+      page: () => const CreatePostView(),
+      binding: CreatePostBinding(),
+    ),
+    GetPage(
+      name: _Paths.COMMENT_BOTTOM_SHEET,
+      page: () => CommentBottomSheetView(),
+      binding: CommentBottomSheetBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACTIVITIES,
+      page: () => const ActivitiesView(),
+      binding: ActivitiesBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUPPORT,
+      page: () => const SupportView(),
+      binding: SupportBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHALLENGES,
+      page: () => const ChallengesView(),
+      binding: ChallengesBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHALLENGE_DETAILS,
+      page: () => const ChallengeDetailsView(),
+      binding: ChallengeDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.JOURNALING,
+      page: () => const JournalingView(),
+      binding: JournalingBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_TIME_LINE,
+      page: () => const CreateTimeLineView(),
+      binding: CreateTimeLineBinding(),
+    ),
+    GetPage(
+      name: _Paths.MIND_FULL_HOURS,
+      page: () => MindFullHoursView(),
+      binding: MindFullHoursBinding(),
+    ),
+    GetPage(
+      name: _Paths.GET_SCHOOL,
+      page: () => const GetSchoolView(),
+      binding: GetSchoolBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORGOT_PASSWORD,
+      page: () => const ForgotPasswordView(),
+      binding: ForgotPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.QUIZE_COLLECT_COIN,
+      page: () => const QuizeCollectCoinView(),
+      binding: QuizeCollectCoinBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_MENTAL_GYM,
+      page: () => const SearchMentalGymView(),
+      binding: SearchMentalGymBinding(),
     ),
   ];
 }

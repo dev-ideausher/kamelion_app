@@ -28,6 +28,7 @@ class ProfileView extends GetView<ProfileController> {
             backgroundColor: ColorUtil(context).shadowColor,
             selectedTabColor: ColorUtil(context).white,
           ),
+
           Expanded(
             child: TabBarView(
               controller: controller.profilePageTabController,

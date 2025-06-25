@@ -4,26 +4,38 @@ import 'app_interceptors.dart';
 import 'endpoints.dart';
 
 class DioClient {
-// dio instance
+  // dio instance
   final Dio _dio;
 
   bool isOverlayLoader;
   bool showSnakbar;
+  bool isAuthNeeded;
 
-  DioClient(this._dio,
-      {this.isOverlayLoader = false, this.showSnakbar = false}) {
+  DioClient(
+    this._dio, {
+    this.isOverlayLoader = false,
+    this.showSnakbar = false,
+    this.isAuthNeeded = true,
+  }) {
     _dio
       ..options.baseUrl = Endpoints.baseUrl
-      ..options.connectTimeout =
-          const Duration(milliseconds: Endpoints.connectionTimeout)
-      ..options.receiveTimeout =
-          const Duration(milliseconds: Endpoints.receiveTimeout)
+      ..options.connectTimeout = const Duration(
+        milliseconds: Endpoints.connectionTimeout,
+      )
+      ..options.receiveTimeout = const Duration(
+        milliseconds: Endpoints.receiveTimeout,
+      )
       ..options.responseType = ResponseType.json
-      ..interceptors.add(AppInterceptors(
-          isOverlayLoader: isOverlayLoader, showSnakbar: showSnakbar));
+      ..interceptors.add(
+        AppInterceptors(
+          isOverlayLoader: isOverlayLoader,
+          showSnakbar: showSnakbar,
+          isAuthNeeded: isAuthNeeded,
+        ),
+      );
   }
 
-// Get:-----------------------------------------------------------------------
+  // Get:-----------------------------------------------------------------------
   Future<Response> get(
     String url, {
     Map<String, dynamic>? queryParameters,
@@ -44,7 +56,7 @@ class DioClient {
     return response;
   }
 
-// Post:----------------------------------------------------------------------
+  // Post:----------------------------------------------------------------------
   Future<Response> post(
     String url, {
     data,
@@ -66,7 +78,7 @@ class DioClient {
     return response;
   }
 
-// Put:-----------------------------------------------------------------------
+  // Put:-----------------------------------------------------------------------
   Future<Response> put(
     String url, {
     data,
@@ -92,8 +104,8 @@ class DioClient {
     }
   }
 
-// Delete:--------------------------------------------------------------------
-  Future<dynamic> delete(
+  // Delete:--------------------------------------------------------------------
+  Future<Response> delete(
     String url, {
     data,
     Map<String, dynamic>? queryParameters,
@@ -110,7 +122,7 @@ class DioClient {
         options: options,
         cancelToken: cancelToken,
       );
-      return response.data;
+      return response;
     } catch (e) {
       rethrow;
     }

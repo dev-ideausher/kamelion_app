@@ -21,12 +21,24 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          CommonImageView(imagePath: ImageConstant.authDirectionBg),
+          SizedBox(
+            width: double.infinity,
+            child: CommonImageView(
+              width: double.infinity,
+              fit: BoxFit.cover,
+              imagePath: ImageConstant.authDirectionBg,
+            ),
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Stack(
               children: [
-                CommonImageView(imagePath: ImageConstant.curveWhiteContainer),
+                SizedBox(
+                  width: double.infinity,
+                  child: CommonImageView(
+                    imagePath: ImageConstant.curveWhiteContainer,
+                  ),
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: 8.ksp,

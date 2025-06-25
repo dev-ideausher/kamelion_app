@@ -14,8 +14,13 @@ import 'jwt_decoder.dart';
 class AppInterceptors extends Interceptor {
   bool isOverlayLoader;
   bool showSnakbar;
+  bool isAuthNeeded;
 
-  AppInterceptors({this.isOverlayLoader = true, this.showSnakbar = true});
+  AppInterceptors({
+    this.isOverlayLoader = true,
+    this.showSnakbar = true,
+    this.isAuthNeeded = true,
+  });
 
   @override
   FutureOr<dynamic> onRequest(
@@ -23,9 +28,14 @@ class AppInterceptors extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     isOverlayLoader ? DialogHelper.showLoading() : null;
+    if (!isAuthNeeded) {
+      return handler.next(options); // Don't add token
+    }
     await Helpers.validateToken(
       onSuccess: () {
-        options.headers = {"token": Get.find<GetStorageService>().encjwToken};
+        options.headers = {
+          "Authorization": "Bearer ${Get.find<GetStorageService>().encjwToken}",
+        };
         super.onRequest(options, handler);
       },
     );

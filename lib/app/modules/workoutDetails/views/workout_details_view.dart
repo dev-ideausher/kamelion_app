@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/workoutDetails/workout_details_appbar.dart';
+import 'package:kamelion/app/modules/workoutDetails/views/video_player.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import '../controllers/workout_details_controller.dart';
@@ -10,31 +13,243 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
   const WorkoutDetailsView({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          WorkoutDetailsAppBar(),
-          15.kheightBox,
-          Row(
-            children: [
-              18.kwidthBox,
-              Text(
-                "Introduction",
-                style: TextStyleUtil.genSans500(
-                  fontSize: 14.ksp,
-                  color: context.black,
+    return GetBuilder<WorkoutDetailsController>(
+      builder: (controller) {
+        return controller.isLoading.value
+            ? Container(
+              color: Colors.white,
+              child: Center(
+                child: CircularProgressIndicator(color: context.brandColor1),
+              ),
+            )
+            : Scaffold(
+              backgroundColor: context.scaffoldBg,
+              body: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    WorkoutDetailsAppBar(
+                      title:
+                          controller.mentalGymDetails!.value.mentalGym!.title ??
+                          "",
+                      totalTime:
+                          "${controller.mentalGymDetails!.value.mentalGym!.totalDuration ?? ""}",
+                      workouts:
+                          "${controller.mentalGymDetails!.value.workouts!.length ?? ""}",
+                    ),
+                    15.kheightBox,
+                    Row(
+                      children: [
+                        18.kwidthBox,
+                        Text(
+                          "Introduction",
+                          style: TextStyleUtil.genSans500(
+                            fontSize: 14.ksp,
+                            color: context.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    12.kheightBox,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 14.ksp),
+                      child: Text(
+                        controller
+                                .mentalGymDetails!
+                                .value
+                                .mentalGym!
+                                .description ??
+                            "",
+                        // "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
+                        style: TextStyleUtil.genSans400(
+                          fontSize: 12.ksp,
+                          color: ColorUtil(context).black,
+                        ),
+                      ),
+                    ),
+                    16.kheightBox,
+                    Row(
+                      children: [
+                        18.kwidthBox,
+                        Text(
+                          "Workouts",
+                          style: TextStyleUtil.genSans500(
+                            fontSize: 14.ksp,
+                            color: context.black,
+                          ),
+                        ),
+                        Spacer(),
+                        Text(
+                          "${controller.mentalGymDetails!.value.workouts!.length}"
+                          " "
+                          "Total",
+                          style: TextStyleUtil.genSans500(
+                            fontSize: 10.ksp,
+                            color: context.black,
+                          ),
+                        ),
+                        18.kwidthBox,
+                      ],
+                    ),
+                    10.kwidthBox,
+                    ...controller.mentalGymDetails!.value.workouts!
+                        .map(
+                          (workout) => VideoCard(
+                            imageUrl:
+                                "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            onPlay: () {
+                              Get.to(
+                                VideoPlayerScreen(),
+                                arguments: workout.video!.url ?? "",
+                              );
+                            },
+                            title: workout.workoutTitle ?? "",
+                          ),
+                        )
+                        .toList(),
+                    controller.mentalGymDetails!.value.mentalGym!.isActive!
+                        ? (controller
+                                .mentalGymDetails!
+                                .value
+                                .mentalGym!
+                                .isCompleted!
+                            ? Container()
+                            : Padding(
+                              padding: EdgeInsets.all(16.0.ksp),
+                              child: CustomButton.outline(
+                                onTap: () {
+                                  Get.toNamed(
+                                    Routes.ONBOARDING_QUESTIONS,
+                                    arguments: Routes.COURSE_COMPLETE,
+                                  );
+                                  // Get.toNamed(Routes.COURSE_COMPLETE);
+                                },
+                                title: 'Complete',
+                                color: context.redBg,
+                                buttonColor: context.redBg,
+                              ),
+                            ))
+                        : Padding(
+                          padding: EdgeInsets.all(16.0.ksp),
+                          child: CustomButton.outline(
+                            onTap: () {
+                              controller.joinMentalGym(
+                                controller
+                                        .mentalGymDetails!
+                                        .value
+                                        .mentalGym!
+                                        .sId ??
+                                    "",
+                              );
+                              // Get.toNamed(Routes.COURSE_COMPLETE);
+                            },
+                            title: 'Start Mental Gym',
+                            color: context.redBg,
+                            buttonColor: context.redBg,
+                          ),
+                        ),
+                  ],
                 ),
               ),
-            ],
-          ),
-          12.kheightBox,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.ksp),
-            child: Text(
-              "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
+            );
+      },
+    );
+  }
+}
+
+class VideoCard extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final VoidCallback onPlay;
+
+  const VideoCard({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.onPlay,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 12.0.ksp, vertical: 5.ksp),
+      child: Card(
+        elevation: 2,
+        color: context.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.ksp),
+        ),
+        child: Container(
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.all(10.ksp),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipOval(
+                      child: Image.network(
+                        imageUrl,
+                        width: 40.ksp,
+                        height: 40.ksp,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      width: 40.ksp,
+                      height: 40.ksp,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withOpacity(0.4),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.play_arrow,
+                          size: 30.ksp,
+                          color: context.white,
+                        ),
+                        onPressed: onPlay,
+                      ),
+                    ),
+                  ],
+                ),
+                12.kwidthBox,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyleUtil.genSans500(
+                        fontSize: 13.ksp,
+                        color: context.black,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.schedule,
+                          color: context.lightRedBg,
+                          size: 14.ksp,
+                        ),
+                        10.kwidthBox,
+                        Text(
+                          "30 Mins",
+                          style: TextStyleUtil.genSans400(
+                            fontSize: 10.ksp,
+                            color: context.black,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

@@ -14,7 +14,10 @@ class GetStartedView extends GetView<GetStartedController> {
   const GetStartedView({super.key});
   @override
   Widget build(BuildContext context) {
-    controller.isOnboardingFormSubmited = Get.arguments ?? false;
+    if (!(Get.arguments is String))
+      controller.isOnboardingFormSubmited = Get.arguments ?? false;
+    else
+      controller.isOnboardingFormSubmited = false;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(

@@ -6,6 +6,7 @@ import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
+import 'package:kamelion/generated/locales.g.dart';
 
 class SavedWorkouts extends StatelessWidget {
   const SavedWorkouts({super.key});
@@ -21,7 +22,7 @@ class SavedWorkouts extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 14.0.ksp),
               child: Text(
-                "Saved Workouts",
+                LocaleKeys.saved_workouts.tr,
                 style: TextStyleUtil.genSans400(
                   fontSize: 16.ksp,
                   color: ColorUtil(context).black,
@@ -32,7 +33,15 @@ class SavedWorkouts extends StatelessWidget {
           ],
         ),
         ...Get.find<MentalGymController>().activeWorkouts.map((mood) {
-          return SuggestedWorkoutCards();
+          return SuggestedWorkoutCards(
+            isSaved: false,
+            imageUrl: "",
+            title: "",
+            subtitle: "",
+            onTap: () {
+              Get.find<MentalGymController>().getWorkoutDetails(mood.sid);
+            },
+          );
         }).toList(),
       ],
     );

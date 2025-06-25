@@ -29,6 +29,6 @@ class GetStartedController extends GetxController {
     if (isOnboardingFormSubmited)
       Get.toNamed(Routes.CREATE_AVATAR);
     else
-      Get.toNamed(Routes.ONBOARDING_QUESTIONS);
+      Get.toNamed(Routes.ONBOARDING_QUESTIONS, arguments: Routes.GET_STARTED);
   }
 }

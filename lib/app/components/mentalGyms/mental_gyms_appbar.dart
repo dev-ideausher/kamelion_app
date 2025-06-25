@@ -4,6 +4,8 @@ import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
@@ -35,10 +37,18 @@ class MentalGymsAppBar extends StatelessWidget {
               ),
             ),
             15.kheightBox,
-
             TextFormField(
+              controller: Get.find<MentalGymController>().searchController,
+              onFieldSubmitted: (search) {
+                Get.toNamed(
+                  Routes.SEARCH_MENTAL_GYM,
+                  arguments:
+                      Get.find<MentalGymController>().searchController.text,
+                );
+                Get.find<MentalGymController>().searchController.text = "";
+              },
               decoration: InputDecoration(
-                hintText: "Search for mental gyms",
+                hintText: LocaleKeys.search_mental_gyms.tr,
                 filled: true,
                 fillColor: ColorUtil(context).white,
                 prefixIcon: const Icon(Icons.search),
@@ -63,7 +73,7 @@ class MentalGymsAppBar extends StatelessWidget {
                     ),
                     8.kwidthBox,
                     Text(
-                      "7" + " " + "Mental Gyms",
+                      "${Get.find<MentalGymController>().activeMentalGymsCounts.value} ${LocaleKeys.mental_gyms.tr}",
                       style: TextStyleUtil.genSans500(
                         fontSize: 11.ksp,
                         color: context.white,
@@ -71,7 +81,6 @@ class MentalGymsAppBar extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 Row(
                   children: [
                     CommonImageView(
@@ -80,7 +89,7 @@ class MentalGymsAppBar extends StatelessWidget {
                     ),
                     8.kwidthBox,
                     Text(
-                      "150" + " " + "Workouts",
+                      "${Get.find<MentalGymController>().activeWorkoutsCount.value} ${LocaleKeys.workouts.tr}",
                       style: TextStyleUtil.genSans500(
                         fontSize: 11.ksp,
                         color: context.white,

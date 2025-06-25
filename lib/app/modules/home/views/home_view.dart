@@ -10,10 +10,14 @@ import 'package:kamelion/app/components/personal_insight_box.dart';
 import 'package:kamelion/app/components/todays_mood.dart';
 import 'package:kamelion/app/components/workout_selector.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
+import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
+import 'package:kamelion/generated/locales.g.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -27,28 +31,117 @@ class HomeView extends GetView<HomeController> {
         // statusBarIconBrightness: Brightness.light, // Icons: light or dark
       ),
     );
-    return Scaffold(
-      backgroundColor: ColorUtil(context).scaffoldBg,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              HomeAppBar(userName: "Vivian"),
-              20.kheightBox,
-              FeelingSelectionWidget(moodsToShow: controller.moodsToShow),
-              20.kheightBox,
-              TodaysMood(),
-              MentalGymSelector(mentalGymList: controller.mentalGymList),
-              20.kheightBox,
-              WorkoutSelector(workoutList: controller.mentalGymList),
-              10.kheightBox,
-              PersonalInsightBox(),
-              10.kheightBox,
-              ExporleCommuntiesBox(),
-            ],
-          ),
-        ),
-      ),
+    return GetBuilder<HomeController>(
+      builder: (controller) {
+        return controller.isLoading.value
+            ? Container(
+              child: Center(
+                child: CircularProgressIndicator(color: context.brandColor1),
+              ),
+            )
+            : Scaffold(
+              backgroundColor: ColorUtil(context).scaffoldBg,
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      HomeAppBar(
+                        userName:
+                            (controller.currentUser.value.nickname ?? "User")
+                                .capitalizeFirst ??
+                            "User",
+                      ),
+                      20.kheightBox,
+                      controller.currentMoodsList.isEmpty
+                          ? FeelingSelectionWidget(
+                            moodsToShow: controller.moodsToShow,
+                          )
+                          : Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 8.0.ksp),
+                                    child: Text(
+                                      LocaleKeys.todays_mood.tr,
+                                      style: TextStyleUtil.genSans400(
+                                        fontSize: 16.ksp,
+                                        color: ColorUtil(context).black,
+                                        height: 1.2,
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      controller.showMoodPopup(context);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          LocaleKeys.add.tr,
+                                          style: TextStyleUtil.genSans500(
+                                            fontSize: 11.ksp,
+                                            color:
+                                                ColorUtil(context).brandColor1,
+                                            height: 1.2,
+                                          ),
+                                        ),
+                                        4.kwidthBox,
+                                        CommonImageView(
+                                          svgPath: ImageConstant.addIcon,
+                                        ),
+                                        20.kwidthBox,
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              ...controller.currentMoodsList
+                                  .map(
+                                    (element) => TodaysMood(
+                                      feelings:
+                                          element.feelings?.join(",") ?? "",
+                                      activities: element.activities ?? "",
+                                      time: element.createdAtLocal
+                                          .toString()
+                                          .substring(11, 16),
+                                      desc:
+                                          (element.note ?? "")
+                                              .capitalizeFirst ??
+                                          "",
+                                      mood:
+                                          (element.mood ?? "")
+                                              .capitalizeFirst ??
+                                          "",
+                                      moodImage: controller.getMoodImage(
+                                        mood: element.mood ?? "",
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
+                            ],
+                          ),
+                      20.kheightBox,
+                      MentalGymSelector(
+                        mentalGymList:
+                            Get.find<MentalGymController>()
+                                .mentalGymCategoryList,
+                      ),
+                      20.kheightBox,
+                      WorkoutSelector(workoutList: controller.mentalGymList),
+                      10.kheightBox,
+                      PersonalInsightBox(),
+                      10.kheightBox,
+                      ExporleCommuntiesBox(),
+                    ],
+                  ),
+                ),
+              ),
+            );
+      },
     );
   }
 }

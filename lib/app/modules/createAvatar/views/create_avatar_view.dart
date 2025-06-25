@@ -25,40 +25,46 @@ class CreateAvatarView extends GetView<CreateAvatarController> {
         title: Text(LocaleKeys.createAvatar.tr),
         centerTitle: true,
         actions: [
-          FluttermojiSaveWidget(
-            onTap: () {
-              controller.submitAvatar();
-            },
-            child: Text(
-              LocaleKeys.done.tr,
-              style: TextStyleUtil.genSans500(
-                fontSize: 12.ksp,
-                color: ColorUtil(context).brandColor1,
+          RepaintBoundary(
+            child: FluttermojiSaveWidget(
+              onTap: () {
+                controller.submitAvatar();
+              },
+              child: Text(
+                LocaleKeys.done.tr,
+                style: TextStyleUtil.genSans500(
+                  fontSize: 12.ksp,
+                  color: ColorUtil(context).brandColor1,
+                ),
               ),
             ),
           ),
           20.kwidthBox,
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          50.kheightBox,
-          FluttermojiCircleAvatar(
-            backgroundColor: ColorUtil(context).greyBg,
-            radius: 80,
-          ),
-          20.kheightBox,
-          FluttermojiCustomizer(
-            theme: FluttermojiThemeData(
-              labelTextStyle: TextStyleUtil.genSans400(
-                fontSize: 15.ksp,
-                color: ColorUtil(context).black,
-              ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            // 50.kheightBox,
+            Spacer(),
+            FluttermojiCircleAvatar(
+              backgroundColor: ColorUtil(context).greyBg,
+              radius: 80,
             ),
-            scaffoldHeight: context.height * 0.5,
-          ), // This opens the full editor
-        ],
+            Spacer(),
+            FluttermojiCustomizer(
+              theme: FluttermojiThemeData(
+                labelTextStyle: TextStyleUtil.genSans400(
+                  fontSize: 15.ksp,
+                  color: ColorUtil(context).black,
+                ),
+              ),
+              scaffoldHeight: context.height * 0.5,
+            ), // This opens the full editor
+            // 4.kheightBox,
+          ],
+        ),
       ),
     );
   }

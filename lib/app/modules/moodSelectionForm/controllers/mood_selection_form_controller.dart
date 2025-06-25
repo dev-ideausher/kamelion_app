@@ -1,14 +1,23 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/constants/enums.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/services/dialog_helper.dart';
+import 'package:kamelion/app/services/dio/api_service.dart';
+import 'package:kamelion/app/services/snackbar.dart';
 
 class MoodSelectionFormController extends GetxController {
   //TODO: Implement MoodSelectionFormController
 
   final count = 0.obs;
   RxDouble moodSliderLeval = 50.0.obs;
+  String? time;
   TextEditingController feelingsController = TextEditingController();
+  TextEditingController noteController = TextEditingController();
+  TextEditingController activitiesController = TextEditingController();
   RxString currentMoodSelected = Mood.normal.name.obs;
+  String timezone = "IST";
   List<String> feelingsKeywords = [
     "Happy",
     "Sad",
@@ -26,22 +35,21 @@ class MoodSelectionFormController extends GetxController {
     "Hopeful",
     "Stressed",
   ];
-  final List<String> selectedFeelings = [
-    "Flutter",
-    "Dart",
-    "Firebase",
-    "API",
-    "Backend",
-    "Frontend",
-    "UI",
-    "UX",
-    "Cloud",
-    "Database",
-  ];
+
   @override
   void onInit() {
-    if (Get.arguments != null) {
-      currentMoodSelected.value = Get.arguments.toString().split('.').last;
+    if (Get.arguments != null && Get.arguments['mood'] != null) {
+      currentMoodSelected.value =
+          Get.arguments['mood'].toString().split('.').last;
+    }
+    if (Get.arguments != null && Get.arguments['note'] != null) {
+      currentMoodSelected.value =
+          Get.arguments['mood'].toString().split('.').last;
+
+      noteController.text = Get.arguments['note'];
+      feelingsController.text = Get.arguments['feeling'];
+      activitiesController.text = Get.arguments['activities'];
+      time = Get.arguments['time'];
     }
     super.onInit();
   }
@@ -72,5 +80,40 @@ class MoodSelectionFormController extends GetxController {
     }
     feelingsController.text = feelingsController.text + keyword + ", ";
     update();
+  }
+
+  Future<void> addMood() async {
+    try {
+      var response;
+      DialogHelper.showLoading();
+      response = await APIManager.addMood(
+        activities: activitiesController.text,
+        feelings: feelingsController.text.split(','),
+        mood: currentMoodSelected.value,
+        note: noteController.text,
+      );
+
+      if (response.data['data'] != null && response.data['status']) {
+        Get.back();
+        Get.back();
+        DialogHelper.hideDialog();
+        Get.find<HomeController>().getTodaysMood();
+        showMySnackbar(msg: "Mood added");
+      } else {
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
+        showMySnackbar(msg: response.data['message'] ?? "");
+        DialogHelper.hideDialog();
+      }
+      update();
+      // return;
+    } on DioException catch (dioError) {
+      showMySnackbar(msg: dioError.message ?? "");
+      DialogHelper.hideDialog();
+    } catch (e) {
+      showMySnackbar(msg: e.toString());
+      DialogHelper.hideDialog();
+    }
   }
 }

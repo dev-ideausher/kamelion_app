@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
@@ -69,20 +70,6 @@ class LoginView extends GetView<LoginController> {
               ),
               30.kheightBox,
               Text(
-                " ${LocaleKeys.fullName.tr}",
-                style: TextStyleUtil.genSans300(
-                  fontSize: 12.ksp,
-                  color: context.black,
-                ),
-              ),
-              10.kheightBox,
-              CustomTextField(
-                hintText: LocaleKeys.fullNameHint.tr,
-                controller: controller.fullNameController,
-                onChange: (val) => controller.checkFormValidity(val),
-              ),
-              10.kheightBox,
-              Text(
                 " ${LocaleKeys.email.tr}",
                 style: TextStyleUtil.genSans300(
                   fontSize: 12.ksp,
@@ -109,6 +96,19 @@ class LoginView extends GetView<LoginController> {
                 controller: controller.passwordController,
                 onChange: (val) => controller.checkFormValidity(val),
               ),
+              5.kheightBox,
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.FORGOT_PASSWORD);
+                },
+                child: Text(
+                  " Forgot Password?",
+                  style: TextStyleUtil.genSans500(
+                    fontSize: 12.ksp,
+                    color: context.brandColor1,
+                  ),
+                ),
+              ),
               50.kheightBox,
               Obx(
                 () => Padding(
@@ -118,7 +118,7 @@ class LoginView extends GetView<LoginController> {
                     onTap: () {
                       controller.login();
                     },
-                    title: LocaleKeys.submit.tr,
+                    title: "Login",
                   ),
                 ),
               ),

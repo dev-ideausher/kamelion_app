@@ -21,14 +21,7 @@ class SettingsView extends GetView<SettingsController> {
           children: [
             SettingAppBar(),
             20.kheightBox,
-            SettingTab(
-              title: LocaleKeys.account.tr,
-              subTitle1: LocaleKeys.notification.tr,
-              subTitle2: LocaleKeys.reset_password.tr,
-              ontap1: () {},
-              onTap2: () {},
-            ),
-            15.kheightBox,
+
             SettingTab(
               title: LocaleKeys.profile.tr,
               subTitle1: LocaleKeys.edit_profile.tr,
@@ -62,6 +55,19 @@ class SettingsView extends GetView<SettingsController> {
               ontap1: () {},
               onTap2: () {},
             ),
+            15.kheightBox,
+            SettingTab(
+              title: LocaleKeys.account.tr,
+              subTitle1: "Delete Account",
+              subTitle2: "Logout",
+              ontap1: () {
+                controller.showDeleteDialog(context);
+              },
+              onTap2: () {
+                controller.showLogoutDialog(context);
+              },
+            ),
+            40.kheightBox,
           ],
         ),
       ),

@@ -30,6 +30,9 @@ extension ColorUtil on BuildContext {
   Color get brandColor5 =>
       dynamicColour(light: HexColor("#E9F4EF"), dark: HexColor("#E9F4EF"));
 
+  Color get brandColor6 =>
+      dynamicColour(light: HexColor("#DBFBCA"), dark: HexColor("#DBFBCA"));
+
   Color get brandBorderColor =>
       dynamicColour(light: HexColor("#A1CEB8"), dark: HexColor("#A1CEB8"));
 
@@ -39,11 +42,20 @@ extension ColorUtil on BuildContext {
   Color get greenCardBg =>
       dynamicColour(light: HexColor("#238E5B"), dark: HexColor("#238E5B"));
 
+  Color get completionScreenBg =>
+      dynamicColour(light: HexColor("#EFFBF3"), dark: HexColor("#EFFBF3"));
+
   Color get redBg =>
       dynamicColour(light: HexColor("#EE6054"), dark: HexColor("#EE6054"));
 
+  Color get redBg2 =>
+      dynamicColour(light: HexColor("#B42318"), dark: HexColor("#B42318"));
+
   Color get lightRedBg =>
       dynamicColour(light: HexColor("#F39B93"), dark: HexColor("#F39B93"));
+
+  Color get lightRedBg2 =>
+      dynamicColour(light: HexColor("#FEF3F2"), dark: HexColor("#FEF3F2"));
 
   Color get goodMoodBg =>
       dynamicColour(light: HexColor("#FFF0E6"), dark: HexColor("#FFF0E6"));
@@ -107,4 +119,43 @@ extension ColorUtil on BuildContext {
 
   Color get lightYellowBorder =>
       dynamicColour(light: HexColor("#D8B96A"), dark: HexColor("#D8B96A"));
+
+  Color get darkPurple =>
+      dynamicColour(light: HexColor("#3538CD"), dark: HexColor("#3538CD"));
+
+  Color get lightPurple =>
+      dynamicColour(light: HexColor("#EEF4FF"), dark: HexColor("#EEF4FF"));
+
+  Color get lightGreenBg =>
+      dynamicColour(light: HexColor("#D8F2E4"), dark: HexColor("#D8F2E4"));
+
+  Color get greenBg =>
+      dynamicColour(light: HexColor("#057A48"), dark: HexColor("#057A48"));
+
+  Color get lightGreenBg2 =>
+      dynamicColour(light: HexColor("#D8F2E4"), dark: HexColor("#D8F2E4"));
+
+  Color get lightRed2Bg =>
+      dynamicColour(light: HexColor("#EDF3F3"), dark: HexColor("#EDF3F3"));
+
+  Color get lightRed3Bg =>
+      dynamicColour(light: HexColor("#FCE4E2"), dark: HexColor("#FCE4E2"));
+
+  Color get lightYellow2Bg =>
+      dynamicColour(light: HexColor("#FEF6DF"), dark: HexColor("#FEF6DF"));
+
+  Color get lightYellow2Border =>
+      dynamicColour(light: HexColor("#FFEFC7"), dark: HexColor("#FFEFC7"));
+
+  Color get lightOrangeBg =>
+      dynamicColour(light: HexColor("#FEF5F3"), dark: HexColor("#FEF5F3"));
+
+  Color get lightBrandColor =>
+      dynamicColour(light: HexColor("#76B898"), dark: HexColor("#76B898"));
+
+  Color get lightBrand2Color =>
+      dynamicColour(light: HexColor("#CBE4D8"), dark: HexColor("#CBE4D8"));
+
+  Color get lightBrand3Color =>
+      dynamicColour(light: HexColor("#1A6541"), dark: HexColor("#1A6541"));
 }

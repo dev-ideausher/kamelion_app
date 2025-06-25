@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
+import 'package:kamelion/app/services/snackbar.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'storage.dart';
 import 'dart:developer';
@@ -39,21 +41,71 @@ class Auth extends GetxService {
   }
 
   loginEmailPass({required String email, required String pass}) async {
-    final result = await auth.loginWithEmail(email: email, password: pass).then(
-      (value) async {
-        await handleGetContact();
-      },
-    );
-    print('EmailPass : ${await result.user?.getIdToken()}');
+    try {
+      final result = await auth.loginWithEmail(email: email, password: pass);
+      if (result.hasError) {
+        showMySnackbar(title: "Error", msg: '${result.errorMessage}');
+        return false;
+      }
+      await handleGetContact();
+
+      print('Login successful: $result');
+      return true;
+    } on FirebaseAuthException catch (e) {
+      print('FirebaseAuth error: ${e.code} - ${e.message}');
+      DialogHelper.hideDialog();
+      // Handle known Firebase errors
+      if (e.code == 'user-not-found') {
+        // show message to user
+        showMySnackbar(title: "Error", msg: "User Not Found");
+        return false;
+      } else if (e.code == 'wrong-password') {
+        // show message to user
+        showMySnackbar(title: "Error", msg: "Password Invalid");
+        return false;
+      } else {
+        showMySnackbar(title: "Error", msg: e.message ?? "");
+      }
+    } catch (e) {
+      DialogHelper.hideDialog();
+      print('Unexpected error: $e');
+      showMySnackbar(title: "Error", msg: e.toString());
+      return false;
+      // Handle unexpected errors (e.g., network failure)
+    }
+
+    // final result = await auth.loginWithEmail(email: email, password: pass).then(
+    //   (value) async {
+    //     await handleGetContact();
+    //   },
+    // );
+    // print('EmailPass : ${await result.user?.getIdToken()}');
   }
 
   createEmailPass({required String email, required String pass}) async {
-    final result = await auth
-        .createAccountWithEmail(email: email, password: pass)
-        .then((value) async {
-          await handleGetContact();
-        });
-    print('EmailPass : ${await result.user?.getIdToken()}');
+    try {
+      final result = await auth.createAccountWithEmail(
+        email: email,
+        password: pass,
+      );
+      if (result.hasError) {
+        showMySnackbar(title: "Error", msg: '${result.errorMessage}');
+        return false;
+      }
+      await handleGetContact();
+      return true;
+    } on FirebaseAuthException catch (e) {
+      showMySnackbar(msg: 'FirebaseAuth error: ${e.code} - ${e.message}');
+      return false;
+    } catch (e) {
+      showMySnackbar(msg: 'Unexpected error: $e');
+      return false;
+    }
+    // final result = await auth
+    //     .createAccountWithEmail(email: email, password: pass)
+    //     .then((value) async {
+    //       await handleGetContact();
+    //     });
   }
 
   //phone number with country code
@@ -117,10 +169,11 @@ class Auth extends GetxService {
     DialogHelper.showLoading();
     // erase the user's token and data in GetStorageService
     Get.find<GetStorageService>().logout();
+    Get.find<GetStorageService>().isLoggedIn = false;
     // firbase logout
     auth.logout();
     // navigate to login page
-    // await Get.offAllNamed(Routes.LOGIN);
+    await Get.offAllNamed(Routes.AUTH_DIRECTION);
     await DialogHelper.hideDialog();
   }
 }

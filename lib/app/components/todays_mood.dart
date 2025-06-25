@@ -9,105 +9,94 @@ import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
 class TodaysMood extends StatelessWidget {
-  const TodaysMood({super.key});
-
+  TodaysMood({
+    super.key,
+    required this.desc,
+    required this.mood,
+    required this.moodImage,
+    required this.time,
+    required this.feelings,
+    required this.activities,
+  });
+  String moodImage, mood, desc, time, feelings, activities;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 8.0.ksp),
-              child: Text(
-                LocaleKeys.todays_mood.tr,
-                style: TextStyleUtil.genSans400(
-                  fontSize: 16.ksp,
-                  color: ColorUtil(context).black,
-                  height: 1.2,
-                ),
+    return InkWell(
+      onTap: () {
+        Get.toNamed(
+          Routes.MOOD_SELECTION_FORM,
+          arguments: {
+            "mood": mood,
+            "note": desc,
+            "feeling": feelings,
+            "activities": activities,
+            "time": time,
+          },
+        );
+      },
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 8.ksp),
+            child: Container(
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: ColorUtil(context).goodMoodBg,
+                borderRadius: BorderRadius.circular(10.ksp),
               ),
-            ),
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.MOOD_SELECTION_FORM);
-              },
               child: Row(
                 children: [
-                  Text(
-                    LocaleKeys.add.tr,
-                    style: TextStyleUtil.genSans500(
-                      fontSize: 11.ksp,
-                      color: ColorUtil(context).brandColor1,
-                      height: 1.2,
-                    ),
-                  ),
-                  4.kwidthBox,
-                  CommonImageView(svgPath: ImageConstant.addIcon),
+                  CommonImageView(svgPath: moodImage),
                   20.kwidthBox,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: context.width * 0.7,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              mood,
+                              style: TextStyleUtil.genSans400(
+                                fontSize: 14.ksp,
+                                color: ColorUtil(context).black,
+                              ),
+                            ),
+                            Text(
+                              time,
+                              style: TextStyleUtil.genSans500(
+                                fontSize: 11.ksp,
+                                color: ColorUtil(context).black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: context.width * 0.69,
+                        child: Text(
+                          desc,
+                          // "I woke up smiling, grateful for life’s little joys.",
+                          style: TextStyleUtil.genSans300(
+                            fontSize: 11.ksp,
+                            color: ColorUtil(context).greyDark,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.all(8.0.ksp),
-          child: Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: ColorUtil(context).goodMoodBg,
-              borderRadius: BorderRadius.circular(10.ksp),
-            ),
-            child: Row(
-              children: [
-                CommonImageView(svgPath: ImageConstant.goodMood),
-                20.kwidthBox,
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: context.width * 0.7,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            "Happy",
-                            style: TextStyleUtil.genSans400(
-                              fontSize: 14.ksp,
-                              color: ColorUtil(context).black,
-                            ),
-                          ),
-                          Text(
-                            "15:34",
-                            style: TextStyleUtil.genSans500(
-                              fontSize: 11.ksp,
-                              color: ColorUtil(context).black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: context.width * 0.69,
-                      child: Text(
-                        "I woke up smiling, grateful for life’s little joys.",
-                        style: TextStyleUtil.genSans300(
-                          fontSize: 11.ksp,
-                          color: ColorUtil(context).greyDark,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -41,6 +41,30 @@ class ImageConstant {
   static String starPattern = 'assets/svg/star_pattern.svg';
   static String circleBg = 'assets/svg/circle_bg.svg';
   static String dumbelWhiteIcon = 'assets/svg/dumbel_white_icon.svg';
+  static String clockIconColored = 'assets/svg/clock_icon_colored.svg';
+  static String dumbelIconColored = 'assets/svg/dumbel_icon_colored.svg';
+  static String kamelionEducated = 'assets/svg/kamelion_educated.svg';
+  static String greenPonter = 'assets/svg/pointer_green.svg';
+  static String kamelionGifting = 'assets/svg/kamelion_gifting.svg';
+  static String coinStack = 'assets/svg/coin_stack.svg';
+  static String postIcon = 'assets/svg/post_icon.svg';
+  static String commentIcon = 'assets/svg/comment_icon.svg';
+  static String coinStackIconWhite = 'assets/svg/coin_stack_icon_white.svg';
+  static String yogaIconWhite = 'assets/svg/yoga_icon_white.svg';
+  static String healthPlusIcon = 'assets/svg/health_plus_icon.svg';
+  static String faceLeftIcon = 'assets/svg/face_left_icon.svg';
+  static String moodTrackerIcon = 'assets/svg/mood_tracker_icon.svg';
+  static String fireIconRed = 'assets/svg/fire_icon_red.svg';
+  static String fireIconGreen = 'assets/svg/fire_icon_green.svg';
+  static String fireIconYellow = 'assets/svg/fire_icon_yellow.svg';
+  static String personAndDialog = 'assets/svg/person_and_dialog.svg';
+  static String groupIconGreen = 'assets/svg/group_icon_green.svg';
+  static String bookIconYellow = 'assets/svg/book_icon_yellow.svg';
+  static String challengesIcon = 'assets/svg/challenges_icon.svg';
+  static String searchingPicture = 'assets/svg/searching_picture.svg';
+  static String highfivePicture = 'assets/svg/highfive_picture.svg';
+  static String messageIcon = 'assets/svg/message_icon.svg';
+  static String kamelionConfused = 'assets/svg/kamelion_confused.svg';
 
   //PNGs
   static String pngNewsBanner = 'assets/images/news_banner.png';

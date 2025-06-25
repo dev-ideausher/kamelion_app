@@ -19,13 +19,90 @@ class AllWorkouts extends StatelessWidget {
     return Column(
       children: [
         20.kheightBox,
+        if (Get.find<MentalGymController>().activeMentalGymList.length > 0)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 14.0.ksp),
+                child: Text(
+                  'Active Mental Gyms',
+                  style: TextStyleUtil.genSans400(
+                    fontSize: 16.ksp,
+                    color: ColorUtil(context).black,
+                    height: 1.2,
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.find<MentalGymController>().changeTab(1);
+                    },
+                    child: Text(
+                      LocaleKeys.view_all.tr,
+                      style: TextStyleUtil.genSans500(
+                        fontSize: 11.ksp,
+                        color: ColorUtil(context).brandColor1,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                  20.kwidthBox,
+                ],
+              ),
+            ],
+          ),
+        if (Get.find<MentalGymController>().activeMentalGymList.length > 0)
+          ActiveWorkoutCards(
+            onsaved: () {
+              Get.find<MentalGymController>().saveMentalGym(
+                mentalGymId:
+                    Get.find<MentalGymController>()
+                        .activeMentalGymList[0]
+                        .sId ??
+                    "",
+              );
+            },
+            isSaved:
+                Get.find<MentalGymController>()
+                    .activeMentalGymList[0]
+                    .isSaved ??
+                false,
+            title:
+                Get.find<MentalGymController>().activeMentalGymList[0].title ??
+                "",
+            subtitle:
+                Get.find<MentalGymController>().activeMentalGymList[0].title ??
+                "",
+            imageUrl:
+                Get.find<MentalGymController>()
+                    .activeMentalGymList[0]
+                    .thumbnail!
+                    .url ??
+                "",
+            onTap: () {
+              Get.find<MentalGymController>().getWorkoutDetails(
+                Get.find<MentalGymController>().activeMentalGymList[0].sId ??
+                    "",
+              );
+            },
+          ),
+        10.kheightBox,
+        MentalGymSelector(
+          title: LocaleKeys.categories.tr,
+          showViewAll: false,
+          mentalGymList: Get.find<MentalGymController>().mentalGymCategoryList,
+        ),
+        20.kheightBox,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: EdgeInsets.only(left: 14.0.ksp),
               child: Text(
-                "Active Workouts",
+                "Suggested Mental Gym",
                 style: TextStyleUtil.genSans400(
                   fontSize: 16.ksp,
                   color: ColorUtil(context).black,
@@ -37,8 +114,7 @@ class AllWorkouts extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.find<MentalGymController>().selectedScreenIndex.value =
-                        1;
+                    Get.find<MentalGymController>().changeTab(2);
                   },
                   child: Text(
                     LocaleKeys.view_all.tr,
@@ -54,48 +130,43 @@ class AllWorkouts extends StatelessWidget {
             ),
           ],
         ),
-        ActiveWorkoutCards(
-          onTap: () {
-            Get.find<MentalGymController>().getWorkoutDetails();
-          },
-        ),
-        10.kheightBox,
-        MentalGymSelector(
-          title: "Categories",
-          showViewAll: false,
-          mentalGymList: Get.find<HomeController>().mentalGymList,
-        ),
-        20.kheightBox,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 14.0.ksp),
-              child: Text(
-                "Suggested Workouts",
-                style: TextStyleUtil.genSans400(
-                  fontSize: 16.ksp,
-                  color: ColorUtil(context).black,
-                  height: 1.2,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Text(
-                  LocaleKeys.view_all.tr,
-                  style: TextStyleUtil.genSans500(
-                    fontSize: 11.ksp,
-                    color: ColorUtil(context).brandColor1,
-                    height: 1.2,
-                  ),
-                ),
-                20.kwidthBox,
-              ],
-            ),
-          ],
-        ),
-        SuggestedWorkoutCards(),
+        if (Get.find<MentalGymController>().suggestedMentalGym.length > 0)
+          SuggestedWorkoutCards(
+            isSaved:
+                Get.find<MentalGymController>().suggestedMentalGym[0].isSaved ??
+                false,
+            onSaved: () async {
+              bool res = await Get.find<MentalGymController>().saveMentalGym(
+                mentalGymId:
+                    Get.find<MentalGymController>().suggestedMentalGym[0].sId ??
+                    "",
+              );
+              if (res) {
+                Get.find<MentalGymController>().suggestedMentalGym[0].isSaved =
+                    !(Get.find<MentalGymController>()
+                            .suggestedMentalGym[0]
+                            .isSaved ??
+                        false);
+              }
+            },
+            imageUrl:
+                Get.find<MentalGymController>()
+                    .suggestedMentalGym[0]
+                    .thumbnail!
+                    .url ??
+                "",
+            subtitle:
+                Get.find<MentalGymController>().suggestedMentalGym[0].title ??
+                "",
+            title:
+                Get.find<MentalGymController>().suggestedMentalGym[0].title ??
+                "",
+            onTap: () {
+              Get.find<MentalGymController>().getWorkoutDetails(
+                Get.find<MentalGymController>().suggestedMentalGym[0].sId ?? "",
+              );
+            },
+          ),
       ],
     );
   }

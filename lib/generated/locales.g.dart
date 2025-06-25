@@ -126,6 +126,21 @@ class LocaleKeys {
   static const feelings_question = 'feelings_question';
   static const activities_question = 'activities_question';
   static const save_check_in = 'save_check_in';
+  static const search_mental_gyms = 'search_mental_gyms';
+  static const workouts = 'workouts';
+  static const all_workouts = 'all_workouts';
+  static const active_workouts = 'active_workouts';
+  static const saved_workouts = 'saved_workouts';
+  static const suggested_workouts = 'suggested_workouts';
+  static const categories = 'categories';
+  static const complete = 'complete';
+  static const complete_reward_message = 'complete_reward_message';
+  static const submit_rating = 'submit_rating';
+  static const how_do_you_feel = 'how_do_you_feel';
+  static const course_done = 'course_done';
+  static const quiz_complete = 'quiz_complete';
+  static const total_kalicoins = 'total_kalicoins';
+  static const collect_kalicoins = 'collect_kalicoins';
 }
 
 class Locales {
@@ -219,7 +234,7 @@ class Locales {
     'hi': 'Hi,',
     'exclamation': '!',
     'days_streak': 'Days Streak',
-    'search_for_anything': 'Search for anything',
+    'search_for_anything': 'Search',
     'todays_mood': 'Today\'s Mood',
     'add': 'Add',
     'mental_gyms': 'Mental Gyms',
@@ -250,5 +265,20 @@ class Locales {
     'feelings_question': 'Which words can describe your feelings ?',
     'activities_question': 'What have you been up to ?',
     'save_check_in': 'Save Check In',
+    'search_mental_gyms': 'Search for mental gyms',
+    'workouts': 'Workouts',
+    'all_workouts': 'All Workouts',
+    'active_workouts': 'Active Workouts',
+    'saved_workouts': 'Saved Workouts',
+    'suggested_workouts': 'Suggested Workouts',
+    'categories': 'Categories',
+    'complete': 'Complete',
+    'complete_reward_message': '🎉  Complete it today to get a reward',
+    'submit_rating': 'Submit Rating',
+    'how_do_you_feel': 'How do you feel about this course?',
+    'course_done': 'Course Done!',
+    'quiz_complete': 'Quiz Complete',
+    'total_kalicoins': 'Total Kalicoins',
+    'collect_kalicoins': 'Collect Kalicoins',
   };
 }

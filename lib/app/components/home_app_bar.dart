@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -105,6 +108,11 @@ class HomeAppBar extends StatelessWidget {
             /// Second row: Profile + Hi + Name
             Row(
               children: [
+                // SvgPicture.string(
+                //   " <svg viewBox=\"0 0 264 264\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"> <rect width=\"264\" height=\"264\" fill=\"#E5E5E5\"/> <g clip-path=\"url(#clip0_1_2)\"> <path d=\"M132 0C59.1 0 0 59.1 0 132C0 204.9 59.1 264 132 264C204.9 264 264 204.9 264 132C264 59.1 204.9 0 132 0Z\" fill=\"#FFDBB3\"/> <path d=\"M154 132C154 121.046 145.046 112 134 112C122.954 112 114 121.046 114 132C114 142.954 122.954 152 134 152C145.046 152 154 142.954 154 132Z\" fill=\"#673AB7\"/> ... (much more SVG data) ... </g> <defs> <clipPath id=\"clip0_1_2\"> <rect width=\"264\" height=\"264\" fill=\"white\"/> </clipPath> </defs> </svg>",
+                //   width: 100, // Set your desired width
+                //   height: 100, // Set your desired height
+                // ),
                 FluttermojiCircleAvatar(
                   backgroundColor: ColorUtil(context).blueBg,
                   radius: 25.ksp,

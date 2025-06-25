@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
+import 'package:kamelion/app/modules/workoutDetails/controllers/workout_details_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
-import 'package:kamelion/generated/locales.g.dart';
 
 class WorkoutDetailsAppBar extends StatelessWidget {
-  const WorkoutDetailsAppBar({super.key});
+  WorkoutDetailsAppBar({
+    super.key,
+    required this.title,
+    required this.workouts,
+    required this.totalTime,
+  });
+  String title, workouts, totalTime;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +73,7 @@ class WorkoutDetailsAppBar extends StatelessWidget {
               ],
             ),
             Text(
-              "Building Friendships",
+              title,
               style: TextStyleUtil.genSans500(
                 color: ColorUtil(context).white,
                 fontSize: 19.5.ksp,
@@ -77,59 +83,46 @@ class WorkoutDetailsAppBar extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.ksp,
-                    vertical: 2.ksp,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: context.white),
-                    borderRadius: BorderRadius.all(Radius.circular(12.ksp)),
-                  ),
-                  child: Row(
-                    children: [
-                      CommonImageView(
-                        imagePath: ImageConstant.mentalGymsWhileIcon,
-                        height: 11.ksp,
-                      ),
-                      8.kwidthBox,
-                      Text(
-                        "Health",
-                        style: TextStyleUtil.genSans500(
-                          fontSize: 10.ksp,
-                          color: context.white,
+                ...Get.find<WorkoutDetailsController>()
+                    .mentalGymDetails!
+                    .value
+                    .mentalGym!
+                    .category!
+                    .map(
+                      (calegory) => Padding(
+                        padding: EdgeInsets.only(right: 8.ksp),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 10.ksp,
+                            vertical: 2.ksp,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: context.white),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(12.ksp),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              CommonImageView(
+                                url: calegory.image,
+                                // imagePath: ImageConstant.mentalGymsWhileIcon,
+                                height: 11.ksp,
+                              ),
+                              8.kwidthBox,
+                              Text(
+                                calegory.title ?? "",
+                                style: TextStyleUtil.genSans500(
+                                  fontSize: 10.ksp,
+                                  color: context.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                10.kwidthBox,
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.ksp,
-                    vertical: 2.ksp,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: context.white),
-                    borderRadius: BorderRadius.all(Radius.circular(12.ksp)),
-                  ),
-                  child: Row(
-                    children: [
-                      CommonImageView(
-                        svgPath: ImageConstant.dumbelWhiteIcon,
-                        height: 11.ksp,
-                      ),
-                      8.kwidthBox,
-                      Text(
-                        "Social Connection",
-                        style: TextStyleUtil.genSans500(
-                          fontSize: 10.ksp,
-                          color: context.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    )
+                    .toList(),
               ],
             ),
             12.kheightBox,
@@ -140,12 +133,12 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                 Row(
                   children: [
                     CommonImageView(
-                      imagePath: ImageConstant.mentalGymsWhileIcon,
+                      svgPath: ImageConstant.dumbelIconColored,
                       height: 11.ksp,
                     ),
                     8.kwidthBox,
                     Text(
-                      "4" + " " + "Workouts",
+                      "$workouts Workouts",
                       style: TextStyleUtil.genSans500(
                         fontSize: 10.ksp,
                         color: context.white,
@@ -157,12 +150,12 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                 Row(
                   children: [
                     CommonImageView(
-                      svgPath: ImageConstant.dumbelWhiteIcon,
+                      svgPath: ImageConstant.clockIconColored,
                       height: 11.ksp,
                     ),
                     8.kwidthBox,
                     Text(
-                      "63" + " " + "Mins",
+                      "$totalTime Mins",
                       style: TextStyleUtil.genSans500(
                         fontSize: 10.ksp,
                         color: context.white,

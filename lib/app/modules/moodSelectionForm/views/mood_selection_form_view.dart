@@ -33,9 +33,8 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
           Padding(
             padding: EdgeInsets.only(right: 20.0.ksp),
             child: Text(
-              LocaleKeys.today.tr +
-                  "," +
-                  "${DateTime.now().hour}:${DateTime.now().minute}",
+              "${LocaleKeys.today.tr},"
+              " ${controller.time != null ? (controller.time) : ("${DateTime.now().hour}:${DateTime.now().minute}")}",
               style: TextStyleUtil.genSans400(
                 fontSize: 10.ksp,
                 color: ColorUtil(context).black,
@@ -127,6 +126,8 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
               ),
               6.kheightBox,
               TextFormField(
+                readOnly: !(controller.time == null),
+                controller: controller.noteController,
                 decoration: InputDecoration(
                   hintText: LocaleKeys.type_something.tr,
                   border: OutlineInputBorder(
@@ -171,6 +172,7 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextFormField(
+                      readOnly: !(controller.time == null),
                       controller: controller.feelingsController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
@@ -183,43 +185,44 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                       onChanged: (value) {},
                     ),
                     10.kheightBox,
-                    Wrap(
-                      spacing: 6.ksp,
-                      runSpacing: 9.ksp,
-                      children:
-                          controller.feelingsKeywords
-                              .map(
-                                (keyword) => InkWell(
-                                  onTap: () {
-                                    controller.onFeelingSelected(
-                                      keyword: keyword,
-                                    );
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10.ksp,
-                                      vertical: 3.ksp,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color:
-                                          context
-                                              .lighPitchBg, // background color
-                                      borderRadius: BorderRadius.circular(
-                                        16.ksp,
-                                      ), // round corners
-                                    ),
-                                    child: Text(
-                                      keyword,
-                                      style: TextStyleUtil.genSans400(
-                                        fontSize: 12.ksp,
-                                        color: context.darkRedText,
+                    if (controller.time == null)
+                      Wrap(
+                        spacing: 6.ksp,
+                        runSpacing: 9.ksp,
+                        children:
+                            controller.feelingsKeywords
+                                .map(
+                                  (keyword) => InkWell(
+                                    onTap: () {
+                                      controller.onFeelingSelected(
+                                        keyword: keyword,
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 10.ksp,
+                                        vertical: 3.ksp,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            context
+                                                .lighPitchBg, // background color
+                                        borderRadius: BorderRadius.circular(
+                                          16.ksp,
+                                        ), // round corners
+                                      ),
+                                      child: Text(
+                                        keyword,
+                                        style: TextStyleUtil.genSans400(
+                                          fontSize: 12.ksp,
+                                          color: context.darkRedText,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              )
-                              .toList(),
-                    ),
+                                )
+                                .toList(),
+                      ),
                   ],
                 ),
               ),
@@ -228,13 +231,24 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                 LocaleKeys.activities.tr,
                 style: TextStyleUtil.genSans400(
                   fontSize: 12.ksp,
-                  color: ColorUtil(context).greyDark,
+                  color: ColorUtil(context).black,
                 ),
               ),
               6.kheightBox,
-              CustomTextField(hintText: LocaleKeys.activities_question.tr),
+              CustomTextField(
+                readOnly: !(controller.time == null),
+                hintText: LocaleKeys.activities_question.tr,
+                controller: controller.activitiesController,
+              ),
               20.kheightBox,
-              CustomButton.outline(title: LocaleKeys.save_check_in.tr),
+              controller.time == null
+                  ? CustomButton.outline(
+                    onTap: () {
+                      controller.addMood();
+                    },
+                    title: LocaleKeys.save_check_in.tr,
+                  )
+                  : Container(),
               60.kheightBox,
             ],
           ),

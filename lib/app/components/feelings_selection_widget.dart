@@ -16,6 +16,7 @@ class FeelingSelectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           LocaleKeys.how_are_you_feeling.tr,
@@ -34,11 +35,14 @@ class FeelingSelectionWidget extends StatelessWidget {
                 moodsToShow.map((item) {
                   return GestureDetector(
                     onTap: () {
+                      Get.back();
                       Get.toNamed(
                         Routes.MOOD_SELECTION_FORM,
-                        arguments: Mood.values.byName(
-                          item['label'].toString().toLowerCase(),
-                        ),
+                        arguments: {
+                          "mood": Mood.values.byName(
+                            item['label'].toString().toLowerCase(),
+                          ),
+                        },
                       );
                     },
                     child: Padding(

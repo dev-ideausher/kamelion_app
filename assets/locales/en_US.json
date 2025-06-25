@@ -114,5 +114,20 @@
     "feelings": "Feelings",
     "feelings_question": "Which words can describe your feelings ?",
     "activities_question": "What have you been up to ?",
-    "save_check_in": "Save Check In"
+    "save_check_in": "Save Check In",
+    "search_mental_gyms": "Search for mental gyms",
+    "workouts": "Workouts",
+    "all_workouts": "All Workouts",
+    "active_workouts": "Active Workouts",
+    "saved_workouts": "Saved Workouts",
+    "suggested_workouts": "Suggested Workouts",
+    "categories": "Categories",
+    "complete": "Complete",
+    "complete_reward_message": "🎉  Complete it today to get a reward",
+    "submit_rating": "Submit Rating",
+    "how_do_you_feel": "How do you feel about this course?",
+    "course_done": "Course Done!",
+    "quiz_complete": "Quiz Complete",
+    "total_kalicoins": "Total Kalicoins",
+    "collect_kalicoins": "Collect Kalicoins"
 }

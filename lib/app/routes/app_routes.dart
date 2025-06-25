@@ -19,6 +19,24 @@ abstract class Routes {
   static const MOOD_SELECTION_FORM = _Paths.MOOD_SELECTION_FORM;
   static const MENTAL_GYM = _Paths.MENTAL_GYM;
   static const WORKOUT_DETAILS = _Paths.WORKOUT_DETAILS;
+  static const COURSE_COMPLETE = _Paths.COURSE_COMPLETE;
+  static const QUIZE_COMPLETE = _Paths.QUIZE_COMPLETE;
+  static const COMMUNITY = _Paths.COMMUNITY;
+  static const CREATE_COMMUNITY = _Paths.CREATE_COMMUNITY;
+  static const COMMUNITY_POSTS = _Paths.COMMUNITY_POSTS;
+  static const CREATE_POST = _Paths.CREATE_POST;
+  static const COMMENT_BOTTOM_SHEET = _Paths.COMMENT_BOTTOM_SHEET;
+  static const ACTIVITIES = _Paths.ACTIVITIES;
+  static const SUPPORT = _Paths.SUPPORT;
+  static const CHALLENGES = _Paths.CHALLENGES;
+  static const CHALLENGE_DETAILS = _Paths.CHALLENGE_DETAILS;
+  static const JOURNALING = _Paths.JOURNALING;
+  static const CREATE_TIME_LINE = _Paths.CREATE_TIME_LINE;
+  static const MIND_FULL_HOURS = _Paths.MIND_FULL_HOURS;
+  static const GET_SCHOOL = _Paths.GET_SCHOOL;
+  static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
+  static const QUIZE_COLLECT_COIN = _Paths.QUIZE_COLLECT_COIN;
+  static const SEARCH_MENTAL_GYM = _Paths.SEARCH_MENTAL_GYM;
 }
 
 abstract class _Paths {
@@ -39,4 +57,22 @@ abstract class _Paths {
   static const MOOD_SELECTION_FORM = '/mood-selection-form';
   static const MENTAL_GYM = '/mental-gym';
   static const WORKOUT_DETAILS = '/workout-details';
+  static const COURSE_COMPLETE = '/course-complete';
+  static const QUIZE_COMPLETE = '/quize-complete';
+  static const COMMUNITY = '/community';
+  static const CREATE_COMMUNITY = '/create-community';
+  static const COMMUNITY_POSTS = '/community-posts';
+  static const CREATE_POST = '/create-post';
+  static const COMMENT_BOTTOM_SHEET = '/comment-bottom-sheet';
+  static const ACTIVITIES = '/activities';
+  static const SUPPORT = '/support';
+  static const CHALLENGES = '/challenges';
+  static const CHALLENGE_DETAILS = '/challenge-details';
+  static const JOURNALING = '/journaling';
+  static const CREATE_TIME_LINE = '/create-time-line';
+  static const MIND_FULL_HOURS = '/mind-full-hours';
+  static const GET_SCHOOL = '/get-school';
+  static const FORGOT_PASSWORD = '/forgot-password';
+  static const QUIZE_COLLECT_COIN = '/quize-collect-coin';
+  static const SEARCH_MENTAL_GYM = '/search-mental-gym';
 }

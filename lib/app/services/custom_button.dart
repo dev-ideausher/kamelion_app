@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kamelion/app/components/common_image_view.dart';
+import 'package:kamelion/app/constants/image_constant.dart';
 import 'responsive_size.dart';
 import 'colors.dart';
 import 'text_style_util.dart';
@@ -13,6 +15,7 @@ class CustomButton extends StatelessWidget {
   final Widget? trailing;
   final LinearGradient? linearGradient;
   final Color? color;
+  final Color? buttonColor;
   final double? borderRadius;
   final double? height;
 
@@ -28,6 +31,7 @@ class CustomButton extends StatelessWidget {
     this.color,
     this.borderRadius,
     this.height,
+    this.buttonColor,
   }) : outline = false,
        super(key: key);
 
@@ -39,6 +43,7 @@ class CustomButton extends StatelessWidget {
     this.trailing,
     this.linearGradient,
     this.color,
+    this.buttonColor,
     this.borderRadius,
     this.isloading = false,
     this.height,
@@ -70,7 +75,7 @@ class CustomButton extends StatelessWidget {
                     : BoxDecoration(
                       color:
                           !disabled
-                              ? context.brandColor1
+                              ? buttonColor ?? context.brandColor1
                               : context.disabledButtonColor,
                       borderRadius: BorderRadius.circular(
                         borderRadius ?? 12.kh,

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/activities/views/activities_view.dart';
+import 'package:kamelion/app/modules/community/views/community_view.dart';
 import 'package:kamelion/app/modules/home/views/home_view.dart';
 import 'package:kamelion/app/modules/mentalGym/views/mental_gym_view.dart';
 // import 'package:kamelion/app/modules/mentalGyms/views/mental_gyms_view.dart';
@@ -24,8 +26,8 @@ class NavigationBarView extends GetView<NavigationBarController> {
           children: [
             HomeView(),
             MentalGymView(),
-            HomeView(),
-            HomeView(),
+            ActivitiesView(),
+            CommunityView(),
             ProfileView(),
           ],
         ),

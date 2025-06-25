@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -52,11 +53,17 @@ class ExporleCommuntiesBox extends StatelessWidget {
                     ),
                   ),
                   30.kheightBox,
-                  Padding(
-                    padding: EdgeInsets.only(right: 150..ksp),
-                    child: CustomButton.outline(
-                      height: 30.ksp,
-                      title: LocaleKeys.start_quiz.tr,
+                  InkWell(
+                    onTap: () {
+                      Get.find<NavigationBarController>().selectedIndex.value =
+                          3;
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 60.ksp),
+                      child: CustomButton.outline(
+                        height: 30.ksp,
+                        title: "Explore Communities",
+                      ),
                     ),
                   ),
                 ],
