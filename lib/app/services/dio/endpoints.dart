@@ -63,7 +63,11 @@ class Endpoints {
   static const String getfavouriteposts = "post/getfavouriteposts";
   static String getCommunitiesByCategory(String id) =>
       "community/getcommunitybycategory/$id";
-
+  static const String getAllJournals = "journal/getalljournals";
+  static const String postJournalSave ="journal/save";
+  static String deleteJournal(String id) => "journal/delete/$id";
+  static String getJournalById(String id) =>   "journal/getjournal/$id";
+  static String updateJournal(String id) =>  "journal/update/$id";
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

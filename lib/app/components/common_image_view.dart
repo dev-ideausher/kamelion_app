@@ -46,7 +46,7 @@ class CommonImageView extends StatelessWidget {
           height: height,
           width: width,
           fit: fit,
-          // color: svgColor,
+           color: svgColor,
         ),
       );
     } else if (file != null && file!.path.isNotEmpty) {

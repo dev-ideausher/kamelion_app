@@ -8,7 +8,8 @@ import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
 class TimelineAppBar extends StatelessWidget {
-  const TimelineAppBar({super.key});
+  String title;
+   TimelineAppBar({super.key,required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class TimelineAppBar extends StatelessWidget {
             ),
             10.kheightBox,
             Text(
-              "Add New Journal",
+              title??"",
               style: TextStyleUtil.genSans500(
                 color: ColorUtil(context).white,
                 fontSize: 19.5.ksp,

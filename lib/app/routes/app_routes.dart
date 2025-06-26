@@ -37,6 +37,7 @@ abstract class Routes {
   static const FORGOT_PASSWORD = _Paths.FORGOT_PASSWORD;
   static const QUIZE_COLLECT_COIN = _Paths.QUIZE_COLLECT_COIN;
   static const SEARCH_MENTAL_GYM = _Paths.SEARCH_MENTAL_GYM;
+  static const UPDATE_TIMELINE = _Paths.UPDATE_TIMELINE;
 }
 
 abstract class _Paths {
@@ -75,4 +76,5 @@ abstract class _Paths {
   static const FORGOT_PASSWORD = '/forgot-password';
   static const QUIZE_COLLECT_COIN = '/quize-collect-coin';
   static const SEARCH_MENTAL_GYM = '/search-mental-gym';
+  static const UPDATE_TIMELINE = '/update-timeline';
 }
