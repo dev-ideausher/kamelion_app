@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:kamelion/app/components/activities/calender.dart';
 import 'package:kamelion/app/components/activities/week_calender_row.dart';
+import 'package:kamelion/app/components/common_image_view.dart';
+import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/modules/journaling/controllers/journaling_controller.dart';
 import 'package:kamelion/app/modules/profile/views/profile_view.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -27,8 +29,8 @@ class JournalAppBar extends StatelessWidget {
           ),
         ),
         height:
-            Get.find<JournalingController>().currentCatenderIndex.value == 0
-                ? 430.ksp
+            Get.find<JournalingController>().currentCatenderIndex.value == 1
+                ? 460.ksp
                 : 250.ksp,
         padding: EdgeInsets.all(16.ksp),
         child: Column(
@@ -94,7 +96,7 @@ class JournalAppBar extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 controller: tabController,
-                children: [CustomCalendarSection(), WeekCalenderRow()],
+                children: [ WeekCalenderRow(),CustomCalendarSection(),],
               ),
             ),
           ],
@@ -123,8 +125,11 @@ class CalenderTabBar extends StatelessWidget {
   Color selectedTabColor, backgroundColor, unselectedLabelColor, labelColor;
   @override
   Widget build(BuildContext context) {
+    final ctrl = Get.find<JournalingController>();
     return Center(
-      child: Container(
+      child:Obx((){
+        final selected = ctrl.currentCatenderIndex.value;
+        return Container(
         height: height,
         width: width,
         decoration: BoxDecoration(
@@ -148,11 +153,22 @@ class CalenderTabBar extends StatelessWidget {
             Get.find<JournalingController>().currentCatenderIndex.value = val;
           },
           tabs: [
-            Tab(child: Icon(Icons.calendar_today)),
-            Tab(child: Icon(Icons.calendar_month)),
+            Tab(
+              child: CommonImageView(
+                svgPath: ImageConstant.weekCalenderIcon,
+                // if this tab is selected, tint with `selectedTabColor`, else grey
+                svgColor: selected == 0 ? Colors.green : unselectedLabelColor,
+              ),
+            ),
+            Tab(
+              child: CommonImageView(
+                svgPath: ImageConstant.calenderIcon,
+                svgColor: selected == 1 ? Colors.green  : unselectedLabelColor,
+              ),
+            ),
           ],
         ),
-      ),
+      );}),
     );
   }
 }

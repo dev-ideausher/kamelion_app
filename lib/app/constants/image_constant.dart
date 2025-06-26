@@ -65,7 +65,9 @@ class ImageConstant {
   static String highfivePicture = 'assets/svg/highfive_picture.svg';
   static String messageIcon = 'assets/svg/message_icon.svg';
   static String kamelionConfused = 'assets/svg/kamelion_confused.svg';
-
+  static String deleteIcon = 'assets/svg/delete_icon.svg';
+  static String editIcon = 'assets/svg/edit_icon.svg';
+  static String weekCalenderIcon = 'assets/svg/weekly_calender_icon.svg';
   //PNGs
   static String pngNewsBanner = 'assets/images/news_banner.png';
   static String splashScreenBg = 'assets/png/splash_screen_bg.png';

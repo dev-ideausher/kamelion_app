@@ -366,4 +366,37 @@ class APIManager {
           "community": communityid,
         },
       );
+  static Future<Response> getAllJournals({
+    required String params,
+  }) async => await DioClient(
+    Dio(),
+    showSnakbar: false,
+    isOverlayLoader: false,
+  ).get('${Endpoints.getAllJournals}?$params');
+  static Future<Response> postJournalSave(
+      {required dynamic body}) async =>
+      await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
+          .post(Endpoints.postJournalSave, data: body);
+
+
+  static Future<Response> deleteJournal({required String id}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).delete(Endpoints.deleteJournal(id));
+  static Future<Response> getJournalById({required String id}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getJournalById(id));
+  static Future<Response> updateJournal({
+    required var body,
+    required String id,
+  }) async => await DioClient(
+    Dio(),
+    showSnakbar: false,
+    isOverlayLoader: false,
+  ).patch(Endpoints.updateJournal(id), data: body);
 }

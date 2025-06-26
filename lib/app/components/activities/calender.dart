@@ -2,11 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../modules/journaling/controllers/journaling_controller.dart';
 
 class CustomCalendarSection extends StatefulWidget {
   const CustomCalendarSection({super.key});
@@ -17,9 +20,17 @@ class CustomCalendarSection extends StatefulWidget {
 
 class _CustomCalendarSectionState extends State<CustomCalendarSection> {
   DateTime focusedDay = DateTime.now();
-  DateTime? selectedDay;
+  DateTime selectedDay= DateTime.now();
   String selectedMonth = "January";
-
+  final JournalingController ctrl = Get.find();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ctrl.onDateSelected(selectedDay);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -82,6 +93,7 @@ class _CustomCalendarSectionState extends State<CustomCalendarSection> {
               selectedDay = selected;
               focusedDay = focused;
             });
+            ctrl.onDateSelected(selected);
           },
           headerStyle: HeaderStyle(
             titleTextStyle: TextStyleUtil.genSans400(fontSize: 12.ksp),
@@ -121,4 +133,5 @@ class _CustomCalendarSectionState extends State<CustomCalendarSection> {
       ],
     );
   }
+
 }
