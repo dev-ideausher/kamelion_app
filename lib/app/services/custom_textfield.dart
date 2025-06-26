@@ -10,11 +10,14 @@ class CustomTextField extends StatelessWidget {
   final Function(String)? onChange;
   final Widget? prefixIcon;
   final Widget? prefixIconWidget;
+  final Widget? suffixIconWidget;
   final Color? fillColor;
   final bool? filled;
   final int? maxLines;
   final bool? readOnly;
   final List<TextInputFormatter> inputFormatters;
+ final String? Function(String?)? validator;
+  final Function(String)? onFieldSubmitted;
 
   const CustomTextField({
     Key? key,
@@ -26,13 +29,17 @@ class CustomTextField extends StatelessWidget {
     this.filled,
     this.maxLines,
     this.prefixIconWidget,
+    this.suffixIconWidget,
     this.readOnly,
     this.inputFormatters = const [],
+    this.validator,
+    this.onFieldSubmitted
   });
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextFormField(validator: validator,
+onFieldSubmitted:onFieldSubmitted,
       inputFormatters: inputFormatters,
       readOnly: readOnly ?? false,
       onChanged: onChange,
@@ -47,6 +54,7 @@ class CustomTextField extends StatelessWidget {
         filled: filled,
         prefix: prefixIcon,
         prefixIcon: prefixIconWidget,
+        suffixIcon:suffixIconWidget ,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.ksp),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4.ksp), // Rounded corners

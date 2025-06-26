@@ -68,6 +68,9 @@ class ImageConstant {
   static String savingCard = 'assets/svg/saving_card.svg';
   static String satInUmbrella = 'assets/svg/umbralla_under.svg';
 
+  static String deleteIcon = 'assets/svg/delete_icon.svg';
+  static String editIcon = 'assets/svg/edit_icon.svg';
+  static String weekCalenderIcon = 'assets/svg/weekly_calender_icon.svg';
   //PNGs
   static String pngNewsBanner = 'assets/images/news_banner.png';
   static String splashScreenBg = 'assets/png/splash_screen_bg.png';

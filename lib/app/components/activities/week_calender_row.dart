@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:table_calendar/table_calendar.dart';
+
+import '../../modules/journaling/controllers/journaling_controller.dart';
 
 class WeekCalenderRow extends StatefulWidget {
   const WeekCalenderRow({super.key});
@@ -12,7 +15,16 @@ class WeekCalenderRow extends StatefulWidget {
 
 class _WeekCalenderRowState extends State<WeekCalenderRow> {
   DateTime focusedDay = DateTime.now();
-  DateTime? selectedDay;
+  DateTime selectedDay= DateTime.now();
+  final JournalingController ctrl = Get.find();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ctrl.onDateSelected(selectedDay);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return buildWeekDateRow();
@@ -39,9 +51,10 @@ class _WeekCalenderRowState extends State<WeekCalenderRow> {
                     selectedDay = date;
                     focusedDay = date;
                   });
+                  ctrl.onDateSelected(date);
                 },
                 child: Container(
-                  height: 70.ksp,
+                  height: 80.ksp,
                   margin: const EdgeInsets.symmetric(horizontal: 6),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 14,
