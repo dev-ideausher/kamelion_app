@@ -28,6 +28,17 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                 child: Column(
                   children: [
                     WorkoutDetailsAppBar(
+                      id:
+                          controller.mentalGymDetails!.value.mentalGym!.sId ??
+                          "",
+                      isSaved:
+                          (controller
+                                      .mentalGymDetails!
+                                      .value
+                                      .mentalGym!
+                                      .isSaved ??
+                                  false)
+                              .obs,
                       title:
                           controller.mentalGymDetails!.value.mentalGym!.title ??
                           "",
@@ -94,12 +105,18 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                     ...controller.mentalGymDetails!.value.workouts!
                         .map(
                           (workout) => VideoCard(
+                            duration: workout.totalDuration.toString() ?? "",
                             imageUrl:
-                                "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                                workout.thumbnail?.url == ""
+                                    ? "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                    : workout.thumbnail?.url ??
+                                        "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                             onPlay: () {
                               Get.to(
                                 VideoPlayerScreen(),
-                                arguments: workout.video!.url ?? "",
+                                arguments:
+                                    // "https://kamelion.s3.eu-north-1.amazonaws.com/public/profilePics/27889d38-928d-4ebe-805f-b93023e50bd4-Mental%20Health%20in%20Schools_%20We%E2%80%99re%20Doing%20it%20Wrong%20_%20Maya%20Dawson%20_%20TEDxYouth_CherryCreek.mp4",
+                                    workout.video!.url ?? "",
                               );
                             },
                             title: workout.workoutTitle ?? "",
@@ -159,6 +176,7 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
 class VideoCard extends StatelessWidget {
   final String imageUrl;
   final String title;
+  final String duration;
   final VoidCallback onPlay;
 
   const VideoCard({
@@ -166,6 +184,7 @@ class VideoCard extends StatelessWidget {
     required this.imageUrl,
     required this.title,
     required this.onPlay,
+    required this.duration,
   });
 
   @override
@@ -235,7 +254,7 @@ class VideoCard extends StatelessWidget {
                         ),
                         10.kwidthBox,
                         Text(
-                          "30 Mins",
+                          "$duration Mins",
                           style: TextStyleUtil.genSans400(
                             fontSize: 10.ksp,
                             color: context.black,

@@ -2,10 +2,12 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/modules/commentBottomSheet/controllers/comment_bottom_sheet_controller.dart';
 import 'package:kamelion/app/modules/commentBottomSheet/views/comment_bottom_sheet_view.dart';
+import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
 import 'package:kamelion/app/modules/communityPosts/controllers/community_posts_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -21,9 +23,20 @@ class SavedPostCard extends StatelessWidget {
     required this.commentCount,
     required this.postId,
     required this.isLiked,
+    required this.isMine,
+    required this.communityId,
+    required this.userAvatarDetails,
+    required this.isFromSaved,
   });
-  String postId, text, name, date, likecount, commentCount;
-  bool isLiked;
+  String userAvatarDetails,
+      postId,
+      text,
+      name,
+      date,
+      likecount,
+      commentCount,
+      communityId;
+  bool isLiked, isMine, isFromSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +100,11 @@ class SavedPostCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 18.ksp,
-                  backgroundImage: NetworkImage(
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg',
-                  ), // Replace with NetworkImage if needed
+                Avatar().showAvatar(
+                  avatarDetails: userAvatarDetails,
+                  bgColor: context.blueBg,
+                  context: context,
+                  radius: 20.ksp,
                 ),
                 10.kwidthBox,
                 Expanded(
@@ -142,48 +155,52 @@ class SavedPostCard extends StatelessWidget {
                     }
                   },
                   itemBuilder:
-                      (BuildContext context) => [
-                        PopupMenuItem(
-                          value: 'edit',
-                          child: Row(
-                            children: [
-                              Icon(Icons.edit_outlined),
-                              10.kwidthBox,
-                              Text('Edit Post'),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem(
-                          value: 'delete',
-                          child: Row(
-                            children: [
-                              Icon(Icons.delete_outline),
-                              10.kwidthBox,
-                              Text('Delete Post'),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem(
-                          value: 'Save',
-                          child: Row(
-                            children: [
-                              Icon(Icons.download_outlined),
-                              10.kwidthBox,
-                              Text('Save Post'),
-                            ],
-                          ),
-                        ),
-                        PopupMenuItem(
-                          value: 'Report',
-                          child: Row(
-                            children: [
-                              Icon(Icons.flag_outlined),
-                              10.kwidthBox,
-                              Text('Report Post'),
-                            ],
-                          ),
-                        ),
-                      ],
+                      (BuildContext context) =>
+                          isMine
+                              ? [
+                                PopupMenuItem(
+                                  value: 'edit',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.edit_outlined),
+                                      10.kwidthBox,
+                                      Text('Edit Post'),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 'delete',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.delete_outline),
+                                      10.kwidthBox,
+                                      Text('Delete Post'),
+                                    ],
+                                  ),
+                                ),
+                              ]
+                              : [
+                                PopupMenuItem(
+                                  value: 'Save',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.download_outlined),
+                                      10.kwidthBox,
+                                      Text('Save Post'),
+                                    ],
+                                  ),
+                                ),
+                                PopupMenuItem(
+                                  value: 'Report',
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.flag_outlined),
+                                      10.kwidthBox,
+                                      Text('Report Post'),
+                                    ],
+                                  ),
+                                ),
+                              ],
                 ),
               ],
             ),
@@ -198,7 +215,13 @@ class SavedPostCard extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Get.find<CommunityPostsController>().addLike(id: postId);
+                    isFromSaved
+                        ? Get.find<CommunityController>().addLikeonSaved(
+                          id: postId,
+                        )
+                        : Get.find<CommunityPostsController>().addLike(
+                          id: postId,
+                        );
                   },
                   child: Icon(
                     isLiked ? Icons.favorite : Icons.favorite_border,
@@ -209,11 +232,15 @@ class SavedPostCard extends StatelessWidget {
                 Text(likecount),
                 14.kwidthBox,
                 GestureDetector(
-                  onTap: () {
-                    Get.find<CommentBottomSheetController>().postId = postId;
-                    Get.find<CommentBottomSheetController>().getComments(
-                      id: postId,
-                    );
+                  onTap: () async {
+                    // Get.find<CommentBottomSheetController>().postId = postId;
+                    final commentController =
+                        Get.isRegistered<CommentBottomSheetController>()
+                            ? Get.find<CommentBottomSheetController>()
+                            : Get.put(CommentBottomSheetController());
+                    // commentController.postId = postId;
+                    await commentController.getComments(id: postId);
+                    // Get.find<CommentBottomSheetController>().postId = postId;
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
@@ -223,7 +250,11 @@ class SavedPostCard extends StatelessWidget {
                         ),
                       ),
                       builder: (_) => CommentBottomSheetView(),
-                    );
+                    ).then((s) {
+                      if (communityId != "")
+                        Get.find<CommunityPostsController>()
+                            .getCommunityDetails(communityId);
+                    });
                   },
                   child: CommonImageView(svgPath: ImageConstant.commentIcon),
                 ),

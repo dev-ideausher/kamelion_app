@@ -202,9 +202,10 @@ class CreateCommunityView extends GetView<CreateCommunityController> {
                 title: 'Create with 300',
                 trailing: CommonImageView(
                   svgPath:
-                      controller.enabelCreateBotton.value
-                          ? ImageConstant.coinIcon
-                          : ImageConstant.coinStackIconWhite,
+                      // controller.enabelCreateBotton.value
+                      // ?
+                      ImageConstant.coinIcon,
+                  // : ImageConstant.coinStackIconWhite,
                 ),
               ),
             ),

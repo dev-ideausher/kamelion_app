@@ -43,6 +43,7 @@ class TodaysMood extends StatelessWidget {
               decoration: BoxDecoration(
                 color: ColorUtil(context).goodMoodBg,
                 borderRadius: BorderRadius.circular(10.ksp),
+                border: Border.all(color: context.darkPitch),
               ),
               child: Row(
                 children: [
@@ -53,7 +54,7 @@ class TodaysMood extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: context.width * 0.7,
+                        width: context.width * 0.69,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           mainAxisSize: MainAxisSize.max,

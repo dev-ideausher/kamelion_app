@@ -42,6 +42,7 @@ class MentalGym {
   String? updatedAt;
   int? iV;
   bool? isCompleted;
+  bool? isSaved;
 
   MentalGym({
     this.thumbnail,
@@ -56,6 +57,7 @@ class MentalGym {
     this.updatedAt,
     this.iV,
     this.isCompleted,
+    this.isSaved,
   });
 
   MentalGym.fromJson(Map<String, dynamic> json) {
@@ -79,6 +81,7 @@ class MentalGym {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     isCompleted = json['isCompleted'];
+    isSaved = json['isSaved'];
   }
 
   Map<String, dynamic> toJson() {
@@ -99,6 +102,7 @@ class MentalGym {
     data['updatedAt'] = this.updatedAt;
     data['__v'] = this.iV;
     data['isCompleted'] = this.isCompleted;
+    data['isSaved'] = this.isSaved;
     return data;
   }
 }

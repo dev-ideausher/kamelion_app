@@ -8,6 +8,7 @@ import 'package:kamelion/app/models/community_model.dart';
 import 'package:kamelion/app/modules/community/views/communities_page.dart';
 import 'package:kamelion/app/modules/community/views/community_category_page.dart';
 import 'package:kamelion/app/modules/community/views/community_view_all.dart';
+import 'package:kamelion/app/modules/community/views/saved_post.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
@@ -33,7 +34,12 @@ class CommunityController extends GetxController {
   RxString categoryTitle = "".obs;
   RxString viewAllTitle = "".obs;
   List<Widget> screensList =
-      [CommunitiesPage(), CommunityViewAll(), CommunityCategoriesPage()].obs;
+      [
+        CommunitiesPage(),
+        CommunityViewAll(),
+        SavedPost(),
+        CommunityCategoriesPage(),
+      ].obs;
   // RxList categoryCommunityList = ["", "", "", "", "", "", ""].obs;
   @override
   void onInit() async {
@@ -62,7 +68,54 @@ class CommunityController extends GetxController {
   void increment() => count.value++;
 
   void goToCommunityPostsPage(CommunityModel communitySelected) {
-    Get.toNamed(Routes.COMMUNITY_POSTS, arguments: communitySelected);
+    Get.toNamed(Routes.COMMUNITY_POSTS, arguments: communitySelected)!.then((
+      _,
+    ) {
+      getYourCommunities(); // ← your callback function
+    });
+  }
+
+  Future<void> addLikeonSaved({required String id}) async {
+    try {
+      var response;
+
+      final index = Get.find<CommunityController>().savedPost.value.indexWhere(
+        (post) => post.sId == id,
+      );
+      Get.find<CommunityController>().savedPost[index!].isLiked =
+          !(Get.find<CommunityController>().savedPost[index].isLiked!)!;
+      if (Get.find<CommunityController>().savedPost[index!]!.isLiked!) {
+        Get.find<CommunityController>().savedPost[index!].likeCount =
+            Get.find<CommunityController>().savedPost[index!].likeCount! + 1;
+      } else {
+        Get.find<CommunityController>().savedPost[index!].likeCount =
+            Get.find<CommunityController>().savedPost[index!].likeCount! - 1;
+      }
+      Get.find<CommunityController>().savedPost.refresh();
+      update();
+
+      response = await APIManager.addLikeToPost(id: id);
+
+      if (response.data['data'] != null && response.data['status']) {
+        // getSavedCommunities();
+
+        update();
+      } else {
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
+        showMySnackbar(msg: response.data['message'] ?? "");
+      }
+      update();
+      // return;
+    } on DioException catch (dioError) {
+      showMySnackbar(msg: dioError.message ?? "");
+    } catch (e, s) {
+      showMySnackbar(
+        // title: LocaleKeys.somethingWentWrong.tr,
+        msg: e.toString(),
+      );
+    }
   }
 
   Future<void> getYourCommunities({bool loader = false}) async {
@@ -70,11 +123,12 @@ class CommunityController extends GetxController {
       var response;
       yourCommunityList.value = [];
       response = await APIManager.getYourCommunities(
-        limit: "10",
+        limit: "100",
         page: "1",
         loader: loader,
       );
       if (response.data['data'] != null && response.data['status']) {
+        yourCommunityList.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           yourCommunityList.add(CommunityModel.fromJson(data));
         }
@@ -101,7 +155,7 @@ class CommunityController extends GetxController {
       var response;
       trendingCommunityList.value = [];
       response = await APIManager.getTreandingCommunities(
-        limit: "10",
+        limit: "100",
         page: "1",
       );
       if (response.data['data'] != null && response.data['status']) {

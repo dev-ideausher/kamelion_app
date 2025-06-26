@@ -35,7 +35,7 @@ class MentalGymSelector extends StatelessWidget {
               padding: EdgeInsets.only(left: 8.0.ksp),
               child: Text(
                 title ?? LocaleKeys.mental_gyms.tr,
-                style: TextStyleUtil.genSans400(
+                style: TextStyleUtil.genSans500(
                   fontSize: 16.ksp,
                   color: ColorUtil(context).black,
                   height: 1.2,
@@ -99,14 +99,14 @@ class MentalGymSelector extends StatelessWidget {
                       }
                     },
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 6.ksp),
+                      padding: EdgeInsets.symmetric(horizontal: 0.ksp),
                       child: Column(
                         children: [
-                          ClipRRect(
+                          ClipOval(
                             child: CommonImageView(
                               url: item.image,
-                              width: 80.ksp,
-                              height: 80.ksp,
+                              width: 50.ksp,
+                              height: 50.ksp,
                               fit: BoxFit.cover,
                             ),
                           ),

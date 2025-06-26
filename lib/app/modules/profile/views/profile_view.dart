@@ -161,8 +161,8 @@ class ProfileView extends GetView<ProfileController> {
                                 [
                                   ImageConstant.rewardCard1,
                                   ImageConstant.rewardCard2,
-                                  ImageConstant.rewardCard3,
-                                  ImageConstant.rewardCard4,
+                                  // ImageConstant.rewardCard3,
+                                  // ImageConstant.rewardCard4,
                                 ].map((imageUrl) {
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
@@ -175,47 +175,48 @@ class ProfileView extends GetView<ProfileController> {
                           ),
                         ),
                       ),
-                      10.kheightBox,
-                      Row(
-                        children: [
-                          16.kwidthBox,
-                          Text(
-                            LocaleKeys.other_benefits.tr,
-                            style: TextStyleUtil.genSans500(
-                              fontSize: 14.5.ksp,
-                              color: ColorUtil(context).black,
-                            ),
-                          ),
-                        ],
-                      ),
-                      10.kheightBox,
-                      Container(
-                        height: context.height * 0.5,
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.0.ksp),
-                            child: Wrap(
-                              spacing: 11.ksp,
-                              runSpacing: 11.ksp,
-                              children:
-                                  [
-                                    ImageConstant.rewardCard5,
-                                    ImageConstant.rewardCard6,
-                                    ImageConstant.rewardCard7,
-                                    ImageConstant.rewardCard8,
-                                  ].map((imageUrl) {
-                                    return ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
-                                      child: CommonImageView(
-                                        imagePath: imageUrl,
-                                        height: 100.ksp,
-                                      ),
-                                    );
-                                  }).toList(),
-                            ),
-                          ),
-                        ),
-                      ),
+
+                      // 10.kheightBox,
+                      // Row(
+                      //   children: [
+                      //     16.kwidthBox,
+                      //     Text(
+                      //       LocaleKeys.other_benefits.tr,
+                      //       style: TextStyleUtil.genSans500(
+                      //         fontSize: 14.5.ksp,
+                      //         color: ColorUtil(context).black,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // 10.kheightBox,
+                      // Container(
+                      //   height: context.height * 0.5,
+                      //   child: SingleChildScrollView(
+                      //     child: Padding(
+                      //       padding: EdgeInsets.symmetric(vertical: 10.0.ksp),
+                      //       child: Wrap(
+                      //         spacing: 11.ksp,
+                      //         runSpacing: 11.ksp,
+                      //         children:
+                      //             [
+                      //               ImageConstant.rewardCard5,
+                      //               ImageConstant.rewardCard6,
+                      //               ImageConstant.rewardCard7,
+                      //               ImageConstant.rewardCard8,
+                      //             ].map((imageUrl) {
+                      //               return ClipRRect(
+                      //                 borderRadius: BorderRadius.circular(12),
+                      //                 child: CommonImageView(
+                      //                   imagePath: imageUrl,
+                      //                   height: 100.ksp,
+                      //                 ),
+                      //               );
+                      //             }).toList(),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

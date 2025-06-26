@@ -20,6 +20,7 @@ class UserModel {
   String? createdAt;
   String? updatedAt;
   String? nickname;
+  num? rewards;
   int? iV;
 
   UserModel({
@@ -44,12 +45,14 @@ class UserModel {
     this.createdAt,
     this.updatedAt,
     this.nickname,
+    this.rewards,
     this.iV,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
+    rewards = json['rewards'];
     email = json['email'];
     avatardetails = json['avatardetails'];
     userType = json['userType'];
@@ -79,6 +82,7 @@ class UserModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['name'] = this.name;
+    data['rewards'] = this.rewards;
     data['email'] = this.email;
     data['avatardetails'] = this.avatardetails;
     data['userType'] = this.userType;

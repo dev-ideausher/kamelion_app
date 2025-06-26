@@ -105,6 +105,9 @@ extension ColorUtil on BuildContext {
   Color get darkRedText =>
       dynamicColour(light: HexColor("#C4320A"), dark: HexColor("#C4320A"));
 
+  Color get darkPitch =>
+      dynamicColour(light: HexColor("#FFC091"), dark: HexColor("#FFC091"));
+
   Color get lighPitchBg =>
       dynamicColour(light: HexColor("#FEF6ED"), dark: HexColor("#FEF6ED"));
 

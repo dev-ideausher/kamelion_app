@@ -65,6 +65,8 @@ class ImageConstant {
   static String highfivePicture = 'assets/svg/highfive_picture.svg';
   static String messageIcon = 'assets/svg/message_icon.svg';
   static String kamelionConfused = 'assets/svg/kamelion_confused.svg';
+  static String savingCard = 'assets/svg/saving_card.svg';
+  static String satInUmbrella = 'assets/svg/umbralla_under.svg';
 
   //PNGs
   static String pngNewsBanner = 'assets/images/news_banner.png';
@@ -72,7 +74,7 @@ class ImageConstant {
   static String authDirectionBg = 'assets/png/auth_direction_bg.png';
   static String curveWhiteContainer = 'assets/png/curve_white_container.png';
   static String rewardCard1 = 'assets/png/reward_card_1.png';
-  static String rewardCard2 = 'assets/png/reward_card_2.png';
+  static String rewardCard2 = 'assets/png/saving_card.png';
   static String rewardCard3 = 'assets/png/reward_card_3.png';
   static String rewardCard4 = 'assets/png/reward_card_4.png';
   static String rewardCard5 = 'assets/png/reward_card_5.png';

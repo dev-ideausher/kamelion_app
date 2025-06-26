@@ -23,6 +23,32 @@ class MentalGymModel {
     this.isSaved,
   });
 
+  MentalGymModel copyWith({
+    Thumbnail? thumbnail,
+    String? sId,
+    String? title,
+    String? description,
+    int? totalDuration,
+    String? createdAt,
+    String? updatedAt,
+    int? iV,
+    Category? category,
+    bool? isSaved,
+  }) {
+    return MentalGymModel(
+      thumbnail: thumbnail ?? this.thumbnail,
+      sId: sId ?? this.sId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      totalDuration: totalDuration ?? this.totalDuration,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      iV: iV ?? this.iV,
+      category: category ?? this.category,
+      isSaved: isSaved ?? this.isSaved,
+    );
+  }
+
   MentalGymModel.fromJson(Map<String, dynamic> json) {
     thumbnail =
         json['thumbnail'] != null
@@ -35,7 +61,7 @@ class MentalGymModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
-    isSaved = json['String?'];
+    isSaved = json['isSaved'];
     // category =
     //     json['category'] != null
     //         ? new Category.fromJson(json['category'])
@@ -53,7 +79,7 @@ class MentalGymModel {
     data['totalDuration'] = this.totalDuration;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    data['String?'] = this.isSaved;
+    data['isSaved'] = this.isSaved;
     data['__v'] = this.iV;
     if (this.category != null) {
       data['category'] = this.category!.toJson();

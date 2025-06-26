@@ -172,6 +172,13 @@ class APIManager {
         ),
       );
 
+  static Future<Response> getSavedMentalGyms() async =>
+      await DioClient(Dio(), showSnakbar: false, isOverlayLoader: true).get(
+        Endpoints.getSavedMentalGyms(
+          Get.find<HomeController>().currentUser.value.sId ?? "",
+        ),
+      );
+
   static Future<Response> getMentalGymsByCategory({
     required String categoryId,
   }) async => await DioClient(
@@ -231,7 +238,7 @@ class APIManager {
       await DioClient(
         Dio(),
         showSnakbar: false,
-        isOverlayLoader: false,
+        isOverlayLoader: true,
       ).get(Endpoints.getComments(id));
 
   static Future<Response> getTreandingCommunities({
@@ -272,7 +279,7 @@ class APIManager {
       await DioClient(
         Dio(),
         showSnakbar: false,
-        isOverlayLoader: false,
+        isOverlayLoader: true,
       ).post(Endpoints.saveMentalGyms, data: body);
 
   static Future<Response> createAvatar({

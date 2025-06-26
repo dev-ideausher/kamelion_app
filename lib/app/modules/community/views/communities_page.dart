@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:kamelion/app/components/community/community_card.dart';
 import 'package:kamelion/app/components/community/post_card.dart';
 import 'package:kamelion/app/components/mental_gym_selector.dart';
@@ -94,6 +95,12 @@ class CommunitiesPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(4.0.ksp),
                       child: CommmunityCard(
+                        userAvatarDetails:
+                            Get.find<CommunityController>()
+                                .yourCommunityList[i]
+                                .userId
+                                ?.avatardetails ??
+                            "",
                         review:
                             Get.find<CommunityController>()
                                         .yourCommunityList[i]
@@ -235,12 +242,19 @@ class CommunitiesPage extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      LocaleKeys.view_all.tr,
-                      style: TextStyleUtil.genSans500(
-                        fontSize: 11.ksp,
-                        color: ColorUtil(context).brandColor1,
-                        height: 1.2,
+                    InkWell(
+                      onTap: () {
+                        Get.find<CommunityController>()
+                            .selectedScreenIndex
+                            .value = 3;
+                      },
+                      child: Text(
+                        LocaleKeys.view_all.tr,
+                        style: TextStyleUtil.genSans500(
+                          fontSize: 11.ksp,
+                          color: ColorUtil(context).brandColor1,
+                          height: 1.2,
+                        ),
                       ),
                     ),
                     20.kwidthBox,
@@ -252,7 +266,19 @@ class CommunitiesPage extends StatelessWidget {
             10.kheightBox,
           if (Get.find<CommunityController>().savedPost.isNotEmpty)
             SavedPostCard(
-              isLiked: false,
+              isFromSaved: true,
+              userAvatarDetails:
+                  Get.find<CommunityController>()
+                      .savedPost[0]
+                      .userId!
+                      .avatardetails ??
+                  "",
+              communityId: "",
+              isMine:
+                  Get.find<CommunityController>().savedPost[0].userId?.sId ==
+                  Get.find<HomeController>().currentUser.value,
+              isLiked:
+                  Get.find<CommunityController>().savedPost[0].isLiked ?? false,
               postId: Get.find<CommunityController>().savedPost[0].sId ?? "",
               commentCount:
                   Get.find<CommunityController>().savedPost[0].commentCount
@@ -263,8 +289,12 @@ class CommunitiesPage extends StatelessWidget {
                       .toString() ??
                   "",
               date:
-                  Get.find<CommunityController>().savedPost[0].createdAt
-                      .toString() ??
+                  DateFormat(' MMM d yyyy').format(
+                    DateTime.parse(
+                      Get.find<CommunityController>().savedPost[0].createdAt ??
+                          "",
+                    ),
+                  ) ??
                   "",
               name:
                   Get.find<CommunityController>().savedPost[0].userId?.nickname
@@ -343,6 +373,12 @@ class CommunitiesPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 2.ksp),
                       child: CommmunityCard(
+                        userAvatarDetails:
+                            Get.find<CommunityController>()
+                                .trendingCommunityList[i]
+                                .userId
+                                ?.avatardetails ??
+                            "",
                         imageURL:
                             Get.find<CommunityController>()
                                 .trendingCommunityList[i]

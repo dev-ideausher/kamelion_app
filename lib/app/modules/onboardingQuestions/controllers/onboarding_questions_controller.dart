@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/models/mental_gyms_details_model.dart';
 import 'package:kamelion/app/models/onBoardingQuestionsModel.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/modules/workoutDetails/controllers/workout_details_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
@@ -140,6 +141,7 @@ class OnboardingQuestionsController extends GetxController {
       // Get.back();
       // Get.back();
       Get.offNamed(Routes.QUIZE_COMPLETE);
+      Get.find<HomeController>().getUser();
     } else {
       try {
         var user = await APIManager.getUser();

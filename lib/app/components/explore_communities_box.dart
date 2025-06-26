@@ -37,7 +37,7 @@ class ExporleCommuntiesBox extends StatelessWidget {
                   20.kheightBox,
                   Text(
                     LocaleKeys.explore_communities.tr,
-                    style: TextStyleUtil.genSans400(
+                    style: TextStyleUtil.genSans500(
                       fontSize: 18.ksp,
                       color: ColorUtil(context).black,
                       height: 1.2,

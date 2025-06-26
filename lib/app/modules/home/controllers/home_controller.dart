@@ -92,13 +92,12 @@ class HomeController extends GetxController {
     await getPopularMentalGym();
     userTimezone = timezoneNames[DateTime.now().timeZoneOffset.inMilliseconds];
     isLoading.value = false;
-
     super.onInit();
   }
 
   @override
   void onReady() {
-    getTodaysMood();
+    // getTodaysMood();
     super.onReady();
   }
 
@@ -117,10 +116,6 @@ class HomeController extends GetxController {
 
       if (response.data['data'] != null && response.data['status']) {
         currentUser = UserModel.fromJson(response.data['data']).obs;
-        final fluttermojiController = FluttermojiController();
-        fluttermojiController.setFluttermoji(
-          fluttermojiNew: currentUser.value.avatardetails ?? "",
-        );
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",

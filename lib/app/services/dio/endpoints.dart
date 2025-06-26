@@ -37,9 +37,10 @@ class Endpoints {
   static String getTrendingMentalGyms({
     required String page,
     required String limit,
-  }) => "mentalgym/getallmentalgyms?isActive=true&page=$page&limit=$limit";
+  }) => "mentalgym/getallmentalgyms?isTrending=true";
   static String getSuggestedMentalGyms(String id) =>
       "mentalgym/getallsuggestedmentalgyms/$id";
+  static String getSavedMentalGyms(String id) => "savedmentalgym/get/$id";
   static String getMentalGymsByCategory(String id) =>
       "mentalgym/getallmental/$id";
   static String getMentalGymsDetails(String id) => "workout/getallworkout/$id";
@@ -59,7 +60,8 @@ class Endpoints {
   static const String createCommunity = "community/save";
   static const String joinCommunity = "community/joincommunity";
   static const String createPost = "post/save";
-  static const String getTrendingCommunities = "community/getallcommunities";
+  static const String getTrendingCommunities =
+      "community/getallcommunities?isTrending=true";
   static const String getfavouriteposts = "post/getfavouriteposts";
   static String getCommunitiesByCategory(String id) =>
       "community/getcommunitybycategory/$id";

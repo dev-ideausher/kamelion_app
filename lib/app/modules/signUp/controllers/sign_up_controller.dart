@@ -77,7 +77,7 @@ class SignUpController extends GetxController {
       return;
     }
     final passwordRegex = RegExp(
-      r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#\$%^&*()_+\-=\[\]{};:"\\|,.<>\/?]).{8,}$',
+      r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#\$%^&*()_+\-=\[\]{};:"\\|,.<>\/?€£¥₹]).{8,}$',
     );
     if (!passwordRegex.hasMatch(password)) {
       showMySnackbar(

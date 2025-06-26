@@ -13,37 +13,41 @@ class SavedWorkouts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        20.kheightBox,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 14.0.ksp),
-              child: Text(
-                LocaleKeys.saved_workouts.tr,
-                style: TextStyleUtil.genSans400(
-                  fontSize: 16.ksp,
-                  color: ColorUtil(context).black,
-                  height: 1.2,
+    return Obx(
+      () => Column(
+        children: [
+          20.kheightBox,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 14.0.ksp),
+                child: Text(
+                  LocaleKeys.saved_workouts.tr,
+                  style: TextStyleUtil.genSans400(
+                    fontSize: 16.ksp,
+                    color: ColorUtil(context).black,
+                    height: 1.2,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        ...Get.find<MentalGymController>().activeWorkouts.map((mood) {
-          return SuggestedWorkoutCards(
-            isSaved: false,
-            imageUrl: "",
-            title: "",
-            subtitle: "",
-            onTap: () {
-              Get.find<MentalGymController>().getWorkoutDetails(mood.sid);
-            },
-          );
-        }).toList(),
-      ],
+            ],
+          ),
+          ...Get.find<MentalGymController>().savedMentalGym.map((mood) {
+            return SuggestedWorkoutCards(
+              isSaved: mood.isSaved ?? true,
+              imageUrl: mood.thumbnail?.url ?? "",
+              title: mood.title ?? "",
+              subtitle: mood.description ?? "",
+              onTap: () {
+                Get.find<MentalGymController>().getWorkoutDetails(
+                  mood.sId ?? "",
+                );
+              },
+            );
+          }).toList(),
+        ],
+      ),
     );
   }
 }

@@ -158,9 +158,9 @@ class Locales {
     'cannotLaunchUrl': 'Could not launch',
     'acceptTermsRequest': 'Please accept terms and condition to continue',
     'welcomeMessage':
-        'Hi, I am Cleo, before starting we will be asking you some questions.',
+        'Hi, I am Lio, before starting we will be asking you some questions.',
     'verify': 'Verify',
-    'signupSubtitle': 'Kindly enter some detials',
+    'signupSubtitle': 'Kindly enter some details',
     'fullName': 'Full Name',
     'fullNameHint': 'Enter name here',
     'email': 'Email',

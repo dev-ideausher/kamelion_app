@@ -1,7 +1,9 @@
 import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/hexColorToFlutterColor.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 
@@ -47,7 +49,7 @@ class _WaveButtonState extends State<WaveSemiCircleButton>
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
-        final scale = 0 + (_controller.value * 2);
+        final scale = 0.5 + (_controller.value * 2);
         final fade = (1 - _controller.value).clamp(0.0, 1.0) * opacity;
 
         return Transform.scale(
@@ -83,20 +85,32 @@ class _WaveButtonState extends State<WaveSemiCircleButton>
             _buildWave(widget.size * 2.5, 0.1),
             InkWell(
               onTap: widget.onTap,
-              child: Container(
-                // width: widget.size,
-                // height: widget.size,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: context.brandColor1,
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(30.0.ksp),
-                  child: Text(
-                    "Hold for\nSupport",
-                    style: TextStyleUtil.genSans500(fontSize: 12.ksp),
+              child: Stack(
+                children: [
+                  MyArc(),
+                  Container(
+                    // width: widget.size,
+                    // height: widget.size,
+                    // decoration: BoxDecoration(
+                    //   shape: BoxShape.circle,
+                    // color: context.brandColor1,
+                    // ),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 20.ksp),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Hold for\nSupport",
+                            style: TextStyleUtil.genSans500(
+                              fontSize: 12.ksp,
+                            ).copyWith(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ],
@@ -104,4 +118,37 @@ class _WaveButtonState extends State<WaveSemiCircleButton>
       ),
     );
   }
+}
+
+class MyArc extends StatelessWidget {
+  final double diameter;
+
+  const MyArc({super.key, this.diameter = 200});
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(painter: MyPainter(), size: Size(diameter, diameter));
+  }
+}
+
+// This is the Painter class
+class MyPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()..color = HexColor("#238E5B");
+    canvas.drawArc(
+      Rect.fromCenter(
+        center: Offset(size.height / 2, size.width / 2),
+        height: size.height,
+        width: size.width,
+      ),
+      math.pi,
+      math.pi,
+      false,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

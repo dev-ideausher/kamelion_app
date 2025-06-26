@@ -87,7 +87,8 @@ class CreatePostView extends GetView<CreatePostController> {
                     CircleAvatar(
                       radius: 18.ksp,
                       backgroundImage: NetworkImage(
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg',
+                        "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg",
+                        // 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg',
                       ), // Replace with NetworkImage if needed
                     ),
                     10.kwidthBox,

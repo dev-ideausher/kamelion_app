@@ -20,6 +20,7 @@ class CommunityModel {
   bool? hasOpened;
   int? numberofPosts;
   String? nickname;
+  bool? isMember;
 
   CommunityModel({
     this.profileImage,
@@ -43,6 +44,7 @@ class CommunityModel {
     this.isJoin,
     this.hasOpened,
     this.nickname,
+    this.isMember,
   });
 
   CommunityModel.fromJson(Map<String, dynamic> json) {
@@ -56,6 +58,7 @@ class CommunityModel {
     reason = json['reason'];
     sId = json['_id'];
     hasOpened = json['hasOpened'];
+    isMember = json['isMember'];
     userId =
         json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
     name = json['name'];
@@ -85,6 +88,7 @@ class CommunityModel {
     data['members'] = this.members;
     data['status'] = this.status;
     data['reason'] = this.reason;
+    data['isMember'] = this.isMember;
     data['_id'] = this.sId;
     if (this.userId != null) {
       data['userId'] = this.userId!.toJson();

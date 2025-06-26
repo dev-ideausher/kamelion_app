@@ -45,6 +45,7 @@ class Community {
   String? updatedAt;
   int? iV;
   bool? isTrending;
+  bool? isMember;
   int? numberofPosts;
   List<String>? members;
   int? numberOfMembers;
@@ -68,6 +69,7 @@ class Community {
     this.numberofPosts,
     this.members,
     this.numberOfMembers,
+    this.isMember,
   });
 
   Community.fromJson(Map<String, dynamic> json) {
@@ -77,6 +79,7 @@ class Community {
             : null;
     status = json['status'];
     reason = json['reason'];
+    isMember = json['isMember'];
     sId = json['_id'];
     userIdCommunity =
         json['userIdCommunity'] != null
@@ -107,6 +110,7 @@ class Community {
     }
     data['status'] = this.status;
     data['reason'] = this.reason;
+    data['isMember'] = this.isMember;
     data['_id'] = this.sId;
     if (this.userIdCommunity != null) {
       data['userIdCommunity'] = this.userIdCommunity!.toJson();

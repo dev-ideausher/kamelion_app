@@ -33,6 +33,7 @@ class MentalGymController extends GetxController {
       <MentalGymCategoryModel>[].obs;
   RxList<MentalGymModel> activeMentalGymList = <MentalGymModel>[].obs;
   RxList<MentalGymModel> suggestedMentalGym = <MentalGymModel>[].obs;
+  RxList<MentalGymModel> savedMentalGym = <MentalGymModel>[].obs;
   RxList<MentalGymModel> viewAllMentalGymList = <MentalGymModel>[].obs;
   RxString viewAllTitle = "".obs;
   RxInt activeMentalGymsCounts = 0.obs;
@@ -64,17 +65,22 @@ class MentalGymController extends GetxController {
     Get.toNamed(Routes.WORKOUT_DETAILS, arguments: id);
   }
 
-  changeTab(int index) {
+  changeTab(int index) async {
     selectedScreenIndex.value = index;
     if (index == 1) {
-      viewAllMentalGymList = activeMentalGymList;
+      viewAllMentalGymList = RxList<MentalGymModel>.from(activeMentalGymList);
       viewAllTitle.value = "Active Mental Gym";
     } else if (index == 2) {
-      viewAllMentalGymList = suggestedMentalGym;
+      viewAllMentalGymList.value = suggestedMentalGym;
       viewAllTitle.value = "Suggested Mental Gym";
     } else if (index == 3) {
-      viewAllMentalGymList == Get.find<HomeController>().popularMentalGyms;
+      viewAllMentalGymList.value ==
+          Get.find<HomeController>().popularMentalGyms;
       viewAllTitle.value = "Popular Mental Gym";
+    } else if (index == 4) {
+      await getSavedMentalGym();
+      // viewAllMentalGymList == Get.find<HomeController>().popularMentalGyms;
+      // viewAllTitle.value = "Popular Mental Gym";
     }
     scrollController.animateTo(
       0.0,
@@ -281,6 +287,38 @@ class MentalGymController extends GetxController {
         msg: e.toString(),
       );
       return false;
+    }
+  }
+
+  updateViewAllMentalGym() {
+    // Get.find<MentalGymController>().viewAllMentalGymList.refresh();
+    update();
+  }
+
+  Future<void> getSavedMentalGym() async {
+    try {
+      var response;
+      savedMentalGym.value = [];
+      response = await APIManager.getSavedMentalGyms();
+      if (response.data['data'] != null) {
+        for (Map<String, dynamic> data in response.data['data']) {
+          savedMentalGym.add(MentalGymModel.fromJson(data));
+        }
+      } else {
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
+        showMySnackbar(msg: response.data['message'] ?? "");
+      }
+      update();
+      // return;
+    } on DioException catch (dioError) {
+      showMySnackbar(msg: dioError.message ?? "");
+    } catch (e, s) {
+      showMySnackbar(
+        // title: LocaleKeys.somethingWentWrong.tr,
+        msg: e.toString(),
+      );
     }
   }
 }

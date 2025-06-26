@@ -22,8 +22,8 @@ class CommentBottomSheetController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    postId = Get.arguments;
-    getComments(id: postId ?? "");
+    // postId = Get.arguments;
+    // getComments(id: postId ?? "");
     // comments.value = [
     //   CommentModel(
     //     user: "",
@@ -93,6 +93,7 @@ class CommentBottomSheetController extends GetxController {
 
   Future<void> getComments({required String id}) async {
     try {
+      postId = id;
       var response;
       comments.value = [];
       response = await APIManager.getComments(id: id);
@@ -110,7 +111,7 @@ class CommentBottomSheetController extends GetxController {
       update();
       // return;
     } on DioException catch (dioError) {
-      showMySnackbar(msg: dioError.message ?? "");
+      // showMySnackbar(msg: dioError.message ?? "");
     } catch (e, s) {
       showMySnackbar(
         // title: LocaleKeys.somethingWentWrong.tr,

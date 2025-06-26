@@ -6,6 +6,7 @@ import 'package:kamelion/app/components/center_float_button.dart';
 import 'package:kamelion/app/components/community/community_posts_appbar.dart';
 import 'package:kamelion/app/components/community/post_card.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -27,7 +28,8 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
             )
             : Scaffold(
               floatingActionButton:
-                  (controller.communitySelected?.isJoin ?? false)
+                  (controller.communityDetails?.value.community?.isMember ??
+                          false)
                       ? FloatingActionButton(
                         onPressed: () {
                           Get.toNamed(
@@ -53,13 +55,18 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                         text: "Join Community",
                       ),
               floatingActionButtonLocation:
-                  (controller.communitySelected?.isJoin ?? false)
+                  (controller.communityDetails?.value.community?.isMember ??
+                          false)
                       ? FloatingActionButtonLocation.endFloat
                       : FloatingActionButtonLocation.centerFloat,
               body: SingleChildScrollView(
                 child: Column(
                   children: [
                     CommunityPostsAppBar(
+                      userAvatarDetails:
+                          controller.communitySelected?.userId!.avatardetails ??
+                          "",
+                      // isSaved:    controller.communitySelected?,
                       communityImage:
                           controller.communitySelected?.profileImage?.url ?? "",
                       title: controller.communitySelected?.name ?? "",
@@ -97,6 +104,21 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                     ...controller.communityDetails!.value.posts!
                         .map(
                           (post) => SavedPostCard(
+                            isFromSaved: false,
+                            userAvatarDetails: post.userId!.avatardetails ?? "",
+                            communityId:
+                                controller
+                                    .communityDetails
+                                    ?.value
+                                    .community
+                                    ?.sId ??
+                                "",
+                            isMine:
+                                post.userId?.sId ==
+                                Get.find<HomeController>()
+                                    .currentUser
+                                    .value
+                                    .sId,
                             isLiked: post.isLiked ?? false,
                             date: DateFormat(
                               ' MMM d yyyy',
@@ -106,6 +128,7 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                             postId: post.sId ?? "",
                             commentCount: post.commentCount.toString(),
                             likecount: post.likeCount.toString(),
+
                             // "Everyday I thank god that I’m alive. Super Duper grateful for Doc F. #gratefulness #freudrocks",
                           ),
                         )

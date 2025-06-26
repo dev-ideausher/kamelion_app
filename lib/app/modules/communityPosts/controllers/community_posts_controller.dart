@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/models/community_details_model.dart';
 import 'package:kamelion/app/models/community_model.dart';
 import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/auth.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -81,10 +82,27 @@ class CommunityPostsController extends GetxController {
     try {
       var response;
 
+      final index = communityDetails?.value.posts!.indexWhere(
+        (post) => post.sId == id,
+      );
+      communityDetails?.value.posts![index!].isLiked =
+          !(communityDetails?.value.posts![index].isLiked!)!;
+      if (communityDetails!.value.posts![index!]!.isLiked!) {
+        communityDetails!.value.posts![index!].likeCount =
+            communityDetails!.value.posts![index!].likeCount! + 1;
+      } else {
+        communityDetails!.value.posts![index!].likeCount =
+            communityDetails!.value.posts![index!].likeCount! - 1;
+      }
+      update();
+
       response = await APIManager.addLikeToPost(id: id);
 
       if (response.data['data'] != null && response.data['status']) {
-        await getCommunityDetails(communitySelected?.sId ?? "");
+        // await getCommunityDetails(
+        //   communitySelected?.sId ?? "",
+        //   isOverlayLoader: false,
+        // );
         update();
       } else {
         debugPrint(
@@ -117,7 +135,18 @@ class CommunityPostsController extends GetxController {
                   try {
                     var res = await APIManager.updateCommunity(
                       id: communitySelected?.sId ?? "",
-                      body: {"hasLeft": true},
+                      body: {
+                        "members": [
+                          {
+                            "userId":
+                                Get.find<HomeController>()
+                                    .currentUser
+                                    .value
+                                    .sId,
+                            "hasLeft": true,
+                          },
+                        ],
+                      },
                     );
                     if (res.statusCode == 200) {
                       await Get.find<CommunityController>()
@@ -236,6 +265,7 @@ class CommunityPostsController extends GetxController {
         // Get.back();
         showMySnackbar(msg: res.data['message']);
         getCommunityDetails(communitySelected?.sId ?? "");
+        Get.find<CommunityController>().getSavedCommunities();
       }
     } on DioException catch (dioError) {
       showMySnackbar(msg: dioError.message ?? "");

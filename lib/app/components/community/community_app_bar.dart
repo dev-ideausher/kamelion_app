@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:get/get.dart';
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -105,11 +108,18 @@ class CommunityAppBar extends StatelessWidget {
             /// Second row: Profile + Hi + Name
             Row(
               children: [
-                FluttermojiCircleAvatar(
-                  backgroundColor: ColorUtil(context).blueBg,
-                  radius: 25.ksp,
+                Avatar().showAvatar(
+                  avatarDetails:
+                      Get.find<HomeController>()
+                          .currentUser
+                          .value
+                          .avatardetails ??
+                      '',
+                  bgColor: context.blueBg,
+                  context: context,
+                  radius: 28.ksp,
                 ),
-                const SizedBox(width: 12),
+                SizedBox(width: 12.ksp),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -47,7 +47,7 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "1275",
+                "10",
                 style: TextStyleUtil.genSans500(
                   fontSize: 20.ksp,
                   color: context.black,
@@ -62,6 +62,7 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
             padding: EdgeInsets.all(12.0.ksp),
             child: CustomButton.outline(
               onTap: () {
+                Get.back();
                 Get.back();
               },
               title: LocaleKeys.collect_kalicoins.tr,

@@ -59,6 +59,7 @@ class CommunityCategoriesPage extends StatelessWidget {
                         vertical: 2.ksp,
                       ),
                       child: CommmunityCard(
+                        userAvatarDetails: mood.userId?.avatardetails ?? "",
                         title: mood.name ?? "",
                         ownerName: mood.nickname ?? "",
                         peopleCount: mood.numberOfMembers.toString(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -16,10 +17,12 @@ class CommmunityCard extends StatelessWidget {
     required this.title,
     required this.postCount,
     required this.imageURL,
+    required this.userAvatarDetails,
+
     this.review,
   });
   Function()? onTap;
-  String title, postCount, peopleCount, ownerName, imageURL;
+  String title, postCount, peopleCount, ownerName, imageURL, userAvatarDetails;
   String? review;
 
   @override
@@ -153,13 +156,20 @@ class CommmunityCard extends StatelessWidget {
                                     review == null
                                         ? Row(
                                           children: [
-                                            CircleAvatar(
-                                              radius: 9.ksp,
-                                              backgroundImage: NetworkImage(
-                                                // imageURL,
-                                                "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg",
-                                              ),
+                                            Avatar().showAvatar(
+                                              avatarDetails: userAvatarDetails,
+                                              bgColor: context.blueBg,
+                                              context: context,
+                                              radius: 9.5.ksp,
                                             ),
+                                            // CircleAvatar(
+                                            //   radius: 9.ksp,
+                                            //   backgroundImage: NetworkImage(
+                                            //     // imageURL,
+                                            //     "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg",
+                                            //     // "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg",
+                                            //   ),
+                                            // ),
                                             6.kwidthBox,
                                             Text(
                                               ownerName,

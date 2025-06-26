@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:fluttermoji/fluttermojiController.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/components/explore_communities_box.dart';
@@ -46,11 +49,14 @@ class HomeView extends GetView<HomeController> {
                   child: Column(
                     children: [
                       HomeAppBar(
+                        coincount:
+                            controller.currentUser.value.rewards.toString(),
                         userName:
                             (controller.currentUser.value.nickname ?? "User")
                                 .capitalizeFirst ??
                             "User",
                       ),
+
                       20.kheightBox,
                       controller.currentMoodsList.isEmpty
                           ? FeelingSelectionWidget(
@@ -66,7 +72,7 @@ class HomeView extends GetView<HomeController> {
                                     padding: EdgeInsets.only(left: 8.0.ksp),
                                     child: Text(
                                       LocaleKeys.todays_mood.tr,
-                                      style: TextStyleUtil.genSans400(
+                                      style: TextStyleUtil.genSans500(
                                         fontSize: 16.ksp,
                                         color: ColorUtil(context).black,
                                         height: 1.2,

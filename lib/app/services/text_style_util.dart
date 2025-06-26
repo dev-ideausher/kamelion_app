@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextStyleUtil {
   static TextStyle genSans300({
     Color color = Colors.white,
     required double fontSize,
   }) {
-    return TextStyle(
-      fontFamily: 'Quicksand',
+    return GoogleFonts.quicksand(
       color: color,
       fontSize: fontSize,
       fontWeight: FontWeight.w300,
     );
+    //  TextStyle(
+    //   fontFamily: ,
+
+    // );
   }
 
   static TextStyle genSans400({
@@ -18,13 +22,14 @@ class TextStyleUtil {
     required double fontSize,
     double? height,
   }) {
-    return TextStyle(
-      fontFamily: 'Quicksand',
+    return GoogleFonts.quicksand(
       color: color,
       fontSize: fontSize,
       fontWeight: FontWeight.w400,
       height: height,
     );
+
+    // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
   }
 
   static TextStyle genSans500({
@@ -32,9 +37,7 @@ class TextStyleUtil {
     required double fontSize,
     double? height,
   }) {
-    return TextStyle(
-      height: height,
-      fontFamily: 'Quicksand',
+    return GoogleFonts.quicksand(
       color: color,
       fontSize: fontSize,
       fontWeight: FontWeight.w500,
@@ -46,7 +49,6 @@ class TextStyleUtil {
     required double fontSize,
   }) {
     return TextStyle(
-      fontFamily: 'Quicksand',
       color: color,
       fontSize: fontSize,
       fontWeight: FontWeight.w600,

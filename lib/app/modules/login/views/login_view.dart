@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:fluttermoji/fluttermojiController.dart';
 
 import 'package:get/get.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
@@ -69,6 +73,14 @@ class LoginView extends GetView<LoginController> {
                 textAlign: TextAlign.left,
               ),
               30.kheightBox,
+              // SvgPicture.string(
+              //   FluttermojiController().getFluttermojiFromOptions(),
+              //   height: 10,
+              //   semanticsLabel: "Your Fluttermoji",
+              //   placeholderBuilder:
+              //       (context) => Center(child: CupertinoActivityIndicator()),
+              // ),
+              // FluttermojiCircleAvatar(),
               Text(
                 " ${LocaleKeys.email.tr}",
                 style: TextStyleUtil.genSans300(

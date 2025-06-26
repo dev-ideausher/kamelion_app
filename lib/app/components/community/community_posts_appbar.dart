@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/modules/communityPosts/controllers/community_posts_controller.dart';
@@ -18,6 +19,8 @@ class CommunityPostsAppBar extends StatelessWidget {
     required this.category,
     required this.categoryImage,
     required this.communityImage,
+    required this.userAvatarDetails,
+    // required this.isSaved,
   });
   String title,
       ownweName,
@@ -25,7 +28,9 @@ class CommunityPostsAppBar extends StatelessWidget {
       memberCount,
       category,
       categoryImage,
-      communityImage;
+      communityImage,
+      userAvatarDetails;
+  // bool isSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -43,23 +48,19 @@ class CommunityPostsAppBar extends StatelessWidget {
           SafeArea(
             child: Stack(
               children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20.ksp),
-                      bottomRight: Radius.circular(20.ksp),
-                    ),
-                    child: CommonImageView(url: communityImage),
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.ksp),
+                    bottomRight: Radius.circular(20.ksp),
                   ),
+                  child: CommonImageView(url: communityImage),
                 ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
+                Container(
+                  width: double.infinity,
 
-                    color: Colors.black.withOpacity(
-                      0.4,
-                    ), // adjust opacity for light/dark shade
-                  ),
+                  color: Colors.black.withOpacity(
+                    0.4,
+                  ), // adjust opacity for light/dark shade
                 ),
               ],
             ),
@@ -159,12 +160,19 @@ class CommunityPostsAppBar extends StatelessWidget {
                       Container(
                         child: Row(
                           children: [
-                            CircleAvatar(
-                              radius: 8.ksp, // size of the profile picture
-                              backgroundImage: NetworkImage(
-                                "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg",
-                              ), // or use FileImage/File
+                            Avatar().showAvatar(
+                              avatarDetails: userAvatarDetails,
+                              bgColor: context.blueBg,
+                              context: context,
+                              radius: 8.ksp,
                             ),
+                            // CircleAvatar(
+                            //   radius: 8.ksp, // size of the profile picture
+                            //   backgroundImage: NetworkImage(
+                            //     "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg",
+                            //     // "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg",
+                            //   ), // or use FileImage/File
+                            // ),
                             8.kwidthBox, // spacing between image and name
                             Text(
                               ownweName,

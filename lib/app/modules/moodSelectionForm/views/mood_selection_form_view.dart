@@ -59,6 +59,7 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
               ),
               6.kheightBox,
               Container(
+                width: double.infinity,
                 margin: EdgeInsets.all(0.ksp),
                 padding: EdgeInsets.all(0.ksp),
                 decoration: BoxDecoration(
@@ -72,7 +73,16 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                     20.kheightBox,
                     // Image
                     CommonImageView(
-                      svgPath: ImageConstant.happyMood,
+                      svgPath:
+                          controller.currentMoodSelected.value == "unhappy"
+                              ? ImageConstant.unHappyMood
+                              : controller.currentMoodSelected.value == "sad"
+                              ? ImageConstant.sadMood
+                              : controller.currentMoodSelected.value == "normal"
+                              ? ImageConstant.normalMood
+                              : controller.currentMoodSelected.value == "good"
+                              ? ImageConstant.goodMood
+                              : ImageConstant.happyMood,
                       height: 50.ksp,
                     ),
                     5.kheightBox,
@@ -85,34 +95,34 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                       ),
                     ),
                     1.kheightBox,
-                    Obx(
-                      () => SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor:
-                              ColorUtil(
-                                context,
-                              ).brandColor1, // Slider active part color
-                          inactiveTrackColor: ColorUtil(context).grey,
-                          thumbColor: ColorUtil(context).white, // Tip color
-                          overlayColor: ColorUtil(
-                            context,
-                          ).brandColor1.withOpacity(0.2),
-                          trackHeight: 5.0.ksp,
-                          thumbShape: RoundSliderThumbShape(
-                            enabledThumbRadius: 8.ksp,
-                          ),
-                        ),
-                        child: Slider(
-                          value: controller.moodSliderLeval.value,
-                          min: 0,
-                          max: 100,
-                          divisions: 100,
-                          onChanged: (value) {
-                            controller.changeSliderValue(val: value);
-                          },
-                        ),
-                      ),
-                    ),
+                    // Obx(
+                    //   () => SliderTheme(
+                    //     data: SliderTheme.of(context).copyWith(
+                    //       activeTrackColor:
+                    //           ColorUtil(
+                    //             context,
+                    //           ).brandColor1, // Slider active part color
+                    //       inactiveTrackColor: ColorUtil(context).grey,
+                    //       thumbColor: ColorUtil(context).white, // Tip color
+                    //       overlayColor: ColorUtil(
+                    //         context,
+                    //       ).brandColor1.withOpacity(0.2),
+                    //       trackHeight: 5.0.ksp,
+                    //       thumbShape: RoundSliderThumbShape(
+                    //         enabledThumbRadius: 8.ksp,
+                    //       ),
+                    //     ),
+                    //     child: Slider(
+                    //       value: controller.moodSliderLeval.value,
+                    //       min: 0,
+                    //       max: 100,
+                    //       divisions: 100,
+                    //       onChanged: (value) {
+                    //         controller.changeSliderValue(val: value);
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

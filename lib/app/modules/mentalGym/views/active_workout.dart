@@ -15,37 +15,55 @@ class ActiveWorkouts extends StatelessWidget {
   const ActiveWorkouts({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        20.kheightBox,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 14.0.ksp),
-              child: Text(
-                Get.find<MentalGymController>().viewAllTitle.value,
-                style: TextStyleUtil.genSans400(
-                  fontSize: 16.ksp,
-                  color: ColorUtil(context).black,
-                  height: 1.2,
+    return Obx(
+      () => Column(
+        children: [
+          20.kheightBox,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 14.0.ksp),
+                child: Text(
+                  Get.find<MentalGymController>().viewAllTitle.value,
+                  style: TextStyleUtil.genSans400(
+                    fontSize: 16.ksp,
+                    color: ColorUtil(context).black,
+                    height: 1.2,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        ...Get.find<MentalGymController>().viewAllMentalGymList.map((mood) {
-          return ActiveWorkoutCards(
-            isSaved: true,
-            title: mood.title ?? "",
-            subtitle: mood.title ?? "",
-            imageUrl: mood.thumbnail!.url ?? "",
-            onTap: () {
-              Get.find<MentalGymController>().getWorkoutDetails(mood.sId ?? "");
-            },
-          );
-        }).toList(),
-      ],
+            ],
+          ),
+          ...Get.find<MentalGymController>().viewAllMentalGymList.map((mood) {
+            return ActiveWorkoutCards(
+              isSaved: mood.isSaved ?? false,
+              onsaved: () async {
+                bool res = await Get.find<MentalGymController>().saveMentalGym(
+                  mentalGymId: mood.sId ?? "",
+                );
+                if (res) {
+                  final controller = Get.find<MentalGymController>();
+                  final index = controller.viewAllMentalGymList.indexOf(mood);
+                  final updated = mood.copyWith(
+                    isSaved: !(mood.isSaved ?? false),
+                  );
+                  controller.viewAllMentalGymList[index] = updated;
+                  controller.viewAllMentalGymList.refresh();
+                }
+              },
+              title: mood.title ?? "",
+              subtitle: mood.title ?? "",
+              imageUrl: mood.thumbnail!.url ?? "",
+              onTap: () {
+                Get.find<MentalGymController>().getWorkoutDetails(
+                  mood.sId ?? "",
+                );
+              },
+            );
+          }).toList(),
+        ],
+      ),
     );
   }
 }

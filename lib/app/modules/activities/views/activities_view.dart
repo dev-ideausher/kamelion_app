@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/components/activities/activities_app_bar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -17,78 +18,89 @@ class ActivitiesView extends GetView<ActivitiesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ActivitiesAppBar(),
-            Padding(
-              padding: EdgeInsets.all(12.0.ksp),
-              child: Column(
-                children: [
-                  20.kheightBox,
-                  _activitiesCard(
-                    fireCount: "6",
-                    fireIcon: ImageConstant.fireIconGreen,
-                    imageIcon: ImageConstant.moodTrackerIcon,
-                    title: "Mood Tracker",
-                    subTitle: "Track your mood",
-                    cardColor: context.brandColor5,
-                    borderColor: context.brandBorderColor,
-                    fireBg: context.lightGreenBg,
+      body: Stack(
+        children: [
+          Container(
+            child: Column(
+              children: [
+                ActivitiesAppBar(),
+                Padding(
+                  padding: EdgeInsets.all(12.0.ksp),
+                  child: Column(
+                    children: [
+                      20.kheightBox,
+                      _activitiesCard(
+                        onTap: () {
+                          Get.find<HomeController>().showMoodPopup(context);
+                        },
+                        fireCount: "6",
+                        fireIcon: ImageConstant.fireIconGreen,
+                        imageIcon: ImageConstant.moodTrackerIcon,
+                        title: "Mood Tracker",
+                        subTitle: "Track your mood",
+                        cardColor: context.brandColor5,
+                        borderColor: context.brandBorderColor,
+                        fireBg: context.lightGreenBg,
+                      ),
+                      10.kheightBox,
+                      _activitiesCard(
+                        onTap: () {
+                          Get.toNamed(Routes.CHALLENGES);
+                        },
+                        fireCount: "6",
+                        fireIcon: ImageConstant.fireIconRed,
+                        imageIcon: ImageConstant.challengesIcon,
+                        title: "Challenges",
+                        subTitle: "Exciting challenges",
+                        cardColor: context.lightRed2Bg,
+                        borderColor: context.lighPinkBg,
+                        fireBg: context.lightRed3Bg,
+                      ),
+                      10.kheightBox,
+                      _activitiesCard(
+                        onTap: () {
+                          Get.toNamed(Routes.JOURNALING);
+                        },
+                        fireCount: "6",
+                        fireIcon: ImageConstant.fireIconYellow,
+                        imageIcon: ImageConstant.bookIconYellow,
+                        title: "Journaling",
+                        subTitle: "Note down every detail",
+                        cardColor: context.normalMoodBg,
+                        borderColor: context.lightYellow2Border,
+                        fireBg: context.lightYellow2Bg,
+                      ),
+                      10.kheightBox,
+                      _activitiesCard(
+                        fireCount: "6",
+                        fireIcon: ImageConstant.fireIconGreen,
+                        imageIcon: ImageConstant.faceLeftIcon,
+                        title: "Personality Test",
+                        subTitle: "Check your personality",
+                        cardColor: context.lightOrangeBg,
+                        borderColor: context.lighPinkBg,
+                        fireBg: context.lightGreenBg,
+                        isShowFire: false,
+                      ),
+                      40.kheightBox,
+                    ],
                   ),
-                  10.kheightBox,
-                  _activitiesCard(
-                    onTap: () {
-                      Get.toNamed(Routes.CHALLENGES);
-                    },
-                    fireCount: "6",
-                    fireIcon: ImageConstant.fireIconRed,
-                    imageIcon: ImageConstant.challengesIcon,
-                    title: "Challenges",
-                    subTitle: "Exciting challenges",
-                    cardColor: context.lightRed2Bg,
-                    borderColor: context.lighPinkBg,
-                    fireBg: context.lightRed3Bg,
-                  ),
-                  10.kheightBox,
-                  _activitiesCard(
-                    onTap: () {
-                      Get.toNamed(Routes.JOURNALING);
-                    },
-                    fireCount: "6",
-                    fireIcon: ImageConstant.fireIconYellow,
-                    imageIcon: ImageConstant.bookIconYellow,
-                    title: "Journaling",
-                    subTitle: "Note down every detail",
-                    cardColor: context.normalMoodBg,
-                    borderColor: context.lightYellow2Border,
-                    fireBg: context.lightYellow2Bg,
-                  ),
-                  10.kheightBox,
-                  _activitiesCard(
-                    fireCount: "6",
-                    fireIcon: ImageConstant.fireIconGreen,
-                    imageIcon: ImageConstant.faceLeftIcon,
-                    title: "Personality Test",
-                    subTitle: "Check your personality",
-                    cardColor: context.lightOrangeBg,
-                    borderColor: context.lighPinkBg,
-                    fireBg: context.lightGreenBg,
-                    isShowFire: false,
-                  ),
-                  40.kheightBox,
-                  WaveSemiCircleButton(
-                    icon: Icons.play_arrow,
-                    color: Colors.blue,
-                    onTap: () {
-                      Get.toNamed(Routes.SUPPORT);
-                    },
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Positioned(
+            bottom: -70.ksp,
+            left: (context.width / 2) - 60.ksp,
+            child: WaveSemiCircleButton(
+              icon: Icons.play_arrow,
+              color: Colors.blue,
+              onTap: () {
+                Get.toNamed(Routes.SUPPORT);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
