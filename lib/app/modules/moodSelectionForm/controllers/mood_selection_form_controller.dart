@@ -7,6 +7,8 @@ import 'package:kamelion/app/services/dialog_helper.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
 
+import '../../../constants/image_constant.dart';
+
 class MoodSelectionFormController extends GetxController {
   //TODO: Implement MoodSelectionFormController
 
@@ -17,6 +19,7 @@ class MoodSelectionFormController extends GetxController {
   TextEditingController noteController = TextEditingController();
   TextEditingController activitiesController = TextEditingController();
   RxString currentMoodSelected = Mood.normal.name.obs;
+  RxString currentMoodImage = ImageConstant.normalMood.obs;
   String timezone = "IST";
   List<String> feelingsKeywords = [
     "Happy",
@@ -66,9 +69,30 @@ class MoodSelectionFormController extends GetxController {
 
   void increment() => count.value++;
 
-  changeSliderValue({required double val}) {
+  // changeSliderValue({required double val}) {
+  //   moodSliderLeval.value = val;
+  //   update();
+  // }
+  void changeSliderValue({required double val}) {
     moodSliderLeval.value = val;
-    update();
+
+    // Set mood based on value range
+    if (val <= 20) {
+      currentMoodImage.value = ImageConstant.unHappyMood;
+      currentMoodSelected.value = Mood.unhappy.name;
+    } else if (val <= 40) {
+      currentMoodImage.value = ImageConstant.sadMood;
+      currentMoodSelected.value =Mood.sad.name;
+    } else if (val <= 60) {
+      currentMoodImage.value = ImageConstant.normalMood;
+      currentMoodSelected.value = Mood.normal.name;
+    } else if (val <= 80) {
+      currentMoodImage.value = ImageConstant.happyMood;
+      currentMoodSelected.value =Mood.happy.name;
+    } else {
+      currentMoodImage.value = ImageConstant.goodMood;
+      currentMoodSelected.value = Mood.good.name;
+    }
   }
 
   onFeelingSelected({required String keyword}) {

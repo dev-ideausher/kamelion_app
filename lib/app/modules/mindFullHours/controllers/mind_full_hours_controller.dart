@@ -39,7 +39,7 @@ class MindFullHoursController extends GetxController {
 
   void increment() => count.value++;
 
-  void _togglePlayPause() {
+  void togglePlayPause() {
     isPlaying = !isPlaying;
 
     isPlaying ? _player.play() : _player.pause();

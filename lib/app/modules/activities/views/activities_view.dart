@@ -31,7 +31,8 @@ class ActivitiesView extends GetView<ActivitiesController> {
                       20.kheightBox,
                       _activitiesCard(
                         onTap: () {
-                          Get.find<HomeController>().showMoodPopup(context);
+                          // Get.find<HomeController>().showMoodPopup(context);
+                          Get.toNamed(Routes.MOOD_TRACKER);
                         },
                         fireCount: "6",
                         fireIcon: ImageConstant.fireIconGreen,

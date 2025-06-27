@@ -37,7 +37,7 @@ class TodaysMood extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 0.ksp),
+            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 8.ksp),
             child: Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -46,6 +46,8 @@ class TodaysMood extends StatelessWidget {
                 border: Border.all(color: context.darkPitch),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CommonImageView(svgPath: moodImage),
                   20.kwidthBox,
@@ -91,6 +93,9 @@ class TodaysMood extends StatelessWidget {
                       ],
                     ),
                   ),
+
+
+
                 ],
               ),
             ),

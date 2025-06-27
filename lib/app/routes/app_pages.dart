@@ -45,6 +45,8 @@ import '../modules/mindFullHours/bindings/mind_full_hours_binding.dart';
 import '../modules/mindFullHours/views/mind_full_hours_view.dart';
 import '../modules/moodSelectionForm/bindings/mood_selection_form_binding.dart';
 import '../modules/moodSelectionForm/views/mood_selection_form_view.dart';
+import '../modules/mood_tracker/bindings/mood_tracker_binding.dart';
+import '../modules/mood_tracker/views/mood_tracker_view.dart';
 import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
 import '../modules/navigationBar/views/navigation_bar_view.dart';
 import '../modules/onboardingQuestions/bindings/onboarding_questions_binding.dart';
@@ -253,6 +255,11 @@ class AppPages {
       name: _Paths.UPDATE_TIMELINE,
       page: () => const UpdateTimelineView(),
       binding: UpdateTimelineBinding(),
+    ),
+    GetPage(
+      name: _Paths.MOOD_TRACKER,
+      page: () => const MoodTrackerView(),
+      binding: MoodTrackerBinding(),
     ),
   ];
 }

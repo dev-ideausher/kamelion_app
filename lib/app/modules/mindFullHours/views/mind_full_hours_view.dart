@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'package:kamelion/app/wave_button.dart';
+
+import '../../../services/breathe_wave.dart';
 import '../controllers/mind_full_hours_controller.dart';
 
 class MindFullHoursView extends GetView<MindFullHoursController> {
@@ -29,7 +32,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
   bool isInhale = true;
   double currentTime = 321; // 5:21
   double totalTime = 1500; // 25:00
-
+  MindFullHoursController controller = Get.put(MindFullHoursController());
   @override
   Widget build(BuildContext context) {
     final bgColor =
@@ -70,27 +73,32 @@ class _BreathingScreenState extends State<BreathingScreen> {
             ),
             const Spacer(),
             // Breathing animation placeholder
-            Center(
-              child: Container(
-                width: 200,
-                height: 200,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: RadialGradient(
-                    colors: [Colors.black12, Colors.transparent],
-                    stops: [0.0, 1.0],
-                  ),
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  text,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            Stack(
+              children: [
+                WaveBreathingButton(onTap: () {  },)
+                // Center(
+                //   child: Container(
+                //     width: 200,
+                //     height: 200,
+                //     decoration: const BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       gradient: RadialGradient(
+                //         colors: [Colors.black12, Colors.transparent],
+                //         stops: [0.0, 1.0],
+                //       ),
+                //     ),
+                //     alignment: Alignment.center,
+                //     child: Text(
+                //       text,
+                //       style: const TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 24,
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              ],
             ),
             const Spacer(),
             // Progress bar
@@ -139,7 +147,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                   FloatingActionButton(
                     backgroundColor: Colors.white,
                     onPressed: () {
-                      setState(() => isPlaying = !isPlaying);
+                     controller.togglePlayPause();
                     },
                     child: Icon(icon, color: bgColor),
                   ),
