@@ -36,7 +36,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _videoPlayerController.seekTo(const Duration(minutes: 0, seconds: 0));
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      autoPlay: false,
+      autoPlay: true,
       looping: false,
       showControls: true,
       allowedScreenSleep: false,
@@ -80,6 +80,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   void _changeSpeed(double speed) {
+    Navigator.pop(context);
     _videoPlayerController.setPlaybackSpeed(speed);
     ScaffoldMessenger.of(
       context,
@@ -100,11 +101,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return Scaffold(
       backgroundColor: context.black,
       appBar: AppBar(backgroundColor: context.black),
-      body:
-          _chewieController != null &&
-                  _chewieController!.videoPlayerController.value.isInitialized
-              ? Chewie(controller: _chewieController!)
-              : const Center(child: CircularProgressIndicator()),
+      body: _chewieController != null &&
+              _chewieController!.videoPlayerController.value.isInitialized
+          ? Chewie(controller: _chewieController!)
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }
