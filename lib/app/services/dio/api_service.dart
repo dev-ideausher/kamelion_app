@@ -102,12 +102,14 @@ class APIManager {
   static Future<Response> addComment({
     required String id,
     required String comment,
+     String parentCommentId="",
   }) async =>
       await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).post(
         Endpoints.addComment(id),
         data: {
           "userId": Get.find<HomeController>().currentUser.value.sId,
           "text": comment,
+          "parentCommentId":parentCommentId
         },
       );
 
@@ -406,4 +408,18 @@ class APIManager {
     showSnakbar: false,
     isOverlayLoader: false,
   ).patch(Endpoints.updateJournal(id), data: body);
+  static Future<Response> deleteComment({required String postId,required String commentId}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).delete(Endpoints.deleteComment(postId: postId,commentId: commentId));
+  static Future<Response> leaveCommunity(
+      {required dynamic body,required String id}) async =>
+      await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
+          .post(Endpoints.leaveCommunity(id), data: body);
+  static Future<Response> reportComment(
+      {required dynamic body,required String id}) async =>
+      await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
+          .post(Endpoints.reportComment(id), data: body);
 }

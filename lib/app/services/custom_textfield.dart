@@ -18,8 +18,9 @@ class CustomTextField extends StatelessWidget {
   final List<TextInputFormatter> inputFormatters;
  final String? Function(String?)? validator;
   final Function(String)? onFieldSubmitted;
+  FocusNode? focusNode;
 
-  const CustomTextField({
+   CustomTextField({
     Key? key,
     required this.hintText,
     this.controller,
@@ -33,12 +34,14 @@ class CustomTextField extends StatelessWidget {
     this.readOnly,
     this.inputFormatters = const [],
     this.validator,
-    this.onFieldSubmitted
+    this.onFieldSubmitted,
+    this.focusNode
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(validator: validator,
+focusNode: focusNode,
 onFieldSubmitted:onFieldSubmitted,
       inputFormatters: inputFormatters,
       readOnly: readOnly ?? false,

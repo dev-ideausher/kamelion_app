@@ -70,6 +70,9 @@ class Endpoints {
   static String deleteJournal(String id) => "journal/delete/$id";
   static String getJournalById(String id) =>   "journal/getjournal/$id";
   static String updateJournal(String id) =>  "journal/update/$id";
+  static String deleteComment({required String commentId,required String postId}) => "postinteraction/$postId/comment/$commentId";
+  static String leaveCommunity(String id) =>  "community/leavecommunity/$id";
+  static String reportComment(String id) =>  "postinteraction/$id/report";
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

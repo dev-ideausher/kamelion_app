@@ -3,26 +3,32 @@ class CommentModel {
   String? text;
   String? sId;
   String? createdAt;
+  List<CommentModel> replies;
+  CommentModel({this.userId, this.text, this.sId, this.createdAt,  List<CommentModel>? replies,}): replies = replies ?? [];
 
-  CommentModel({this.userId, this.text, this.sId, this.createdAt});
-
-  CommentModel.fromJson(Map<String, dynamic> json) {
-    userId =
-        json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
-    text = json['text'];
-    sId = json['_id'];
-    createdAt = json['createdAt'];
+  factory CommentModel.fromJson(Map<String, dynamic> json) {
+    return CommentModel(
+      userId: json['userId'] != null
+          ? UserId.fromJson(json['userId'] as Map<String, dynamic>)
+          : null,
+      text: json['text'] as String?,
+      sId: json['_id'] as String?,
+      createdAt: json['createdAt'] as String?,
+      replies: (json['replies'] as List<dynamic>?)
+          ?.map((r) => CommentModel.fromJson(r as Map<String, dynamic>))
+          .toList() ??
+          [],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.userId != null) {
-      data['userId'] = this.userId!.toJson();
-    }
-    data['text'] = this.text;
-    data['_id'] = this.sId;
-    data['createdAt'] = this.createdAt;
-    return data;
+    return {
+      if (userId != null) 'userId': userId!.toJson(),
+      'text': text,
+      '_id': sId,
+      'createdAt': createdAt,
+      'replies': replies.map((r) => r.toJson()).toList(),
+    };
   }
 }
 

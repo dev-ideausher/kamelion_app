@@ -134,6 +134,7 @@ class SavedPostCard extends StatelessWidget {
                   icon: Icon(Icons.more_vert), // The 3-dot icon
                   onSelected: (value) {
                     if (value == 'Report') {
+                      Get.put(CommunityPostsController());
                       Get.find<CommunityPostsController>().reportPostDialog(
                         context: context,
                         postId: postId,

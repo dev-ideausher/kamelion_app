@@ -133,19 +133,14 @@ class CommunityPostsController extends GetxController {
               TextButton(
                 onPressed: () async {
                   try {
-                    var res = await APIManager.updateCommunity(
+                    var res = await APIManager.leaveCommunity(
                       id: communitySelected?.sId ?? "",
                       body: {
-                        "members": [
-                          {
-                            "userId":
-                                Get.find<HomeController>()
-                                    .currentUser
-                                    .value
-                                    .sId,
-                            "hasLeft": true,
-                          },
-                        ],
+                        "userId":
+                        Get.find<HomeController>()
+                            .currentUser
+                            .value
+                            .sId,
                       },
                     );
                     if (res.statusCode == 200) {
