@@ -21,22 +21,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   FocusNode? focusNode;
 
-  const CustomTextField(
-      {Key? key,
-      required this.hintText,
-      this.controller,
-      this.onChange,
-      this.prefixIcon,
-      this.fillColor,
-      this.filled,
-      this.maxLines,
-      this.prefixIconWidget,
-      this.suffixIconWidget,
-      this.readOnly,
-      this.inputFormatters = const [],
-      this.validator,
-      this.onFieldSubmitted});
-   CustomTextField({
+  CustomTextField({
     Key? key,
     required this.hintText,
     this.controller,
@@ -57,46 +42,45 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 44.kh, // Set height
       decoration: BoxDecoration(
         color: context.white,
         borderRadius: BorderRadius.all(Radius.circular(8.ksp)),
         boxShadow: [
           BoxShadow(
-            color: context.grey.withOpacity(0.2), // Light shadow
+            color: context.grey.withOpacity(0.2),
             blurRadius: 5,
             offset: Offset(0, 1),
           ),
         ],
       ),
-      child: TextFormField(
-        validator: validator,
-        onFieldSubmitted: onFieldSubmitted,
+      child: TextFormField(validator: validator,
+        focusNode: focusNode,
+        onFieldSubmitted:onFieldSubmitted,
         inputFormatters: inputFormatters,
         readOnly: readOnly ?? false,
         onChanged: onChange,
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyleUtil.genNunitoSans400(
+          hintStyle: TextStyleUtil.genSans400(
             fontSize: 12.ksp,
             color: context.greyDark,
           ),
-          fillColor: context.white,
+          fillColor: fillColor,
           filled: filled,
           prefix: prefixIcon,
           prefixIcon: prefixIconWidget,
-          suffixIcon: suffixIconWidget,
-          contentPadding: EdgeInsets.symmetric(horizontal: 14.kw,vertical:10.kh ),
+          suffixIcon:suffixIconWidget ,
+          contentPadding: EdgeInsets.symmetric(horizontal: 14.kw,vertical: 10.kh),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp), // Rounded corners
+            borderRadius: BorderRadius.circular(8.ksp),
             borderSide:
-                BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
+            BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(
-                color: ColorUtil(context).grey.withOpacity(0.7), width: 1.ksp),
+            borderSide: BorderSide(color: ColorUtil(context).grey),
+
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.ksp),
@@ -107,6 +91,7 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
+
 
 class CustomTextFieldPassword extends StatefulWidget {
   final String hintText;
@@ -186,13 +171,6 @@ class _CustomTextFieldPasswordState extends State<CustomTextFieldPassword> {
           prefixIcon: widget.prefixIconWidget,
 
           suffixIcon:
-
-          // SvgPicture.asset(
-          //     height: 30.kh,
-          //     "assets/svg/eye.svg",
-          //   color: Colors.black,
-          //
-          // ),
           widget.isPassword
               ? SizedBox(
             height: 12,
@@ -237,39 +215,7 @@ class _CustomTextFieldPasswordState extends State<CustomTextFieldPassword> {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.ksp),
             borderSide: BorderSide(color: ColorUtil(context).brandColor1),
-          ),
-    return TextFormField(validator: validator,
-focusNode: focusNode,
-onFieldSubmitted:onFieldSubmitted,
-      inputFormatters: inputFormatters,
-      readOnly: readOnly ?? false,
-      onChanged: onChange,
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyleUtil.genSans400(
-          fontSize: 12.ksp,
-          color: context.greyDark,
-        ),
-        fillColor: fillColor,
-        filled: filled,
-        prefix: prefixIcon,
-        prefixIcon: prefixIconWidget,
-        suffixIcon:suffixIconWidget ,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.ksp),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.ksp), // Rounded corners
-          borderSide: BorderSide(color: ColorUtil(context).grey),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.ksp),
-          borderSide: BorderSide(color: ColorUtil(context).grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.ksp),
-          borderSide: BorderSide(color: ColorUtil(context).brandColor1),
-        ),
-      ),
-    );
+          ))));
+
   }
 }

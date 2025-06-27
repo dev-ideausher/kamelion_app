@@ -140,7 +140,7 @@ class SignUpView extends GetView<SignUpController> {
                         controller.licenceKeyBottomSheet(context);
                       }
                     },
-                    title: LocaleKeys.verify.tr,
+                    title: LocaleKeys.submit.tr,
                   ),
                 ),
               ),

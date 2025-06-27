@@ -37,7 +37,7 @@ class TodaysMood extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 8.ksp),
+            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 0.ksp),
             child: Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -49,48 +49,47 @@ class TodaysMood extends StatelessWidget {
                 children: [
                   CommonImageView(svgPath: moodImage),
                   20.kwidthBox,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: context.width * 0.69,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          // mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
                               mood,
-                              style: TextStyleUtil.genSans400(
-                                fontSize: 14.ksp,
+                              style: TextStyleUtil.genSans600(
+                                fontSize: 20.kh,
                                 color: ColorUtil(context).black,
                               ),
                             ),
+                            Spacer(),
                             Text(
                               time,
-                              style: TextStyleUtil.genSans500(
-                                fontSize: 11.ksp,
-                                color: ColorUtil(context).black,
+                              style: TextStyleUtil.genNunitoSans700(
+                                fontSize: 12.kh,
+                                color: ColorUtil(context).greyScaleText,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      Container(
-                        width: context.width * 0.69,
-                        child: Text(
-                          desc,
-                          // "I woke up smiling, grateful for life’s little joys.",
-                          style: TextStyleUtil.genSans300(
-                            fontSize: 11.ksp,
-                            color: ColorUtil(context).greyDark,
+                        Container(
+                          width: 200.kw,
+                          child: Text(
+                            desc,
+                            // "I woke up smiling, grateful for life’s little joys.",
+                            style: TextStyleUtil.genNunitoSans400(
+                              fontSize: 14.kh,
+                              color: ColorUtil(context).greyDark,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

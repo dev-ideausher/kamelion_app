@@ -40,27 +40,24 @@ class HomeAppBar extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// First row: Date and Notification Icon
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
                   Icons.calendar_today_outlined,
                   color: ColorUtil(context).white,
-                  size: 15.ksp,
+                  size: 12.ksp,
                 ),
                 4.kwidthBox,
                 Text(
                   date,
-                  style: TextStyleUtil.genSans500(
+                  style: TextStyleUtil.genNunitoSans600(
                     color: ColorUtil(context).white,
-                    fontSize: 10.ksp,
+                    fontSize: 12.kh,
                   ),
                 ),
                 Spacer(),
                 Container(
-                  // width: 25.ksp,
-                  // height: 25.ksp,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.transparent, // background color
@@ -87,7 +84,7 @@ class HomeAppBar extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.all(3.ksp),
                                 decoration: BoxDecoration(
-                                  color: ColorUtil(context).brandColor3,
+                                  color: ColorUtil(context).orangeColor,
                                   shape: BoxShape.circle,
                                 ),
                                 child: Text(
@@ -109,9 +106,8 @@ class HomeAppBar extends StatelessWidget {
               ],
             ),
 
-            15.kheightBox,
+            12.kheightBox,
 
-            /// Second row: Profile + Hi + Name
             Row(
               children: [
                 // FluttermojiCircleAvatar(
@@ -155,9 +151,9 @@ class HomeAppBar extends StatelessWidget {
                           " " +
                           userName +
                           LocaleKeys.exclamation.tr,
-                      style: TextStyleUtil.genSans500(
+                      style: TextStyleUtil.genSans600(
                         color: ColorUtil(context).white,
-                        fontSize: 22.ksp,
+                        fontSize: 22.kh,
                       ),
                     ),
                     Row(

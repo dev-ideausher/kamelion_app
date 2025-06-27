@@ -159,18 +159,18 @@ class TextStyleUtil {
       fontWeight: FontWeight.w600,
     );
   }
-  static TextStyle genSans700({
-    Color color = Colors.white,
-    double? height,
-    required double fontSize,
-  }) {
-    return TextStyle(
-      height: height,
-      color: color,
-      fontSize: fontSize,
-      fontWeight: FontWeight.w600,
-    );
-  }
+  // static TextStyle genSans700({
+  //   Color color = Colors.white,
+  //   double? height,
+  //   required double fontSize,
+  // }) {
+  //   return TextStyle(
+  //     height: height,
+  //     color: color,
+  //     fontSize: fontSize,
+  //     fontWeight: FontWeight.w600,
+  //   );
+  // }
 }
 
 

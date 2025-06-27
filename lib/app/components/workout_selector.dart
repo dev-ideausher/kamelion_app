@@ -24,15 +24,12 @@ class WorkoutSelector extends StatelessWidget {
             : Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 8.0.ksp),
-                  child: Text(
-                    "Popular Mental Gyms",
-                    style: TextStyleUtil.genSans500(
-                      fontSize: 16.ksp,
-                      color: ColorUtil(context).black,
-                      height: 1.2,
-                    ),
+                Text(
+                  "Popular Mental Gyms",
+                  style: TextStyleUtil.genSans500(
+                    fontSize: 16.ksp,
+                    color: ColorUtil(context).black,
+                    height: 1.2,
                   ),
                 ),
                 Row(
@@ -51,7 +48,7 @@ class WorkoutSelector extends StatelessWidget {
                         ),
                       ),
                     ),
-                    20.kwidthBox,
+
                   ],
                 ),
               ],

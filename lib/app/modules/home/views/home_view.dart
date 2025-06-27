@@ -25,7 +25,9 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
+
   final HomeController controller = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -38,115 +40,129 @@ class HomeView extends GetView<HomeController> {
       builder: (controller) {
         return controller.isLoading.value
             ? Container(
-              child: Center(
-                child: CircularProgressIndicator(color: context.brandColor1),
-              ),
-            )
+                child: Center(
+                  child: CircularProgressIndicator(color: context.brandColor1),
+                ),
+              )
             : Scaffold(
-              backgroundColor: ColorUtil(context).scaffoldBg,
-              body: SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      HomeAppBar(
-                        coincount:
-                            controller.currentUser.value.rewards.toString(),
-                        userName:
-                            (controller.currentUser.value.nickname ?? "User")
-                                .capitalizeFirst ??
-                            "User",
-                      ),
-
-                      20.kheightBox,
-                      controller.currentMoodsList.isEmpty
-                          ? FeelingSelectionWidget(
-                            moodsToShow: controller.moodsToShow,
-                          )
-                          : Column(
+                backgroundColor: ColorUtil(context).scaffoldBg,
+                body: SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        HomeAppBar(
+                          coincount:
+                              controller.currentUser.value.rewards.toString(),
+                          userName:
+                              (controller.currentUser.value.nickname ?? "User")
+                                      .capitalizeFirst ??
+                                  "User",
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 20.kw, right: 20.kw),
+                          child: Column(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 8.0.ksp),
-                                    child: Text(
-                                      LocaleKeys.todays_mood.tr,
-                                      style: TextStyleUtil.genSans500(
-                                        fontSize: 16.ksp,
-                                        color: ColorUtil(context).black,
-                                        height: 1.2,
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      controller.showMoodPopup(context);
-                                    },
-                                    child: Row(
+                              20.kheightBox,
+                              controller.currentMoodsList.isEmpty
+                                  ? FeelingSelectionWidget(
+                                      moodsToShow: controller.moodsToShow,
+                                    )
+                                  : Column(
                                       children: [
-                                        Text(
-                                          LocaleKeys.add.tr,
-                                          style: TextStyleUtil.genSans500(
-                                            fontSize: 11.ksp,
-                                            color:
-                                                ColorUtil(context).brandColor1,
-                                            height: 1.2,
-                                          ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 0.0.ksp),
+                                              child: Text(
+                                                LocaleKeys.todays_mood.tr,
+                                                style: TextStyleUtil.genSans600(
+                                                  fontSize: 20.kh,
+                                                  color:
+                                                      ColorUtil(context).black,
+
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                controller
+                                                    .showMoodPopup(context);
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    LocaleKeys.add.tr,
+                                                    style: TextStyleUtil
+                                                        .genNunitoSans700(
+                                                      fontSize: 14.kh,
+                                                      color: ColorUtil(context)
+                                                          .brandColor1,
+                                                      // height: 1.2,
+                                                    ),
+                                                  ),
+                                                  4.kwidthBox,
+                                                  CommonImageView(
+
+                                                    svgPath:
+                                                        ImageConstant.addIcon,
+                                                    height: 16.kh,
+                                                    width: 16.kh,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        4.kwidthBox,
-                                        CommonImageView(
-                                          svgPath: ImageConstant.addIcon,
-                                        ),
-                                        20.kwidthBox,
+                                        16.kheightBox,
+                                        ...controller.currentMoodsList
+                                            .map(
+                                              (element) => TodaysMood(
+                                                feelings: element.feelings
+                                                        ?.join(",") ??
+                                                    "",
+                                                activities:
+                                                    element.activities ?? "",
+                                                time: element.createdAtLocal
+                                                    .toString()
+                                                    .substring(11, 16),
+                                                desc: (element.note ?? "")
+                                                        .capitalizeFirst ??
+                                                    "",
+                                                mood: (element.mood ?? "")
+                                                        .capitalizeFirst ??
+                                                    "",
+                                                moodImage:
+                                                    controller.getMoodImage(
+                                                  mood: element.mood ?? "",
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
                                       ],
                                     ),
-                                  ),
-                                ],
+                              20.kheightBox,
+                              MentalGymSelector(
+                                mentalGymList: Get.find<MentalGymController>()
+                                    .mentalGymCategoryList,
                               ),
-
-                              ...controller.currentMoodsList
-                                  .map(
-                                    (element) => TodaysMood(
-                                      feelings:
-                                          element.feelings?.join(",") ?? "",
-                                      activities: element.activities ?? "",
-                                      time: element.createdAtLocal
-                                          .toString()
-                                          .substring(11, 16),
-                                      desc:
-                                          (element.note ?? "")
-                                              .capitalizeFirst ??
-                                          "",
-                                      mood:
-                                          (element.mood ?? "")
-                                              .capitalizeFirst ??
-                                          "",
-                                      moodImage: controller.getMoodImage(
-                                        mood: element.mood ?? "",
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
+                              20.kheightBox,
+                              WorkoutSelector(
+                                  workoutList: controller.mentalGymList),
+                              10.kheightBox,
+                              PersonalInsightBox(),
+                              10.kheightBox,
+                              ExporleCommuntiesBox(),
                             ],
                           ),
-                      20.kheightBox,
-                      MentalGymSelector(
-                        mentalGymList:
-                            Get.find<MentalGymController>()
-                                .mentalGymCategoryList,
-                      ),
-                      20.kheightBox,
-                      WorkoutSelector(workoutList: controller.mentalGymList),
-                      10.kheightBox,
-                      PersonalInsightBox(),
-                      10.kheightBox,
-                      ExporleCommuntiesBox(),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
       },
     );
   }
