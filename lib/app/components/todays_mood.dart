@@ -46,52 +46,47 @@ class TodaysMood extends StatelessWidget {
                 border: Border.all(color: context.darkPitch),
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonImageView(svgPath: moodImage),
-                  20.kwidthBox,
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Container(
-                        width: context.width * 0.69,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              mood,
-                              style: TextStyleUtil.genSans400(
-                                fontSize: 14.ksp,
-                                color: ColorUtil(context).black,
-                              ),
+                      CommonImageView(svgPath: moodImage),  20.kwidthBox,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            mood,
+                            style: TextStyleUtil.genSans400(
+                              fontSize: 14.ksp,
+                              color: ColorUtil(context).black,
                             ),
-                            Text(
-                              time,
-                              style: TextStyleUtil.genSans500(
-                                fontSize: 11.ksp,
-                                color: ColorUtil(context).black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: context.width * 0.69,
-                        child: Text(
-                          desc,
-                          // "I woke up smiling, grateful for life’s little joys.",
-                          style: TextStyleUtil.genSans300(
-                            fontSize: 11.ksp,
-                            color: ColorUtil(context).greyDark,
                           ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.left,
-                        ),
+                          Text(
+                            desc,
+                            // "I woke up smiling, grateful for life’s little joys.",
+                            style: TextStyleUtil.genSans300(
+                              fontSize: 11.ksp,
+                              color: ColorUtil(context).greyDark,
+                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.left,
+                          ),
+                        ],
                       ),
                     ],
                   ),
+                  Text(
+                    time,
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 11.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                  ),
+
+
                 ],
               ),
             ),

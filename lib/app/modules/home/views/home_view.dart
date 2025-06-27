@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttermoji/fluttermojiController.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/components/explore_communities_box.dart';
 import 'package:kamelion/app/components/feelings_selection_widget.dart';
@@ -111,9 +112,7 @@ class HomeView extends GetView<HomeController> {
                                       feelings:
                                           element.feelings?.join(",") ?? "",
                                       activities: element.activities ?? "",
-                                      time: element.createdAtLocal
-                                          .toString()
-                                          .substring(11, 16),
+                                      time:DateFormat.jm().format( DateTime.parse(element.createdAt as String).toLocal()).toString(),
                                       desc:
                                           (element.note ?? "")
                                               .capitalizeFirst ??

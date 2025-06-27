@@ -5,6 +5,7 @@ import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 
+
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController? controller;
@@ -21,22 +22,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String)? onFieldSubmitted;
   FocusNode? focusNode;
 
-  const CustomTextField(
-      {Key? key,
-      required this.hintText,
-      this.controller,
-      this.onChange,
-      this.prefixIcon,
-      this.fillColor,
-      this.filled,
-      this.maxLines,
-      this.prefixIconWidget,
-      this.suffixIconWidget,
-      this.readOnly,
-      this.inputFormatters = const [],
-      this.validator,
-      this.onFieldSubmitted});
-   CustomTextField({
+  CustomTextField({
     Key? key,
     required this.hintText,
     this.controller,
@@ -56,58 +42,41 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 44.kh, // Set height
-      decoration: BoxDecoration(
-        color: context.white,
-        borderRadius: BorderRadius.all(Radius.circular(8.ksp)),
-        boxShadow: [
-          BoxShadow(
-            color: context.grey.withOpacity(0.2), // Light shadow
-            blurRadius: 5,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      child: TextFormField(
-        validator: validator,
-        onFieldSubmitted: onFieldSubmitted,
-        inputFormatters: inputFormatters,
-        readOnly: readOnly ?? false,
-        onChanged: onChange,
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyleUtil.genNunitoSans400(
-            fontSize: 12.ksp,
-            color: context.greyDark,
-          ),
-          fillColor: context.white,
-          filled: filled,
-          prefix: prefixIcon,
-          prefixIcon: prefixIconWidget,
-          suffixIcon: suffixIconWidget,
-          contentPadding: EdgeInsets.symmetric(horizontal: 14.kw,vertical:10.kh ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp), // Rounded corners
-            borderSide:
-                BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(
-                color: ColorUtil(context).grey.withOpacity(0.7), width: 1.ksp),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(color: ColorUtil(context).brandColor1),
-          ),
+    return TextFormField(validator: validator,
+      focusNode: focusNode,
+      onFieldSubmitted:onFieldSubmitted,
+      inputFormatters: inputFormatters,
+      readOnly: readOnly ?? false,
+      onChanged: onChange,
+      controller: controller,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyleUtil.genSans400(
+          fontSize: 12.ksp,
+          color: context.greyDark,
+        ),
+        fillColor: fillColor,
+        filled: filled,
+        prefix: prefixIcon,
+        prefixIcon: prefixIconWidget,
+        suffixIcon:suffixIconWidget ,
+        contentPadding: EdgeInsets.symmetric(horizontal: 16.ksp),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.ksp), // Rounded corners
+          borderSide: BorderSide(color: ColorUtil(context).grey),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.ksp),
+          borderSide: BorderSide(color: ColorUtil(context).grey),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(4.ksp),
+          borderSide: BorderSide(color: ColorUtil(context).brandColor1),
         ),
       ),
     );
   }
 }
-
 class CustomTextFieldPassword extends StatefulWidget {
   final String hintText;
   final TextEditingController? controller;
@@ -154,51 +123,51 @@ class _CustomTextFieldPasswordState extends State<CustomTextFieldPassword> {
   Widget build(BuildContext context) {
     return Container(
 
-      decoration: BoxDecoration(
-        color: context.white,
-        borderRadius: BorderRadius.all(Radius.circular(8.ksp)),
-        boxShadow: [
-          BoxShadow(
-            color: context.grey.withOpacity(0.2),
-            blurRadius: 5,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      child: TextFormField(
+        decoration: BoxDecoration(
+          color: context.white,
+          borderRadius: BorderRadius.all(Radius.circular(8.ksp)),
+          boxShadow: [
+            BoxShadow(
+              color: context.grey.withOpacity(0.2),
+              blurRadius: 5,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
+        child: TextFormField(
 
-        obscureText: widget.isPassword ? _obscureText : false,
-        validator: widget.validator,
-        onFieldSubmitted: widget.onFieldSubmitted,
-        inputFormatters: widget.inputFormatters,
-        readOnly: widget.readOnly ?? false,
-        onChanged: widget.onChange,
-        controller: widget.controller,
-        decoration: InputDecoration(
-          hintText: widget.hintText,
-          hintStyle: TextStyleUtil.genNunitoSans400(
-            fontSize: 12.ksp,
-            color: context.greyDark,
-          ),
-          fillColor: context.white,
-          filled: widget.filled,
-          prefix: widget.prefixIcon,
-          prefixIcon: widget.prefixIconWidget,
+            obscureText: widget.isPassword ? _obscureText : false,
+            validator: widget.validator,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            inputFormatters: widget.inputFormatters,
+            readOnly: widget.readOnly ?? false,
+            onChanged: widget.onChange,
+            controller: widget.controller,
+            decoration: InputDecoration(
+                hintText: widget.hintText,
+                hintStyle: TextStyleUtil.genNunitoSans400(
+                  fontSize: 12.ksp,
+                  color: context.greyDark,
+                ),
+                fillColor: context.white,
+                filled: widget.filled,
+                prefix: widget.prefixIcon,
+                prefixIcon: widget.prefixIconWidget,
 
-          suffixIcon:
+                suffixIcon:
 
-          // SvgPicture.asset(
-          //     height: 30.kh,
-          //     "assets/svg/eye.svg",
-          //   color: Colors.black,
-          //
-          // ),
-          widget.isPassword
-              ? SizedBox(
-            height: 12,
-            width: 12,
-                child: Center(
-                  child: GestureDetector(
+                // SvgPicture.asset(
+                //     height: 30.kh,
+                //     "assets/svg/eye.svg",
+                //   color: Colors.black,
+                //
+                // ),
+                widget.isPassword
+                    ? SizedBox(
+                  height: 12,
+                  width: 12,
+                  child: Center(
+                    child: GestureDetector(
                       onTap: () {
                         setState(() {
                           _obscureText = !_obscureText;
@@ -206,70 +175,39 @@ class _CustomTextFieldPasswordState extends State<CustomTextFieldPassword> {
                       },
                       child: _obscureText
                           ?
-                           SizedBox(
+                      SizedBox(
                         height: 14.ksp,
                         width: 14.ksp,
                         child: SvgPicture.asset(
                           "assets/svg/eye.svg",
                         ),
-                      ):SizedBox(
+                      ) : SizedBox(
                         height: 14.ksp,
                         width: 14.ksp,
-                            child: SvgPicture.asset("assets/svg/eye_hide.svg",
+                        child: SvgPicture.asset("assets/svg/eye_hide.svg",
 
-                                              ),
-                          ),
+                        ),
+                      ),
                     ),
+                  ),
+                )
+                    : widget.suffixIconWidget,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 14.kw, vertical: 10.kh),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.ksp),
+                  borderSide:
+                  BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
                 ),
-              )
-              : widget.suffixIconWidget,
-          contentPadding: EdgeInsets.symmetric(horizontal: 14.kw,vertical:10.kh ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide:
-                BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(
-                color: ColorUtil(context).grey.withOpacity(0.7), width: 1.ksp),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(color: ColorUtil(context).brandColor1),
-          ),
-    return TextFormField(validator: validator,
-focusNode: focusNode,
-onFieldSubmitted:onFieldSubmitted,
-      inputFormatters: inputFormatters,
-      readOnly: readOnly ?? false,
-      onChanged: onChange,
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyleUtil.genSans400(
-          fontSize: 12.ksp,
-          color: context.greyDark,
-        ),
-        fillColor: fillColor,
-        filled: filled,
-        prefix: prefixIcon,
-        prefixIcon: prefixIconWidget,
-        suffixIcon:suffixIconWidget ,
-        contentPadding: EdgeInsets.symmetric(horizontal: 16.ksp),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.ksp), // Rounded corners
-          borderSide: BorderSide(color: ColorUtil(context).grey),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.ksp),
-          borderSide: BorderSide(color: ColorUtil(context).grey),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4.ksp),
-          borderSide: BorderSide(color: ColorUtil(context).brandColor1),
-        ),
-      ),
-    );
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.ksp),
+                  borderSide: BorderSide(
+                      color: ColorUtil(context).grey.withOpacity(0.7),
+                      width: 1.ksp),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.ksp),
+                  borderSide: BorderSide(color: ColorUtil(context).brandColor1),
+                ))));
   }
 }

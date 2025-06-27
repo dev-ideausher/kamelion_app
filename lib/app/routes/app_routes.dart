@@ -38,6 +38,7 @@ abstract class Routes {
   static const QUIZE_COLLECT_COIN = _Paths.QUIZE_COLLECT_COIN;
   static const SEARCH_MENTAL_GYM = _Paths.SEARCH_MENTAL_GYM;
   static const UPDATE_TIMELINE = _Paths.UPDATE_TIMELINE;
+  static const MOOD_TRACKER = _Paths.MOOD_TRACKER;
 }
 
 abstract class _Paths {
@@ -77,4 +78,5 @@ abstract class _Paths {
   static const QUIZE_COLLECT_COIN = '/quize-collect-coin';
   static const SEARCH_MENTAL_GYM = '/search-mental-gym';
   static const UPDATE_TIMELINE = '/update-timeline';
+  static const MOOD_TRACKER = '/mood-tracker';
 }

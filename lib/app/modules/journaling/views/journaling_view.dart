@@ -49,7 +49,7 @@ class JournalingView extends GetView<JournalingController> {
                 elevation: 0,
                 backgroundColor: context.brandColor1,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24),bottomRight: Radius.circular(24))),
-                expandedHeight:   Get.find<JournalingController>().currentCatenderIndex.value == 1
+                expandedHeight:   controller.currentCatenderIndex.value == 1
                     ? 460.ksp
                     : 270.ksp,    // same as your “calendar” height
                 flexibleSpace: FlexibleSpaceBar(

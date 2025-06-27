@@ -5,7 +5,7 @@ import 'package:kamelion/app/components/activities/calender.dart';
 import 'package:kamelion/app/components/activities/week_calender_row.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
-import 'package:kamelion/app/modules/journaling/controllers/journaling_controller.dart';
+import 'package:kamelion/app/modules/mood_tracker/controllers/mood_tracker_controller.dart';
 import 'package:kamelion/app/modules/profile/views/profile_view.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
@@ -13,14 +13,14 @@ import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class JournalAppBar extends StatelessWidget {
-  JournalAppBar({super.key, required this.tabController});
+class MoodTrackerAppBar extends StatelessWidget {
+  MoodTrackerAppBar({super.key, required this.tabController});
   TabController tabController;
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
+          () => Container(
         decoration: BoxDecoration(
           color: ColorUtil(context).brandColor1,
           borderRadius: BorderRadius.only(
@@ -29,9 +29,9 @@ class JournalAppBar extends StatelessWidget {
           ),
         ),
         height:
-            Get.find<JournalingController>().currentCatenderIndex.value == 1
-                ? 460.ksp
-                : 250.ksp,
+        Get.find<MoodTrackerController>().currentCatenderIndex.value == 1
+            ? 460.ksp
+            : 250.ksp,
         padding: EdgeInsets.all(16.ksp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,51 +125,51 @@ class CalenderTabBar extends StatelessWidget {
   Color selectedTabColor, backgroundColor, unselectedLabelColor, labelColor;
   @override
   Widget build(BuildContext context) {
-    Get.put(JournalingController());
-    final ctrl = Get.find<JournalingController>();
+    Get.put(MoodTrackerController());
+    final ctrl = Get.find<MoodTrackerController>();
     return Center(
       child:Obx((){
         final selected = ctrl.currentCatenderIndex.value;
         return Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(24.ksp), // Rounded corners
-        ),
-        child: TabBar(
-          controller: tabController,
-          indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(16.ksp),
-            color: selectedTabColor,
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(24.ksp), // Rounded corners
           ),
-          indicatorSize: TabBarIndicatorSize.tab,
-          padding: EdgeInsets.all(3.ksp),
-          labelColor: labelColor,
-          unselectedLabelColor: unselectedLabelColor,
-          dividerHeight: 0,
-          indicatorWeight: 0,
-          labelPadding: EdgeInsets.all(0),
-          onTap: (val) {
-            Get.find<JournalingController>().currentCatenderIndex.value = val;
-          },
-          tabs: [
-            Tab(
-              child: CommonImageView(
-                svgPath: ImageConstant.weekCalenderIcon,
-                // if this tab is selected, tint with `selectedTabColor`, else grey
-                svgColor: selected == 0 ? Colors.green : unselectedLabelColor,
-              ),
+          child: TabBar(
+            controller: tabController,
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(16.ksp),
+              color: selectedTabColor,
             ),
-            Tab(
-              child: CommonImageView(
-                svgPath: ImageConstant.calenderIcon,
-                svgColor: selected == 1 ? Colors.green  : unselectedLabelColor,
+            indicatorSize: TabBarIndicatorSize.tab,
+            padding: EdgeInsets.all(3.ksp),
+            labelColor: labelColor,
+            unselectedLabelColor: unselectedLabelColor,
+            dividerHeight: 0,
+            indicatorWeight: 0,
+            labelPadding: EdgeInsets.all(0),
+            onTap: (val) {
+              Get.find<MoodTrackerController>().currentCatenderIndex.value = val;
+            },
+            tabs: [
+              Tab(
+                child: CommonImageView(
+                  svgPath: ImageConstant.weekCalenderIcon,
+                  // if this tab is selected, tint with `selectedTabColor`, else grey
+                  svgColor: selected == 0 ? Colors.green : unselectedLabelColor,
+                ),
               ),
-            ),
-          ],
-        ),
-      );}),
+              Tab(
+                child: CommonImageView(
+                  svgPath: ImageConstant.calenderIcon,
+                  svgColor: selected == 1 ? Colors.green  : unselectedLabelColor,
+                ),
+              ),
+            ],
+          ),
+        );}),
     );
   }
 }
