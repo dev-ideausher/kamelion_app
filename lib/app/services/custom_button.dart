@@ -64,7 +64,7 @@ class CustomButton extends StatelessWidget {
                     ? BoxDecoration(
                       // color: !disabled ? color ?? ColorUtil.kcPrimaryColor : color ?? ColorUtil.kcMediumGreyColor,
                       borderRadius: BorderRadius.circular(
-                        borderRadius ?? 12.kh,
+                        borderRadius ?? 8.kh,
                       ),
                       // gradient: linearGradient ??
                       //     LinearGradient(begin: Alignment(0, 0), end: Alignment(0, 0), colors: [
@@ -78,7 +78,7 @@ class CustomButton extends StatelessWidget {
                               ? buttonColor ?? context.brandColor1
                               : context.disabledButtonColor,
                       borderRadius: BorderRadius.circular(
-                        borderRadius ?? 12.kh,
+                        borderRadius ?? 8.kh,
                       ),
                       border: Border.all(
                         color:
@@ -97,9 +97,9 @@ class CustomButton extends StatelessWidget {
                         if (leading != null) SizedBox(width: 10.kw),
                         Text(
                           title,
-                          style: TextStyleUtil.genSans400(
+                          style: TextStyleUtil.genNunitoSans600(
                             // fontWeight: !outline ? FontWeight.bold : FontWeight.w400,
-                            fontSize: 13.ksp,
+                            fontSize: 14.ksp,
                             color:
                                 !disabled
                                     ? (!outline

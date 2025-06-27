@@ -43,7 +43,7 @@ class SignUpView extends GetView<SignUpController> {
                   children: [
                     Text(
                       LocaleKeys.welcomeTo.tr + " ",
-                      style: TextStyleUtil.genSans500(
+                      style: TextStyleUtil.genSans600(
                         fontSize: 20.ksp,
                         color: ColorUtil(context).black,
                       ),
@@ -51,7 +51,7 @@ class SignUpView extends GetView<SignUpController> {
                     ),
                     Text(
                       LocaleKeys.kamelion.tr,
-                      style: TextStyleUtil.genSans500(
+                      style: TextStyleUtil.genSans600(
                         fontSize: 20.ksp,
                         color: ColorUtil(context).brandColor1,
                       ),
@@ -59,73 +59,77 @@ class SignUpView extends GetView<SignUpController> {
                   ],
                 ),
               ),
-              6.kheightBox,
+              8.kheightBox,
               Text(
                 " " + LocaleKeys.signupSubtitle.tr,
-                // 'The Feel-Good Wellbeing Platform You Deserve ',
-                style: TextStyleUtil.genSans300(
-                  fontSize: 12.ksp,
-                  color: ColorUtil(context).black,
+                style: TextStyleUtil.genNunitoSans500(
+                  fontSize: 16.ksp,
+                  color: ColorUtil(context).greyScaleText,
                 ),
                 textAlign: TextAlign.left,
               ),
               30.kheightBox,
               Text(
                 " ${LocaleKeys.fullName.tr}",
-                style: TextStyleUtil.genSans300(
+                style: TextStyleUtil.genNunitoSans500(
                   fontSize: 12.ksp,
-                  color: context.black,
+                  color: context.greyScaleText,
                 ),
               ),
-              10.kheightBox,
+              6.kheightBox,
               CustomTextField(
+
                 hintText: LocaleKeys.fullNameHint.tr,
                 controller: controller.fullNameController,
                 onChange: (val) => controller.checkFormValidity(val),
               ),
-              10.kheightBox,
+              16.kheightBox,
               Text(
                 " ${LocaleKeys.email.tr}",
-                style: TextStyleUtil.genSans300(
+                style: TextStyleUtil.genNunitoSans500(
                   fontSize: 12.ksp,
-                  color: context.black,
+                  color: context.greyScaleText,
                 ),
               ),
-              10.kheightBox,
+              6.kheightBox,
               CustomTextField(
                 hintText: LocaleKeys.emailHint.tr,
                 controller: controller.emailController,
                 onChange: (val) => controller.checkFormValidity(val),
               ),
-              10.kheightBox,
+              16.kheightBox,
               Text(
                 " ${LocaleKeys.password.tr}",
-                style: TextStyleUtil.genSans300(
+                style: TextStyleUtil.genNunitoSans500(
                   fontSize: 12.ksp,
-                  color: context.black,
+                  color: context.greyScaleText,
                 ),
+
               ),
-              10.kheightBox,
-              CustomTextField(
+              6.kheightBox,
+              CustomTextFieldPassword(
+                isPassword: true,
+
                 hintText: LocaleKeys.passwordHint.tr,
                 controller: controller.passwordController,
                 onChange: (val) => controller.checkFormValidity(val),
               ),
-              10.kheightBox,
+              16.kheightBox,
               Text(
                 " ${LocaleKeys.confirmPassword.tr}",
-                style: TextStyleUtil.genSans300(
+                style: TextStyleUtil.genNunitoSans500(
                   fontSize: 12.ksp,
-                  color: context.black,
+                  color: context.greyScaleText,
                 ),
               ),
-              10.kheightBox,
-              CustomTextField(
+              6.kheightBox,
+              CustomTextFieldPassword(
+                isPassword: true,
                 hintText: LocaleKeys.confirmPasswordHint.tr,
                 controller: controller.confirmPasswordController,
                 onChange: (val) => controller.checkFormValidity(val),
               ),
-              50.kheightBox,
+              150.kheightBox,
               Obx(
                 () => Padding(
                   padding: EdgeInsets.all(0.ksp),

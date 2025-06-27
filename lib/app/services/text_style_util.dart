@@ -32,6 +32,70 @@ class TextStyleUtil {
     // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
   }
 
+
+  static TextStyle genNunitoSans400({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.nunitoSans(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w400,
+      height: height,
+    );
+
+    // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
+  }
+
+
+  static TextStyle genNunitoSans600({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.nunitoSans(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w600,
+      height: height,
+    );
+
+    // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
+  }
+
+
+
+  static TextStyle genNunitoSans500({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.nunitoSans(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w500,
+      height: height,
+    );
+
+    // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
+  }
+
+
+  static TextStyle genNunitoSans700({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.nunitoSans(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w700,
+      height: height,
+    );
+
+  }
+
   static TextStyle genSans500({
     Color color = Colors.white,
     required double fontSize,
@@ -44,11 +108,52 @@ class TextStyleUtil {
     );
   }
 
+
+
+  static TextStyle genSans700({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.quicksand(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+
+
+  static TextStyle genSans800({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.quicksand(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w800,
+    );
+  }
+
+
+  static TextStyle genSans900({
+    Color color = Colors.white,
+    required double fontSize,
+    double? height,
+  }) {
+    return GoogleFonts.quicksand(
+      color: color,
+      fontSize: fontSize,
+      fontWeight: FontWeight.w900,
+    );
+  }
+
   static TextStyle genSans600({
     Color color = Colors.white,
     required double fontSize,
   }) {
-    return TextStyle(
+    return GoogleFonts.quicksand(
       color: color,
       fontSize: fontSize,
       fontWeight: FontWeight.w600,
@@ -67,6 +172,9 @@ class TextStyleUtil {
     );
   }
 }
+
+
+
 
 extension AppText on String {
   String get string => this;
