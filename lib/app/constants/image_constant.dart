@@ -67,7 +67,8 @@ class ImageConstant {
   static String kamelionConfused = 'assets/svg/kamelion_confused.svg';
   static String savingCard = 'assets/svg/saving_card.svg';
   static String satInUmbrella = 'assets/svg/umbralla_under.svg';
-
+  static String postChatIcon = 'assets/svg/post_chat_icon.svg';
+  static String userGroupIcon = 'assets/svg/user_group_icon.svg';
   static String deleteIcon = 'assets/svg/delete_icon.svg';
   static String editIcon = 'assets/svg/edit_icon.svg';
   static String weekCalenderIcon = 'assets/svg/weekly_calender_icon.svg';

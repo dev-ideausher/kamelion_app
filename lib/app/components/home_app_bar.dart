@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:fluttermoji/fluttermojiCustomizer.dart';
 import 'package:fluttermoji/fluttermojiFunctions.dart';
+import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/utils.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +13,7 @@ import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/modules/createAvatar/views/avatar_name_view.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -22,7 +24,7 @@ class HomeAppBar extends StatelessWidget {
   final String userName, coincount;
 
   const HomeAppBar({Key? key, required this.userName, required this.coincount})
-    : super(key: key);
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -105,15 +107,12 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ],
             ),
-
             12.kheightBox,
-
             Row(
               children: [
                 // FluttermojiCircleAvatar(
                 Avatar().showAvatar(
-                  avatarDetails:
-                      Get.find<HomeController>()
+                  avatarDetails: Get.find<HomeController>()
                           .currentUser
                           .value
                           .avatardetails ??
@@ -183,14 +182,15 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ],
             ),
-
             16.kheightBox,
-
             TextFormField(
               // hintText: "Search for anything",
               // fillColor: ColorUtil(context).white,
               // filled: true,
               // prefixIcon: Icon(Icons.search, color: ColorUtil(context).black),
+              onTap: () {
+                Get.toNamed(Routes.HOME_SEARCH);
+              },
               decoration: InputDecoration(
                 hintText: LocaleKeys.search_for_anything.tr,
                 filled: true,

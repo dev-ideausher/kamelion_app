@@ -33,16 +33,16 @@ class APIManager {
       ).post(Endpoints.signUp, data: jsonEncode(body));
 
   static Future<Response> login() async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).post(Endpoints.login);
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).post(Endpoints.login);
 
   static Future<Response> getOnboardingQuestion() async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getOnboardingQuestions);
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getOnboardingQuestions);
 
   static Future<Response> getMentalGymQuestions(String id) async =>
       await DioClient(
@@ -52,16 +52,16 @@ class APIManager {
       ).get(Endpoints.getMentalGymQuestions(id));
 
   static Future<Response> getUser() async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getUser);
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getUser);
 
   static Future<Response> getMentalGymCounts() async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getMentalGymCounts);
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getMentalGymCounts);
 
   static Future<Response> getTodaysMood({required String timezone}) async =>
       await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).get(
@@ -72,10 +72,10 @@ class APIManager {
       );
 
   static Future<Response> getMentalGymCategiries() async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getMentalGymCategiries);
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getMentalGymCategiries);
 
   static Future<Response> getMentalGymsDetails({required String id}) async =>
       await DioClient(
@@ -87,11 +87,12 @@ class APIManager {
   static Future<Response> getCommunityDetails({
     required String id,
     bool isOverlayLoader = true,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: isOverlayLoader,
-  ).get(Endpoints.getCommunityDetails(id));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: isOverlayLoader,
+      ).get(Endpoints.getCommunityDetails(id));
 
   static Future<Response> addLikeToPost({required String id}) async =>
       await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).post(
@@ -102,14 +103,14 @@ class APIManager {
   static Future<Response> addComment({
     required String id,
     required String comment,
-     String parentCommentId="",
+    String parentCommentId = "",
   }) async =>
       await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).post(
         Endpoints.addComment(id),
         data: {
           "userId": Get.find<HomeController>().currentUser.value.sId,
           "text": comment,
-          "parentCommentId":parentCommentId
+          "parentCommentId": parentCommentId
         },
       );
 
@@ -130,21 +131,23 @@ class APIManager {
   static Future<Response> updateCommunity({
     required String id,
     required var body,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).patch(Endpoints.updateCommunity(id), data: body);
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).patch(Endpoints.updateCommunity(id), data: body);
 
   static Future<Response> updatePost({
     required String id,
     required var body,
     bool isOverlayLoader = false,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: isOverlayLoader,
-  ).patch(Endpoints.updatePost(id), data: body);
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: isOverlayLoader,
+      ).patch(Endpoints.updatePost(id), data: body);
 
   static Future<Response> deletePost({required String id}) async =>
       await DioClient(
@@ -183,58 +186,64 @@ class APIManager {
 
   static Future<Response> getMentalGymsByCategory({
     required String categoryId,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: true,
-  ).get(Endpoints.getMentalGymsByCategory(categoryId));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).get(Endpoints.getMentalGymsByCategory(categoryId));
 
   static Future<Response> updateMentalGym({
     required String id,
     required Map body,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: true,
-  ).patch(Endpoints.updateMentalGym(id), data: body);
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).patch(Endpoints.updateMentalGym(id), data: body);
 
   static Future<Response> getPopularMentalGyms({
     required String limit,
     required String page,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getTrendingMentalGyms(limit: limit, page: page));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getTrendingMentalGyms(limit: limit, page: page));
 
   static Future<Response> getActiveMentalGym({
     required String page,
     required String limit,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getActiveMentalGym(page: page, limit: limit));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getActiveMentalGym(page: page, limit: limit));
 
   static Future<Response> searchMentalGym({
     required String page,
     required String limit,
     required String word,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.searchMentalGym(word: word, page: page, limit: limit));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.searchMentalGym(word: word, page: page, limit: limit));
 
   static Future<Response> getYourCommunities({
     required String page,
     required String limit,
     bool loader = false,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: loader,
-  ).get(Endpoints.getYourCommunities(page: page, limit: limit));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: loader,
+      ).get(Endpoints.getYourCommunities(page: page, limit: limit));
 
   static Future<Response> getComments({required String id}) async =>
       await DioClient(
@@ -246,36 +255,45 @@ class APIManager {
   static Future<Response> getTreandingCommunities({
     required String page,
     required String limit,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getTrendingCommunities);
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getTrendingCommunities);
 
   static Future<Response> getfavouriteposts() async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getfavouriteposts);
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getfavouriteposts);
+
+  static Future<Response> getMembersOfList(String id) async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getMembersOfList(id));
 
   static Future<Response> getCommunitiesByCategory({
     required String page,
     required String limit,
     required String id,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get(Endpoints.getCommunitiesByCategory(id));
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getCommunitiesByCategory(id));
 
   static Future<Response> submitOnboardingAnswer({
     required var body,
     required String id,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).patch(Endpoints.updateUser(id), data: body);
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).patch(Endpoints.updateUser(id), data: body);
 
   static Future<Response> saveMentalGym({required var body}) async =>
       await DioClient(
@@ -287,25 +305,27 @@ class APIManager {
   static Future<Response> createAvatar({
     required var body,
     required String id,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).post(Endpoints.createAvatar, data: body);
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).post(Endpoints.createAvatar, data: body);
 
   static Future<Response> saveUser({
     required String school,
     required String name,
     required String email,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-    isAuthNeeded: false,
-  ).post(
-    Endpoints.saveUser,
-    data: {"name": name, "email": email, "school": school},
-  );
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+        isAuthNeeded: false,
+      ).post(
+        Endpoints.saveUser,
+        data: {"name": name, "email": email, "school": school},
+      );
 
   static Future<Response> uploadFile({
     required String filePath,
@@ -377,16 +397,15 @@ class APIManager {
       );
   static Future<Response> getAllJournals({
     required String params,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).get('${Endpoints.getAllJournals}?$params');
-  static Future<Response> postJournalSave(
-      {required dynamic body}) async =>
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get('${Endpoints.getAllJournals}?$params');
+  static Future<Response> postJournalSave({required dynamic body}) async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
           .post(Endpoints.postJournalSave, data: body);
-
 
   static Future<Response> deleteJournal({required String id}) async =>
       await DioClient(
@@ -403,23 +422,25 @@ class APIManager {
   static Future<Response> updateJournal({
     required var body,
     required String id,
-  }) async => await DioClient(
-    Dio(),
-    showSnakbar: false,
-    isOverlayLoader: false,
-  ).patch(Endpoints.updateJournal(id), data: body);
-  static Future<Response> deleteComment({required String postId,required String commentId}) async =>
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).patch(Endpoints.updateJournal(id), data: body);
+  static Future<Response> deleteComment(
+          {required String postId, required String commentId}) async =>
       await DioClient(
         Dio(),
         showSnakbar: false,
         isOverlayLoader: true,
-      ).delete(Endpoints.deleteComment(postId: postId,commentId: commentId));
+      ).delete(Endpoints.deleteComment(postId: postId, commentId: commentId));
   static Future<Response> leaveCommunity(
-      {required dynamic body,required String id}) async =>
+          {required dynamic body, required String id}) async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
           .post(Endpoints.leaveCommunity(id), data: body);
   static Future<Response> reportComment(
-      {required dynamic body,required String id}) async =>
+          {required dynamic body, required String id}) async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
           .post(Endpoints.reportComment(id), data: body);
 }

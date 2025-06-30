@@ -109,8 +109,7 @@ class CommunityAppBar extends StatelessWidget {
             Row(
               children: [
                 Avatar().showAvatar(
-                  avatarDetails:
-                      Get.find<HomeController>()
+                  avatarDetails: Get.find<HomeController>()
                           .currentUser
                           .value
                           .avatardetails ??

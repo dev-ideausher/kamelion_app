@@ -24,20 +24,24 @@ class Endpoints {
   static String getActiveMentalGym({
     required String page,
     required String limit,
-  }) => "mentalgym/getallmentalgyms?isActive=true&page=$page&limit=$limit";
+  }) =>
+      "mentalgym/getallmentalgyms?isActive=true&page=$page&limit=$limit";
   static String searchMentalGym({
     required String page,
     required String limit,
     required String word,
-  }) => "mentalgym/getallmentalgyms?search=$word&page=$page&limit=$limit";
+  }) =>
+      "mentalgym/getallmentalgyms?search=$word&page=$page&limit=$limit";
   static String getYourCommunities({
     required String page,
     required String limit,
-  }) => "community/getcommunitys";
+  }) =>
+      "community/getcommunitys";
   static String getTrendingMentalGyms({
     required String page,
     required String limit,
-  }) => "mentalgym/getallmentalgyms?isTrending=true";
+  }) =>
+      "mentalgym/getallmentalgyms?isTrending=true";
   static String getSuggestedMentalGyms(String id) =>
       "mentalgym/getallsuggestedmentalgyms/$id";
   static String getSavedMentalGyms(String id) => "savedmentalgym/get/$id";
@@ -65,14 +69,18 @@ class Endpoints {
   static const String getfavouriteposts = "post/getfavouriteposts";
   static String getCommunitiesByCategory(String id) =>
       "community/getcommunitybycategory/$id";
+  static String getMembersOfList(String id) =>
+      "community/getcommunitymembers/$id";
   static const String getAllJournals = "journal/getalljournals";
-  static const String postJournalSave ="journal/save";
+  static const String postJournalSave = "journal/save";
   static String deleteJournal(String id) => "journal/delete/$id";
-  static String getJournalById(String id) =>   "journal/getjournal/$id";
-  static String updateJournal(String id) =>  "journal/update/$id";
-  static String deleteComment({required String commentId,required String postId}) => "postinteraction/$postId/comment/$commentId";
-  static String leaveCommunity(String id) =>  "community/leavecommunity/$id";
-  static String reportComment(String id) =>  "postinteraction/$id/report";
+  static String getJournalById(String id) => "journal/getjournal/$id";
+  static String updateJournal(String id) => "journal/update/$id";
+  static String deleteComment(
+          {required String commentId, required String postId}) =>
+      "postinteraction/$postId/comment/$commentId";
+  static String leaveCommunity(String id) => "community/leavecommunity/$id";
+  static String reportComment(String id) => "postinteraction/$id/report";
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

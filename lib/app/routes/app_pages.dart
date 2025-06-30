@@ -35,6 +35,8 @@ import '../modules/getStarted/bindings/get_started_binding.dart';
 import '../modules/getStarted/views/get_started_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/homeSearch/bindings/home_search_binding.dart';
+import '../modules/homeSearch/views/home_search_view.dart';
 import '../modules/journaling/bindings/journaling_binding.dart';
 import '../modules/journaling/views/journaling_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -267,6 +269,11 @@ class AppPages {
       name: _Paths.WAVE_ONBOARDING,
       page: () => const WaveOnboardingView(),
       binding: WaveOnboardingBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_SEARCH,
+      page: () => const HomeSearchView(),
+      binding: HomeSearchBinding(),
     ),
   ];
 }

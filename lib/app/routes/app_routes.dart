@@ -40,6 +40,7 @@ abstract class Routes {
   static const UPDATE_TIMELINE = _Paths.UPDATE_TIMELINE;
   static const MOOD_TRACKER = _Paths.MOOD_TRACKER;
   static const WAVE_ONBOARDING = _Paths.WAVE_ONBOARDING;
+  static const HOME_SEARCH = _Paths.HOME_SEARCH;
 }
 
 abstract class _Paths {
@@ -81,4 +82,5 @@ abstract class _Paths {
   static const UPDATE_TIMELINE = '/update-timeline';
   static const MOOD_TRACKER = '/mood-tracker';
   static const WAVE_ONBOARDING = '/wave-onboarding';
+  static const HOME_SEARCH = '/home-search';
 }

@@ -57,7 +57,6 @@ class CommunityPostsAppBar extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-
                   color: Colors.black.withOpacity(
                     0.4,
                   ), // adjust opacity for light/dark shade
@@ -117,32 +116,31 @@ class CommunityPostsAppBar extends StatelessWidget {
                                 .leaveCommunityDialog(context);
                           }
                         },
-                        itemBuilder:
-                            (BuildContext context) => [
-                              PopupMenuItem(
-                                value: 'Mute',
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.notifications_off_outlined),
-                                    10.kwidthBox,
-                                    Text('Mute Community'),
-                                  ],
+                        itemBuilder: (BuildContext context) => [
+                          PopupMenuItem(
+                            value: 'Mute',
+                            child: Row(
+                              children: [
+                                Icon(Icons.notifications_off_outlined),
+                                10.kwidthBox,
+                                Text('Mute Community'),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 'Leave',
+                            child: Row(
+                              children: [
+                                Icon(Icons.logout, color: context.redBg),
+                                10.kwidthBox,
+                                Text(
+                                  'Leave Community',
+                                  style: TextStyle(color: context.redBg),
                                 ),
-                              ),
-                              PopupMenuItem(
-                                value: 'Leave',
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.logout, color: context.redBg),
-                                    10.kwidthBox,
-                                    Text(
-                                      'Leave Community',
-                                      style: TextStyle(color: context.redBg),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -221,38 +219,50 @@ class CommunityPostsAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       8.kwidthBox,
-                      Row(
-                        children: [
-                          CommonImageView(
-                            svgPath: ImageConstant.dumbelIconColored,
-                            height: 11.ksp,
-                          ),
-                          8.kwidthBox,
-                          Text(
-                            "$postCount Posts",
-                            style: TextStyleUtil.genSans500(
-                              fontSize: 10.ksp,
-                              color: context.white,
+                      InkWell(
+                        onTap: () {
+                          Get.find<CommunityPostsController>()
+                              .showOrHideMenbers(val: false);
+                        },
+                        child: Row(
+                          children: [
+                            CommonImageView(
+                              svgPath: ImageConstant.postChatIcon,
+                              height: 12.ksp,
                             ),
-                          ),
-                        ],
+                            8.kwidthBox,
+                            Text(
+                              "$postCount Posts",
+                              style: TextStyleUtil.genSans500(
+                                fontSize: 11.ksp,
+                                color: context.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       20.kwidthBox,
-                      Row(
-                        children: [
-                          CommonImageView(
-                            svgPath: ImageConstant.clockIconColored,
-                            height: 11.ksp,
-                          ),
-                          8.kwidthBox,
-                          Text(
-                            "$memberCount Members",
-                            style: TextStyleUtil.genSans500(
-                              fontSize: 10.ksp,
-                              color: context.white,
+                      InkWell(
+                        onTap: () {
+                          Get.find<CommunityPostsController>()
+                              .showOrHideMenbers(val: true);
+                        },
+                        child: Row(
+                          children: [
+                            CommonImageView(
+                              svgPath: ImageConstant.userGroupIcon,
+                              height: 12.ksp,
                             ),
-                          ),
-                        ],
+                            8.kwidthBox,
+                            Text(
+                              "$memberCount Members",
+                              style: TextStyleUtil.genSans500(
+                                fontSize: 11.ksp,
+                                color: context.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
