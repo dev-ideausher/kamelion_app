@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kamelion/app/constants/enums.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/modules/mood_tracker/controllers/mood_tracker_controller.dart';
 import 'package:kamelion/app/services/dialog_helper.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
@@ -119,6 +121,8 @@ class MoodSelectionFormController extends GetxController {
         Get.back();
         DialogHelper.hideDialog();
         Get.find<HomeController>().getTodaysMood();
+        String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+        Get.find<MoodTrackerController>().getMoods(date: today);
         showMySnackbar(msg: "Mood added");
       } else {
         debugPrint(

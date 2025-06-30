@@ -153,14 +153,19 @@ class MoodTrackerView extends GetView<MoodTrackerController> {
             // ── 3) THE SCROLLABLE BODY ──
             body:
 
-               ListView(
+               Container(
+                      height: context.height,
+                      child:
+                      Obx(() {
+                        if (controller.isLoading.value) {
+                          return Center(child: CircularProgressIndicator());
+                        }
 
-                children: [
-                  // ── WEEK TAB ──
-                  // If you need it scrollable, wrap in ListView/SingleChildScrollView
-                 Container(
-                        height: context.height,
-                        child: ListView.builder(
+                        if (controller.entries.isEmpty) {
+                          return Center(child: Text('No moods logged on ${controller.selectedDate.value}'));
+                        }
+
+                        return ListView.builder(
                           padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                           itemCount: controller.entries.length,
                           itemBuilder: (context, index) {
@@ -169,16 +174,11 @@ class MoodTrackerView extends GetView<MoodTrackerController> {
                             return Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                // Timeline time + connector
+                                // ══ time + line ══
                                 Column(
                                   children: [
-                                    Text(
-                                      entry.time,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey[700],
-                                      ),
-                                    ),
+                                    Text(entry.formattedTime,
+                                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[700])),
                                     Container(
                                       width: 2,
                                       height: isLast ? 40 : 80,
@@ -188,67 +188,71 @@ class MoodTrackerView extends GetView<MoodTrackerController> {
                                 ),
                                 const SizedBox(width: 12),
 
-                                // Mood card
-                                Expanded(
-                                  child: Container(
-                                    margin: const EdgeInsets.only(bottom: 20),
-                                    padding: const EdgeInsets.all(12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(14),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.shade300,
-                                          blurRadius: 6,
-                                          offset: const Offset(0, 3),
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                       CommonImageView(svgPath: entry.imagePath, width: 40, height: 40),
-                                        const SizedBox(width: 10),
+
                                         Expanded(
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                entry.title,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
+                                          child: Container(
+                                            margin: const EdgeInsets.only(bottom: 20),
+                                            padding: const EdgeInsets.all(12),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+
+                                              borderRadius: BorderRadius.circular(32),
+
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey.shade300,
+                                                  blurRadius: 6,
+                                                  offset: const Offset(0, 3),
                                                 ),
-                                              ),
-                                              const SizedBox(height: 4),
-                                              Text(
-                                                entry.description,
-                                                style: const TextStyle(
-                                                  color: Colors.grey,
-                                                  fontSize: 13,
+                                              ],
+                                            ),
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                               CommonImageView(svgPath: controller.getMoodImagePath(entry.mood), width: 40, height: 40),
+                                                const SizedBox(width: 10),
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        entry.mood,
+                                                        style: const TextStyle(
+                                                          fontWeight: FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      const SizedBox(height: 4),
+                                                      Text(
+                                                        entry.note??'',
+                                                        style: const TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
                               ],
                             );
                           },
-                        ),
-                      // ListView.builder(
+                        );
+                      })
+
+
+                 // ListView.builder(
+                      //   padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                       //   itemCount: controller.entries.length,
-                      //   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                       //   itemBuilder: (context, index) {
                       //     final entry = controller.entries[index];
                       //     final isLast = index == controller.entries.length - 1;
-                      //
                       //     return Row(
                       //       crossAxisAlignment: CrossAxisAlignment.start,
                       //       children: [
-                      //         // Timeline line and time
+                      //         // Timeline time + connector
                       //         Column(
                       //           children: [
                       //             Text(
@@ -261,17 +265,17 @@ class MoodTrackerView extends GetView<MoodTrackerController> {
                       //             Container(
                       //               width: 2,
                       //               height: isLast ? 40 : 80,
-                      //               color: Colors.green,
+                      //               color: context.brandColor1,
                       //             ),
                       //           ],
                       //         ),
-                      //         SizedBox(width: 12),
+                      //         const SizedBox(width: 12),
                       //
-                      //         // Card
+                      //         // Mood card
                       //         Expanded(
                       //           child: Container(
-                      //             margin: EdgeInsets.only(bottom: 20),
-                      //             padding: EdgeInsets.all(12),
+                      //             margin: const EdgeInsets.only(bottom: 20),
+                      //             padding: const EdgeInsets.all(12),
                       //             decoration: BoxDecoration(
                       //               color: Colors.white,
                       //               borderRadius: BorderRadius.circular(14),
@@ -279,63 +283,33 @@ class MoodTrackerView extends GetView<MoodTrackerController> {
                       //                 BoxShadow(
                       //                   color: Colors.grey.shade300,
                       //                   blurRadius: 6,
-                      //                   offset: Offset(0, 3),
+                      //                   offset: const Offset(0, 3),
                       //                 ),
                       //               ],
                       //             ),
                       //             child: Row(
                       //               crossAxisAlignment: CrossAxisAlignment.start,
                       //               children: [
-                      //                 // Image
-                      //                 CommonImageView(
-                      //                   svgPath: controller.getMoodImagePath(entry.mood), // Dynamic image based on mood
-                      //                 ),
-                      //                 SizedBox(width: 10),
-                      //                 // Text content
+                      //                CommonImageView(svgPath: entry.imagePath, width: 40, height: 40),
+                      //                 const SizedBox(width: 10),
                       //                 Expanded(
                       //                   child: Column(
                       //                     crossAxisAlignment: CrossAxisAlignment.start,
                       //                     children: [
-                      //                       Row(
-                      //                         children: [
-                      //                           Expanded(
-                      //                             child: Text(
-                      //                               entry.title,
-                      //                               style: TextStyle(
-                      //                                 fontWeight: FontWeight.w600,
-                      //                               ),
-                      //                             ),
-                      //                           ),
-                      //                           Container(
-                      //                             padding: EdgeInsets.symmetric(
-                      //                               horizontal: 8,
-                      //                               vertical: 4,
-                      //                             ),
-                      //                             decoration: BoxDecoration(
-                      //                               color: controller.getMoodColor(entry.mood),
-                      //                               borderRadius: BorderRadius.circular(20),
-                      //                             ),
-                      //                             child: Text(
-                      //                               entry.mood,
-                      //                               style: TextStyle(
-                      //                                 fontSize: 10,
-                      //                                 color: Colors.white,
-                      //                               ),
-                      //                             ),
-                      //                           ),
-                      //                         ],
+                      //                       Text(
+                      //                         entry.title,
+                      //                         style: const TextStyle(
+                      //                           fontWeight: FontWeight.w600,
+                      //                         ),
                       //                       ),
-                      //                       SizedBox(height: 4),
+                      //                       const SizedBox(height: 4),
                       //                       Text(
                       //                         entry.description,
-                      //                         style: TextStyle(
-                      //                           color: Colors.grey[600],
+                      //                         style: const TextStyle(
+                      //                           color: Colors.grey,
                       //                           fontSize: 13,
                       //                         ),
-                      //                         maxLines: 2,
-                      //                         overflow: TextOverflow.ellipsis,
                       //                       ),
-                      //
                       //                     ],
                       //                   ),
                       //                 ),
@@ -349,11 +323,7 @@ class MoodTrackerView extends GetView<MoodTrackerController> {
                       // ),
 
 
-
-                  // ── MONTH TAB: journal list (scrolls to collapse header) ──
-
-                 ) ],
-              )
+               )
 
           ),
         ),

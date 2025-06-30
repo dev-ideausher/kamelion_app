@@ -452,4 +452,18 @@ class APIManager {
           {required dynamic body, required String id}) async =>
       await DioClient(Dio(), showSnakbar: true, isOverlayLoader: true)
           .post(Endpoints.reportComment(id), data: body);
+  static Future<Response> getHomeSearch({required String query}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getHomeSearch(query));
+  static Future<Response> getMoods({
+    required String params,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get('${Endpoints.getMoods}?$params');
 }

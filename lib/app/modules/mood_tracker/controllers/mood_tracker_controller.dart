@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kamelion/app/models/mood_entry_model.dart';
 
 import '../../../constants/image_constant.dart';
 import '../../../models/journal_list_item.dart';
@@ -20,7 +21,7 @@ class MoodTrackerController extends GetxController    with GetTickerProviderStat
   late TabController tabController;
   TextEditingController searchController=TextEditingController();
   RxInt totalJournal=0.obs;
-
+  final entries = <MoodEntry>[].obs;
   @override
   void onInit() {
     super.onInit();
@@ -49,11 +50,34 @@ class MoodTrackerController extends GetxController    with GetTickerProviderStat
 
 
 
+  Future<void> getMoods({ required String date }) async {
+    try {
+      isLoading.value = true;
+      final params = 'date=${Uri.encodeComponent(date)}';
+      selectedDate.value = date;
+      entries.clear();
+
+      final response = await APIManager.getMoods(params: params);
+      if (response.data['status'] == true && response.data['data'] != null) {
+        totalJournal.value = response.data['totalCount'] ?? 0;
+        final List<dynamic> raw = response.data['data'];
+        entries.value = raw.map((j) => MoodEntry.fromJson(j)).toList();
+      } else {
+        entries.clear();
+      }
+    } catch (e) {
+      debugPrint('Error fetching moods: $e');
+      entries.clear();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   void onDateSelected(DateTime date) {
 
     String formattedDate = DateFormat('yyyy-MM-dd').format(date);
     selectedDate.value=formattedDate;
-
+    getMoods(date: formattedDate);
   }
 
   // Helper method for mood colors (keep your existing implementation)
@@ -96,50 +120,6 @@ class MoodTrackerController extends GetxController    with GetTickerProviderStat
 
 
 
-  final entries = <MoodEntry>[
-    MoodEntry(
-      time: '08:00 AM',
-      mood: 'happy',
-      title: 'Morning Joy',
-      description: 'Started the day with a smile.',
-      imagePath: ImageConstant.happyMood,
-    ),
-    MoodEntry(
-      time: '12:30 PM',
-      mood: 'normal',
-      title: 'Afternoon Neutral',
-      description: 'Just another midday.',
-      imagePath: ImageConstant.normalMood,
-    ),
-    MoodEntry(
-      time: '06:45 PM',
-      mood: 'sad',
-      title: 'Evening Blues',
-      description: 'Felt a bit down after work.',
-      imagePath: ImageConstant.sadMood,
-    ),
-    MoodEntry(
-      time: '10:15 PM',
-      mood: 'good',
-      title: 'Night Reflection',
-      description: 'Ended the day on a positive note.',
-      imagePath: ImageConstant.goodMood,
-    ),
-  ];
 
-}
-class MoodEntry {
-  final String time;
-  final String mood;
-  final String title;
-  final String description;
-  final String imagePath;
 
-  MoodEntry({
-    required this.time,
-    required this.mood,
-    required this.title,
-    required this.description,
-    required this.imagePath,
-  });
 }
