@@ -18,6 +18,8 @@ class WorkoutSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Get.find<HomeController>().popularMentalGyms.isEmpty
             ? Container()
@@ -26,10 +28,10 @@ class WorkoutSelector extends StatelessWidget {
               children: [
                 Text(
                   "Popular Mental Gyms",
-                  style: TextStyleUtil.genSans500(
+                  style: TextStyleUtil.genSans600(
                     fontSize: 16.ksp,
                     color: ColorUtil(context).black,
-                    height: 1.2,
+
                   ),
                 ),
                 Row(
@@ -41,7 +43,7 @@ class WorkoutSelector extends StatelessWidget {
                       },
                       child: Text(
                         LocaleKeys.view_all.tr,
-                        style: TextStyleUtil.genSans500(
+                        style: TextStyleUtil.genNunitoSans700(
                           fontSize: 11.ksp,
                           color: ColorUtil(context).brandColor1,
                           height: 1.2,
@@ -53,15 +55,17 @@ class WorkoutSelector extends StatelessWidget {
                 ),
               ],
             ),
-        10.kheightBox,
+        16.kheightBox,
         Obx(
           () => SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ...Get.find<HomeController>().popularMentalGyms.map((item) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0.ksp),
+                    padding: EdgeInsets.symmetric(horizontal: 0.0.ksp),
                     child: GestureDetector(
                       onTap: () {
                         Get.find<MentalGymController>().getWorkoutDetails(
@@ -70,9 +74,14 @@ class WorkoutSelector extends StatelessWidget {
                       },
                       child: Card(
                         elevation: 4,
+                        shadowColor: Colors.grey.withOpacity(0.2),
                         shape: RoundedRectangleBorder(
+                          side: BorderSide(color: context.greyBorder),
                           borderRadius: BorderRadius.circular(4.ksp),
+
+
                         ),
+
                         color: ColorUtil(context).white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

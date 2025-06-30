@@ -42,13 +42,11 @@ class MoodSelectionFormController extends GetxController {
   @override
   void onInit() {
     if (Get.arguments != null && Get.arguments['mood'] != null) {
-      currentMoodSelected.value =
-          Get.arguments['mood'].toString().split('.').last;
+      currentMoodSelected.value = Get.arguments['mood'].toString().split('.').last;
     }
-    if (Get.arguments != null && Get.arguments['note'] != null) {
-      currentMoodSelected.value =
-          Get.arguments['mood'].toString().split('.').last;
 
+    if (Get.arguments != null && Get.arguments['note'] != null) {
+      currentMoodSelected.value = Get.arguments['mood'].toString().split('.').last;
       noteController.text = Get.arguments['note'];
       feelingsController.text = Get.arguments['feeling'];
       activitiesController.text = Get.arguments['activities'];
@@ -75,7 +73,6 @@ class MoodSelectionFormController extends GetxController {
   // }
   void changeSliderValue({required double val}) {
     moodSliderLeval.value = val;
-
     // Set mood based on value range
     if (val <= 20) {
       currentMoodImage.value = ImageConstant.unHappyMood;

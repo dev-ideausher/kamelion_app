@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttermoji/fluttermojiController.dart';
-import 'package:fluttermoji/fluttermojiFunctions.dart';
+
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/feelings_selection_widget.dart';
 import 'package:kamelion/app/constants/image_constant.dart';

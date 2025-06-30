@@ -70,7 +70,7 @@ class SignUpController extends GetxController {
   }
 
   void licenceKeyBottomSheet(BuildContext context) async {
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]+$');
     final password = passwordController.text;
     if (!emailRegex.hasMatch(emailController.text)) {
       showMySnackbar(msg: 'Email is invalid');

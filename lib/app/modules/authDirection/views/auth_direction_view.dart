@@ -53,14 +53,14 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                           children: [
                             Text(
                               LocaleKeys.welcomeTo.tr + " ",
-                              style: TextStyleUtil.genSans500(
+                              style: TextStyleUtil.genSans600(
                                 fontSize: 20.ksp,
                                 color: ColorUtil(context).black,
                               ),
                             ),
                             Text(
                               LocaleKeys.kamelion.tr,
-                              style: TextStyleUtil.genSans500(
+                              style: TextStyleUtil.genSans600(
                                 fontSize: 20.ksp,
                                 color: ColorUtil(context).brandColor1,
                               ),
@@ -83,19 +83,16 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                         () => Row(
                           children: [
                             Checkbox(
+                             side: BorderSide(color: context.grey,),
+
+
                               value: controller.termsAccepted.value,
-                              // fillColor: MaterialStateProperty.all(
-                              //   context.brandColor1,
-                              // ),
                               activeColor: context.brandColor1,
                               onChanged: (value) {
                                 controller.changeCheckboxValue(
                                   !controller.termsAccepted.value,
                                 );
-                                // setState(() {
-                                //   _agreed = value!;
-                                // });
-                              },
+                               },
                             ),
                             Expanded(
                               child: GestureDetector(
@@ -109,9 +106,9 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                                 },
                                 child: RichText(
                                   text: TextSpan(
-                                    style: TextStyleUtil.genSans400(
-                                      fontSize: 11.ksp,
-                                      color: context.black,
+                                    style: TextStyleUtil.genNunitoSans400(
+                                      fontSize: 16.kh,
+                                      color: context.greyScaleText,
                                     ),
                                     children: [
                                       TextSpan(
@@ -122,8 +119,9 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                                       TextSpan(
                                         text: LocaleKeys.termsAndConditions.tr,
                                         // 'Terms and Conditions',
-                                        style: TextStyle(
-                                          color: context.brandColor1,
+                                        style: TextStyleUtil.genNunitoSans700(
+                                          fontSize: 16.kh,
+                                          color: context.brandColorGreen2,
                                         ),
                                         recognizer:
                                             TapGestureRecognizer()
@@ -150,8 +148,9 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                                                       .privacyPolicyKamelion,
                                                 );
                                               },
-                                        style: TextStyle(
-                                          color: context.brandColor1,
+                                        style: TextStyleUtil.genNunitoSans700(
+                                          fontSize: 16.kh,
+                                          color: context.brandColorGreen2,
                                         ),
                                         // Optional: add a link or show a dialog
                                       ),
@@ -179,8 +178,8 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                         },
                         child: Text(
                           LocaleKeys.alreadyHaveAccount.tr,
-                          style: TextStyleUtil.genSans400(
-                            fontSize: 13.ksp,
+                          style: TextStyleUtil.genNunitoSans600(
+                            fontSize: 18.kh,
                             color: ColorUtil(context).brandColor1,
                           ),
                           textAlign: TextAlign.center,

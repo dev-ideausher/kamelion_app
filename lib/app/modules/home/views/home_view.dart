@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttermoji/fluttermojiController.dart';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
@@ -15,10 +14,8 @@ import 'package:kamelion/app/components/todays_mood.dart';
 import 'package:kamelion/app/components/workout_selector.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
-import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
-import 'package:kamelion/app/routes/app_pages.dart';
+
 import 'package:kamelion/app/services/colors.dart';
-import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
@@ -126,9 +123,8 @@ class HomeView extends GetView<HomeController> {
                                                     "",
                                                 activities:
                                                     element.activities ?? "",
-                                                time: element.createdAtLocal
-                                                    .toString()
-                                                    .substring(11, 16),
+                                                time:DateFormat.jm().format( DateTime.parse(element.createdAt as String).toLocal()).toString(),
+
                                                 desc: (element.note ?? "")
                                                         .capitalizeFirst ??
                                                     "",
@@ -152,9 +148,9 @@ class HomeView extends GetView<HomeController> {
                               20.kheightBox,
                               WorkoutSelector(
                                   workoutList: controller.mentalGymList),
-                              10.kheightBox,
+                              24.kheightBox,
                               PersonalInsightBox(),
-                              10.kheightBox,
+                              24.kheightBox,
                               ExporleCommuntiesBox(),
                             ],
                           ),

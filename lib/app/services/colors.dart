@@ -96,6 +96,9 @@ extension ColorUtil on BuildContext {
   Color get grey =>
       dynamicColour(light: HexColor("#D5D7DA"), dark: HexColor("#D5D7DA"));
 
+  Color get greyBorder =>
+      dynamicColour(light: HexColor("#DCDCDC"), dark: HexColor("#DCDCDC"));
+
   Color get greyBg2 =>
       dynamicColour(light: HexColor("#F2F2F2"), dark: HexColor("#F2F2F2"));
 

@@ -39,6 +39,7 @@ abstract class Routes {
   static const SEARCH_MENTAL_GYM = _Paths.SEARCH_MENTAL_GYM;
   static const UPDATE_TIMELINE = _Paths.UPDATE_TIMELINE;
   static const MOOD_TRACKER = _Paths.MOOD_TRACKER;
+  static const WAVE_ONBOARDING = _Paths.WAVE_ONBOARDING;
 }
 
 abstract class _Paths {
@@ -79,4 +80,5 @@ abstract class _Paths {
   static const SEARCH_MENTAL_GYM = '/search-mental-gym';
   static const UPDATE_TIMELINE = '/update-timeline';
   static const MOOD_TRACKER = '/mood-tracker';
+  static const WAVE_ONBOARDING = '/wave-onboarding';
 }

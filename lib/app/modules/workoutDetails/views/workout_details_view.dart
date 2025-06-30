@@ -71,10 +71,10 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                                 .description ??
                             "",
                         // "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
-                        style: TextStyleUtil.genSans400(
-                          fontSize: 12.ksp,
-                          color: ColorUtil(context).black,
-                        ),
+                        style:       TextStyleUtil.genSans400(
+                        fontSize: 16.kh,
+                        color: context.black,
+                      ),
                       ),
                     ),
                     16.kheightBox,
@@ -123,6 +123,10 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                           ),
                         )
                         .toList(),
+                    SizedBox(
+                      height: 120.kh,
+                    ),
+
                     controller.mentalGymDetails!.value.mentalGym!.isActive!
                         ? (controller
                                 .mentalGymDetails!
@@ -237,13 +241,16 @@ class VideoCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      title,
-                      style: TextStyleUtil.genSans500(
-                        fontSize: 13.ksp,
-                        color: context.black,
+                    SizedBox(
+                      width: 220.kw,
+                      child: Text(
+                        title,
+                        style: TextStyleUtil.genNunitoSans600(
+                          fontSize: 18.kh,
+                          color: context.black,
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                     Row(
                       children: [

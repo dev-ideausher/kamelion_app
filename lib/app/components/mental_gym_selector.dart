@@ -76,7 +76,7 @@ class MentalGymSelector extends StatelessWidget {
               int index = entry.key;
               var item = entry.value;
               return Padding(
-                padding:  EdgeInsets.only(left: 16.kw),
+                padding:  EdgeInsets.only(right: 16.kw),
                 child: InkWell(
                   onTap: () async {
                     if (!isMentalGym) {

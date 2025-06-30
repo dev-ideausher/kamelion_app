@@ -63,7 +63,8 @@ class CreateAvatarController extends GetxController {
         );
 
         if (response.statusCode == 200) {
-          Get.offAllNamed(Routes.NAVIGATION_BAR, arguments: true);
+          Get.offAllNamed(Routes.WAVE_ONBOARDING);
+         // Get.offAllNamed(Routes.NAVIGATION_BAR, arguments: true);
         } else {
           debugPrint(
             "An error occurred while getting vendor profile: ${response.data['message']}",

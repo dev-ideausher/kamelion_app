@@ -37,7 +37,7 @@ class TodaysMood extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 8.ksp),
+            padding: EdgeInsets.symmetric(vertical: 4.ksp, horizontal: 0.ksp),
             child: Container(
               padding: EdgeInsets.all(12),
               decoration: BoxDecoration(

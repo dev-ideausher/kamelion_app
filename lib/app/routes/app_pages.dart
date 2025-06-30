@@ -69,6 +69,8 @@ import '../modules/support/bindings/support_binding.dart';
 import '../modules/support/views/support_view.dart';
 import '../modules/update_timeline/bindings/update_timeline_binding.dart';
 import '../modules/update_timeline/views/update_timeline_view.dart';
+import '../modules/waveOnboarding/bindings/wave_onboarding_binding.dart';
+import '../modules/waveOnboarding/views/wave_onboarding_view.dart';
 import '../modules/workoutDetails/bindings/workout_details_binding.dart';
 import '../modules/workoutDetails/views/workout_details_view.dart';
 
@@ -260,6 +262,11 @@ class AppPages {
       name: _Paths.MOOD_TRACKER,
       page: () => const MoodTrackerView(),
       binding: MoodTrackerBinding(),
+    ),
+    GetPage(
+      name: _Paths.WAVE_ONBOARDING,
+      page: () => const WaveOnboardingView(),
+      binding: WaveOnboardingBinding(),
     ),
   ];
 }
