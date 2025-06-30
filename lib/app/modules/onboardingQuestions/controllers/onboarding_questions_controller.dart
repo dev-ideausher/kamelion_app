@@ -29,12 +29,7 @@ class OnboardingQuestionsController extends GetxController {
       await getOnboardingQuestions();
     } else {
       getMentalGymQuestions(
-        Get.find<WorkoutDetailsController>()
-                .mentalGymDetails!
-                .value
-                .mentalGym!
-                .sId ??
-            "",
+        fromPage,
       );
     }
 
@@ -78,7 +73,7 @@ class OnboardingQuestionsController extends GetxController {
       var response = await APIManager.getMentalGymQuestions(id);
 
       if (response.data['data'] != null && response.data['status']) {
-        for (Map<String, dynamic> data in response.data['data']['quizzes']) {
+        for (Map<String, dynamic> data in response.data['data']) {
           onboardingQuestionsList.add(OnBoardingQuestionsModel.fromJson(data));
         }
       } else {
@@ -136,39 +131,37 @@ class OnboardingQuestionsController extends GetxController {
   }
 
   void submitAnswers() async {
-    if (Get.previousRoute == Routes.WORKOUT_DETAILS) {
-      // Get.back();
-      // Get.back();
-      // Get.back();
-      Get.offNamed(Routes.QUIZE_COMPLETE);
-      Get.find<HomeController>().getUser();
-    } else {
+    // if (Get.previousRoute == Routes.WORKOUT_DETAILS) {
+    //   // Get.back();
+    //   // Get.back();
+    //   // Get.back();
+    //   Get.offNamed(Routes.QUIZE_COMPLETE);
+    //   Get.find<HomeController>().getUser();
+    // } else
+    if (Get.previousRoute == Routes.GET_STARTED) {
       try {
         var user = await APIManager.getUser();
-        List answers =
-            onboardingQuestionsList.map((question) {
-              if (question.questionType == "MCQ") {
-                return {
-                  'questionId': question.sId,
-                  'selectedOptions':
-                      question.options!
-                          .asMap()
-                          .entries
-                          .where(
-                            (entry) =>
-                                (question.questionType == "MCQ" &&
-                                    question.isOptionSelected[entry.key] == 1),
-                          )
-                          .map((entry) => entry.value)
-                          .toList(),
-                };
-              } else if (question.questionType == "SLIDER") {
-                return {
-                  'questionId': question.sId,
-                  'selectedOptions': ["${question.isOptionSelected[0]}"],
-                };
-              }
-            }).toList();
+        List answers = onboardingQuestionsList.map((question) {
+          if (question.questionType == "MCQ") {
+            return {
+              'questionId': question.sId,
+              'selectedOptions': question.options!
+                  .asMap()
+                  .entries
+                  .where(
+                    (entry) => (question.questionType == "MCQ" &&
+                        question.isOptionSelected[entry.key] == 1),
+                  )
+                  .map((entry) => entry.value)
+                  .toList(),
+            };
+          } else if (question.questionType == "SLIDER") {
+            return {
+              'questionId': question.sId,
+              'selectedOptions': ["${question.isOptionSelected[0]}"],
+            };
+          }
+        }).toList();
         print(answers);
 
         var response = await APIManager.submitOnboardingAnswer(
@@ -190,6 +183,57 @@ class OnboardingQuestionsController extends GetxController {
         showMySnackbar(title: "Error", msg: e.toString());
         return;
       }
+    } else {
+      submitWorkoutQuize();
+      // Get.offNamed(Routes.QUIZE_COMPLETE);
     }
+  }
+
+  void submitWorkoutQuize() async {
+    List answers = onboardingQuestionsList.map((question) {
+      if (question.questionType == "MCQ" ||
+          question.questionType == "MCQ Based") {
+        return {
+          "question": question.sId,
+          "selectedOptionIndex": question.isOptionSelected!.indexOf(1)
+        };
+      } else if (question.questionType == "SLIDER") {
+        return {
+          {
+            "question": question.sId,
+            "selectedOptionIndex": "${question.isOptionSelected[0]}"
+          }
+        };
+      }
+    }).toList();
+
+    bool hasUnselected = answers.any((q) => q['selectedOptionIndex'] == -1);
+
+    if (hasUnselected) {
+      showMySnackbar(msg: "Select answers to all questions");
+      return;
+    }
+
+    var response = await APIManager.submitMentalGymAnswer(
+      body: {
+        "answers": answers,
+        "quizId": onboardingQuestionsList[0].quizListId,
+      },
+      // id: user.data["data"]["_id"],
+    );
+
+    if (response.statusCode == 200) {
+      Get.offNamed(Routes.QUIZE_COMPLETE, arguments: [
+        response.data['data']['isCompleted'],
+        response.data['data']['earnedKalikoins']
+      ]);
+      Get.find<HomeController>().getUser();
+    } else {
+      debugPrint(
+        "An error occurred while getting vendor profile: ${response.data['message']}",
+      );
+    }
+    update();
+    return;
   }
 }

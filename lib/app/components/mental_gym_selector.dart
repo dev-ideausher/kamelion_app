@@ -60,7 +60,6 @@ class MentalGymSelector extends StatelessWidget {
                           ),
                         ),
                       ),
-
                     ],
                   )
                 : Container(),
@@ -76,19 +75,21 @@ class MentalGymSelector extends StatelessWidget {
               int index = entry.key;
               var item = entry.value;
               return Padding(
-                padding:  EdgeInsets.only(right: 16.kw),
+                padding: EdgeInsets.only(right: 16.kw),
                 child: InkWell(
                   onTap: () async {
                     if (!isMentalGym) {
-                      Get.find<CommunityController>().selectedScreenIndex.value =
-                          3;
+                      Get.find<CommunityController>()
+                          .selectedScreenIndex
+                          .value = 3;
                       Get.find<CommunityController>().getCommunitiesByCategory(
                         id: item.sId ?? "",
                         categoryName: item.title ?? "",
                         index: index + 3,
                       );
                     } else {
-                      Get.find<NavigationBarController>().selectedIndex.value = 1;
+                      Get.find<NavigationBarController>().selectedIndex.value =
+                          1;
                       await Get.find<MentalGymController>()
                           .getMentalGymByCategory(categoryId: item.sId ?? "");
                       Get.find<MentalGymController>().viewAllTitle.value =
@@ -102,7 +103,7 @@ class MentalGymSelector extends StatelessWidget {
                         width: 64.kw,
                         height: 64.kw,
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                            color: Colors.red,
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: NetworkImage(item.image ?? ''),

@@ -80,7 +80,6 @@ class HomeView extends GetView<HomeController> {
                                                   fontSize: 20.kh,
                                                   color:
                                                       ColorUtil(context).black,
-
                                                 ),
                                               ),
                                             ),
@@ -103,7 +102,6 @@ class HomeView extends GetView<HomeController> {
                                                   ),
                                                   4.kwidthBox,
                                                   CommonImageView(
-
                                                     svgPath:
                                                         ImageConstant.addIcon,
                                                     height: 16.kh,
@@ -123,8 +121,12 @@ class HomeView extends GetView<HomeController> {
                                                     "",
                                                 activities:
                                                     element.activities ?? "",
-                                                time:DateFormat.jm().format( DateTime.parse(element.createdAt as String).toLocal()).toString(),
-
+                                                time: DateFormat.jm()
+                                                    .format(DateTime.parse(
+                                                            element.createdAt
+                                                                as String)
+                                                        .toLocal())
+                                                    .toString(),
                                                 desc: (element.note ?? "")
                                                         .capitalizeFirst ??
                                                     "",

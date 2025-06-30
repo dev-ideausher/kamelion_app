@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 class OnBoardingQuestionsModel {
   String? sId;
+  String? quizListId;
   String? questionType;
   String? question;
   bool? isActive;
@@ -13,6 +14,7 @@ class OnBoardingQuestionsModel {
 
   OnBoardingQuestionsModel({
     this.sId,
+    this.quizListId,
     this.questionType,
     this.question,
     this.isActive,
@@ -25,6 +27,7 @@ class OnBoardingQuestionsModel {
 
   OnBoardingQuestionsModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    quizListId = json['quizListId'];
     questionType = json['questionType'];
     question = json['question'];
     isActive = json['isActive'];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
@@ -17,11 +18,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   String? videoUrl;
+  String? workoutId;
 
   @override
   void initState() {
     super.initState();
-    videoUrl = Get.arguments;
+    videoUrl = Get.arguments['videoUrl'];
+    workoutId = Get.arguments['workoutId'];
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
     _initializePlayer();
   }
@@ -33,6 +36,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     );
 
     await _videoPlayerController.initialize();
+
     _videoPlayerController.seekTo(const Duration(minutes: 0, seconds: 0));
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
@@ -75,7 +79,18 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         ];
       },
     );
-
+    _videoPlayerController.addListener(() {
+      if (_videoPlayerController.value.position ==
+          _videoPlayerController.value.duration) {
+        Get.offNamed(
+          Routes.ONBOARDING_QUESTIONS,
+          arguments: workoutId,
+        );
+        // print("video ended");
+      }
+      ;
+    });
+// _chewieController
     setState(() {});
   }
 

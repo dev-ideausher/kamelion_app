@@ -72,6 +72,7 @@ class ImageConstant {
   static String deleteIcon = 'assets/svg/delete_icon.svg';
   static String editIcon = 'assets/svg/edit_icon.svg';
   static String weekCalenderIcon = 'assets/svg/weekly_calender_icon.svg';
+  static String lioCrying = 'assets/svg/lio_crying.svg';
   //PNGs
   static String pngNewsBanner = 'assets/images/news_banner.png';
   static String splashScreenBg = 'assets/png/splash_screen_bg.png';

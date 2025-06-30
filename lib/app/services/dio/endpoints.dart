@@ -9,13 +9,14 @@ class Endpoints {
   static const String signUp = "auth/register";
   static const String login = "auth/login";
   static const String getOnboardingQuestions = "question/getallquestions";
-  static String getMentalGymQuestions(String id) => "quiz/getquiz/$id";
+  static String getMentalGymQuestions(String id) => "quizmodule/allquizes/$id";
   static String markOpenedCommunity(String id) => "community/markopened/$id";
   static const String getUser = "users/getUser";
   static const String createAvatar = "avatar/save";
   static const String saveUser = "userinfo/save";
   static const String uploadFile = "users/fileupload";
   static String updateUser(String id) => "users/updateuser/$id";
+  static String submitQuize = "completequiz/save";
   static String getMood(String id, String timezone) =>
       "/mood/getmoods/$id?timezone=$timezone";
   static const String addMood = "mood/save";
