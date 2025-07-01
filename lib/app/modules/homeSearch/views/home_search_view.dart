@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/home_app_bar.dart';
+import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/responsive_size.dart';
 
+import '../../../../generated/locales.g.dart';
+import '../../../components/common_image_view.dart';
+import '../../../components/community/community_card.dart';
+import '../../../components/mentalGyms/active_workout_card.dart';
+import '../../../components/mentalGyms/suggest_workout_card.dart';
+import '../../../routes/app_pages.dart';
+import '../../../services/text_style_util.dart';
+import '../../mentalGym/controllers/mental_gym_controller.dart';
 import '../controllers/home_search_controller.dart';
 
 class HomeSearchView extends GetView<HomeSearchController> {
