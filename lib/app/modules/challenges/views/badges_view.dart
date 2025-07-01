@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
@@ -11,7 +14,7 @@ class BadgesView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.0.ksp),
       child: GridView.builder(
-        itemCount: 6,
+        itemCount: Get.find<ChallengesController>().badgesList.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // 2 items per row
           crossAxisSpacing: 10.ksp,
@@ -30,7 +33,12 @@ class BadgesView extends StatelessWidget {
                 20.kheightBox,
                 ClipOval(
                   child: Image.network(
-                    'https://plus.unsplash.com/premium_photo-1714138490043-40cbd9d982dc?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmFkZ2V8ZW58MHx8MHx8fDA%3D',
+                    Get.find<ChallengesController>()
+                            .badgesList[index]
+                            .badgeImage
+                            ?.url ??
+                        "",
+                    // 'https://plus.unsplash.com/premium_photo-1714138490043-40cbd9d982dc?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmFkZ2V8ZW58MHx8MHx8fDA%3D',
                     width: 65.ksp,
                     height: 65.ksp,
                     fit: BoxFit.cover,
@@ -38,7 +46,7 @@ class BadgesView extends StatelessWidget {
                 ),
                 10.kheightBox,
                 Text(
-                  "Completing first Mental Gym",
+                  Get.find<ChallengesController>().badgesList[index].name ?? "",
                   style: TextStyleUtil.genSans400(
                     fontSize: 13.ksp,
                     color: context.black,

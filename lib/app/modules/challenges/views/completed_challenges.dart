@@ -4,6 +4,7 @@ import 'package:kamelion/app/components/mentalGyms/active_workout_card.dart';
 import 'package:kamelion/app/components/mentalGyms/suggest_workout_card.dart';
 import 'package:kamelion/app/components/mental_gym_selector.dart';
 import 'package:kamelion/app/components/workout_selector.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -15,49 +16,57 @@ class CompletedChallenges extends StatelessWidget {
   const CompletedChallenges({super.key});
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        20.kheightBox,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(left: 14.0.ksp),
-              child: Text(
-                "Completed Challenges",
-                style: TextStyleUtil.genSans400(
-                  fontSize: 16.ksp,
-                  color: ColorUtil(context).black,
-                  height: 1.2,
+    return Obx(
+      () => Column(
+        children: [
+          20.kheightBox,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 14.0.ksp),
+                child: Text(
+                  Get.find<ChallengesController>().viewAllTitle.value,
+                  style: TextStyleUtil.genSans400(
+                    fontSize: 16.ksp,
+                    color: ColorUtil(context).black,
+                    height: 1.2,
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        ...Get.find<MentalGymController>().activeWorkouts.map((mood) {
-          return ActiveWorkoutCards(
-            isSaved: true,
-            title:
-                Get.find<MentalGymController>().activeMentalGymList[0].title ??
-                "",
-            subtitle:
-                Get.find<MentalGymController>().activeMentalGymList[0].title ??
-                "",
-            imageUrl:
-                Get.find<MentalGymController>()
-                    .activeMentalGymList[0]
-                    .thumbnail!
-                    .url ??
-                "",
-            onTap: () {
-              Get.find<MentalGymController>().getWorkoutDetails(
-                Get.find<MentalGymController>().activeMentalGymList[0].sId ??
-                    "",
-              );
-            },
-          );
-        }).toList(),
-      ],
+            ],
+          ),
+          ...Get.find<ChallengesController>().viewAllList.map((mood) {
+            // print(Get.find<ChallengesController>().viewAllList[0].sId);
+            return ActiveWorkoutCards(
+              progress: mood.userProgress ?? 0,
+              onsaved: () async {
+                bool res = await Get.find<ChallengesController>()
+                    .saveChallenge(challangeId: mood.sId ?? "");
+                if (res) {
+                  mood.isSaved = !(mood.isSaved ?? false);
+
+                  Get.find<ChallengesController>().viewAllList.refresh();
+                }
+                Get.find<ChallengesController>().getActiveChallenges();
+                Get.find<ChallengesController>().getSuggestedChallenges();
+                Get.find<ChallengesController>().getCompletedChallenges();
+                Get.find<ChallengesController>().getSavedChallenges();
+              },
+              isSaved: mood.isSaved ?? false,
+              title: mood.challengeTitle ?? "",
+              subtitle: mood.challengeIntro ?? "",
+              imageUrl: mood.image ?? "",
+              onTap: () {
+                // Get.find<MentalGymController>().getWorkoutDetails(
+                //   Get.find<MentalGymController>().activeMentalGymList[0].sId ??
+                //       "",
+                // );
+              },
+            );
+          }).toList(),
+        ],
+      ),
     );
   }
 }

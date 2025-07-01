@@ -84,6 +84,13 @@ class APIManager {
         isOverlayLoader: false,
       ).get(Endpoints.getMentalGymsDetails(id));
 
+  static Future<Response> getChallengesDetails({required String id}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getChallengeDetails(id));
+
   static Future<Response> getCommunityDetails({
     required String id,
     bool isOverlayLoader = true,
@@ -93,6 +100,16 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: isOverlayLoader,
       ).get(Endpoints.getCommunityDetails(id));
+
+  static Future<Response> getChallengeByCategory({
+    required String id,
+    bool isOverlayLoader = true,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: isOverlayLoader,
+      ).get(Endpoints.getChallengesByCategory(id));
 
   static Future<Response> addLikeToPost({required String id}) async =>
       await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).post(
@@ -203,6 +220,24 @@ class APIManager {
         isOverlayLoader: true,
       ).patch(Endpoints.updateMentalGym(id), data: body);
 
+  static Future<Response> startChallenge({
+    required Map body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.startChallenge, data: body);
+
+  static Future<Response> completeChallenge({
+    required Map body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.startChallenge, data: body);
+
   static Future<Response> getPopularMentalGyms({
     required String limit,
     required String page,
@@ -222,6 +257,36 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: false,
       ).get(Endpoints.getActiveMentalGym(page: page, limit: limit));
+
+  static Future<Response> getActiveChallenges() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getActiveChallenges);
+
+  static Future<Response> getBadges() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getBadges);
+
+  static Future<Response> getCompletedChallenges() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getCompletedChallenges);
+
+  static Future<Response> getSavedChallenges() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getSavedChallenges);
+
+  static Future<Response> getSuggestedChallenges() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getSuggestedChallenges);
 
   static Future<Response> searchMentalGym({
     required String page,
@@ -310,6 +375,13 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: true,
       ).post(Endpoints.saveMentalGyms, data: body);
+
+  static Future<Response> saveChallenge({required var body}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.saveChallenge, data: body);
 
   static Future<Response> createAvatar({
     required var body,

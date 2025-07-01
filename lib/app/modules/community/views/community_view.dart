@@ -22,173 +22,179 @@ class CommunityView extends GetView<CommunityController> {
       builder: (controller) {
         return controller.isLoading.value
             ? Center(
-              child: CircularProgressIndicator(color: context.brandColor1),
-            )
+                child: CircularProgressIndicator(color: context.brandColor1),
+              )
             : Scaffold(
-              backgroundColor: context.scaffoldBg,
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  Get.toNamed(Routes.CREATE_COMMUNITY)?.then((result) async {
-                    if (result == true) {
-                      await controller.getYourCommunities();
-                    }
-                  });
-                },
-                shape: const CircleBorder(),
-                backgroundColor: context.brandColor1,
-                child: Icon(Icons.add, color: context.white),
-              ),
-              body: Column(
-                children: [
-                  CommunityAppBar(
-                    userName:
-                        Get.find<HomeController>()
-                            .currentUser
-                            .value
-                            .nickname!
-                            .capitalizeFirst ??
-                        "",
-                  ),
-                  Obx(
-                    () => Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            16.kheightBox,
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  15.kwidthBox,
-                                  InkWell(
-                                    onTap: () {
-                                      controller.selectedScreenIndex.value = 0;
-                                    },
-                                    child: _buildTag(
-                                      "All Categories",
-                                      context,
-                                      controller.selectedScreenIndex.value == 0,
+                backgroundColor: context.scaffoldBg,
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.CREATE_COMMUNITY)?.then((result) async {
+                      if (result == true) {
+                        await controller.getYourCommunities();
+                      }
+                    });
+                  },
+                  shape: const CircleBorder(),
+                  backgroundColor: context.brandColor1,
+                  child: Icon(Icons.add, color: context.white),
+                ),
+                body: Column(
+                  children: [
+                    CommunityAppBar(
+                      userName: Get.find<HomeController>()
+                              .currentUser
+                              .value
+                              .nickname!
+                              .capitalizeFirst ??
+                          "",
+                    ),
+                    Obx(
+                      () => Expanded(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              16.kheightBox,
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    15.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            0;
+                                      },
+                                      child: _buildTag(
+                                        "All Categories",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            0,
+                                      ),
                                     ),
-                                  ),
-                                  12.kwidthBox,
-                                  InkWell(
-                                    onTap: () {
-                                      controller.selectedScreenIndex.value = 1;
-                                      controller.viewAllList =
-                                          controller.yourCommunityList;
-                                      controller.viewAllTitle.value =
-                                          "Your Communities";
-                                    },
-                                    child: _buildTag(
-                                      "Your Communities",
-                                      context,
-                                      controller.selectedScreenIndex.value == 1,
+                                    12.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            1;
+                                        controller.viewAllList =
+                                            controller.yourCommunityList;
+                                        controller.viewAllTitle.value =
+                                            "Your Communities";
+                                      },
+                                      child: _buildTag(
+                                        "Your Communities",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            1,
+                                      ),
                                     ),
-                                  ),
-                                  12.kwidthBox,
-                                  InkWell(
-                                    onTap: () {
-                                      controller.selectedScreenIndex.value = 2;
-                                      controller.viewAllList =
-                                          controller.trendingCommunityList;
-                                      controller.viewAllTitle.value =
-                                          "Trending Communities";
-                                    },
-                                    child: _buildTag(
-                                      "Trending Communities",
-                                      context,
-                                      controller.selectedScreenIndex.value == 2,
+                                    12.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            2;
+                                        controller.viewAllList =
+                                            controller.trendingCommunityList;
+                                        controller.viewAllTitle.value =
+                                            "Trending Communities";
+                                      },
+                                      child: _buildTag(
+                                        "Trending Communities",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            2,
+                                      ),
                                     ),
-                                  ),
-                                  12.kwidthBox,
-                                  InkWell(
-                                    onTap: () {
-                                      controller.selectedScreenIndex.value = 3;
-                                      controller.viewAllList =
-                                          controller.trendingCommunityList;
-                                      controller.viewAllTitle.value =
-                                          "Saved Post";
-                                    },
-                                    child: _buildTag(
-                                      "Saved Post",
-                                      context,
-                                      controller.selectedScreenIndex.value == 3,
+                                    12.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            3;
+                                        controller.viewAllList =
+                                            controller.trendingCommunityList;
+                                        controller.viewAllTitle.value =
+                                            "Saved Post";
+                                      },
+                                      child: _buildTag(
+                                        "Saved Post",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            3,
+                                      ),
                                     ),
-                                  ),
-                                  12.kwidthBox,
-                                  for (
-                                    int i = 0;
-                                    i <
-                                        Get.find<MentalGymController>()
-                                            .mentalGymCategoryList
-                                            .length;
-                                    i++
-                                  )
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 10.ksp),
-                                      child: InkWell(
-                                        onTap: () {
-                                          controller.getCommunitiesByCategory(
-                                            categoryName:
-                                                Get.find<MentalGymController>()
+                                    12.kwidthBox,
+                                    for (int i = 0;
+                                        i <
+                                            Get.find<MentalGymController>()
+                                                .mentalGymCategoryList
+                                                .length;
+                                        i++)
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 10.ksp),
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.getCommunitiesByCategory(
+                                              categoryName: Get.find<
+                                                          MentalGymController>()
+                                                      .mentalGymCategoryList[i]
+                                                      .title ??
+                                                  "",
+                                              id: Get.find<
+                                                          MentalGymController>()
+                                                      .mentalGymCategoryList[i]
+                                                      .sId ??
+                                                  "",
+                                              index: i + 4,
+                                            );
+                                          },
+                                          child: _buildTag(
+                                            Get.find<MentalGymController>()
                                                     .mentalGymCategoryList[i]
                                                     .title ??
                                                 "",
-                                            id:
-                                                Get.find<MentalGymController>()
-                                                    .mentalGymCategoryList[i]
-                                                    .sId ??
-                                                "",
-                                            index: i + 4,
-                                          );
-                                        },
-                                        child: _buildTag(
-                                          Get.find<MentalGymController>()
-                                                  .mentalGymCategoryList[i]
-                                                  .title ??
-                                              "",
-                                          context,
-                                          controller
-                                                  .selectedScreenIndex
-                                                  .value ==
-                                              i + 4,
+                                            context,
+                                            controller.selectedScreenIndex
+                                                    .value ==
+                                                i + 4,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  15.kwidthBox,
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     controller.selectedScreenIndex.value = 2;
-                                  //   },
-                                  //   child: _buildTag(
-                                  //     "Social Life",
-                                  //     context,
-                                  //     controller.selectedScreenIndex.value == 2,
-                                  //   ),
-                                  // ),
-                                  // 15.kwidthBox,
-                                ],
+                                    15.kwidthBox,
+                                    // InkWell(
+                                    //   onTap: () {
+                                    //     controller.selectedScreenIndex.value = 2;
+                                    //   },
+                                    //   child: _buildTag(
+                                    //     "Social Life",
+                                    //     context,
+                                    //     controller.selectedScreenIndex.value == 2,
+                                    //   ),
+                                    // ),
+                                    // 15.kwidthBox,
+                                  ],
+                                ),
                               ),
-                            ),
-                            controller.selectedScreenIndex.value == 0
-                                ? controller.screensList[controller
-                                    .selectedScreenIndex
-                                    .value]
-                                : controller.selectedScreenIndex.value == 1 ||
-                                    controller.selectedScreenIndex.value == 2
-                                ? controller.screensList[1]
-                                : controller.selectedScreenIndex.value == 3
-                                ? controller.screensList[2]
-                                : controller.screensList[3],
-                          ],
+                              controller.selectedScreenIndex.value == 0
+                                  ? controller.screensList[
+                                      controller.selectedScreenIndex.value]
+                                  : controller.selectedScreenIndex.value == 1 ||
+                                          controller
+                                                  .selectedScreenIndex.value ==
+                                              2
+                                      ? controller.screensList[1]
+                                      : controller.selectedScreenIndex.value ==
+                                              3
+                                          ? controller.screensList[2]
+                                          : controller.screensList[3],
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
+                  ],
+                ),
+              );
       },
     );
   }
