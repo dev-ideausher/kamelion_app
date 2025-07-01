@@ -2,6 +2,7 @@ class UserModel {
   String? sId;
   String? name;
   String? email;
+  num? moodStreakCount;
   int? streakCount;
   String? avatardetails;
   String? userType;
@@ -29,6 +30,7 @@ class UserModel {
     this.name,
     this.email,
     this.streakCount,
+    this.moodStreakCount,
     this.avatardetails,
     this.userType,
     this.profilePic,
@@ -55,6 +57,7 @@ class UserModel {
     sId = json['_id'];
     name = json['name'];
     rewards = json['rewards'];
+    moodStreakCount = json['moodStreakCount'];
     email = json['email'];
     avatardetails = json['avatardetails'];
     userType = json['userType'];
