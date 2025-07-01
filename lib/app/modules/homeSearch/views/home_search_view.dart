@@ -16,7 +16,7 @@ class HomeSearchView extends GetView<HomeSearchController> {
       ),
       body: Column(
         children: [
-          HomeAppBar(userName: "c", coincount: "23"),
+          // HomeAppBar(userName: "c", coincount: "23"),
           const Center(
             child: Text(
               'HomeSearchView is working',

@@ -2,6 +2,7 @@ class UserModel {
   String? sId;
   String? name;
   String? email;
+  int? streakCount;
   String? avatardetails;
   String? userType;
   ProfilePic? profilePic;
@@ -27,6 +28,7 @@ class UserModel {
     this.sId,
     this.name,
     this.email,
+    this.streakCount,
     this.avatardetails,
     this.userType,
     this.profilePic,
@@ -56,10 +58,10 @@ class UserModel {
     email = json['email'];
     avatardetails = json['avatardetails'];
     userType = json['userType'];
-    profilePic =
-        json['profilePic'] != null
-            ? new ProfilePic.fromJson(json['profilePic'])
-            : null;
+    streakCount = json['streakCount'];
+    profilePic = json['profilePic'] != null
+        ? new ProfilePic.fromJson(json['profilePic'])
+        : null;
     dob = json['dob'];
     haveLicensekey = json['haveLicensekey'];
     licensekey = json['licensekey'];

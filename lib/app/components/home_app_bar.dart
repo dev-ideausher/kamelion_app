@@ -21,9 +21,13 @@ import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
 class HomeAppBar extends StatelessWidget {
-  final String userName, coincount;
+  final String userName, coincount, streakCount;
 
-  const HomeAppBar({Key? key, required this.userName, required this.coincount})
+  const HomeAppBar(
+      {Key? key,
+      required this.userName,
+      required this.streakCount,
+      required this.coincount})
       : super(key: key);
 
   @override
@@ -160,7 +164,7 @@ class HomeAppBar extends StatelessWidget {
                         CommonImageView(svgPath: ImageConstant.flameIcon),
                         4.kwidthBox,
                         Text(
-                          "6" + " " + LocaleKeys.days_streak.tr,
+                          streakCount + " " + LocaleKeys.days_streak.tr,
                           style: TextStyleUtil.genSans400(
                             color: ColorUtil(context).white,
                             fontSize: 12.ksp,
