@@ -114,7 +114,7 @@ class ChallengeModel {
   final String challengeTitle;
   final String challengeIntro;
   final String status;
-  final String category;
+  final List<String> categories;
   final String type;
   final int totalDuration;
   final int totalXP;
@@ -129,7 +129,7 @@ class ChallengeModel {
     required this.challengeTitle,
     required this.challengeIntro,
     required this.status,
-    required this.category,
+    required this.categories,
     required this.type,
     required this.totalDuration,
     required this.totalXP,
@@ -141,12 +141,18 @@ class ChallengeModel {
   });
 
   factory ChallengeModel.fromJson(Map<String, dynamic> json) {
+    List<String> parsedCategories = [];
+    if (json['category'] is List) {
+      parsedCategories = List<String>.from(json['category'].map((e) => e.toString()));
+    } else if (json['category'] != null) {
+      parsedCategories = [json['category'].toString()];
+    }
     return ChallengeModel(
       id: json['_id'] ?? '',
       challengeTitle: json['challengeTitle'] ?? '',
       challengeIntro: json['challengeIntro'] ?? '',
       status: json['status'] ?? '',
-      category: json['category'] ?? '',
+      categories: parsedCategories,
       type: json['type'] ?? '',
       totalDuration: json['totalDuration'] ?? 0,
       totalXP: json['totalXP'] ?? 0,

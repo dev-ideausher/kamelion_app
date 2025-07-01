@@ -129,7 +129,9 @@ class HomeSearchView extends GetView<HomeSearchController> {
                             subtitle:ch.challengeIntro?? "",
                             title:ch.challengeTitle ,
                             onTap: () {
-                                       },
+                              Get.toNamed(Routes.CHALLENGE_DETAILS,
+                                  arguments: ch.id);
+                            },
                           );
 
                         },
