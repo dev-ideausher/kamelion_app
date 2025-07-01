@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:kamelion/app/routes/app_pages.dart';
-import 'package:kamelion/app/services/colors.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/services.dart';
+import 'package:video_player/video_player.dart';
+import 'package:intl/intl.dart';
+import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({super.key});
@@ -16,7 +15,6 @@ class VideoPlayerScreen extends StatefulWidget {
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _videoPlayerController;
-  ChewieController? _chewieController;
   String? videoUrl;
   String? workoutId;
 
@@ -30,55 +28,12 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   Future<void> _initializePlayer() async {
-    _videoPlayerController = VideoPlayerController.network(
-      videoUrl ??
-          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+    _videoPlayerController = VideoPlayerController.networkUrl(
+      Uri.parse(videoUrl ?? ""),
     );
-
     await _videoPlayerController.initialize();
-
-    _videoPlayerController.seekTo(const Duration(minutes: 0, seconds: 0));
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController,
-      autoPlay: true,
-      looping: false,
-      showControls: true,
-      allowedScreenSleep: false,
-      fullScreenByDefault: true,
-      deviceOrientationsAfterFullScreen: [DeviceOrientation.landscapeLeft],
-      additionalOptions: (context) {
-        return <OptionItem>[
-          OptionItem(
-            onTap: (context) {
-              _changeSpeed(0.5);
-            },
-            iconData: Icons.slow_motion_video,
-            title: '0.5x',
-          ),
-          OptionItem(
-            onTap: (context) {
-              _changeSpeed(1.0);
-            },
-            iconData: Icons.speed,
-            title: '1.0x',
-          ),
-          OptionItem(
-            onTap: (context) {
-              _changeSpeed(1.5);
-            },
-            iconData: Icons.speed_outlined,
-            title: '1.5x',
-          ),
-          OptionItem(
-            onTap: (context) {
-              _changeSpeed(2.0);
-            },
-            iconData: Icons.fast_forward,
-            title: '2.0x',
-          ),
-        ];
-      },
-    );
+    await _videoPlayerController.seekTo(Duration.zero);
+    _videoPlayerController.play();
     _videoPlayerController.addListener(() {
       if (_videoPlayerController.value.position ==
           _videoPlayerController.value.duration) {
@@ -88,38 +43,152 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         );
         // print("video ended");
       }
-      ;
+      setState(() {}); // Update UI for progress bar
     });
-// _chewieController
     setState(() {});
-  }
-
-  void _changeSpeed(double speed) {
-    Navigator.pop(context);
-    _videoPlayerController.setPlaybackSpeed(speed);
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text('Speed set to ${speed}x')));
   }
 
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    _chewieController?.dispose();
-    print(_videoPlayerController.value.position);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     super.dispose();
   }
 
+  String formatDuration(Duration duration) {
+    return DateFormat.ms().format(DateTime(0).add(duration));
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_videoPlayerController.value.hasError) {
+      return Scaffold(
+        backgroundColor: context.black,
+        appBar: AppBar(backgroundColor: context.black),
+        body: Center(
+          child: Text(
+            'Video error: \\${_videoPlayerController.value.errorDescription}',
+            style: const TextStyle(color: Colors.red),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: context.black,
       appBar: AppBar(backgroundColor: context.black),
-      body: _chewieController != null &&
-              _chewieController!.videoPlayerController.value.isInitialized
-          ? Chewie(controller: _chewieController!)
+      body: _videoPlayerController.value.isInitialized
+          ? Stack(
+              children: [
+                Center(
+                  child: AspectRatio(
+                    aspectRatio: _videoPlayerController.value.aspectRatio,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        VideoPlayer(_videoPlayerController),
+                        Positioned.fill(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (_videoPlayerController.value.isPlaying) {
+                                    _videoPlayerController.pause();
+                                  } else {
+                                    _videoPlayerController.play();
+                                  }
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.black38,
+                                  shape: BoxShape.circle,
+                                ),
+                                padding: const EdgeInsets.all(16),
+                                child: Icon(
+                                  _videoPlayerController.value.isPlaying
+                                      ? Icons.pause
+                                      : Icons.play_arrow,
+                                  color: Colors.white,
+                                  size: 48,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 30,
+                  left: 16,
+                  right: 16,
+                  child: _buildProgressBar(),
+                ),
+              ],
+            )
           : const Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget _buildProgressBar() {
+    final value = _videoPlayerController.value;
+    final position = value.position;
+    final duration = value.duration;
+
+    if (duration.inMilliseconds <= 0 || duration.inMilliseconds.isNaN) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Slider(
+            min: 0.0,
+            max: 1.0,
+            value: 0.0,
+            onChanged: null, // disabled
+            activeColor: Colors.white,
+            inactiveColor: Colors.white30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('00:00', style: const TextStyle(color: Colors.white)),
+              Text('00:00', style: const TextStyle(color: Colors.white)),
+            ],
+          ),
+        ],
+      );
+    }
+
+    double sliderValue = position.inMilliseconds.toDouble();
+    double sliderMax = duration.inMilliseconds.toDouble();
+    if (sliderValue < 0) sliderValue = 0.0;
+    if (sliderValue > sliderMax) sliderValue = sliderMax;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Slider(
+          min: 0.0,
+          max: sliderMax,
+          value: sliderValue.isNaN ? 0.0 : sliderValue,
+          onChanged: (value) {
+            _videoPlayerController
+                .seekTo(Duration(milliseconds: value.toInt()));
+          },
+          activeColor: Colors.white,
+          inactiveColor: Colors.white30,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(formatDuration(position),
+                style: const TextStyle(color: Colors.white)),
+            Text(formatDuration(duration),
+                style: const TextStyle(color: Colors.white)),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'responsive_size.dart';
-import 'package:new_version_plus/new_version_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,31 +14,31 @@ abstract class Versionk {
   Future<void> handleNewUpdate() async {
     checkedUpdates = false;
     try {
-      final newVersion = NewVersionPlus(
-          // forceAppVersion: kDebugMode ? '10.0.0' : null,
-          ); //forceAppVersion: '4.0.2'
-      final status = await newVersion.getVersionStatus();
+      // final newVersion = NewVersionPlus(
+      //     // forceAppVersion: kDebugMode ? '10.0.0' : null,
+      //     ); //forceAppVersion: '4.0.2'
+      // final status = await newVersion.getVersionStatus();
 
-      if (status != null) {
-        if (int.parse(status.localVersion.split('.')[0]) <
-                int.parse(status.storeVersion.split('.')[0]) &&
-            status.canUpdate) {
-          showUpdateDialog(
-              isMandatory: true,
-              localver: status.localVersion,
-              storever: status.storeVersion,
-              releaseNote: status.releaseNotes ?? '',
-              appStoreLink: status.appStoreLink);
-        } else if (status.canUpdate) {
-          showUpdateDialog(
-              isMandatory: false,
-              localver: status.localVersion,
-              storever: status.storeVersion,
-              releaseNote: status.releaseNotes ?? '',
-              appStoreLink: status.appStoreLink);
-          //minor update
-        }
-      }
+      // if (status != null) {
+      //   if (int.parse(status.localVersion.split('.')[0]) <
+      //           int.parse(status.storeVersion.split('.')[0]) &&
+      //       status.canUpdate) {
+      //     showUpdateDialog(
+      //         isMandatory: true,
+      //         localver: status.localVersion,
+      //         storever: status.storeVersion,
+      //         releaseNote: status.releaseNotes ?? '',
+      //         appStoreLink: status.appStoreLink);
+      //   } else if (status.canUpdate) {
+      //     showUpdateDialog(
+      //         isMandatory: false,
+      //         localver: status.localVersion,
+      //         storever: status.storeVersion,
+      //         releaseNote: status.releaseNotes ?? '',
+      //         appStoreLink: status.appStoreLink);
+      //     //minor update
+      //   }
+      // }
     } catch (e) {
       debugPrint(e.toString());
     }

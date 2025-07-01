@@ -72,7 +72,12 @@ class OnboardingQuestionsController extends GetxController {
     try {
       var response = await APIManager.getMentalGymQuestions(id);
 
-      if (response.data['data'] != null && response.data['status']) {
+      if (response.data['data'] == null ||
+          (response.data['data'] is List && response.data['data'].isEmpty)) {
+        Get.back();
+        showMySnackbar(
+            title: "Message", msg: "No quiz is available for this page");
+      } else if (response.data['data'] != null && response.data['status']) {
         for (Map<String, dynamic> data in response.data['data']) {
           onboardingQuestionsList.add(OnBoardingQuestionsModel.fromJson(data));
         }

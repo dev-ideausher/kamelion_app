@@ -38,7 +38,7 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                                 .mentalGymDetails!.value.mentalGym!.title ??
                             "",
                         totalTime:
-                            "${controller.mentalGymDetails!.value.mentalGym!.totalDuration ?? ""}",
+                            "${controller.mentalGymDetails!.value.mentalGym!.totalDuration.toString() ?? ""}",
                         workouts:
                             "${controller.mentalGymDetails!.value.workouts!.length ?? ""}",
                       ),

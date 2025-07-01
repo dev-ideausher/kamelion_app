@@ -5,10 +5,9 @@ class MentalGymDetailsModel {
   MentalGymDetailsModel({this.mentalGym, this.workouts});
 
   MentalGymDetailsModel.fromJson(Map<String, dynamic> json) {
-    mentalGym =
-        json['mentalGym'] != null
-            ? new MentalGym.fromJson(json['mentalGym'])
-            : null;
+    mentalGym = json['mentalGym'] != null
+        ? new MentalGym.fromJson(json['mentalGym'])
+        : null;
     if (json['workouts'] != null) {
       workouts = <Workouts>[];
       json['workouts'].forEach((v) {
@@ -35,7 +34,7 @@ class MentalGym {
   String? title;
   String? description;
   List<Category>? category;
-  int? totalDuration;
+  var totalDuration;
   bool? isActive;
   bool? isTrending;
   String? createdAt;
@@ -61,10 +60,9 @@ class MentalGym {
   });
 
   MentalGym.fromJson(Map<String, dynamic> json) {
-    thumbnail =
-        json['thumbnail'] != null
-            ? new Thumbnail.fromJson(json['thumbnail'])
-            : null;
+    thumbnail = json['thumbnail'] != null
+        ? new Thumbnail.fromJson(json['thumbnail'])
+        : null;
     sId = json['_id'];
     title = json['title'];
     description = json['description'];
@@ -182,7 +180,7 @@ class Workouts {
   String? sId;
   String? mentalGym;
   String? workoutTitle;
-  int? totalDuration;
+  var totalDuration;
   int? totalXP;
   int? totalKalikoins;
   bool? isActive;
@@ -208,10 +206,9 @@ class Workouts {
   Workouts.fromJson(Map<String, dynamic> json) {
     video =
         json['video'] != null ? new Thumbnail.fromJson(json['video']) : null;
-    thumbnail =
-        json['thumbnail'] != null
-            ? new Thumbnail.fromJson(json['thumbnail'])
-            : null;
+    thumbnail = json['thumbnail'] != null
+        ? new Thumbnail.fromJson(json['thumbnail'])
+        : null;
     sId = json['_id'];
     mentalGym = json['mentalGym'];
     workoutTitle = json['workoutTitle'];
