@@ -18,10 +18,12 @@ class ActiveWorkoutCards extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.isSaved,
+    this.progress = 0,
   });
   Function()? onTap, onsaved;
   String imageUrl, title, subtitle;
   bool isSaved;
+  num progress;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -104,7 +106,7 @@ class ActiveWorkoutCards extends StatelessWidget {
                   children: [
                     Expanded(
                       child: LinearProgressIndicator(
-                        value: 0.5,
+                        value: (progress / 100),
                         minHeight: 8.ksp,
                         valueColor: AlwaysStoppedAnimation<Color>(
                           context.brandColor1,
@@ -116,7 +118,7 @@ class ActiveWorkoutCards extends StatelessWidget {
                       ),
                     ),
                     12.kwidthBox,
-                    Text("50% " + LocaleKeys.complete.tr),
+                    Text("$progress% " + LocaleKeys.complete.tr),
                   ],
                 ),
               ),

@@ -22,6 +22,13 @@ class Endpoints {
   static const String addMood = "mood/save";
   static String deleteAccount(String id) => "users/deleteuser/$id";
   static const String getMentalGymCategiries = "category/all-category";
+  static const String getActiveChallenges =
+      "challenges/getchallenges?isActive=true";
+  static const String getBadges = "badge/getAllBadges";
+  static const String getCompletedChallenges =
+      "challenges/getchallengeprogress";
+  static const String getSavedChallenges = "challenges/getfavouritechallenges";
+  static const String getSuggestedChallenges = "challenges/getchallenges?";
   static String getActiveMentalGym({
     required String page,
     required String limit,
@@ -45,21 +52,26 @@ class Endpoints {
       "mentalgym/getallmentalgyms?isTrending=true";
   static String getSuggestedMentalGyms(String id) =>
       "mentalgym/getallsuggestedmentalgyms/$id";
+  static String getChallengeDetails(String id) => "challenges/getchallenge/$id";
   static String getSavedMentalGyms(String id) => "savedmentalgym/get/$id";
   static String getMentalGymsByCategory(String id) =>
       "mentalgym/getallmental/$id";
   static String getMentalGymsDetails(String id) => "workout/getallworkout/$id";
   static String getCommunityDetails(String id) => "post/getcommunityposts/$id";
+  static String getChallengesByCategory(String id) =>
+      "challenges/getchallengesbycategory/$id";
   static String addLikePost(String id) => "postinteraction/$id/like";
   static String addComment(String id) => "postinteraction/$id/comment";
   static String startMentalGym(String id) => "mentalgym/getmentalgym/$id";
   static String getComments(String id) => "postinteraction/$id/comments";
   static String saveMentalGyms = "savedmentalgym/save";
+  static String saveChallenge = "challenges/togglefavouritechallenge";
   static String updateMentalGym(String id) => "mentalgym/update/$id";
   static String updateCommunity(String id) => "community/update/$id";
   static String updatePost(String id) => "post/update/$id";
   static String deletePost(String id) => "post/delete/$id";
   static String savePost = "post/addfavourite";
+  static String startChallenge = "challenges/updatechallengeprogress";
   // static String saveMentalGyms = "savedmentalgym/save";
   static const String getMentalGymCounts = "savedmentalgym/totalcount";
   static const String createCommunity = "community/save";

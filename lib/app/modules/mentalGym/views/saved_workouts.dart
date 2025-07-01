@@ -23,7 +23,7 @@ class SavedWorkouts extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 14.0.ksp),
                 child: Text(
-                  LocaleKeys.saved_workouts.tr,
+                  "Saved Mental Gyms",
                   style: TextStyleUtil.genSans400(
                     fontSize: 16.ksp,
                     color: ColorUtil(context).black,

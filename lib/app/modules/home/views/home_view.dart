@@ -49,6 +49,8 @@ class HomeView extends GetView<HomeController> {
                     child: Column(
                       children: [
                         HomeAppBar(
+                          streakCount: controller.currentUser.value.streakCount
+                              .toString(),
                           coincount:
                               controller.currentUser.value.rewards.toString(),
                           userName:

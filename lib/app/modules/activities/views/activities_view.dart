@@ -34,7 +34,11 @@ class ActivitiesView extends GetView<ActivitiesController> {
                           // Get.find<HomeController>().showMoodPopup(context);
                           Get.toNamed(Routes.MOOD_TRACKER);
                         },
-                        fireCount: "6",
+                        fireCount: Get.find<HomeController>()
+                            .currentUser
+                            .value
+                            .moodStreakCount
+                            .toString(),
                         fireIcon: ImageConstant.fireIconGreen,
                         imageIcon: ImageConstant.moodTrackerIcon,
                         title: "Mood Tracker",
@@ -48,7 +52,7 @@ class ActivitiesView extends GetView<ActivitiesController> {
                         onTap: () {
                           Get.toNamed(Routes.CHALLENGES);
                         },
-                        fireCount: "6",
+                        fireCount: "0",
                         fireIcon: ImageConstant.fireIconRed,
                         imageIcon: ImageConstant.challengesIcon,
                         title: "Challenges",
@@ -62,7 +66,7 @@ class ActivitiesView extends GetView<ActivitiesController> {
                         onTap: () {
                           Get.toNamed(Routes.JOURNALING);
                         },
-                        fireCount: "6",
+                        fireCount: "0",
                         fireIcon: ImageConstant.fireIconYellow,
                         imageIcon: ImageConstant.bookIconYellow,
                         title: "Journaling",
@@ -158,37 +162,36 @@ class _activitiesCard extends StatelessWidget {
                           color: context.black,
                         ),
                       ),
-
                       isShowFire
                           ? Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 6.ksp,
-                              vertical: 0.ksp,
-                            ),
-                            decoration: BoxDecoration(
-                              color: fireBg,
-                              border: Border.all(
-                                color: Colors.transparent,
-                                width: 1.5.ksp,
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 6.ksp,
+                                vertical: 0.ksp,
                               ),
-                              borderRadius: BorderRadius.circular(
-                                10.ksp,
-                              ), // Rounded corners
-                            ),
-                            child: Row(
-                              children: [
-                                CommonImageView(svgPath: fireIcon),
-                                4.kwidthBox,
-                                Text(
-                                  fireCount,
-                                  style: TextStyleUtil.genSans300(
-                                    fontSize: 10.ksp,
-                                    color: context.black,
-                                  ),
+                              decoration: BoxDecoration(
+                                color: fireBg,
+                                border: Border.all(
+                                  color: Colors.transparent,
+                                  width: 1.5.ksp,
                                 ),
-                              ],
-                            ),
-                          )
+                                borderRadius: BorderRadius.circular(
+                                  10.ksp,
+                                ), // Rounded corners
+                              ),
+                              child: Row(
+                                children: [
+                                  CommonImageView(svgPath: fireIcon),
+                                  4.kwidthBox,
+                                  Text(
+                                    fireCount,
+                                    style: TextStyleUtil.genSans300(
+                                      fontSize: 10.ksp,
+                                      color: context.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
                           : Container(),
                     ],
                   ),

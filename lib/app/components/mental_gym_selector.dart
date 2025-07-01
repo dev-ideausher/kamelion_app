@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/models/community_details_model.dart';
 import 'package:kamelion/app/models/mental_gym_category_model.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
 import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
@@ -50,6 +51,7 @@ class MentalGymSelector extends StatelessWidget {
                         onTap: () {
                           Get.find<MentalGymController>().changeTab(0);
                           Get.find<NavigationBarController>().changePage(1);
+                          // Get.find<ChallengesController>().selectedScreenIndex =
                         },
                         child: Text(
                           LocaleKeys.view_all.tr,
