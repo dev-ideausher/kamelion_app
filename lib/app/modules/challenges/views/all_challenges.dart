@@ -123,6 +123,7 @@ class AllChallenges extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 14.0.ksp),
                   child: MentalGymSelector(
+                    isFromChallenges: true,
                     title: LocaleKeys.categories.tr,
                     showViewAll: false,
                     mentalGymList:

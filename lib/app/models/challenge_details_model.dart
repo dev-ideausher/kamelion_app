@@ -14,11 +14,13 @@ class ChallengeDetailsModel {
   int? iV;
   String? image;
   bool? isSaved;
+  String? startedDate;
 
   ChallengeDetailsModel(
       {this.sId,
       this.challengeTitle,
       this.challengeIntro,
+      this.startedDate,
       this.status,
       this.category,
       this.type,
@@ -36,6 +38,7 @@ class ChallengeDetailsModel {
     sId = json['_id'];
     challengeTitle = json['challengeTitle'];
     challengeIntro = json['challengeIntro'];
+    startedDate = json['userChallengeProgress']['createdAt'];
     status = json['status'];
     if (json['category'] != null) {
       category = <Category>[];

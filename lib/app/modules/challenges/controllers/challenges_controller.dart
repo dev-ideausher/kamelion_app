@@ -71,25 +71,31 @@ class ChallengesController extends GetxController
   Future<void> getActiveChallenges() async {
     try {
       var response;
-      activeChallenges.value = [];
+
+      isLoading.value = true;
       response = await APIManager.getActiveChallenges();
 
       if (response.data['data'] != null && response.data['status']) {
+        activeChallenges.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           activeChallenges.add(ChallengeModel.fromJson(data));
         }
+        isLoading.value = false;
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",
         );
         showMySnackbar(msg: response.data['message'] ?? "");
+        isLoading.value = false;
       }
       activeChallenges.refresh();
       update();
       // return;
     } on DioException catch (dioError) {
+      isLoading.value = false;
       showMySnackbar(msg: dioError.message ?? "");
     } catch (e, s) {
+      isLoading.value = false;
       showMySnackbar(
         // title: LocaleKeys.somethingWentWrong.tr,
         msg: e.toString(),
@@ -129,7 +135,7 @@ class ChallengesController extends GetxController
     try {
       var res = await APIManager.saveChallenge(
         body: {
-          "mentalGymId": challangeId,
+          "challengeId": challangeId,
           // "userId": Get.find<HomeController>().currentUser.value.sId,
         },
       );
@@ -202,10 +208,11 @@ class ChallengesController extends GetxController
   Future<void> getSavedChallenges() async {
     try {
       var response;
-      savedChallenges.value = [];
+
       response = await APIManager.getSavedChallenges();
 
       if (response.data['data'] != null && response.data['status']) {
+        savedChallenges.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           savedChallenges.add(ChallengeModel.fromJson(data));
         }
@@ -230,10 +237,11 @@ class ChallengesController extends GetxController
   Future<void> getCompletedChallenges() async {
     try {
       var response;
-      completedChallenges.value = [];
+
       response = await APIManager.getCompletedChallenges();
 
       if (response.data['data'] != null && response.data['status']) {
+        completedChallenges.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           completedChallenges.add(ChallengeModel.fromJson(data));
         }
@@ -258,10 +266,11 @@ class ChallengesController extends GetxController
   Future<void> getSuggestedChallenges() async {
     try {
       var response;
-      suggestedChallenges.value = [];
+
       response = await APIManager.getSuggestedChallenges();
 
       if (response.data['data'] != null && response.data['status']) {
+        suggestedChallenges.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           suggestedChallenges.add(ChallengeModel.fromJson(data));
         }
