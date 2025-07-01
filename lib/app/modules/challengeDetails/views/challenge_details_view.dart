@@ -29,7 +29,15 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                   children: [
                     // if (controller.challengeDetails != null)
                     // controller.challengeDetails!.value
-                    false
+                    (controller.challengeDetails!.value.isActive! &&
+                            DateTime.now()
+                                    .difference(DateTime.parse(controller
+                                        .challengeDetails!.value.startedDate!))
+                                    .inDays
+                                    .toInt() >
+                                (controller.challengeDetails!.value
+                                        .totalDuration ??
+                                    0))
                         ? Flexible(
                             child: Padding(
                               padding: EdgeInsets.all(16.0.ksp),
@@ -43,6 +51,15 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                               ),
                             ),
                           )
+                        : Container(),
+                    DateTime.now()
+                                .difference(DateTime.parse(controller
+                                    .challengeDetails!.value.startedDate!))
+                                .inDays
+                                .toInt() >
+                            (controller.challengeDetails!.value.totalDuration ??
+                                0)
+                        ? Container()
                         : Flexible(
                             child: Padding(
                               padding: EdgeInsets.all(16.0.ksp),
@@ -62,7 +79,15 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                             ),
                           ),
                     // 2.kheightBox,
-                    controller.challengeDetails!.value.isActive!
+                    (controller.challengeDetails!.value.isActive! &&
+                            DateTime.now()
+                                    .difference(DateTime.parse(controller
+                                        .challengeDetails!.value.startedDate!))
+                                    .inDays
+                                    .toInt() <
+                                (controller.challengeDetails!.value
+                                        .totalDuration ??
+                                    0))
                         ? Flexible(
                             child: InkWell(
                               onTap: () {

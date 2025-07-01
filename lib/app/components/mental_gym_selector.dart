@@ -13,18 +13,19 @@ import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
 class MentalGymSelector extends StatelessWidget {
-  MentalGymSelector({
-    super.key,
-    required this.mentalGymList,
-    this.title,
-    this.showViewAll,
-    this.isMentalGym = true,
-  });
+  MentalGymSelector(
+      {super.key,
+      required this.mentalGymList,
+      this.title,
+      this.showViewAll,
+      this.isMentalGym = true,
+      this.isFromChallenges = false});
 
   List<MentalGymCategoryModel> mentalGymList;
   String? title;
   bool? showViewAll = true;
   bool isMentalGym;
+  bool isFromChallenges;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +81,18 @@ class MentalGymSelector extends StatelessWidget {
                 padding: EdgeInsets.only(right: 16.kw),
                 child: InkWell(
                   onTap: () async {
+                    if (isFromChallenges) {
+                      Get.find<ChallengesController>()
+                          .selectedScreenIndex
+                          .value = index + 5;
+                      Get.find<ChallengesController>().getChallengesByCategory(
+                        id: item.sId ?? "",
+                        categoryName: item.title ?? "",
+                        index: index + 5,
+                      );
+
+                      return;
+                    }
                     if (!isMentalGym) {
                       Get.find<CommunityController>()
                           .selectedScreenIndex
