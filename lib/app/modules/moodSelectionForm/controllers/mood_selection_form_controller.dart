@@ -44,11 +44,29 @@ class MoodSelectionFormController extends GetxController {
   @override
   void onInit() {
     if (Get.arguments != null && Get.arguments['mood'] != null) {
-      currentMoodSelected.value = Get.arguments['mood'].toString().split('.').last;
+      currentMoodSelected.value =
+          Get.arguments['mood'].toString().split('.').last;
+      if (currentMoodSelected.value == "sad") {
+        currentMoodImage.value = ImageConstant.sadMood;
+        changeSliderValue(val: 25);
+      } else if (currentMoodSelected.value == "unhappy") {
+        currentMoodImage.value = ImageConstant.unHappyMood;
+        changeSliderValue(val: 0);
+      } else if (currentMoodSelected.value == "happy") {
+        currentMoodImage.value = ImageConstant.happyMood;
+        changeSliderValue(val: 100);
+      } else if (currentMoodSelected.value == "normal") {
+        currentMoodImage.value = ImageConstant.normalMood;
+        changeSliderValue(val: 50);
+      } else if (currentMoodSelected.value == "good") {
+        currentMoodImage.value = ImageConstant.goodMood;
+        changeSliderValue(val: 75);
+      }
     }
 
     if (Get.arguments != null && Get.arguments['note'] != null) {
-      currentMoodSelected.value = Get.arguments['mood'].toString().split('.').last;
+      currentMoodSelected.value =
+          Get.arguments['mood'].toString().split('.').last;
       noteController.text = Get.arguments['note'];
       feelingsController.text = Get.arguments['feeling'];
       activitiesController.text = Get.arguments['activities'];
@@ -81,16 +99,16 @@ class MoodSelectionFormController extends GetxController {
       currentMoodSelected.value = Mood.unhappy.name;
     } else if (val <= 40) {
       currentMoodImage.value = ImageConstant.sadMood;
-      currentMoodSelected.value =Mood.sad.name;
+      currentMoodSelected.value = Mood.sad.name;
     } else if (val <= 60) {
       currentMoodImage.value = ImageConstant.normalMood;
       currentMoodSelected.value = Mood.normal.name;
     } else if (val <= 80) {
-      currentMoodImage.value = ImageConstant.happyMood;
-      currentMoodSelected.value =Mood.happy.name;
-    } else {
       currentMoodImage.value = ImageConstant.goodMood;
       currentMoodSelected.value = Mood.good.name;
+    } else {
+      currentMoodImage.value = ImageConstant.happyMood;
+      currentMoodSelected.value = Mood.happy.name;
     }
   }
 

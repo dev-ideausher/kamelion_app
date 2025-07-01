@@ -56,8 +56,8 @@ class CommunityModel {
       isTrending: json['isTrending'] ?? false,
       numberOfMembers: json['numberOfMembers'] ?? 0,
       members: (json['members'] as List<dynamic>?)
-          ?.map((e) => Member.fromJson(e as Map<String, dynamic>))
-          .toList() ??
+              ?.map((e) => Member.fromJson(e as Map<String, dynamic>))
+              .toList() ??
           [],
       numberOfPosts: json['numberofPosts'] ?? 0,
       isActive: json['isActive'] ?? false,
@@ -67,8 +67,12 @@ class CommunityModel {
       isVerified: json['isVerified'] ?? false,
       hasLeft: json['hasLeft'] ?? false,
       hasOpened: json['hasOpened'] ?? false,
-      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'])
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.tryParse(json['updatedAt'])
+          : null,
       version: json['__v'] ?? 0,
     );
   }
@@ -148,8 +152,12 @@ class ChallengeModel {
       totalXP: json['totalXP'] ?? 0,
       isActive: json['isActive'] ?? false,
       totalKalikoins: json['totalKalikoins'] ?? 0,
-      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'])
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.tryParse(json['updatedAt'])
+          : null,
       version: json['__v'] ?? 0,
     );
   }
@@ -192,14 +200,18 @@ class MentalGymModel {
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       category: (json['category'] as List<dynamic>?)
-          ?.map((e) => e.toString())
-          .toList() ??
+              ?.map((e) => e.toString())
+              .toList() ??
           [],
       totalDuration: json['totalDuration'] ?? 0,
       isActive: json['isActive'] ?? false,
       isTrending: json['isTrending'] ?? false,
-      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'])
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.tryParse(json['updatedAt'])
+          : null,
       version: json['__v'] ?? 0,
     );
   }
@@ -212,7 +224,7 @@ class WorkoutModel {
   final String title;
   final String description;
   final List<String> category;
-  final int totalDuration;
+  var totalDuration;
   final bool isActive;
   final bool isTrending;
   final DateTime? createdAt;
@@ -242,14 +254,18 @@ class WorkoutModel {
       title: json['title'] ?? '',
       description: json['description'] ?? '',
       category: (json['category'] as List<dynamic>?)
-          ?.map((e) => e.toString())
-          .toList() ??
+              ?.map((e) => e.toString())
+              .toList() ??
           [],
       totalDuration: json['totalDuration'] ?? 0,
       isActive: json['isActive'] ?? false,
       isTrending: json['isTrending'] ?? false,
-      createdAt: json['createdAt'] != null ? DateTime.tryParse(json['createdAt']) : null,
-      updatedAt: json['updatedAt'] != null ? DateTime.tryParse(json['updatedAt']) : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'])
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.tryParse(json['updatedAt'])
+          : null,
       version: json['__v'] ?? 0,
     );
   }

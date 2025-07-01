@@ -31,45 +31,44 @@ class FeelingSelectionWidget extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children:
-                moodsToShow.map((item) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.back();
-                      Get.toNamed(
-                        Routes.MOOD_SELECTION_FORM,
-                        arguments: {
-                          "mood": Mood.values.byName(
-                            item['label'].toString().toLowerCase(),
-                          ),
-                        },
-                      );
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 7.ksp),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            child: CommonImageView(
-                              svgPath: item["image"]!,
-                              width: 60,
-                              height: 60,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          8.kheightBox,
-                          Text(
-                            item["label"]!,
-                            style: TextStyleUtil.genSans400(
-                              fontSize: 10.ksp,
-                              color: ColorUtil(context).black,
-                            ),
-                          ),
-                        ],
+            children: moodsToShow.map((item) {
+              return GestureDetector(
+                onTap: () {
+                  Get.back();
+                  Get.toNamed(
+                    Routes.MOOD_SELECTION_FORM,
+                    arguments: {
+                      "mood": Mood.values.byName(
+                        item['label'].toString().toLowerCase(),
                       ),
-                    ),
+                    },
                   );
-                }).toList(),
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 7.ksp),
+                  child: Column(
+                    children: [
+                      ClipRRect(
+                        child: CommonImageView(
+                          svgPath: item["image"]!,
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      8.kheightBox,
+                      Text(
+                        item["label"]!,
+                        style: TextStyleUtil.genSans400(
+                          fontSize: 10.ksp,
+                          color: ColorUtil(context).black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
           ),
         ),
       ],
