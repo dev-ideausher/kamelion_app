@@ -94,6 +94,9 @@ class Endpoints {
       "postinteraction/$postId/comment/$commentId";
   static String leaveCommunity(String id) => "community/leavecommunity/$id";
   static String reportComment(String id) => "postinteraction/$id/report";
+
+  static String getHomeSearch(String query) => "mood/search?search=$query";
+  static const String getMoods = "mood/getmood";
   // receiveTimeout
   static const int receiveTimeout = 15000;
 

@@ -21,6 +21,7 @@ class CommunityPostsAppBar extends StatelessWidget {
     required this.communityImage,
     required this.userAvatarDetails,
     // required this.isSaved,
+    required this.isMember
   });
   String title,
       ownweName,
@@ -31,6 +32,7 @@ class CommunityPostsAppBar extends StatelessWidget {
       communityImage,
       userAvatarDetails;
   // bool isSaved;
+  bool isMember;
 
   @override
   Widget build(BuildContext context) {
@@ -102,46 +104,95 @@ class CommunityPostsAppBar extends StatelessWidget {
                       ),
 
                       // Save Button
+                      // PopupMenuButton<String>(
+                      //   color: context.white,
+                      //   icon: Icon(
+                      //     Icons.more_vert,
+                      //     color: context.white,
+                      //   ), // The 3-dot icon
+                      //   onSelected: (value) {
+                      //     if (value == 'Mute') {
+                      //       // Handle Edit
+                      //     } else if (value == 'Leave') {
+                      //       Get.find<CommunityPostsController>()
+                      //           .leaveCommunityDialog(context);
+                      //     }
+                      //   },
+                      //   itemBuilder: (BuildContext context) => [
+                      //     PopupMenuItem(
+                      //       value: 'Mute',
+                      //       child: Row(
+                      //         children: [
+                      //           Icon(Icons.notifications_off_outlined),
+                      //           10.kwidthBox,
+                      //           Text('Mute Community'),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     PopupMenuItem(
+                      //       value: 'Leave',
+                      //       child: Row(
+                      //         children: [
+                      //           Icon(Icons.logout, color: context.redBg),
+                      //           10.kwidthBox,
+                      //           Text(
+                      //             'Leave Community',
+                      //             style: TextStyle(color: context.redBg),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       PopupMenuButton<String>(
                         color: context.white,
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: context.white,
-                        ), // The 3-dot icon
+                        icon: Icon(Icons.more_vert, color: context.white),
                         onSelected: (value) {
                           if (value == 'Mute') {
-                            // Handle Edit
+                            // …
                           } else if (value == 'Leave') {
                             Get.find<CommunityPostsController>()
                                 .leaveCommunityDialog(context);
                           }
                         },
-                        itemBuilder: (BuildContext context) => [
-                          PopupMenuItem(
-                            value: 'Mute',
-                            child: Row(
-                              children: [
-                                Icon(Icons.notifications_off_outlined),
-                                10.kwidthBox,
-                                Text('Mute Community'),
-                              ],
+                        itemBuilder: (BuildContext ctx) {
+                          // always show “Mute”
+                          final items = <PopupMenuEntry<String>>[
+                            PopupMenuItem(
+                              value: 'Mute',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.notifications_off_outlined),
+                                  10.kwidthBox,
+                                  Text('Mute Community'),
+                                ],
+                              ),
                             ),
-                          ),
-                          PopupMenuItem(
-                            value: 'Leave',
-                            child: Row(
-                              children: [
-                                Icon(Icons.logout, color: context.redBg),
-                                10.kwidthBox,
-                                Text(
-                                  'Leave Community',
-                                  style: TextStyle(color: context.redBg),
+                          ];
+
+                          // only add “Leave” if the user _is_ a member
+                          if (isMember) {
+                            items.add(
+                              PopupMenuItem(
+                                value: 'Leave',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.logout, color: context.redBg),
+                                    10.kwidthBox,
+                                    Text(
+                                      'Leave Community',
+                                      style: TextStyle(color: context.redBg),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                        ],
+                              ),
+                            );
+                          }
+
+                          return items;
+                        },
                       ),
+
                     ],
                   ),
                   Text(

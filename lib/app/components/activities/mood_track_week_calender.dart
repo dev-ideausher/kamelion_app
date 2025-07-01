@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kamelion/app/modules/mood_tracker/controllers/mood_tracker_controller.dart';
+import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -46,6 +47,11 @@ class _MoodTrackerWeekCalenderRowState extends State<MoodTrackerWeekCalenderRow>
         children:
         dates.map((date) {
           final isSelected = isSameDay(date, selectedDay ?? DateTime.now());
+
+          final bgColor     = isSelected ? Colors.white : context.brandColor5;
+          final fgColor     = isSelected ? context.brandColorGreen2: context.lightBrandColor;
+          final borderColor = Colors.green;
+          final double width=isSelected ?5:1;
           return GestureDetector(
             onTap: () {
               setState(() {
@@ -62,16 +68,16 @@ class _MoodTrackerWeekCalenderRowState extends State<MoodTrackerWeekCalenderRow>
                 vertical: 10,
               ),
               decoration: BoxDecoration(
-                color: isSelected ? Colors.green : Colors.white,
+                color: bgColor,
                 borderRadius: BorderRadius.circular(30.ksp),
-                border: Border.all(color: Colors.green),
+                border: Border.all(color: borderColor,width: width),
               ),
               child: Column(
                 children: [
                   Text(
                     DateFormat.E().format(date), // e.g., Mon
                     style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.green,
+                      color: fgColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -79,7 +85,7 @@ class _MoodTrackerWeekCalenderRowState extends State<MoodTrackerWeekCalenderRow>
                   Text(
                     date.day.toString(), // e.g., 26
                     style: TextStyle(
-                      color: isSelected ? Colors.white : Colors.green,
+                      color: fgColor,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -88,7 +94,7 @@ class _MoodTrackerWeekCalenderRowState extends State<MoodTrackerWeekCalenderRow>
                   Icon(
                     Icons.circle,
                     size: 6.ksp,
-                    color: isSelected ? Colors.white : Colors.green,
+                    color: fgColor,
                   ),
                 ],
               ),

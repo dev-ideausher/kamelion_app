@@ -63,6 +63,9 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                   child: Column(
                     children: [
                       CommunityPostsAppBar(
+                        isMember:(controller
+                            .communityDetails?.value.community?.isMember ??
+                            false) ,
                         userAvatarDetails: controller
                                 .communitySelected?.userId!.avatardetails ??
                             "",
