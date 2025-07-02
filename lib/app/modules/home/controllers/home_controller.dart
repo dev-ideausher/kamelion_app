@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -208,16 +207,14 @@ class HomeController extends GetxController {
     showDialog(
       context: context,
       barrierDismissible: true,
-
-      builder:
-          (context) => Dialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 8.ksp),
-            backgroundColor: Colors.transparent,
-            child: Container(
-              color: context.white,
-              child: FeelingSelectionWidget(moodsToShow: moodsToShow),
-            ), // your custom widget here
-          ),
+      builder: (context) => Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 8.ksp),
+        backgroundColor: Colors.transparent,
+        child: Container(
+          color: context.white,
+          child: FeelingSelectionWidget(moodsToShow: moodsToShow),
+        ), // your custom widget here
+      ),
     );
   }
 }
