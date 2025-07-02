@@ -15,6 +15,11 @@ class Endpoints {
   static const String createAvatar = "avatar/save";
   static const String saveUser = "userinfo/save";
   static const String uploadFile = "users/fileupload";
+
+  static const String workoutComplete = "savedmentalgym/workoutcomplete";
+
+
+
   static String updateUser(String id) => "users/updateuser/$id";
   static String submitQuize = "completequiz/save";
   static String getMood(String id, String timezone) =>

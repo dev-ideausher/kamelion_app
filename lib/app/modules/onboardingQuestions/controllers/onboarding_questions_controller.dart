@@ -143,6 +143,7 @@ class OnboardingQuestionsController extends GetxController {
     //   Get.offNamed(Routes.QUIZE_COMPLETE);
     //   Get.find<HomeController>().getUser();
     // } else
+
     if (Get.previousRoute == Routes.GET_STARTED) {
       try {
         var user = await APIManager.getUser();

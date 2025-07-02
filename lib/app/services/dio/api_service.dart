@@ -360,6 +360,12 @@ class APIManager {
         isOverlayLoader: false,
       ).patch(Endpoints.updateUser(id), data: body);
 
+
+
+
+
+
+
   static Future<Response> submitMentalGymAnswer({
     required var body,
   }) async =>
@@ -368,6 +374,23 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: true,
       ).post(Endpoints.submitQuize, data: body);
+
+
+
+  static Future<Response> postWorkoutProgressDuration({
+    required var body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.workoutComplete, data: body);
+
+
+
+
+
+
 
   static Future<Response> saveMentalGym({required var body}) async =>
       await DioClient(
