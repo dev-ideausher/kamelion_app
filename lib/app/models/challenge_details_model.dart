@@ -15,11 +15,13 @@ class ChallengeDetailsModel {
   String? image;
   bool? isSaved;
   String? startedDate;
+  num? progress;
 
   ChallengeDetailsModel(
       {this.sId,
       this.challengeTitle,
       this.challengeIntro,
+      this.progress,
       this.startedDate,
       this.status,
       this.category,
@@ -38,7 +40,9 @@ class ChallengeDetailsModel {
     sId = json['_id'];
     challengeTitle = json['challengeTitle'];
     challengeIntro = json['challengeIntro'];
-    startedDate = json['userChallengeProgress']['createdAt'];
+    startedDate = json['userChallengeProgress'] == null
+        ? DateTime.now().toString()
+        : json['userChallengeProgress']['createdAt'];
     status = json['status'];
     if (json['category'] != null) {
       category = <Category>[];
@@ -56,6 +60,8 @@ class ChallengeDetailsModel {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     image = json['image'];
+    progress =
+        json['userProgress'] == null ? 0 : json['userProgress'][0]['progress'];
   }
 
   Map<String, dynamic> toJson() {

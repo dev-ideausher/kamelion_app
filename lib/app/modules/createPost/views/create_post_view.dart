@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
@@ -8,7 +7,6 @@ import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
-
 import '../controllers/create_post_controller.dart';
 
 class CreatePostView extends GetView<CreatePostController> {
@@ -23,11 +21,9 @@ class CreatePostView extends GetView<CreatePostController> {
           () => CustomButton.outline(
             disabled: !controller.enableButton.value,
             title: controller.postId == null ? "Create Post" : "Edit Post",
-            onTap:
-                () =>
-                    controller.postId == null
-                        ? controller.createPost()
-                        : controller.editPost(),
+            onTap: () => controller.postId == null
+                ? controller.createPost()
+                : controller.editPost(),
             trailing: Padding(
               padding: EdgeInsets.only(left: 4.0.ksp),
               child: Icon(

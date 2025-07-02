@@ -11,12 +11,14 @@ class BadgeModel {
   String? expiryDate;
   String? createdAt;
   String? updatedAt;
+  num? progress;
   int? iV;
 
   BadgeModel(
       {this.badgeImage,
       this.sId,
       this.name,
+      this.progress,
       this.description,
       this.activityType,
       this.conditionType,
@@ -43,6 +45,8 @@ class BadgeModel {
     expiryDate = json['expiryDate'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    progress =
+        json['userProgress'] == null ? 0 : json['userProgress'][0]['progress'];
     iV = json['__v'];
   }
 

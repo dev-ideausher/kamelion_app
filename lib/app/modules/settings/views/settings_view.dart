@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/constants/link_constants.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
-
 import '../controllers/settings_controller.dart';
 
 class SettingsView extends GetView<SettingsController> {
@@ -19,9 +19,10 @@ class SettingsView extends GetView<SettingsController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SettingAppBar(),
+            SettingAppBar(
+              title: LocaleKeys.settings.tr,
+            ),
             20.kheightBox,
-
             SettingTab(
               title: LocaleKeys.profile.tr,
               subTitle1: LocaleKeys.edit_profile.tr,
@@ -54,10 +55,22 @@ class SettingsView extends GetView<SettingsController> {
               subTitle2: "Contact Us",
               subTitle3: "Terms of Service",
               subTitle4: "Privacy Policy",
-              ontap1: () {},
-              onTap2: () {},
-              ontap3: () {},
-              onTap4: () {},
+              ontap1: () {
+                Get.toNamed(Routes.FAQS);
+              },
+              onTap2: () {
+                Get.toNamed(Routes.CONTACT_US);
+              },
+              ontap3: () {
+                controller.openWebLink(
+                  LinkConstants().termsAndConditionsKamelion,
+                );
+              },
+              onTap4: () {
+                controller.openWebLink(
+                  LinkConstants().privacyPolicyKamelion,
+                );
+              },
             ),
             15.kheightBox,
             SettingTab(
@@ -80,7 +93,8 @@ class SettingsView extends GetView<SettingsController> {
 }
 
 class SettingAppBar extends StatelessWidget {
-  SettingAppBar({super.key});
+  SettingAppBar({super.key, required this.title});
+  String title;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -130,7 +144,7 @@ class SettingAppBar extends StatelessWidget {
                 ),
                 10.kheightBox,
                 Text(
-                  LocaleKeys.settings.tr,
+                  title,
                   style: TextStyleUtil.genSans500(fontSize: 20.ksp),
                 ),
               ],
@@ -386,8 +400,8 @@ class SettingTab4 extends StatelessWidget {
                 color: ColorUtil(context).white,
                 border: Border.all(color: ColorUtil(context).grey),
                 borderRadius: BorderRadius.vertical(
-                  // top: Radius.circular(6.ksp),
-                ), // Rounded corners
+                    // top: Radius.circular(6.ksp),
+                    ), // Rounded corners
               ),
               child: Row(
                 children: [
@@ -418,8 +432,8 @@ class SettingTab4 extends StatelessWidget {
                 color: ColorUtil(context).white,
                 border: Border.all(color: ColorUtil(context).grey),
                 borderRadius: BorderRadius.vertical(
-                  // bottom: Radius.circular(6.ksp),
-                ), // Rounded corners
+                    // bottom: Radius.circular(6.ksp),
+                    ), // Rounded corners
               ),
               child: Row(
                 children: [

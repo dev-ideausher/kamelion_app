@@ -24,7 +24,7 @@ PODS:
     - FirebaseAuth (~> 11.15.0)
   - Firebase/CoreOnly (11.15.0):
     - FirebaseCore (~> 11.15.0)
-  - firebase_auth (5.6.0):
+  - firebase_auth (5.6.1):
     - Firebase/Auth (= 11.15.0)
     - firebase_core
     - Flutter
@@ -226,7 +226,7 @@ SPEC CHECKSUMS:
   FBSDKCoreKit_Basics: 46d6b472c0dd0a5a7e972c025033d1c567f54eb4
   FBSDKLoginKit: b4a4eba1d62eb452544411824f41689adabd5bd2
   Firebase: d99ac19b909cd2c548339c2241ecd0d1599ab02e
-  firebase_auth: f571c36d02d8974f51e1ec6ace8589ba4064ee3a
+  firebase_auth: 5be3036c1b9a080697788696db398e637d6c8401
   firebase_core: c727a02c560a53f1f1e56e18f16515eb5753c492
   FirebaseAppCheckInterop: 06fe5a3799278ae4667e6c432edd86b1030fa3df
   FirebaseAuth: a6575e5fbf46b046c58dc211a28a5fbdd8d4c83b
@@ -258,6 +258,6 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 2cef49524dd1f16c5300b9cd6efd9611ce03639b
   wakelock_plus: e29112ab3ef0b318e58cfa5c32326458be66b556
 
-PODFILE CHECKSUM: 251cb053df7158f337c0712f2ab29f4e0fa474ce
+PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
 
 COCOAPODS: 1.16.2

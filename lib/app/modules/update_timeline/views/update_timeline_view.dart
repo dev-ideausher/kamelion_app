@@ -27,7 +27,11 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
               key: controller.formKey,
               child: Column(
                 children: [
-                  TimelineAppBar(title:!controller.viewOnly.value? "Update Journal":"Journal",),
+                  TimelineAppBar(
+                    title: !controller.viewOnly.value
+                        ? "Update Journal"
+                        : "Journal",
+                  ),
                   Padding(
                     padding: EdgeInsets.all(16.0.ksp),
                     child: SingleChildScrollView(
@@ -42,7 +46,8 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                             ),
                           ),
                           6.kheightBox,
-                          CustomTextField(hintText: "Feeling happy",
+                          CustomTextField(
+                            hintText: "Feeling happy",
                             readOnly: controller.viewOnly.value,
                             validator: (value) {
                               if (value == null || value.trim().isEmpty) {
@@ -50,12 +55,14 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                               }
                               if (value.trim().length < 3) {
                                 return 'Title must be at least 3 characters long';
-                              } if (value.trim().length > 100) {
+                              }
+                              if (value.trim().length > 100) {
                                 return 'Title must be less than 100 characters';
                               }
                               return null;
                             },
-                            controller: controller.titleController,),
+                            controller: controller.titleController,
+                          ),
                           20.kheightBox,
                           Text(
                             "Write Your Entry",
@@ -65,7 +72,8 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                             ),
                           ),
                           6.kheightBox,
-                          TextFormField(controller: controller.entryController,
+                          TextFormField(
+                            controller: controller.entryController,
                             readOnly: controller.viewOnly.value,
                             validator: (value) {
                               if (value == null || value.trim().isEmpty) {
@@ -73,7 +81,8 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                               }
                               if (value.trim().length < 3) {
                                 return 'Description must be at least 10 characters long';
-                              }   return null;
+                              }
+                              return null;
                             },
                             decoration: InputDecoration(
                               hintText: "Enter a description...",
@@ -116,7 +125,8 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                             decoration: BoxDecoration(
                               color: ColorUtil(context).white,
                               borderRadius: BorderRadius.circular(6.ksp),
-                              border: Border.all(color: ColorUtil(context).grey),
+                              border:
+                                  Border.all(color: ColorUtil(context).grey),
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
@@ -124,15 +134,17 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                                 20.kheightBox,
                                 // Image
                                 Obx(
-                                      () => CommonImageView(
+                                  () => CommonImageView(
                                     svgPath: controller.currentMoodImage.value,
                                     height: 50.ksp,
                                   ),
                                 ),
                                 5.kheightBox,
                                 Obx(
-                                      () => Text(
-                                    controller.currentMoodSelected.value.capitalize ?? "",
+                                  () => Text(
+                                    controller.currentMoodSelected.value
+                                            .capitalize ??
+                                        "",
                                     style: TextStyleUtil.genSans500(
                                       fontSize: 12.ksp,
                                       color: ColorUtil(context).brandColor1,
@@ -141,15 +153,15 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                                 ),
                                 1.kheightBox,
                                 Obx(
-                                      () => SliderTheme(
+                                  () => SliderTheme(
                                     data: SliderTheme.of(context).copyWith(
-                                      activeTrackColor:
-                                      ColorUtil(
+                                      activeTrackColor: ColorUtil(
                                         context,
                                       ).brandColor1, // Slider active part color
-                                      inactiveTrackColor: ColorUtil(context).grey,
+                                      inactiveTrackColor:
+                                          ColorUtil(context).grey,
                                       thumbColor:
-                                      ColorUtil(context).white, // Tip color
+                                          ColorUtil(context).white, // Tip color
                                       overlayColor: ColorUtil(
                                         context,
                                       ).brandColor1.withOpacity(0.2),
@@ -164,7 +176,8 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                                       max: 100,
                                       divisions: 4,
                                       onChanged: (value) {
-                                        controller.changeSliderValue(val: value);
+                                        controller.changeSliderValue(
+                                            val: value);
                                       },
                                     ),
                                   ),
@@ -186,14 +199,16 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                             padding: EdgeInsets.all(12.ksp),
                             decoration: BoxDecoration(
                               color: ColorUtil(context).white,
-                              border: Border.all(color: ColorUtil(context).grey),
+                              border:
+                                  Border.all(color: ColorUtil(context).grey),
                               borderRadius: BorderRadius.circular(5.ksp),
                             ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextFormField( readOnly: controller.viewOnly.value,
+                                TextFormField(
+                                  readOnly: controller.viewOnly.value,
                                   validator: (value) {
                                     if (value == null || value.trim().isEmpty) {
                                       return 'Please enter a feelings';
@@ -216,38 +231,37 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                                 Wrap(
                                   spacing: 6.ksp,
                                   runSpacing: 9.ksp,
-                                  children:
-                                  controller.feelingsKeywords
+                                  children: controller.feelingsKeywords
                                       .map(
                                         (keyword) => InkWell(
-                                      onTap: () {
-                                        controller.onFeelingSelected(
-                                          keyword: keyword,
-                                        );
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10.ksp,
-                                          vertical: 3.ksp,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color:
-                                          context
-                                              .lighPitchBg, // background color
-                                          borderRadius: BorderRadius.circular(
-                                            16.ksp,
-                                          ), // round corners
-                                        ),
-                                        child: Text(
-                                          keyword,
-                                          style: TextStyleUtil.genSans400(
-                                            fontSize: 12.ksp,
-                                            color: context.darkRedText,
+                                          onTap: () {
+                                            controller.onFeelingSelected(
+                                              keyword: keyword,
+                                            );
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10.ksp,
+                                              vertical: 3.ksp,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: context
+                                                  .lighPitchBg, // background color
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                16.ksp,
+                                              ), // round corners
+                                            ),
+                                            child: Text(
+                                              keyword,
+                                              style: TextStyleUtil.genSans400(
+                                                fontSize: 12.ksp,
+                                                color: context.darkRedText,
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  )
+                                      )
                                       .toList(),
                                 ),
                               ],
@@ -262,32 +276,38 @@ class UpdateTimelineView extends GetView<UpdateTimelineController> {
                             ),
                           ),
                           6.kheightBox,
-                          CustomTextField(controller: controller.activitiesController,
+                          CustomTextField(
+                            controller: controller.activitiesController,
                             readOnly: controller.viewOnly.value,
                             validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'Please enter activities';
-                              }
-                              if (value.trim().length < 3) {
-                                return 'Activity must be at least 3 characters long';
-                              } if (value.trim().length > 100) {
-                                return 'Activity must be less than 100 characters';
-                              }
+                              // if (value == null || value.trim().isEmpty) {
+                              //   return 'Please enter activities';
+                              // }
+                              // if (value.trim().length < 3) {
+                              //   return 'Activity must be at least 3 characters long';
+                              // } if (value.trim().length > 100) {
+                              //   return 'Activity must be less than 100 characters';
+                              // }
                               return null;
                             },
                             hintText: LocaleKeys.activities_question.tr,
                           ),
                           20.kheightBox,
-                          if(!controller.viewOnly.value)
-                          Obx(() => CustomButton.outline(
-                            title: controller.isLoading.value ? "Saving..." : "Update Journal",
-                            onTap: controller.isLoading.value ? null : () {
-                              if(controller.formKey.currentState?.validate() ?? false){
-                                controller.updateJournal();
-                              }
-
-                            },
-                          )),
+                          if (!controller.viewOnly.value)
+                            Obx(() => CustomButton.outline(
+                                  title: controller.isLoading.value
+                                      ? "Saving..."
+                                      : "Update Journal",
+                                  onTap: controller.isLoading.value
+                                      ? null
+                                      : () {
+                                          if (controller.formKey.currentState
+                                                  ?.validate() ??
+                                              false) {
+                                            controller.updateJournal();
+                                          }
+                                        },
+                                )),
                           60.kheightBox,
                         ],
                       ),

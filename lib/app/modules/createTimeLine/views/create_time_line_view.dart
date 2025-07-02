@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/activities/timeline_app_bar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
@@ -10,7 +9,6 @@ import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
-
 import '../controllers/create_time_line_controller.dart';
 
 class CreateTimeLineView extends GetView<CreateTimeLineController> {
@@ -24,7 +22,9 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
           key: controller.formKey,
           child: Column(
             children: [
-              TimelineAppBar(title: "Add New Journal",),
+              TimelineAppBar(
+                title: "Add New Journal",
+              ),
               Padding(
                 padding: EdgeInsets.all(16.0.ksp),
                 child: SingleChildScrollView(
@@ -39,19 +39,22 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                         ),
                       ),
                       6.kheightBox,
-                      CustomTextField(hintText: "Feeling happy",
+                      CustomTextField(
+                        hintText: "Feeling happy",
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Please enter a journal title';
                           }
                           if (value.trim().length < 3) {
                             return 'Title must be at least 3 characters long';
-                          } if (value.trim().length > 100) {
+                          }
+                          if (value.trim().length > 100) {
                             return 'Title must be less than 100 characters';
                           }
                           return null;
                         },
-                      controller: controller.titleController,),
+                        controller: controller.titleController,
+                      ),
                       20.kheightBox,
                       Text(
                         "Write Your Entry",
@@ -61,15 +64,17 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                         ),
                       ),
                       6.kheightBox,
-                      TextFormField(controller: controller.entryController,
-              validator: (value) {
-              if (value == null || value.trim().isEmpty) {
-              return 'Please enter description';
-              }
-              if (value.trim().length < 3) {
-              return 'Description must be at least 10 characters long';
-              }   return null;
-              },
+                      TextFormField(
+                        controller: controller.entryController,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Please enter description';
+                          }
+                          if (value.trim().length < 3) {
+                            return 'Description must be at least 10 characters long';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           hintText: "Enter a description...",
                           border: OutlineInputBorder(
@@ -119,15 +124,17 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                             20.kheightBox,
                             // Image
                             Obx(
-                                  () => CommonImageView(
+                              () => CommonImageView(
                                 svgPath: controller.currentMoodImage.value,
                                 height: 50.ksp,
                               ),
                             ),
                             5.kheightBox,
                             Obx(
-                                  () => Text(
-                                controller.currentMoodSelected.value.capitalize ?? "",
+                              () => Text(
+                                controller
+                                        .currentMoodSelected.value.capitalize ??
+                                    "",
                                 style: TextStyleUtil.genSans500(
                                   fontSize: 12.ksp,
                                   color: ColorUtil(context).brandColor1,
@@ -138,10 +145,9 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                             Obx(
                               () => SliderTheme(
                                 data: SliderTheme.of(context).copyWith(
-                                  activeTrackColor:
-                                      ColorUtil(
-                                        context,
-                                      ).brandColor1, // Slider active part color
+                                  activeTrackColor: ColorUtil(
+                                    context,
+                                  ).brandColor1, // Slider active part color
                                   inactiveTrackColor: ColorUtil(context).grey,
                                   thumbColor:
                                       ColorUtil(context).white, // Tip color
@@ -193,7 +199,7 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                                 if (value == null || value.trim().isEmpty) {
                                   return 'Please enter a feelings';
                                 }
-          
+
                                 return null;
                               },
                               controller: controller.feelingsController,
@@ -211,39 +217,37 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                             Wrap(
                               spacing: 6.ksp,
                               runSpacing: 9.ksp,
-                              children:
-                                  controller.feelingsKeywords
-                                      .map(
-                                        (keyword) => InkWell(
-                                          onTap: () {
-                                            controller.onFeelingSelected(
-                                              keyword: keyword,
-                                            );
-                                          },
-                                          child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 10.ksp,
-                                              vertical: 3.ksp,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  context
-                                                      .lighPitchBg, // background color
-                                              borderRadius: BorderRadius.circular(
-                                                16.ksp,
-                                              ), // round corners
-                                            ),
-                                            child: Text(
-                                              keyword,
-                                              style: TextStyleUtil.genSans400(
-                                                fontSize: 12.ksp,
-                                                color: context.darkRedText,
-                                              ),
-                                            ),
+                              children: controller.feelingsKeywords
+                                  .map(
+                                    (keyword) => InkWell(
+                                      onTap: () {
+                                        controller.onFeelingSelected(
+                                          keyword: keyword,
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10.ksp,
+                                          vertical: 3.ksp,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: context
+                                              .lighPitchBg, // background color
+                                          borderRadius: BorderRadius.circular(
+                                            16.ksp,
+                                          ), // round corners
+                                        ),
+                                        child: Text(
+                                          keyword,
+                                          style: TextStyleUtil.genSans400(
+                                            fontSize: 12.ksp,
+                                            color: context.darkRedText,
                                           ),
                                         ),
-                                      )
-                                      .toList(),
+                                      ),
+                                    ),
+                                  )
+                                  .toList(),
                             ),
                           ],
                         ),
@@ -257,30 +261,37 @@ class CreateTimeLineView extends GetView<CreateTimeLineController> {
                         ),
                       ),
                       6.kheightBox,
-                      CustomTextField(controller: controller.activitiesController,
+                      CustomTextField(
+                        controller: controller.activitiesController,
                         validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter activities';
-                          }
-                          if (value.trim().length < 3) {
-                            return 'Activity must be at least 3 characters long';
-                          } if (value.trim().length > 100) {
-                            return 'Activity must be less than 100 characters';
-                          }
+                          // if (value == null || value.trim().isEmpty) {
+                          //   return 'Please enter activities';
+                          // }
+                          // if (value.trim().length < 3) {
+                          //   return 'Activity must be at least 3 characters long';
+                          // }
+                          // if (value.trim().length > 100) {
+                          //   return 'Activity must be less than 100 characters';
+                          // }
                           return null;
                         },
                         hintText: LocaleKeys.activities_question.tr,
                       ),
                       20.kheightBox,
                       Obx(() => CustomButton.outline(
-                        title: controller.isLoading.value ? "Saving..." : "Add Journal",
-                        onTap: controller.isLoading.value ? null : () {
-                          if(controller.formKey.currentState?.validate() ?? false){
-                            controller.postJournalSave();
-                          }
-
-                        },
-                      )),
+                            title: controller.isLoading.value
+                                ? "Saving..."
+                                : "Add Journal",
+                            onTap: controller.isLoading.value
+                                ? null
+                                : () {
+                                    if (controller.formKey.currentState
+                                            ?.validate() ??
+                                        false) {
+                                      controller.postJournalSave();
+                                    }
+                                  },
+                          )),
                       60.kheightBox,
                     ],
                   ),
