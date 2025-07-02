@@ -37,7 +37,7 @@ class WorkoutDetailsController extends GetxController {
   void postWorkoutProg(
       {required String workoutID, required currentDuration}) async {
     var response = await APIManager.postWorkoutProgressDuration(
-      body: {"workoutId": "${workoutID}", "currentDuration": currentDuration},
+      body: {"workoutId": "${workoutID}", "currentDuration": "00:00:10"},
     );
 
     if (response.statusCode == 200) {
