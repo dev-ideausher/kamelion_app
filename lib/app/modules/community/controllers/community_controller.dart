@@ -33,6 +33,7 @@ class CommunityController extends GetxController {
   RxBool isLoading = false.obs;
   RxString categoryTitle = "".obs;
   RxString viewAllTitle = "".obs;
+  TextEditingController searchController=TextEditingController();
   List<Widget> screensList =
       [
         CommunitiesPage(),

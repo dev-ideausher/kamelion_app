@@ -61,6 +61,8 @@ import '../modules/quize_collect_coin/bindings/quize_collect_coin_binding.dart';
 import '../modules/quize_collect_coin/views/quize_collect_coin_view.dart';
 import '../modules/searchMentalGym/bindings/search_mental_gym_binding.dart';
 import '../modules/searchMentalGym/views/search_mental_gym_view.dart';
+import '../modules/search_community/bindings/search_community_binding.dart';
+import '../modules/search_community/views/search_community_view.dart';
 import '../modules/settings/bindings/settings_binding.dart';
 import '../modules/settings/views/settings_view.dart';
 import '../modules/signUp/bindings/sign_up_binding.dart';
@@ -274,6 +276,11 @@ class AppPages {
       name: _Paths.HOME_SEARCH,
       page: () => const HomeSearchView(),
       binding: HomeSearchBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_COMMUNITY,
+      page: () => const SearchCommunityView(),
+      binding: SearchCommunityBinding(),
     ),
   ];
 }
