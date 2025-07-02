@@ -57,6 +57,12 @@ class APIManager {
         isOverlayLoader: false,
       ).get(Endpoints.getUser);
 
+  static Future<Response> getMyStats() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getMyStats);
+
   static Future<Response> getMentalGymCounts() async => await DioClient(
         Dio(),
         showSnakbar: false,
@@ -270,6 +276,12 @@ class APIManager {
         isOverlayLoader: false,
       ).get(Endpoints.getBadges);
 
+  static Future<Response> getLeaderboard() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getLeaderboard);
+
   static Future<Response> getCompletedChallenges() async => await DioClient(
         Dio(),
         showSnakbar: false,
@@ -476,6 +488,15 @@ class APIManager {
           "community": communityid,
         },
       );
+
+  static Future<Response> contactUsSubmit({
+    required String desc,
+  }) async =>
+      await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).post(
+        Endpoints.sendcontactus,
+        data: {"text": desc},
+      );
+
   static Future<Response> getAllJournals({
     required String params,
   }) async =>

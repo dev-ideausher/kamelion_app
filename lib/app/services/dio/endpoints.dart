@@ -12,6 +12,7 @@ class Endpoints {
   static String getMentalGymQuestions(String id) => "quizmodule/allquizes/$id";
   static String markOpenedCommunity(String id) => "community/markopened/$id";
   static const String getUser = "users/getUser";
+  static const String getMyStats = "postinteraction/stats";
   static const String createAvatar = "avatar/save";
   static const String saveUser = "userinfo/save";
   static const String uploadFile = "users/fileupload";
@@ -25,6 +26,7 @@ class Endpoints {
   static const String getActiveChallenges =
       "challenges/getchallenges?isActive=true";
   static const String getBadges = "badge/getAllBadges";
+  static const String getLeaderboard = "postinteraction/leaderboard";
   static const String getCompletedChallenges =
       "challenges/getchallengeprogress";
   static const String getSavedChallenges = "challenges/getfavouritechallenges";
@@ -77,6 +79,7 @@ class Endpoints {
   static const String createCommunity = "community/save";
   static const String joinCommunity = "community/joincommunity";
   static const String createPost = "post/save";
+  static const String sendcontactus = "sendlicensekey/sendcontactus";
   static const String getTrendingCommunities =
       "community/getallcommunities?isTrending=true";
   static const String getfavouriteposts = "post/getfavouriteposts";

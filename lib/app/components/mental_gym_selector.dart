@@ -118,7 +118,7 @@ class MentalGymSelector extends StatelessWidget {
                         width: 64.kw,
                         height: 64.kw,
                         decoration: BoxDecoration(
-                            color: Colors.red,
+                            // color: Colors.tran,
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 image: NetworkImage(item.image ?? ''),

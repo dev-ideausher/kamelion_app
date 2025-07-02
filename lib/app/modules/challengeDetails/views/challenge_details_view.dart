@@ -8,6 +8,7 @@ import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
+import 'package:kamelion/generated/locales.g.dart';
 
 import '../controllers/challenge_details_controller.dart';
 
@@ -131,6 +132,76 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                             "",
                       ),
                       15.kheightBox,
+                      controller.challengeDetails!.value.isActive!
+                          ? Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 14.ksp),
+                              child: Card(
+                                elevation: 5,
+                                color: context.white,
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0.ksp),
+                                    child: Column(
+                                      children: [
+                                        4.kheightBox,
+                                        Row(
+                                          children: [
+                                            4.kwidthBox,
+                                            Text(
+                                              "Challenge Progress",
+                                              style: TextStyleUtil.genSans500(
+                                                  fontSize: 14.ksp,
+                                                  color: context.black),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.all(11.0.ksp),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: LinearProgressIndicator(
+                                                  value: ((controller
+                                                              .challengeDetails!
+                                                              .value
+                                                              .progress ??
+                                                          0) /
+                                                      100),
+                                                  minHeight: 8.ksp,
+                                                  valueColor:
+                                                      AlwaysStoppedAnimation<
+                                                          Color>(
+                                                    context.brandColor1,
+                                                  ),
+                                                  backgroundColor: context.grey,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(12.0.ksp),
+                                                  ),
+                                                ),
+                                              ),
+                                              12.kwidthBox,
+                                              Text(
+                                                  "${(controller.challengeDetails!.value.progress ?? 0)}% " +
+                                                      LocaleKeys.complete.tr),
+                                            ],
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.keyboard_arrow_down,
+                                          size: 20.ksp,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
+                      controller.challengeDetails!.value.isActive!
+                          ? 15.kheightBox
+                          : Container(),
                       Row(
                         children: [
                           18.kwidthBox,

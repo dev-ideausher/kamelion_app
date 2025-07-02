@@ -15,8 +15,6 @@ extension ColorUtil on BuildContext {
   Color get brandColor1 =>
       dynamicColour(light: HexColor("#238E5B"), dark: HexColor("#238E5B"));
 
-
-
   Color get brandColorGreen2 =>
       dynamicColour(light: HexColor("#258E5B"), dark: HexColor("#258E5B"));
 
@@ -31,7 +29,6 @@ extension ColorUtil on BuildContext {
 
   Color get orangeColor =>
       dynamicColour(light: HexColor("#FF872E"), dark: HexColor("#FF872E"));
-
 
   Color get brandColor4 =>
       dynamicColour(light: HexColor("#FFA35E"), dark: HexColor("#FFA35E"));
@@ -102,12 +99,11 @@ extension ColorUtil on BuildContext {
   Color get greyBg2 =>
       dynamicColour(light: HexColor("#F2F2F2"), dark: HexColor("#F2F2F2"));
 
-
+  Color get greyLightBg =>
+      dynamicColour(light: HexColor("#F1F1F1"), dark: HexColor("#F1F1F1"));
 
   Color get greyScaleText =>
       dynamicColour(light: HexColor("#292826"), dark: HexColor("#292826"));
-
-
 
   Color get greyDark =>
       dynamicColour(light: HexColor("#717680"), dark: HexColor("#717680"));
