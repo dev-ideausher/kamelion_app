@@ -587,4 +587,15 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: false,
       ).get('${Endpoints.getMoods}?$params');
+  static Future<Response> searchCommunities({
+    required String page,
+    required String limit,
+    required String word,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.searchCommunities(word: word, page: page, limit: limit));
+
 }

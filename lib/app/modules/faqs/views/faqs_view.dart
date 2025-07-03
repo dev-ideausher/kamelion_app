@@ -27,7 +27,8 @@ class FaqsView extends GetView<FaqsController> {
                   ...controller.faqQuestions.asMap().entries.map((entry) {
                     int index = entry.key;
                     String item = entry.value;
-
+                    final question = entry.value;
+                    final answer = controller.answers[index];
                     return Padding(
                       padding: EdgeInsets.only(bottom: 12.0.ksp),
                       child: Theme(
@@ -70,12 +71,56 @@ class FaqsView extends GetView<FaqsController> {
                                   children: [
                                     26.kwidthBox,
                                     Flexible(
-                                      child: Text(
-                                        controller.answers[index],
-                                        style: TextStyleUtil.genSans400(
-                                            fontSize: 10.5.ksp,
-                                            color: context.black),
-                                      ),
+                                      child: () {
+                                        final answer = controller.answers[index];
+
+                                        if (answer is String) {
+                                          // Plain‐text answer
+                                          return Text(
+                                            answer,
+                                            style: TextStyleUtil.genSans400(fontSize: 10.5.ksp, color: context.black),
+                                          );
+                                        } else if (answer is Map<String, Object>) {
+                                          final header = answer['header'] as String;
+                                          final bullets = answer['bullets'] as List<String>;
+                                          final footer = answer['footer'] as String?;
+                                          return Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              // Header line
+                                              Text(
+                                                header,
+                                                style: TextStyleUtil.genSans500(fontSize: 11.ksp, color: context.black),
+                                              ),
+                                              SizedBox(height: 6.ksp),
+                                              // Bullet list
+                                              ...bullets.map((b) => Padding(
+                                                padding: EdgeInsets.only(bottom: 4.ksp),
+                                                child: Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text("• ", style: TextStyleUtil.genSans400(fontSize: 10.5.ksp, color: context.black)),
+                                                    Expanded(
+                                                      child: Text(
+                                                        b,
+                                                        style: TextStyleUtil.genSans400(fontSize: 10.5.ksp, color: context.black),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )),
+
+                                              if (footer != null) ...[
+                                                SizedBox(height: 8.ksp),
+                                                Text(footer,                                                 style: TextStyleUtil.genSans500(fontSize: 11.ksp, color: context.black),
+                                                ),
+                                              ],
+                                            ],
+                                          );
+                                        } else {
+                                          return const SizedBox.shrink();
+                                        }
+                                      }(),
                                     ),
                                     10.kwidthBox,
                                   ],

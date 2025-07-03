@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -73,8 +75,10 @@ class MentalGymController extends GetxController {
       viewAllMentalGymList.value = suggestedMentalGym;
       viewAllTitle.value = "Suggested Mental Gym";
     } else if (index == 3) {
-      viewAllMentalGymList.value ==
-          Get.find<HomeController>().popularMentalGyms;
+
+      viewAllMentalGymList.value =
+          Get.find<HomeController>().popularMentalGyms.value;
+
       viewAllTitle.value = "Popular Mental Gym";
     } else if (index == 4) {
       await getSavedMentalGym();

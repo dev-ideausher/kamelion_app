@@ -6,12 +6,15 @@ import 'package:intl/intl.dart';
 import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
+
+import '../../routes/app_pages.dart';
 
 class CommunityAppBar extends StatelessWidget {
   final String userName;
@@ -158,6 +161,15 @@ class CommunityAppBar extends StatelessWidget {
               // fillColor: ColorUtil(context).white,
               // filled: true,
               // prefixIcon: Icon(Icons.search, color: ColorUtil(context).black),
+              controller: Get.find<CommunityController>().searchController,
+              onFieldSubmitted: (search) {
+                Get.toNamed(
+                  Routes.SEARCH_COMMUNITY,
+                  arguments:
+                  Get.find<CommunityController>().searchController.text,
+                );
+                Get.find<CommunityController>().searchController.text = "";
+              },
               decoration: InputDecoration(
                 hintText: LocaleKeys.search_for_anything.tr,
                 filled: true,
