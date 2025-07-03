@@ -39,6 +39,7 @@ class ChallengesController extends GetxController
     CompletedChallenges(),
     CompletedChallenges()
   ].obs;
+
   @override
   void onInit() async {
     super.onInit();
@@ -109,7 +110,7 @@ class ChallengesController extends GetxController
   Future<void> getBagdes() async {
     try {
       var response;
-
+      badgesList.value = [];
       response = await APIManager.getBadges();
 
       if (response.data['data'] != null && response.data['status']) {

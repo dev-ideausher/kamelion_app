@@ -168,7 +168,7 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                       ),
                       8.kwidthBox,
                       Text(
-                        "$totalTime Mins",
+                        "${formatDuration(int.parse(totalTime))} ",
                         style: TextStyleUtil.genSans500(
                           fontSize: 10.ksp,
                           color: context.white,
@@ -185,4 +185,16 @@ class WorkoutDetailsAppBar extends StatelessWidget {
       ),
     );
   }
+}
+
+String formatDuration(int totalSeconds) {
+  final hours = totalSeconds ~/ 3600;
+  final minutes = (totalSeconds % 3600) ~/ 60;
+  final seconds = totalSeconds % 60;
+
+  String hrPart = hours > 0 ? '${hours}Hr ' : '';
+  String minPart = minutes > 0 ? '${minutes}Min ' : '';
+  String secPart = '${seconds}Sec';
+
+  return '$hrPart$minPart$secPart'.trim();
 }

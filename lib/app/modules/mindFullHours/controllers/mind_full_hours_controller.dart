@@ -16,7 +16,7 @@ class MindFullHoursController extends GetxController {
   Future<void> _initAudio() async {
     try {
       await _player.setUrl(
-        'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+        'https://kamelion.s3.eu-north-1.amazonaws.com/public/workoutVideos/Cloudy+vs.+Clear+Day+Mindset.mp3',
       );
       await _player.setLoopMode(LoopMode.off);
       await _player.play();

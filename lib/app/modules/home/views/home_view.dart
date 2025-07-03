@@ -85,33 +85,37 @@ class HomeView extends GetView<HomeController> {
                                                 ),
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () {
-                                                controller
-                                                    .showMoodPopup(context);
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Text(
-                                                    LocaleKeys.add.tr,
-                                                    style: TextStyleUtil
-                                                        .genNunitoSans700(
-                                                      fontSize: 14.kh,
-                                                      color: ColorUtil(context)
-                                                          .brandColor1,
-                                                      // height: 1.2,
+                                            controller.currentMoodsList.length <
+                                                    3
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      controller.showMoodPopup(
+                                                          context);
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Text(
+                                                          LocaleKeys.add.tr,
+                                                          style: TextStyleUtil
+                                                              .genNunitoSans700(
+                                                            fontSize: 14.kh,
+                                                            color: ColorUtil(
+                                                                    context)
+                                                                .brandColor1,
+                                                            // height: 1.2,
+                                                          ),
+                                                        ),
+                                                        4.kwidthBox,
+                                                        CommonImageView(
+                                                          svgPath: ImageConstant
+                                                              .addIcon,
+                                                          height: 16.kh,
+                                                          width: 16.kh,
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ),
-                                                  4.kwidthBox,
-                                                  CommonImageView(
-                                                    svgPath:
-                                                        ImageConstant.addIcon,
-                                                    height: 16.kh,
-                                                    width: 16.kh,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                                  )
+                                                : Container(),
                                           ],
                                         ),
                                         16.kheightBox,
