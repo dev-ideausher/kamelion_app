@@ -19,8 +19,6 @@ class Endpoints {
 
   static const String workoutComplete = "savedmentalgym/workoutcomplete";
 
-
-
   static String updateUser(String id) => "users/updateuser/$id";
   static String submitQuize = "completequiz/save";
   static String getMood(String id, String timezone) =>
@@ -29,7 +27,7 @@ class Endpoints {
   static String deleteAccount(String id) => "users/deleteuser/$id";
   static const String getMentalGymCategiries = "category/all-category";
   static const String getActiveChallenges =
-      "challenges/getchallenges?isActive=true";
+      "challenges/getchallenges?status=inProgress";
   static const String getBadges = "badge/getAllBadges";
   static const String getLeaderboard = "postinteraction/leaderboard";
   static const String getCompletedChallenges =
@@ -40,7 +38,7 @@ class Endpoints {
     required String page,
     required String limit,
   }) =>
-      "mentalgym/getallmentalgyms?isActive=true&page=$page&limit=$limit";
+      "mentalgym/getallmentalgyms?status=inProgress&page=$page&limit=$limit";
   static String searchMentalGym({
     required String page,
     required String limit,
@@ -74,6 +72,7 @@ class Endpoints {
   static String saveMentalGyms = "savedmentalgym/save";
   static String saveChallenge = "challenges/togglefavouritechallenge";
   static String updateMentalGym(String id) => "mentalgym/update/$id";
+  static String joinMentalGym = "mentalgym/joinmentalgym";
   static String updateCommunity(String id) => "community/update/$id";
   static String updatePost(String id) => "post/update/$id";
   static String deletePost(String id) => "post/delete/$id";

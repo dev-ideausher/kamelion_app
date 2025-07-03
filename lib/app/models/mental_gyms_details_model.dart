@@ -36,6 +36,7 @@ class MentalGym {
   List<Category>? category;
   var totalDuration;
   bool? isActive;
+  bool? isJoined;
   bool? isTrending;
   String? createdAt;
   String? updatedAt;
@@ -47,6 +48,7 @@ class MentalGym {
     this.thumbnail,
     this.sId,
     this.title,
+    this.isJoined,
     this.description,
     this.category,
     this.totalDuration,
@@ -64,6 +66,7 @@ class MentalGym {
         ? new Thumbnail.fromJson(json['thumbnail'])
         : null;
     sId = json['_id'];
+    isJoined = json['isJoined'];
     title = json['title'];
     description = json['description'];
     if (json['category'] != null) {

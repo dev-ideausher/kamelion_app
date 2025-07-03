@@ -140,7 +140,10 @@ class MoodSelectionFormController extends GetxController {
         DialogHelper.hideDialog();
         Get.find<HomeController>().getTodaysMood();
         String today = DateFormat('yyyy-MM-dd').format(DateTime.now());
-        Get.find<MoodTrackerController>().getMoods(date: today);
+        final moodController = Get.isRegistered<MoodTrackerController>()
+            ? Get.find<MoodTrackerController>()
+            : Get.put(MoodTrackerController());
+        moodController.getMoods(date: today);
         showMySnackbar(msg: "Mood added");
       } else {
         debugPrint(

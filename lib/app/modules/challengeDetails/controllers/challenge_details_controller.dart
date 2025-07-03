@@ -75,6 +75,7 @@ class ChallengeDetailsController extends GetxController {
       if (response.data['data'] != null && response.data['status']) {
         await getChallengesDetails(challengeDetails?.value.sId ?? "");
         Get.find<ChallengesController>().getActiveChallenges();
+        challengeDetails!.refresh();
         update();
       } else {
         debugPrint(

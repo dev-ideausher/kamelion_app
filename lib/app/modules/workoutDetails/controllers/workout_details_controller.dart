@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/models/mental_gym_category_model.dart';
 import 'package:kamelion/app/models/mental_gyms_details_model.dart';
+import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
 
@@ -78,43 +79,44 @@ class WorkoutDetailsController extends GetxController {
     }
   }
 
-  Future<void> startMentalGym({required String id}) async {
-    try {
-      var response;
+  // Future<void> startMentalGym({required String id}) async {
+  //   try {
+  //     var response;
 
-      response = await APIManager.getMentalGymsDetails(id: id);
+  //     response = await APIManager.getMentalGymsDetails(id: id);
 
-      if (response.data['data'] != null && response.data['status']) {
-        // mentalGymDetails =
-        //     MentalGymDetailsModel.fromJson(response.data['data']).obs;
-      } else {
-        debugPrint(
-          "An error occurred while getting vendor profile: ${response.data['message']}",
-        );
-        showMySnackbar(msg: response.data['message'] ?? "");
-      }
-      update();
-      // return;
-    } on DioException catch (dioError) {
-      showMySnackbar(msg: dioError.message ?? "");
-    } catch (e, s) {
-      showMySnackbar(
-        // title: LocaleKeys.somethingWentWrong.tr,
-        msg: e.toString(),
-      );
-    }
-  }
+  //     if (response.data['data'] != null && response.data['status']) {
+  //       // mentalGymDetails =
+  //       //     MentalGymDetailsModel.fromJson(response.data['data']).obs;
+  //     } else {
+  //       debugPrint(
+  //         "An error occurred while getting vendor profile: ${response.data['message']}",
+  //       );
+  //       showMySnackbar(msg: response.data['message'] ?? "");
+  //     }
+  //     update();
+  //     // return;
+  //   } on DioException catch (dioError) {
+  //     showMySnackbar(msg: dioError.message ?? "");
+  //   } catch (e, s) {
+  //     showMySnackbar(
+  //       // title: LocaleKeys.somethingWentWrong.tr,
+  //       msg: e.toString(),
+  //     );
+  //   }
+  // }
 
   Future<void> joinMentalGym(String id) async {
     try {
       var response;
 
-      response = await APIManager.updateMentalGym(
-        id: id,
-        body: {"isActive": true},
+      response = await APIManager.joinMentalGym(
+        body: {"mentalGymId": id},
       );
-      if (response.data['data'] != null && response.data['status']) {
+      if (response.data['status']) {
         await getMentalGymDetails(id);
+        Get.find<MentalGymController>().getActiveMentalGym();
+        Get.find<MentalGymController>().activeMentalGymList.refresh();
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",

@@ -124,6 +124,8 @@ class ProfileView extends GetView<ProfileController> {
                                               ),
                                               itemCount: 4, // Your image list
                                               itemBuilder: (context, index) {
+                                                print(controller.myStatesData
+                                                    .value.totalMoodEntries);
                                                 return StateCard(
                                                   color: [
                                                     ColorUtil(context)
@@ -137,26 +139,8 @@ class ProfileView extends GetView<ProfileController> {
                                                       .statesIcon[index],
                                                   value: controller
                                                       .statesValue[index],
-                                                  count: (context == 0
-                                                          ? controller
-                                                              .myStatesData
-                                                              .value
-                                                              .totalCompletedQuizzes
-                                                          : index == 1
-                                                              ? controller
-                                                                  .myStatesData
-                                                                  .value
-                                                                  .totalCompletedQuizzes
-                                                              : index == 2
-                                                                  ? controller
-                                                                      .myStatesData
-                                                                      .value
-                                                                      .totalCompletedQuizzes
-                                                                  : controller
-                                                                      .myStatesData
-                                                                      .value
-                                                                      .totalCompletedQuizzes)
-                                                      .toString(),
+                                                  count:
+                                                      "${(index == 0 ? controller.myStatesData.value.totalCompletedQuizzes : index == 1 ? controller.myStatesData.value.totalPostWords : index == 2 ? controller.myStatesData.value.totalMoodEntries : controller.myStatesData.value.totalJournalEntries)}",
                                                 );
                                               },
                                             ),

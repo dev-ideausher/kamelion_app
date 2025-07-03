@@ -28,7 +28,7 @@ class CreateAvatarView extends GetView<CreateAvatarController> {
           RepaintBoundary(
             child: FluttermojiSaveWidget(
               onTap: () {
-                controller.submitAvatar();
+                controller.submitAvatar(context: context);
               },
               child: Text(
                 LocaleKeys.done.tr,
@@ -49,8 +49,8 @@ class CreateAvatarView extends GetView<CreateAvatarController> {
             // 50.kheightBox,
             Spacer(),
             FluttermojiCircleAvatar(
-              backgroundColor: ColorUtil(context).greyBg,
-              radius: 80,
+              backgroundColor: ColorUtil(context).blueBg,
+              radius: 72.ksp,
             ),
             Spacer(),
             FluttermojiCustomizer(

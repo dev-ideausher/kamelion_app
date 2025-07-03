@@ -4,6 +4,7 @@ import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:fluttermoji/fluttermojiController.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/models/user_model.dart';
+import 'package:kamelion/app/modules/profile/controllers/profile_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/auth.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
@@ -34,5 +35,14 @@ class NavigationBarController extends GetxController {
 
   void changePage(int index) {
     selectedIndex.value = index;
+    if (index == 4) {
+      final profileController = Get.isRegistered<ProfileController>()
+          ? Get.find<ProfileController>()
+          : Get.put(ProfileController());
+      profileController.isLoading.value = true;
+      profileController.getLeaderBoardStats();
+      profileController.getMyStats();
+      profileController.isLoading.value = false;
+    }
   }
 }

@@ -19,14 +19,13 @@ class MentalGymController extends GetxController {
   TextEditingController searchController = TextEditingController();
   RxBool isLoading = false.obs;
   final ScrollController scrollController = ScrollController();
-  List<Widget> screensList =
-      [
-        AllWorkouts(),
-        ActiveWorkouts(),
-        ActiveWorkouts(),
-        ActiveWorkouts(),
-        SavedWorkouts(),
-      ].obs;
+  List<Widget> screensList = [
+    AllWorkouts(),
+    ActiveWorkouts(),
+    ActiveWorkouts(),
+    ActiveWorkouts(),
+    SavedWorkouts(),
+  ].obs;
   RxList activeWorkouts = ["", "", "", "", "", "", ""].obs;
   RxList savedWorkouts = ["", "", "", "", "", "", ""].obs;
   RxList<MentalGymCategoryModel> mentalGymCategoryList =
@@ -122,7 +121,7 @@ class MentalGymController extends GetxController {
   Future<void> getActiveMentalGym() async {
     try {
       var response;
-
+      activeMentalGymList.value = <MentalGymModel>[];
       response = await APIManager.getActiveMentalGym(limit: "10", page: "1");
 
       if (response.data['data'] != null && response.data['status']) {

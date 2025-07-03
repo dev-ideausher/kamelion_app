@@ -81,8 +81,44 @@ class SettingsView extends GetView<SettingsController> {
                 controller.showDeleteDialog(context);
               },
               onTap2: () {
+                // controller.showLogoutDialog(context);
+              },
+            ),
+            15.kheightBox,
+            InkWell(
+              onTap: () {
                 controller.showLogoutDialog(context);
               },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.ksp),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.0.ksp,
+                    vertical: 8.ksp,
+                  ),
+                  decoration: BoxDecoration(
+                    color: ColorUtil(context).white,
+                    border: Border.all(color: ColorUtil(context).grey),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(6.ksp),
+                      bottom: Radius.circular(6.ksp),
+                    ), // Rounded corners
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Logout",
+                        style: TextStyleUtil.genSans500(
+                          fontSize: 11.ksp,
+                          color: ColorUtil(context).black,
+                        ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.arrow_forward_ios, size: 12.ksp),
+                    ],
+                  ),
+                ),
+              ),
             ),
             40.kheightBox,
           ],

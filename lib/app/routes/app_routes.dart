@@ -46,6 +46,7 @@ abstract class Routes {
   static const PERSONALITY_RESULTS = _Paths.PERSONALITY_RESULTS;
   static const CONTACT_US = _Paths.CONTACT_US;
   static const FAQS = _Paths.FAQS;
+  static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -93,4 +94,5 @@ abstract class _Paths {
   static const PERSONALITY_RESULTS = '/personality-results';
   static const CONTACT_US = '/contact-us';
   static const FAQS = '/faqs';
+  static const RESET_PASSWORD = '/reset-password';
 }

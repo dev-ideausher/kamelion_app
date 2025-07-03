@@ -38,7 +38,6 @@ class ChallengeModel {
     challengeTitle = json['challengeTitle'];
     challengeIntro = json['challengeIntro'];
     status = json['status'];
-
     // category = json['category'];
     type = json['type'];
     totalDuration = json['totalDuration'];
@@ -50,7 +49,10 @@ class ChallengeModel {
     iV = json['__v'];
     image = json['image'];
     isSaved = json['isSaved'];
-    userProgress = json['userProgress'][0]['progress'];
+    userProgress =
+        json['userProgress'] == null || (json['userProgress'] as List).isEmpty
+            ? 0
+            : json['userProgress'][0]['progress'];
   }
 
   Map<String, dynamic> toJson() {

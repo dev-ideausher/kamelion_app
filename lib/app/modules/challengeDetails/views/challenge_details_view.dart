@@ -30,7 +30,7 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                   children: [
                     // if (controller.challengeDetails != null)
                     // controller.challengeDetails!.value
-                    (controller.challengeDetails!.value.isActive! &&
+                    (controller.challengeDetails!.value.isJoined! &&
                             DateTime.now()
                                     .difference(DateTime.parse(controller
                                         .challengeDetails!.value.startedDate!))
@@ -66,12 +66,12 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                               padding: EdgeInsets.all(16.0.ksp),
                               child: CustomButton.outline(
                                 onTap: () {
-                                  controller.challengeDetails!.value.isActive!
+                                  controller.challengeDetails!.value.isJoined!
                                       ? controller.completeChallenge()
                                       : controller.startChallenge();
                                 },
                                 title:
-                                    controller.challengeDetails!.value.isActive!
+                                    controller.challengeDetails!.value.isJoined!
                                         ? 'Mark Challenge Done'
                                         : 'Start Challenge',
                                 color: context.redBg,
@@ -80,7 +80,7 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                             ),
                           ),
                     // 2.kheightBox,
-                    (controller.challengeDetails!.value.isActive! &&
+                    (controller.challengeDetails!.value.isJoined! &&
                             DateTime.now()
                                     .difference(DateTime.parse(controller
                                         .challengeDetails!.value.startedDate!))
@@ -132,7 +132,7 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                             "",
                       ),
                       15.kheightBox,
-                      controller.challengeDetails!.value.isActive!
+                      controller.challengeDetails!.value.isJoined!
                           ? Padding(
                               padding: EdgeInsets.symmetric(horizontal: 14.ksp),
                               child: Card(
