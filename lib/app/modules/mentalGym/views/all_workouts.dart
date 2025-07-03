@@ -249,6 +249,7 @@ class AllWorkouts extends StatelessWidget {
                   }),
                 ],
               ),
+
             ),
           ),
           // Obx(

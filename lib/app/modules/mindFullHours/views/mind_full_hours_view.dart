@@ -35,10 +35,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
   MindFullHoursController controller = Get.put(MindFullHoursController());
   @override
   Widget build(BuildContext context) {
-    final bgColor =
-        isInhale
-            ? const Color(0xFF4CAF50)
-            : const Color(0xFFEF5350); // green / red
+    final bgColor = isInhale
+        ? const Color(0xFF4CAF50)
+        : const Color(0xFFEF5350); // green / red
     final text = isInhale ? 'Breathe In...' : 'Breathe Out...';
     final icon = isPlaying ? Icons.pause : Icons.play_arrow;
 
@@ -64,7 +63,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                     Icon(Icons.surround_sound, color: Colors.white, size: 18),
                     SizedBox(width: 8),
                     Text(
-                      'Sound: Chirping Birds',
+                      'Sound: Mindful hours',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -75,7 +74,9 @@ class _BreathingScreenState extends State<BreathingScreen> {
             // Breathing animation placeholder
             Stack(
               children: [
-                WaveBreathingButton(onTap: () {  },)
+                WaveBreathingButton(
+                  onTap: () {},
+                )
                 // Center(
                 //   child: Container(
                 //     width: 200,
@@ -102,34 +103,35 @@ class _BreathingScreenState extends State<BreathingScreen> {
             ),
             const Spacer(),
             // Progress bar
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                children: [
-                  Text(
-                    _formatTime(currentTime),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  Expanded(
-                    child: Slider(
-                      value: currentTime,
-                      min: 0,
-                      max: totalTime,
-                      onChanged: (value) {
-                        setState(() => currentTime = value);
-                      },
-                      activeColor: Colors.white,
-                      inactiveColor: Colors.white30,
-                    ),
-                  ),
-                  Text(
-                    _formatTime(totalTime),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 10),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 24),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         _formatTime(currentTime),
+            //         style: const TextStyle(color: Colors.white),
+            //       ),
+            //       Expanded(
+            //         child: Slider(
+            //           value: currentTime,
+            //           min: 0,
+            //           max: totalTime,
+            //           onChanged: (value) {
+            //             setState(() => currentTime = value);
+            //           },
+            //           activeColor: Colors.white,
+            //           inactiveColor: Colors.white30,
+            //         ),
+            //       ),
+            //       Text(
+            //         _formatTime(totalTime),
+            //         style: const TextStyle(color: Colors.white),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
+            // const SizedBox(height: 10),
             // Control buttons
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -147,7 +149,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                   FloatingActionButton(
                     backgroundColor: Colors.white,
                     onPressed: () {
-                     controller.togglePlayPause();
+                      controller.togglePlayPause();
                     },
                     child: Icon(icon, color: bgColor),
                   ),

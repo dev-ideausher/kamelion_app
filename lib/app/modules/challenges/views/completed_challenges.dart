@@ -7,6 +7,7 @@ import 'package:kamelion/app/components/workout_selector.dart';
 import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
@@ -58,10 +59,7 @@ class CompletedChallenges extends StatelessWidget {
               subtitle: mood.challengeIntro ?? "",
               imageUrl: mood.image ?? "",
               onTap: () {
-                // Get.find<MentalGymController>().getWorkoutDetails(
-                //   Get.find<MentalGymController>().activeMentalGymList[0].sId ??
-                //       "",
-                // );
+                Get.toNamed(Routes.CHALLENGE_DETAILS, arguments: mood.sId);
               },
             );
           }).toList(),

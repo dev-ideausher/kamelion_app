@@ -22,92 +22,103 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: controller.isLoading.value == true
             ? Container()
-            : Container(
-                // height: 80.ksp,
-                decoration: BoxDecoration(color: context.white),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // if (controller.challengeDetails != null)
-                    // controller.challengeDetails!.value
-                    (controller.challengeDetails!.value.isJoined! &&
-                            DateTime.now()
+            : (controller.challengeDetails!.value.userChallengeProgress ==
+                        "completed" ||
+                    controller.challengeDetails!.value.userChallengeProgress ==
+                        "quit")
+                ? Container()
+                : Container(
+                    // height: 80.ksp,
+                    decoration: BoxDecoration(color: context.white),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // if (controller.challengeDetails != null)
+                        // controller.challengeDetails!.value
+                        (controller.challengeDetails!.value.isJoined! &&
+                                DateTime.now()
+                                        .difference(DateTime.parse(controller
+                                            .challengeDetails!
+                                            .value
+                                            .startedDate!))
+                                        .inDays
+                                        .toInt() >
+                                    (controller.challengeDetails!.value
+                                            .totalDuration ??
+                                        0))
+                            ? Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(16.0.ksp),
+                                  child: CustomButton.outline(
+                                    onTap: () {
+                                      controller.quiteChallenge();
+                                    },
+                                    title: 'Quit Challenge',
+                                    color: context.redBg,
+                                    buttonColor: context.redBg,
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        DateTime.now()
                                     .difference(DateTime.parse(controller
                                         .challengeDetails!.value.startedDate!))
                                     .inDays
                                     .toInt() >
                                 (controller.challengeDetails!.value
                                         .totalDuration ??
-                                    0))
-                        ? Flexible(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0.ksp),
-                              child: CustomButton.outline(
-                                onTap: () {
-                                  controller.quiteChallenge();
-                                },
-                                title: 'Quit Challenge',
-                                color: context.redBg,
-                                buttonColor: context.redBg,
-                              ),
-                            ),
-                          )
-                        : Container(),
-                    DateTime.now()
-                                .difference(DateTime.parse(controller
-                                    .challengeDetails!.value.startedDate!))
-                                .inDays
-                                .toInt() >
-                            (controller.challengeDetails!.value.totalDuration ??
-                                0)
-                        ? Container()
-                        : Flexible(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0.ksp),
-                              child: CustomButton.outline(
-                                onTap: () {
-                                  controller.challengeDetails!.value.isJoined!
-                                      ? controller.completeChallenge()
-                                      : controller.startChallenge();
-                                },
-                                title:
-                                    controller.challengeDetails!.value.isJoined!
+                                    0)
+                            ? Container()
+                            : Flexible(
+                                child: Padding(
+                                  padding: EdgeInsets.all(16.0.ksp),
+                                  child: CustomButton.outline(
+                                    onTap: () {
+                                      controller
+                                              .challengeDetails!.value.isJoined!
+                                          ? controller.completeChallenge()
+                                          : controller.startChallenge();
+                                    },
+                                    title: controller
+                                            .challengeDetails!.value.isJoined!
                                         ? 'Mark Challenge Done'
                                         : 'Start Challenge',
-                                color: context.redBg,
-                                buttonColor: context.redBg,
-                              ),
-                            ),
-                          ),
-                    // 2.kheightBox,
-                    (controller.challengeDetails!.value.isJoined! &&
-                            DateTime.now()
-                                    .difference(DateTime.parse(controller
-                                        .challengeDetails!.value.startedDate!))
-                                    .inDays
-                                    .toInt() <
-                                (controller.challengeDetails!.value
-                                        .totalDuration ??
-                                    0))
-                        ? Flexible(
-                            child: InkWell(
-                              onTap: () {
-                                controller.quiteChallenge();
-                              },
-                              child: Text(
-                                "Quit Challenge",
-                                style: TextStyleUtil.genSans600(
-                                  fontSize: 14.ksp,
-                                  color: context.redBg,
+                                    color: context.redBg,
+                                    buttonColor: context.redBg,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : Container(),
-                    10.kheightBox
-                  ],
-                ),
-              ),
+                        // 2.kheightBox,
+                        (controller.challengeDetails!.value.isJoined! &&
+                                DateTime.now()
+                                        .difference(DateTime.parse(controller
+                                            .challengeDetails!
+                                            .value
+                                            .startedDate!))
+                                        .inDays
+                                        .toInt() <
+                                    (controller.challengeDetails!.value
+                                            .totalDuration ??
+                                        0))
+                            ? Flexible(
+                                child: InkWell(
+                                  onTap: () {
+                                    controller.quiteChallenge();
+                                  },
+                                  child: Text(
+                                    "Quit Challenge",
+                                    style: TextStyleUtil.genSans600(
+                                      fontSize: 14.ksp,
+                                      color: context.redBg,
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                        10.kheightBox
+                      ],
+                    ),
+                  ),
         body: GetBuilder<ChallengeDetailsController>(builder: (controller) {
           return controller.isLoading.value
               ? Container(
@@ -132,7 +143,10 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                             "",
                       ),
                       15.kheightBox,
-                      controller.challengeDetails!.value.isJoined!
+                      controller.challengeDetails!.value.isJoined! &&
+                              controller.challengeDetails!.value
+                                      .userChallengeProgress ==
+                                  "inProgress"
                           ? Padding(
                               padding: EdgeInsets.symmetric(horizontal: 14.ksp),
                               child: Card(

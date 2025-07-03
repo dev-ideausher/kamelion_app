@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/constants/link_constants.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -32,20 +33,30 @@ class SettingsView extends GetView<SettingsController> {
               },
               onTap2: () {},
             ),
-            15.kheightBox,
-            SettingTab1(
-              title: LocaleKeys.notifications.tr,
-              subTitle1: "Push Notification",
-              // subTitle2: LocaleKeys.reset_password.tr,
-              ontap1: () {},
-              // onTap2: () {},
-            ),
+            // 15.kheightBox,
+            // SettingTab1(
+            //   title: LocaleKeys.notifications.tr,
+            //   subTitle1: "Push Notification",
+            //   // subTitle2: LocaleKeys.reset_password.tr,
+            //   ontap1: () {},
+            //   // onTap2: () {},
+            // ),
             15.kheightBox,
             SettingTab(
               title: "Rewards & Badges",
               subTitle1: "My Badges",
               subTitle2: "Redeemed Savings ",
-              ontap1: () {},
+              ontap1: () async {
+                Get.toNamed(Routes.CHALLENGES);
+                final challengeController =
+                    Get.isRegistered<ChallengesController>()
+                        ? Get.find<ChallengesController>()
+                        : Get.put(ChallengesController());
+                await Get.find<ChallengesController>().getBagdes();
+                Get.find<ChallengesController>()
+                    .challengePageTabController
+                    .animateTo(1);
+              },
               onTap2: () {},
             ),
             15.kheightBox,
@@ -76,12 +87,13 @@ class SettingsView extends GetView<SettingsController> {
             SettingTab(
               title: LocaleKeys.account.tr,
               subTitle1: "Delete Account",
-              subTitle2: "Logout",
+              subTitle2: "Reset Password",
               ontap1: () {
                 controller.showDeleteDialog(context);
               },
               onTap2: () {
                 // controller.showLogoutDialog(context);
+                Get.toNamed(Routes.RESET_PASSWORD);
               },
             ),
             15.kheightBox,

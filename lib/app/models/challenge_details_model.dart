@@ -17,12 +17,14 @@ class ChallengeDetailsModel {
   String? startedDate;
   num? progress;
   bool? isJoined;
+  String? userChallengeProgress;
 
   ChallengeDetailsModel(
       {this.sId,
       this.challengeTitle,
       this.isJoined,
       this.challengeIntro,
+      this.userChallengeProgress,
       this.progress,
       this.startedDate,
       this.status,
@@ -42,6 +44,9 @@ class ChallengeDetailsModel {
     sId = json['_id'];
     challengeTitle = json['challengeTitle'];
     challengeIntro = json['challengeIntro'];
+    userChallengeProgress = json['userChallengeProgress'] == null
+        ? ""
+        : json['userChallengeProgress']['status'];
     startedDate = json['userChallengeProgress'] == null
         ? DateTime.now().toString()
         : json['userChallengeProgress']['createdAt'];
