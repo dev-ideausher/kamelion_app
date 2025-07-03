@@ -83,16 +83,16 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                         () => Row(
                           children: [
                             Checkbox(
-                             side: BorderSide(color: context.grey,),
-
-
+                              side: BorderSide(
+                                color: context.grey,
+                              ),
                               value: controller.termsAccepted.value,
                               activeColor: context.brandColor1,
                               onChanged: (value) {
                                 controller.changeCheckboxValue(
                                   !controller.termsAccepted.value,
                                 );
-                               },
+                              },
                             ),
                             Expanded(
                               child: GestureDetector(
@@ -123,14 +123,13 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                                           fontSize: 16.kh,
                                           color: context.brandColorGreen2,
                                         ),
-                                        recognizer:
-                                            TapGestureRecognizer()
-                                              ..onTap = () {
-                                                controller.openWebLink(
-                                                  LinkConstants()
-                                                      .termsAndConditionsKamelion,
-                                                );
-                                              },
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            controller.openWebLink(
+                                              LinkConstants()
+                                                  .termsAndConditionsKamelion,
+                                            );
+                                          },
                                         // Optional: add a link or show a dialog
                                       ),
                                       TextSpan(
@@ -140,14 +139,13 @@ class AuthDirectionView extends GetView<AuthDirectionController> {
                                       TextSpan(
                                         text: LocaleKeys.privacyPolicy.tr,
                                         // 'Privacy Policy.',
-                                        recognizer:
-                                            TapGestureRecognizer()
-                                              ..onTap = () {
-                                                controller.openWebLink(
-                                                  LinkConstants()
-                                                      .privacyPolicyKamelion,
-                                                );
-                                              },
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            controller.openWebLink(
+                                              LinkConstants()
+                                                  .privacyPolicyKamelion,
+                                            );
+                                          },
                                         style: TextStyleUtil.genNunitoSans700(
                                           fontSize: 16.kh,
                                           color: context.brandColorGreen2,

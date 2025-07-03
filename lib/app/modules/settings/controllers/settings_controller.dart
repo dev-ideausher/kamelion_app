@@ -6,6 +6,8 @@ import 'package:kamelion/app/services/auth.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
+import 'package:kamelion/generated/locales.g.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsController extends GetxController {
   //TODO: Implement SettingsController
@@ -31,57 +33,67 @@ class SettingsController extends GetxController {
   void showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            title: Text('Logout'),
-            content: Text('Are you sure you want to logout?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Auth().logOutUser();
-                },
-                child: Text(
-                  'Logout',
-                  style: TextStyle(color: context.brandColor1),
-                ),
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        title: Text('Logout'),
+        content: Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Auth().logOutUser();
+            },
+            child: Text(
+              'Logout',
+              style: TextStyle(color: context.brandColor1),
+            ),
           ),
+        ],
+      ),
     );
   }
 
   void showDeleteDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder:
-          (_) => AlertDialog(
-            title: Text('Delete Account'),
-            content: Text('Are you sure you want to delete account?'),
-            actions: [
-              TextButton(
-                onPressed: () async {
-                  try {
-                    var res = await APIManager.deleteAccount();
-                    if (res.statusCode == 200) {
-                      Get.offAllNamed(Routes.AUTH_DIRECTION);
-                      showMySnackbar(msg: "User deleted");
-                    }
-                  } on DioException catch (dioError) {
-                    showMySnackbar(msg: dioError.message ?? "");
-                  } catch (e, s) {
-                    showMySnackbar(
-                      // title: LocaleKeys.somethingWentWrong.tr,
-                      msg: e.toString(),
-                    );
-                  }
-                },
-                child: Text(
-                  'Delete Account',
-                  style: TextStyle(color: context.redBg),
-                ),
-              ),
-            ],
+      builder: (_) => AlertDialog(
+        title: Text('Delete Account'),
+        content: Text('Are you sure you want to delete account?'),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              try {
+                var res = await APIManager.deleteAccount();
+                if (res.statusCode == 200) {
+                  Get.offAllNamed(Routes.AUTH_DIRECTION);
+                  showMySnackbar(msg: "User deleted");
+                }
+              } on DioException catch (dioError) {
+                showMySnackbar(msg: dioError.message ?? "");
+              } catch (e, s) {
+                showMySnackbar(
+                  // title: LocaleKeys.somethingWentWrong.tr,
+                  msg: e.toString(),
+                );
+              }
+            },
+            child: Text(
+              'Delete Account',
+              style: TextStyle(color: context.redBg),
+            ),
           ),
+        ],
+      ),
     );
+  }
+
+  void openWebLink(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.externalApplication,
+      ); // Opens in browser
+    } else {
+      throw '${LocaleKeys.cannotLaunchUrl.tr} $url';
+    }
   }
 }

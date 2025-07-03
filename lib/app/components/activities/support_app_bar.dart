@@ -8,8 +8,8 @@ import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
 class SupportAppBar extends StatelessWidget {
-  const SupportAppBar({super.key});
-
+  SupportAppBar({super.key, this.title = "Support"});
+  String title;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,7 +56,7 @@ class SupportAppBar extends StatelessWidget {
             ),
             10.kheightBox,
             Text(
-              "Support",
+              title,
               style: TextStyleUtil.genSans500(
                 color: ColorUtil(context).white,
                 fontSize: 19.5.ksp,

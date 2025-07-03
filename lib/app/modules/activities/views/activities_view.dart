@@ -60,6 +60,7 @@ class ActivitiesView extends GetView<ActivitiesController> {
                         cardColor: context.lightRed2Bg,
                         borderColor: context.lighPinkBg,
                         fireBg: context.lightRed3Bg,
+                        isShowFire: false,
                       ),
                       10.kheightBox,
                       _activitiesCard(
@@ -74,9 +75,13 @@ class ActivitiesView extends GetView<ActivitiesController> {
                         cardColor: context.normalMoodBg,
                         borderColor: context.lightYellow2Border,
                         fireBg: context.lightYellow2Bg,
+                        isShowFire: false,
                       ),
                       10.kheightBox,
                       _activitiesCard(
+                        onTap: () {
+                          Get.toNamed(Routes.PERSONALITY_TESTS);
+                        },
                         fireCount: "6",
                         fireIcon: ImageConstant.fireIconGreen,
                         imageIcon: ImageConstant.faceLeftIcon,

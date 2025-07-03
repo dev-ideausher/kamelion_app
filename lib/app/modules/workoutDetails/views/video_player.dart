@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 
+import '../controllers/workout_details_controller.dart';
+
 class VideoPlayerScreen extends StatefulWidget {
   const VideoPlayerScreen({super.key});
 
@@ -41,7 +43,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Routes.ONBOARDING_QUESTIONS,
           arguments: workoutId,
         );
-        // print("video ended");
       }
       setState(() {}); // Update UI for progress bar
     });
@@ -67,68 +68,76 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         appBar: AppBar(backgroundColor: context.black),
         body: Center(
           child: Text(
-            'Video error: \\${_videoPlayerController.value.errorDescription}',
+            'Video error: ${_videoPlayerController.value.errorDescription}',
             style: const TextStyle(color: Colors.red),
           ),
         ),
       );
     }
-    return Scaffold(
-      backgroundColor: context.black,
-      appBar: AppBar(backgroundColor: context.black),
-      body: _videoPlayerController.value.isInitialized
-          ? Stack(
-              children: [
-                Center(
-                  child: AspectRatio(
-                    aspectRatio: _videoPlayerController.value.aspectRatio,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        VideoPlayer(_videoPlayerController),
-                        Positioned.fill(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (_videoPlayerController.value.isPlaying) {
-                                    _videoPlayerController.pause();
-                                  } else {
-                                    _videoPlayerController.play();
-                                  }
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black38,
-                                  shape: BoxShape.circle,
-                                ),
-                                padding: const EdgeInsets.all(16),
-                                child: Icon(
-                                  _videoPlayerController.value.isPlaying
-                                      ? Icons.pause
-                                      : Icons.play_arrow,
-                                  color: Colors.white,
-                                  size: 48,
-                                ),
-                              ),
+
+    return WillPopScope(
+      onWillPop: () async {
+        print('Hello');
+        Get.find<WorkoutDetailsController>().postWorkoutProg(workoutID: workoutId.toString(), currentDuration: _videoPlayerController.value.position);
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: context.black,
+        appBar: AppBar(backgroundColor: context.black),
+        body: _videoPlayerController.value.isInitialized
+            ? Stack(
+          children: [
+            Center(
+              child: AspectRatio(
+                aspectRatio: _videoPlayerController.value.aspectRatio,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    VideoPlayer(_videoPlayerController),
+                    Positioned.fill(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              if (_videoPlayerController.value.isPlaying) {
+                                _videoPlayerController.pause();
+                              } else {
+                                _videoPlayerController.play();
+                              }
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black38,
+                              shape: BoxShape.circle,
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: Icon(
+                              _videoPlayerController.value.isPlaying
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                              color: Colors.white,
+                              size: 48,
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Positioned(
-                  bottom: 30,
-                  left: 16,
-                  right: 16,
-                  child: _buildProgressBar(),
-                ),
-              ],
-            )
-          : const Center(child: CircularProgressIndicator()),
+              ),
+            ),
+            Positioned(
+              bottom: 30,
+              left: 16,
+              right: 16,
+              child: _buildProgressBar(),
+            ),
+          ],
+        )
+            : const Center(child: CircularProgressIndicator()),
+      ),
     );
   }
 

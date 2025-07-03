@@ -14,6 +14,8 @@ import '../modules/community/bindings/community_binding.dart';
 import '../modules/community/views/community_view.dart';
 import '../modules/communityPosts/bindings/community_posts_binding.dart';
 import '../modules/communityPosts/views/community_posts_view.dart';
+import '../modules/contactUs/bindings/contact_us_binding.dart';
+import '../modules/contactUs/views/contact_us_view.dart';
 import '../modules/courseComplete/bindings/course_complete_binding.dart';
 import '../modules/courseComplete/views/course_complete_view.dart';
 import '../modules/createAvatar/bindings/create_avatar_binding.dart';
@@ -27,6 +29,8 @@ import '../modules/createTimeLine/bindings/create_time_line_binding.dart';
 import '../modules/createTimeLine/views/create_time_line_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/faqs/bindings/faqs_binding.dart';
+import '../modules/faqs/views/faqs_view.dart';
 import '../modules/forgotPassword/bindings/forgot_password_binding.dart';
 import '../modules/forgotPassword/views/forgot_password_view.dart';
 import '../modules/getSchool/bindings/get_school_binding.dart';
@@ -53,6 +57,12 @@ import '../modules/navigationBar/bindings/navigation_bar_binding.dart';
 import '../modules/navigationBar/views/navigation_bar_view.dart';
 import '../modules/onboardingQuestions/bindings/onboarding_questions_binding.dart';
 import '../modules/onboardingQuestions/views/onboarding_questions_view.dart';
+import '../modules/personalityQuestions/bindings/personality_questions_binding.dart';
+import '../modules/personalityQuestions/views/personality_questions_view.dart';
+import '../modules/personalityResults/bindings/personality_results_binding.dart';
+import '../modules/personalityResults/views/personality_results_view.dart';
+import '../modules/personalityTests/bindings/personality_tests_binding.dart';
+import '../modules/personalityTests/views/personality_tests_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/quizeComplete/bindings/quize_complete_binding.dart';
@@ -281,6 +291,38 @@ class AppPages {
       name: _Paths.SEARCH_COMMUNITY,
       page: () => const SearchCommunityView(),
       binding: SearchCommunityBinding(),
+    ),
+    GetPage(
+      name: _Paths.PERSONALITY_TESTS,
+      page: () => const PersonalityTestsView(),
+      binding: PersonalityTestsBinding(),
+      children: [
+        GetPage(
+          name: _Paths.PERSONALITY_TESTS,
+          page: () => const PersonalityTestsView(),
+          binding: PersonalityTestsBinding(),
+        ),
+      ],
+    ),
+    GetPage(
+      name: _Paths.PERSONALITY_QUESTIONS,
+      page: () => const PersonalityQuestionsView(),
+      binding: PersonalityQuestionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PERSONALITY_RESULTS,
+      page: () => const PersonalityResultsView(),
+      binding: PersonalityResultsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONTACT_US,
+      page: () => const ContactUsView(),
+      binding: ContactUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAQS,
+      page: () => const FaqsView(),
+      binding: FaqsBinding(),
     ),
   ];
 }

@@ -14,6 +14,7 @@ class WorkoutDetailsController extends GetxController {
   Rx<MentalGymDetailsModel>? mentalGymDetails;
 
   RxBool isLoading = false.obs;
+
   @override
   void onInit() async {
     isLoading.value = true;
@@ -31,6 +32,21 @@ class WorkoutDetailsController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void postWorkoutProg(
+      {required String workoutID, required currentDuration}) async {
+    var response = await APIManager.postWorkoutProgressDuration(
+      body: {"workoutId": "${workoutID}", "currentDuration": "00:00:10"},
+    );
+
+    if (response.statusCode == 200) {
+      print(response.data);
+    } else {
+      debugPrint(
+        "An error occurred while getting vendor profile: ${response.data['message']}",
+      );
+    }
   }
 
   void increment() => count.value++;

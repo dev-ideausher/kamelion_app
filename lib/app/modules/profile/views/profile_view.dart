@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
-
 import 'package:get/get.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/models/leadeboard_user_model.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -19,212 +20,249 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: const Text('ProfileView'), centerTitle: true),
-      body: Column(
-        children: [
-          ProfileAppBar(
-            tabController: controller.profilePageTabController,
-            title1: LocaleKeys.leaderboard.tr,
-            title2: LocaleKeys.rewards.tr,
-            backgroundColor: ColorUtil(context).shadowColor,
-            selectedTabColor: ColorUtil(context).white,
-          ),
-
-          Expanded(
-            child: TabBarView(
-              controller: controller.profilePageTabController,
-              children: [
-                Container(
-                  height: context.height * 0.6,
-                  child: SingleChildScrollView(
-                    child: Column(
+      body: GetBuilder<ProfileController>(builder: (controller) {
+        return controller.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(color: context.brandColor1),
+              )
+            : Column(
+                children: [
+                  ProfileAppBar(
+                    tabController: controller.profilePageTabController,
+                    title1: LocaleKeys.leaderboard.tr,
+                    title2: LocaleKeys.rewards.tr,
+                    backgroundColor: ColorUtil(context).shadowColor,
+                    selectedTabColor: ColorUtil(context).white,
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: controller.profilePageTabController,
                       children: [
-                        30.kheightBox,
-                        CustomTabBar(
-                          backgroundColor: ColorUtil(context).brandColor5,
-                          selectedTabColor: ColorUtil(context).brandColor1,
-                          tabController: controller.leaderboardTabController,
-                          title1: LocaleKeys.leaderboard.tr,
-                          title2: LocaleKeys.my_stats.tr,
-                          labelColor: ColorUtil(context).white,
-                          unselectedLabelColor: ColorUtil(context).brandColor1,
-                          height: MediaQuery.of(context).size.height * 0.045,
-                          width: MediaQuery.of(context).size.width * 0.65,
-                        ),
                         Container(
-                          height: context.height * 0.7,
-                          child: TabBarView(
-                            controller: controller.leaderboardTabController,
-                            children: [
-                              SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    30.kheightBox,
-                                    Row(
-                                      children: [
-                                        16.kwidthBox,
-                                        Text(
-                                          LocaleKeys.leaderboard.tr,
-                                          style: TextStyleUtil.genSans500(
-                                            fontSize: 14.5.ksp,
-                                            color: ColorUtil(context).black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    25.kheightBox,
-                                    LeaderboardRow(),
-                                    20.kheightBox,
-                                    LeaderList(controller: controller),
-                                    50.kheightBox,
-                                  ],
+                          height: context.height * 0.6,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                30.kheightBox,
+                                CustomTabBar(
+                                  backgroundColor:
+                                      ColorUtil(context).brandColor5,
+                                  selectedTabColor:
+                                      ColorUtil(context).brandColor1,
+                                  tabController:
+                                      controller.leaderboardTabController,
+                                  title1: LocaleKeys.leaderboard.tr,
+                                  title2: LocaleKeys.my_stats.tr,
+                                  labelColor: ColorUtil(context).white,
+                                  unselectedLabelColor:
+                                      ColorUtil(context).brandColor1,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.045,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.65,
                                 ),
-                              ),
-                              Column(
-                                children: [
-                                  20.kheightBox,
-                                  Row(
+                                Container(
+                                  height: context.height * 0.7,
+                                  child: TabBarView(
+                                    controller:
+                                        controller.leaderboardTabController,
                                     children: [
-                                      16.kwidthBox,
-                                      Text(
-                                        LocaleKeys.my_stats.tr,
-                                        style: TextStyleUtil.genSans400(
-                                          fontSize: 14.5.ksp,
-                                          color: ColorUtil(context).black,
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: [
+                                            30.kheightBox,
+                                            Row(
+                                              children: [
+                                                16.kwidthBox,
+                                                Text(
+                                                  LocaleKeys.leaderboard.tr,
+                                                  style:
+                                                      TextStyleUtil.genSans500(
+                                                    fontSize: 14.5.ksp,
+                                                    color: ColorUtil(context)
+                                                        .black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            25.kheightBox,
+                                            LeaderboardRow(),
+                                            20.kheightBox,
+                                            LeaderList(controller: controller),
+                                            50.kheightBox,
+                                          ],
                                         ),
+                                      ),
+                                      Column(
+                                        children: [
+                                          20.kheightBox,
+                                          Row(
+                                            children: [
+                                              16.kwidthBox,
+                                              Text(
+                                                LocaleKeys.my_stats.tr,
+                                                style: TextStyleUtil.genSans400(
+                                                  fontSize: 14.5.ksp,
+                                                  color:
+                                                      ColorUtil(context).black,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: context.height * 0.6,
+                                            child: GridView.builder(
+                                              padding: EdgeInsets.all(12.ksp),
+                                              gridDelegate:
+                                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    2, // Number of columns
+                                                crossAxisSpacing: 12.ksp,
+                                                mainAxisSpacing: 12.ksp,
+                                                childAspectRatio:
+                                                    1.6, // Adjust if needed
+                                              ),
+                                              itemCount: 4, // Your image list
+                                              itemBuilder: (context, index) {
+                                                return StateCard(
+                                                  color: [
+                                                    ColorUtil(context)
+                                                        .greenCardBg,
+                                                    ColorUtil(context)
+                                                        .brandColor3,
+                                                    ColorUtil(context).redBg,
+                                                    ColorUtil(context).pitcgBg,
+                                                  ][index],
+                                                  icon: controller
+                                                      .statesIcon[index],
+                                                  value: controller
+                                                      .statesValue[index],
+                                                  count: (context == 0
+                                                          ? controller
+                                                              .myStatesData
+                                                              .value
+                                                              .totalCompletedQuizzes
+                                                          : index == 1
+                                                              ? controller
+                                                                  .myStatesData
+                                                                  .value
+                                                                  .totalCompletedQuizzes
+                                                              : index == 2
+                                                                  ? controller
+                                                                      .myStatesData
+                                                                      .value
+                                                                      .totalCompletedQuizzes
+                                                                  : controller
+                                                                      .myStatesData
+                                                                      .value
+                                                                      .totalCompletedQuizzes)
+                                                      .toString(),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                  Container(
-                                    height: context.height * 0.6,
-                                    child: GridView.builder(
-                                      padding: EdgeInsets.all(12.ksp),
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount:
-                                                2, // Number of columns
-                                            crossAxisSpacing: 12.ksp,
-                                            mainAxisSpacing: 12.ksp,
-                                            childAspectRatio:
-                                                1.6, // Adjust if needed
-                                          ),
-                                      itemCount: 4, // Your image list
-                                      itemBuilder: (context, index) {
-                                        return StateCard(
-                                          color:
-                                              [
-                                                ColorUtil(context).greenCardBg,
-                                                ColorUtil(context).brandColor3,
-                                                ColorUtil(context).redBg,
-                                                ColorUtil(context).pitcgBg,
-                                              ][index],
-                                          icon: controller.statesIcon[index],
-                                          value: controller.statesValue[index],
-                                          count: controller.statesCounts[index],
-                                        );
-                                      },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              10.kheightBox,
+                              Row(
+                                children: [
+                                  16.kwidthBox,
+                                  Text(
+                                    LocaleKeys.rewards.tr,
+                                    style: TextStyleUtil.genSans500(
+                                      fontSize: 14.5.ksp,
+                                      color: ColorUtil(context).black,
                                     ),
                                   ),
                                 ],
                               ),
+                              10.kheightBox,
+                              Container(
+                                height: context.height * 0.35,
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(vertical: 10.0.ksp),
+                                  child: Wrap(
+                                    spacing: 11.ksp,
+                                    runSpacing: 11.ksp,
+                                    children: [
+                                      ImageConstant.rewardCard1,
+                                      ImageConstant.rewardCard2,
+                                      // ImageConstant.rewardCard3,
+                                      // ImageConstant.rewardCard4,
+                                    ].map((imageUrl) {
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: CommonImageView(
+                                          imagePath: imageUrl,
+                                          height: 100.ksp,
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ),
+
+                              // 10.kheightBox,
+                              // Row(
+                              //   children: [
+                              //     16.kwidthBox,
+                              //     Text(
+                              //       LocaleKeys.other_benefits.tr,
+                              //       style: TextStyleUtil.genSans500(
+                              //         fontSize: 14.5.ksp,
+                              //         color: ColorUtil(context).black,
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
+                              // 10.kheightBox,
+                              // Container(
+                              //   height: context.height * 0.5,
+                              //   child: SingleChildScrollView(
+                              //     child: Padding(
+                              //       padding: EdgeInsets.symmetric(vertical: 10.0.ksp),
+                              //       child: Wrap(
+                              //         spacing: 11.ksp,
+                              //         runSpacing: 11.ksp,
+                              //         children:
+                              //             [
+                              //               ImageConstant.rewardCard5,
+                              //               ImageConstant.rewardCard6,
+                              //               ImageConstant.rewardCard7,
+                              //               ImageConstant.rewardCard8,
+                              //             ].map((imageUrl) {
+                              //               return ClipRRect(
+                              //                 borderRadius: BorderRadius.circular(12),
+                              //                 child: CommonImageView(
+                              //                   imagePath: imageUrl,
+                              //                   height: 100.ksp,
+                              //                 ),
+                              //               );
+                              //             }).toList(),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      10.kheightBox,
-                      Row(
-                        children: [
-                          16.kwidthBox,
-                          Text(
-                            LocaleKeys.rewards.tr,
-                            style: TextStyleUtil.genSans500(
-                              fontSize: 14.5.ksp,
-                              color: ColorUtil(context).black,
-                            ),
-                          ),
-                        ],
-                      ),
-                      10.kheightBox,
-                      Container(
-                        height: context.height * 0.35,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10.0.ksp),
-                          child: Wrap(
-                            spacing: 11.ksp,
-                            runSpacing: 11.ksp,
-                            children:
-                                [
-                                  ImageConstant.rewardCard1,
-                                  ImageConstant.rewardCard2,
-                                  // ImageConstant.rewardCard3,
-                                  // ImageConstant.rewardCard4,
-                                ].map((imageUrl) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: CommonImageView(
-                                      imagePath: imageUrl,
-                                      height: 100.ksp,
-                                    ),
-                                  );
-                                }).toList(),
-                          ),
-                        ),
-                      ),
-
-                      // 10.kheightBox,
-                      // Row(
-                      //   children: [
-                      //     16.kwidthBox,
-                      //     Text(
-                      //       LocaleKeys.other_benefits.tr,
-                      //       style: TextStyleUtil.genSans500(
-                      //         fontSize: 14.5.ksp,
-                      //         color: ColorUtil(context).black,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // 10.kheightBox,
-                      // Container(
-                      //   height: context.height * 0.5,
-                      //   child: SingleChildScrollView(
-                      //     child: Padding(
-                      //       padding: EdgeInsets.symmetric(vertical: 10.0.ksp),
-                      //       child: Wrap(
-                      //         spacing: 11.ksp,
-                      //         runSpacing: 11.ksp,
-                      //         children:
-                      //             [
-                      //               ImageConstant.rewardCard5,
-                      //               ImageConstant.rewardCard6,
-                      //               ImageConstant.rewardCard7,
-                      //               ImageConstant.rewardCard8,
-                      //             ].map((imageUrl) {
-                      //               return ClipRRect(
-                      //                 borderRadius: BorderRadius.circular(12),
-                      //                 child: CommonImageView(
-                      //                   imagePath: imageUrl,
-                      //                   height: 100.ksp,
-                      //                 ),
-                      //               );
-                      //             }).toList(),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+                ],
+              );
+      }),
     );
   }
 }
@@ -361,10 +399,19 @@ class LeaderboardRow extends StatelessWidget {
       children: [
         Column(
           children: [
-            FluttermojiCircleAvatar(
-              backgroundColor: ColorUtil(context).blueBg,
+            Avatar().showAvatar(
+              avatarDetails: Get.find<ProfileController>()
+                      .leaderBoardList[1]
+                      .user!
+                      .avatardetails ??
+                  "",
+              bgColor: ColorUtil(context).blueBg,
               radius: 26.ksp,
             ),
+            // FluttermojiCircleAvatar(
+            //   backgroundColor: ColorUtil(context).blueBg,
+            //   radius: 26.ksp,
+            // ),
             CommonImageView(svgPath: ImageConstant.silverMedal),
           ],
         ),
@@ -373,10 +420,19 @@ class LeaderboardRow extends StatelessWidget {
           offset: Offset(0, -17), // move upwards by 10 pixels
           child: Column(
             children: [
-              FluttermojiCircleAvatar(
-                backgroundColor: ColorUtil(context).blueBg,
+              Avatar().showAvatar(
+                avatarDetails: Get.find<ProfileController>()
+                        .leaderBoardList[0]
+                        .user!
+                        .avatardetails ??
+                    "",
+                bgColor: ColorUtil(context).blueBg,
                 radius: 35.ksp,
               ),
+              // FluttermojiCircleAvatar(
+              //   backgroundColor: ColorUtil(context).blueBg,
+              //   radius: 35.ksp,
+              // ),
               CommonImageView(svgPath: ImageConstant.goldMedal),
             ],
           ),
@@ -384,10 +440,19 @@ class LeaderboardRow extends StatelessWidget {
         22.kwidthBox,
         Column(
           children: [
-            FluttermojiCircleAvatar(
-              backgroundColor: ColorUtil(context).blueBg,
+            Avatar().showAvatar(
+              avatarDetails: Get.find<ProfileController>()
+                      .leaderBoardList[2]
+                      .user!
+                      .avatardetails ??
+                  "",
+              bgColor: ColorUtil(context).blueBg,
               radius: 26.ksp,
             ),
+            // FluttermojiCircleAvatar(
+            //   backgroundColor: ColorUtil(context).blueBg,
+            //   radius: 26.ksp,
+            // ),
             CommonImageView(svgPath: ImageConstant.bronzeModel),
           ],
         ),
@@ -411,9 +476,9 @@ class LeaderList extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ...controller.leaderboardList.asMap().entries.map((entry) {
+          ...controller.leaderBoardList.asMap().entries.map((entry) {
             int index = entry.key;
-            String value = entry.value;
+            LeaderBoardUserModel value = entry.value;
             return Column(
               children: [
                 Row(
@@ -423,28 +488,33 @@ class LeaderList extends StatelessWidget {
                       children: [
                         index == 0
                             ? CommonImageView(
-                              svgPath: ImageConstant.goldMedal,
-                              height: 15.ksp,
-                            )
+                                svgPath: ImageConstant.goldMedal,
+                                height: 15.ksp,
+                              )
                             : index == 1
-                            ? CommonImageView(
-                              svgPath: ImageConstant.silverMedal,
-                              height: 15.ksp,
-                            )
-                            : index == 2
-                            ? CommonImageView(
-                              svgPath: ImageConstant.bronzeModel,
-                              height: 15.ksp,
-                            )
-                            : Text(index.toString()),
+                                ? CommonImageView(
+                                    svgPath: ImageConstant.silverMedal,
+                                    height: 15.ksp,
+                                  )
+                                : index == 2
+                                    ? CommonImageView(
+                                        svgPath: ImageConstant.bronzeModel,
+                                        height: 15.ksp,
+                                      )
+                                    : Text(index.toString()),
                         16.kwidthBox,
-                        FluttermojiCircleAvatar(
-                          backgroundColor: ColorUtil(context).blueBg,
+                        Avatar().showAvatar(
+                          avatarDetails: value.user?.avatardetails ?? "",
+                          bgColor: ColorUtil(context).blueBg,
                           radius: 14.ksp,
                         ),
+                        // FluttermojiCircleAvatar(
+                        //   backgroundColor: ColorUtil(context).blueBg,
+                        //   radius: 14.ksp,
+                        // ),
                         16.kwidthBox,
                         Text(
-                          'Name',
+                          value.user?.nickname ?? "",
                           style: TextStyleUtil.genSans400(
                             fontSize: 12.ksp,
                             color: ColorUtil(context).black,
@@ -453,7 +523,7 @@ class LeaderList extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '500 xp',
+                      '${value.totalXP} xp',
                       style: TextStyleUtil.genSans500(
                         fontSize: 10.ksp,
                         color: ColorUtil(context).black,
