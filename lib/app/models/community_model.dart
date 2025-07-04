@@ -48,10 +48,9 @@ class CommunityModel {
   });
 
   CommunityModel.fromJson(Map<String, dynamic> json) {
-    profileImage =
-        json['profileImage'] != null
-            ? new ProfileImage.fromJson(json['profileImage'])
-            : null;
+    profileImage = json['profileImage'] != null
+        ? new ProfileImage.fromJson(json['profileImage'])
+        : null;
     numberOfMembers = json['numberOfMembers'];
     members = json['members'].cast<String>();
     status = json['status'];
@@ -62,10 +61,9 @@ class CommunityModel {
     userId =
         json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
     name = json['name'];
-    category =
-        json['category'] != null
-            ? new Category.fromJson(json['category'])
-            : null;
+    category = json['category'] != null
+        ? new Category.fromJson(json['category'])
+        : null;
     isActive = json['isActive'];
     isReported = json['isReported'];
     isVerified = json['isVerified'];
@@ -76,7 +74,7 @@ class CommunityModel {
     isTrending = json['isTrending'];
     isJoin = json['isJoin'];
     numberofPosts = json['numberofPosts'];
-    nickname = json['userId']['nickname'];
+    nickname = json['userId'] != null ? json['userId']['nickname'] : "";
   }
 
   Map<String, dynamic> toJson() {

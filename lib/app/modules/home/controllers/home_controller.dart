@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -84,10 +86,10 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     isLoading.value = true;
+    userTimezone = timezoneNames[DateTime.now().timeZoneOffset.inMilliseconds];
     await getUser();
     await getTodaysMood();
     await getPopularMentalGym();
-    userTimezone = timezoneNames[DateTime.now().timeZoneOffset.inMilliseconds];
     isLoading.value = false;
     super.onInit();
   }
@@ -185,6 +187,7 @@ class HomeController extends GetxController {
         for (Map<String, dynamic> data in response.data['data']) {
           popularMentalGyms.add(MentalGymModel.fromJson(data));
         }
+        log(popularMentalGyms.value.length.toString());
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",

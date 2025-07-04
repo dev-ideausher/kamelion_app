@@ -36,34 +36,39 @@ class MentalGym {
   List<Category>? category;
   var totalDuration;
   bool? isActive;
+  bool? isJoined;
   bool? isTrending;
   String? createdAt;
   String? updatedAt;
   int? iV;
   bool? isCompleted;
   bool? isSaved;
+  num? userProgress;
 
-  MentalGym({
-    this.thumbnail,
-    this.sId,
-    this.title,
-    this.description,
-    this.category,
-    this.totalDuration,
-    this.isActive,
-    this.isTrending,
-    this.createdAt,
-    this.updatedAt,
-    this.iV,
-    this.isCompleted,
-    this.isSaved,
-  });
+  MentalGym(
+      {this.thumbnail,
+      this.sId,
+      this.title,
+      this.isJoined,
+      this.description,
+      this.category,
+      this.totalDuration,
+      this.isActive,
+      this.isTrending,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.isCompleted,
+      this.isSaved,
+      this.userProgress});
 
   MentalGym.fromJson(Map<String, dynamic> json) {
     thumbnail = json['thumbnail'] != null
         ? new Thumbnail.fromJson(json['thumbnail'])
         : null;
     sId = json['_id'];
+    isJoined = json['isJoined'];
+    userProgress = json['userProgress'][0]['progress'];
     title = json['title'];
     description = json['description'];
     if (json['category'] != null) {
@@ -176,6 +181,7 @@ class Category {
 
 class Workouts {
   Thumbnail? video;
+  num? progress;
   Thumbnail? thumbnail;
   String? sId;
   String? mentalGym;
@@ -200,6 +206,7 @@ class Workouts {
     this.isActive,
     this.createdAt,
     this.updatedAt,
+    this.progress,
     this.iV,
   });
 
@@ -210,6 +217,7 @@ class Workouts {
         ? new Thumbnail.fromJson(json['thumbnail'])
         : null;
     sId = json['_id'];
+    progress = json['progress'];
     mentalGym = json['mentalGym'];
     workoutTitle = json['workoutTitle'];
     totalDuration = json['totalDuration'];

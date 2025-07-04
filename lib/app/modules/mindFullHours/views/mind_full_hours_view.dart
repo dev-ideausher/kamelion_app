@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:kamelion/app/services/colors.dart';
 
 import 'package:kamelion/app/wave_button.dart';
 
@@ -35,15 +36,14 @@ class _BreathingScreenState extends State<BreathingScreen> {
   MindFullHoursController controller = Get.put(MindFullHoursController());
   @override
   Widget build(BuildContext context) {
-    final bgColor =
-        isInhale
-            ? const Color(0xFF4CAF50)
-            : const Color(0xFFEF5350); // green / red
+    final bgColor = isInhale
+        ? const Color(0xFF4CAF50)
+        : const Color(0xFFEF5350); // green / red
     final text = isInhale ? 'Breathe In...' : 'Breathe Out...';
     final icon = isPlaying ? Icons.pause : Icons.play_arrow;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: context.brandColor1,
       body: SafeArea(
         child: Column(
           children: [
@@ -64,7 +64,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                     Icon(Icons.surround_sound, color: Colors.white, size: 18),
                     SizedBox(width: 8),
                     Text(
-                      'Sound: Chirping Birds',
+                      'Sound: Mindful hours',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -75,7 +75,12 @@ class _BreathingScreenState extends State<BreathingScreen> {
             // Breathing animation placeholder
             Stack(
               children: [
-                WaveBreathingButton(onTap: () {  },)
+                Obx(
+                  () => WaveBreathingButton(
+                    isPlaying: controller.isPlaying.value,
+                    onTap: () {},
+                  ),
+                )
                 // Center(
                 //   child: Container(
                 //     width: 200,
@@ -103,32 +108,80 @@ class _BreathingScreenState extends State<BreathingScreen> {
             const Spacer(),
             // Progress bar
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                children: [
-                  Text(
-                    _formatTime(currentTime),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  Expanded(
-                    child: Slider(
-                      value: currentTime,
-                      min: 0,
-                      max: totalTime,
-                      onChanged: (value) {
-                        setState(() => currentTime = value);
-                      },
-                      activeColor: Colors.white,
-                      inactiveColor: Colors.white30,
-                    ),
-                  ),
-                  Text(
-                    _formatTime(totalTime),
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
+              padding: const EdgeInsets.all(20.0),
+              child: StreamBuilder<Duration>(
+                stream: controller.player.positionStream,
+                builder: (context, snapshot) {
+                  final position = snapshot.data ?? Duration.zero;
+                  final total = controller.player.duration ?? Duration.zero;
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "${controller.formatTime(position)}",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      // Text("Current: ${controller.formatTime(position)}"),
+                      // Text("Total: ${controller.formatTime(total)}"),
+                      Expanded(
+                        child: SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            thumbShape: SliderComponentShape
+                                .noThumb, // 👈 hides the circle
+                          ),
+                          child: Slider(
+                            min: 0,
+                            activeColor: Colors.white,
+                            inactiveColor: Colors.white30,
+                            max: total.inMilliseconds.toDouble(),
+                            value: position.inMilliseconds
+                                .clamp(0, total.inMilliseconds)
+                                .toDouble(),
+                            onChanged: (value) {
+                              // controller.player
+                              //     .seek(Duration(milliseconds: value.toInt()));
+                            },
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "${controller.formatTime(total)}",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 24),
+            //   child: Row(
+            //     children: [
+            //       Text(
+            //         _formatTime(currentTime),
+            //         style: const TextStyle(color: Colors.white),
+            //       ),
+            //       Expanded(
+            //         child: Slider(
+            //           value: currentTime,
+            //           min: 0,
+            //           max: totalTime,
+            //           onChanged: (value) {
+            //             setState(() => currentTime = value);
+            //           },
+            //           activeColor: Colors.white,
+            //           inactiveColor: Colors.white30,
+            //         ),
+            //       ),
+            //       Text(
+            //         _formatTime(totalTime),
+            //         style: const TextStyle(color: Colors.white),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+
             const SizedBox(height: 10),
             // Control buttons
             Padding(
@@ -142,14 +195,22 @@ class _BreathingScreenState extends State<BreathingScreen> {
                       color: Colors.white,
                       size: 28,
                     ),
-                    onPressed: () {},
-                  ),
-                  FloatingActionButton(
-                    backgroundColor: Colors.white,
                     onPressed: () {
-                     controller.togglePlayPause();
+                      controller.seekBackward();
                     },
-                    child: Icon(icon, color: bgColor),
+                  ),
+                  Obx(
+                    () => FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      onPressed: () {
+                        controller.togglePlayPause();
+                      },
+                      child: Icon(
+                          controller.isPlaying.value
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                          color: bgColor),
+                    ),
                   ),
                   IconButton(
                     icon: const Icon(
@@ -158,9 +219,7 @@ class _BreathingScreenState extends State<BreathingScreen> {
                       size: 28,
                     ),
                     onPressed: () {
-                      setState(() {
-                        isInhale = !isInhale;
-                      });
+                      controller.seekForward();
                     },
                   ),
                 ],

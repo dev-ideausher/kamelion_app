@@ -226,6 +226,24 @@ class APIManager {
         isOverlayLoader: true,
       ).patch(Endpoints.updateMentalGym(id), data: body);
 
+  static Future<Response> joinMentalGym({
+    required Map body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.joinMentalGym, data: body);
+
+  static Future<Response> submitMgRating({
+    required Map body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.submitMgRating, data: body);
+
   static Future<Response> startChallenge({
     required Map body,
   }) async =>
@@ -372,11 +390,15 @@ class APIManager {
         isOverlayLoader: false,
       ).patch(Endpoints.updateUser(id), data: body);
 
-
-
-
-
-
+  static Future<Response> updateUser(
+          {required var body,
+          required String id,
+          bool isOverlayLoader = false}) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: isOverlayLoader,
+      ).patch(Endpoints.updateUser(id), data: body);
 
   static Future<Response> submitMentalGymAnswer({
     required var body,
@@ -387,8 +409,6 @@ class APIManager {
         isOverlayLoader: true,
       ).post(Endpoints.submitQuize, data: body);
 
-
-
   static Future<Response> postWorkoutProgressDuration({
     required var body,
   }) async =>
@@ -397,12 +417,6 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: true,
       ).post(Endpoints.workoutComplete, data: body);
-
-
-
-
-
-
 
   static Future<Response> saveMentalGym({required var body}) async =>
       await DioClient(
@@ -582,4 +596,14 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: false,
       ).get('${Endpoints.getMoods}?$params');
+  static Future<Response> searchCommunities({
+    required String page,
+    required String limit,
+    required String word,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.searchCommunities(word: word, page: page, limit: limit));
 }

@@ -59,11 +59,9 @@ class MentalGymsAppBar extends StatelessWidget {
                 ),
               ),
             ),
-
             15.kheightBox,
-
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -81,6 +79,7 @@ class MentalGymsAppBar extends StatelessWidget {
                     ),
                   ],
                 ),
+                22.kwidthBox,
                 Row(
                   children: [
                     CommonImageView(

@@ -6,8 +6,11 @@ import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 
 class ImageSliderSelector extends StatefulWidget {
-  const ImageSliderSelector({super.key});
-
+  const ImageSliderSelector({
+    super.key,
+    this.onPageChanged,
+  });
+  final Function(int)? onPageChanged;
   @override
   State<ImageSliderSelector> createState() => _ImageSliderSelectorState();
 }
@@ -48,8 +51,8 @@ class _ImageSliderSelectorState extends State<ImageSliderSelector> {
       duration: const Duration(milliseconds: 200),
       margin: EdgeInsets.symmetric(horizontal: 10.ksp),
       decoration: BoxDecoration(
-        // borderRadius: BorderRadius.circular(50),
-      ),
+          // borderRadius: BorderRadius.circular(50),
+          ),
 
       child: Column(
         children: [
@@ -85,6 +88,7 @@ class _ImageSliderSelectorState extends State<ImageSliderSelector> {
           setState(() {
             _currentPage = index;
           });
+          widget.onPageChanged?.call(index);
         },
         itemBuilder: (context, index) {
           return _buildImageItem(index);

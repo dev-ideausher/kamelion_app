@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:fluttermoji/fluttermojiController.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/models/leadeboard_user_model.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -85,8 +87,18 @@ class ProfileView extends GetView<ProfileController> {
                                                 ),
                                               ],
                                             ),
-                                            25.kheightBox,
-                                            LeaderboardRow(),
+                                            Get.find<ProfileController>()
+                                                        .leaderBoardList
+                                                        .length <
+                                                    3
+                                                ? Container()
+                                                : 25.kheightBox,
+                                            Get.find<ProfileController>()
+                                                        .leaderBoardList
+                                                        .length <
+                                                    3
+                                                ? Container()
+                                                : LeaderboardRow(),
                                             20.kheightBox,
                                             LeaderList(controller: controller),
                                             50.kheightBox,
@@ -137,26 +149,8 @@ class ProfileView extends GetView<ProfileController> {
                                                       .statesIcon[index],
                                                   value: controller
                                                       .statesValue[index],
-                                                  count: (index == 0
-                                                          ? controller
-                                                              .myStatesData
-                                                              .value
-                                                              .totalCompletedQuizzes
-                                                          : index == 1
-                                                              ? controller
-                                                                  .myStatesData
-                                                                  .value
-                                                                  .totalPostWords
-                                                              : index == 2
-                                                                  ? controller
-                                                                      .myStatesData
-                                                                      .value
-                                                                      .totalMoodEntries
-                                                                  : controller
-                                                                      .myStatesData
-                                                                      .value
-                                                                      .totalJournalEntries)
-                                                      .toString(),
+                                                  count:
+                                                      "${(index == 0 ? controller.myStatesData.value.totalCompletedQuizzes : index == 1 ? controller.myStatesData.value.totalPostWords : index == 2 ? controller.myStatesData.value.totalMoodEntries : controller.myStatesData.value.totalJournalEntries)}",
                                                 );
                                               },
                                             ),
@@ -200,12 +194,36 @@ class ProfileView extends GetView<ProfileController> {
                                       ImageConstant.rewardCard2,
                                       // ImageConstant.rewardCard3,
                                       // ImageConstant.rewardCard4,
-                                    ].map((imageUrl) {
-                                      return ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: CommonImageView(
-                                          imagePath: imageUrl,
-                                          height: 100.ksp,
+                                    ].asMap().entries.map((entry) {
+                                      int index = entry.key;
+                                      String value = entry.value;
+
+                                      return InkWell(
+                                        onTap: () async {
+                                          FluttermojiController controller =
+                                              FluttermojiController();
+                                          await controller.setFluttermoji(
+                                              fluttermojiNew:
+                                                  Get.find<HomeController>()
+                                                          .currentUser
+                                                          .value
+                                                          .avatardetails ??
+                                                      "");
+
+                                          Get.toNamed(
+                                            Routes.CREATE_AVATAR,
+                                            arguments: {
+                                              "from": Routes.EDIT_PROFILE
+                                            },
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: CommonImageView(
+                                            imagePath: value,
+                                            height: 100.ksp,
+                                          ),
                                         ),
                                       );
                                     }).toList(),

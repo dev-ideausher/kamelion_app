@@ -24,37 +24,35 @@ class WorkoutSelector extends StatelessWidget {
         Get.find<HomeController>().popularMentalGyms.isEmpty
             ? Container()
             : Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Popular Mental Gyms",
-                  style: TextStyleUtil.genSans600(
-                    fontSize: 16.ksp,
-                    color: ColorUtil(context).black,
-
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Popular Mental Gyms",
+                    style: TextStyleUtil.genSans600(
+                      fontSize: 16.ksp,
+                      color: ColorUtil(context).black,
+                    ),
                   ),
-                ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.find<MentalGymController>().changeTab(3);
-                        Get.find<NavigationBarController>().changePage(1);
-                      },
-                      child: Text(
-                        LocaleKeys.view_all.tr,
-                        style: TextStyleUtil.genNunitoSans700(
-                          fontSize: 11.ksp,
-                          color: ColorUtil(context).brandColor1,
-                          height: 1.2,
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.find<MentalGymController>().changeTab(3);
+                          Get.find<NavigationBarController>().changePage(1);
+                        },
+                        child: Text(
+                          LocaleKeys.view_all.tr,
+                          style: TextStyleUtil.genNunitoSans700(
+                            fontSize: 11.ksp,
+                            color: ColorUtil(context).brandColor1,
+                            height: 1.2,
+                          ),
                         ),
                       ),
-                    ),
-
-                  ],
-                ),
-              ],
-            ),
+                    ],
+                  ),
+                ],
+              ),
         16.kheightBox,
         Obx(
           () => SingleChildScrollView(
@@ -78,10 +76,7 @@ class WorkoutSelector extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           side: BorderSide(color: context.greyBorder),
                           borderRadius: BorderRadius.circular(4.ksp),
-
-
                         ),
-
                         color: ColorUtil(context).white,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,12 +110,17 @@ class WorkoutSelector extends StatelessWidget {
                                         padding: EdgeInsets.symmetric(
                                           horizontal: 8.0.ksp,
                                         ),
-                                        child: Text(
-                                          item.title ?? "",
-                                          style: TextStyleUtil.genSans400(
-                                            fontSize: 12.ksp,
-                                            color: ColorUtil(context).black,
-                                            height: 1.2,
+                                        child: Container(
+                                          width: 160.ksp,
+                                          child: Text(
+                                            item.title ?? "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyleUtil.genSans400(
+                                              fontSize: 12.ksp,
+                                              color: ColorUtil(context).black,
+                                              height: 1.2,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -129,12 +129,21 @@ class WorkoutSelector extends StatelessWidget {
                                           horizontal: 8.0.ksp,
                                           vertical: 2.ksp,
                                         ),
-                                        child: Text(
-                                          item.title ?? "",
-                                          style: TextStyleUtil.genSans400(
-                                            fontSize: 10.ksp,
-                                            color: ColorUtil(context).greyDark,
-                                            height: 1.2,
+                                        child: Container(
+                                          width: 155.ksp,
+                                          child: Text(
+                                            item.category!
+                                                    .map((c) => c.title)
+                                                    .join(', ') ??
+                                                "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyleUtil.genSans400(
+                                              fontSize: 10.ksp,
+                                              color:
+                                                  ColorUtil(context).greyDark,
+                                              height: 1.2,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -145,8 +154,8 @@ class WorkoutSelector extends StatelessWidget {
                                       bool res =
                                           await Get.find<MentalGymController>()
                                               .saveMentalGym(
-                                                mentalGymId: item.sId ?? "",
-                                              );
+                                        mentalGymId: item.sId ?? "",
+                                      );
                                       if (res) {
                                         final controller =
                                             Get.find<HomeController>();
@@ -171,7 +180,6 @@ class WorkoutSelector extends StatelessWidget {
                                 ],
                               ),
                             ),
-
                             10.kheightBox,
                             Row(
                               // mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -85,15 +85,17 @@ class ProfileController extends GetxController
       response = await APIManager.getLeaderboard();
 
       if (response.data['data'] != null && response.data['status']) {
+        leaderBoardList.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           leaderBoardList.add(LeaderBoardUserModel.fromJson(data));
         }
       } else {
         debugPrint(
-          "An error occurred while getting vendor profile: ${response.data['message']}",
+          "An error occurred while gettxing vendor profile: ${response.data['message']}",
         );
         showMySnackbar(msg: response.data['message'] ?? "");
       }
+      leaderBoardList.refresh();
       update();
       // return;
     } on DioException catch (dioError) {

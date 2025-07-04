@@ -41,11 +41,13 @@ abstract class Routes {
   static const MOOD_TRACKER = _Paths.MOOD_TRACKER;
   static const WAVE_ONBOARDING = _Paths.WAVE_ONBOARDING;
   static const HOME_SEARCH = _Paths.HOME_SEARCH;
+  static const SEARCH_COMMUNITY = _Paths.SEARCH_COMMUNITY;
   static const PERSONALITY_TESTS = _Paths.PERSONALITY_TESTS;
   static const PERSONALITY_QUESTIONS = _Paths.PERSONALITY_QUESTIONS;
   static const PERSONALITY_RESULTS = _Paths.PERSONALITY_RESULTS;
   static const CONTACT_US = _Paths.CONTACT_US;
   static const FAQS = _Paths.FAQS;
+  static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
 }
 
 abstract class _Paths {
@@ -88,9 +90,11 @@ abstract class _Paths {
   static const MOOD_TRACKER = '/mood-tracker';
   static const WAVE_ONBOARDING = '/wave-onboarding';
   static const HOME_SEARCH = '/home-search';
+  static const SEARCH_COMMUNITY = '/search-community';
   static const PERSONALITY_TESTS = '/personality-tests';
   static const PERSONALITY_QUESTIONS = '/personality-questions';
   static const PERSONALITY_RESULTS = '/personality-results';
   static const CONTACT_US = '/contact-us';
   static const FAQS = '/faqs';
+  static const RESET_PASSWORD = '/reset-password';
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:fluttermoji/fluttermojiController.dart';
-
 import 'package:get/get.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -12,7 +11,6 @@ import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
-
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {

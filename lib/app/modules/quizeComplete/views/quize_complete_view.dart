@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/workoutDetails/controllers/workout_details_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
@@ -16,6 +17,7 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<QuizeCompleteController>(builder: (controller) {
+      // controller.coinsEarned.value = 0;
       return controller.isQuizeComplete == null
           ? Container(
               child: Center(
@@ -80,8 +82,9 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                       30.kheightBox,
                     ])
                   : Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        50.kheightBox,
+                        80.kheightBox,
                         Center(
                           child: CommonImageView(
                               svgPath: ImageConstant.kamelionGifting),
@@ -95,38 +98,65 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                           ),
                         ),
                         0.kheightBox,
-                        Text(
-                          LocaleKeys.total_kalicoins.tr,
-                          style: TextStyleUtil.genSans400(
-                            fontSize: 12.ksp,
-                            color: context.black,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        12.kheightBox,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              controller.coinsEarned.toString(),
-                              style: TextStyleUtil.genSans500(
-                                fontSize: 20.ksp,
-                                color: context.black,
+                        controller.coinsEarned.value == 0
+                            ? Padding(
+                                padding: EdgeInsets.only(top: 12.0.ksp),
+                                child: Text(
+                                  "You have already earned coins for this workout",
+                                  style: TextStyleUtil.genSans400(
+                                    fontSize: 12.ksp,
+                                    color: context.black,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            : Text(
+                                LocaleKeys.total_kalicoins.tr,
+                                style: TextStyleUtil.genSans400(
+                                  fontSize: 12.ksp,
+                                  color: context.black,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
-                            ),
-                            4.kwidthBox,
-                            CommonImageView(svgPath: ImageConstant.coinStack),
-                          ],
-                        ),
+                        12.kheightBox,
+                        controller.coinsEarned.value == 0
+                            ? Container()
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    controller.coinsEarned.toString(),
+                                    style: TextStyleUtil.genSans500(
+                                      fontSize: 20.ksp,
+                                      color: context.black,
+                                    ),
+                                  ),
+                                  4.kwidthBox,
+                                  CommonImageView(
+                                      svgPath: ImageConstant.coinStack),
+                                ],
+                              ),
                         Spacer(),
                         Padding(
                           padding: EdgeInsets.all(12.0.ksp),
                           child: CustomButton.outline(
                             onTap: () {
-                              Get.back();
-                              Get.back();
+                              if ((Get.find<WorkoutDetailsController>()
+                                          .mentalGymDetails!
+                                          .value
+                                          .mentalGym!
+                                          .userProgress ??
+                                      0) ==
+                                  100) {
+                                Get.offNamed(Routes.COURSE_COMPLETE);
+                              } else {
+                                Get.back();
+                                Get.back();
+                              }
                             },
-                            title: LocaleKeys.collect_kalicoins.tr,
+                            title: controller.coinsEarned.value == 0
+                                ? "Done"
+                                : LocaleKeys.collect_kalicoins.tr,
                           ),
                         ),
                         30.kheightBox,

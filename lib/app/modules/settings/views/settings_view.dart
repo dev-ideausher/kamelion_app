@@ -4,8 +4,12 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/constants/link_constants.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/custom_button.dart';
+import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
@@ -30,22 +34,34 @@ class SettingsView extends GetView<SettingsController> {
               ontap1: () {
                 Get.toNamed(Routes.EDIT_PROFILE);
               },
-              onTap2: () {},
+              onTap2: () {
+                showLisenceBottomSheet(context);
+              },
             ),
-            15.kheightBox,
-            SettingTab1(
-              title: LocaleKeys.notifications.tr,
-              subTitle1: "Push Notification",
-              // subTitle2: LocaleKeys.reset_password.tr,
-              ontap1: () {},
-              // onTap2: () {},
-            ),
+            // 15.kheightBox,
+            // SettingTab1(
+            //   title: LocaleKeys.notifications.tr,
+            //   subTitle1: "Push Notification",
+            //   // subTitle2: LocaleKeys.reset_password.tr,
+            //   ontap1: () {},
+            //   // onTap2: () {},
+            // ),
             15.kheightBox,
             SettingTab(
               title: "Rewards & Badges",
               subTitle1: "My Badges",
               subTitle2: "Redeemed Savings ",
-              ontap1: () {},
+              ontap1: () async {
+                Get.toNamed(Routes.CHALLENGES);
+                final challengeController =
+                    Get.isRegistered<ChallengesController>()
+                        ? Get.find<ChallengesController>()
+                        : Get.put(ChallengesController());
+                await Get.find<ChallengesController>().getBagdes();
+                Get.find<ChallengesController>()
+                    .challengePageTabController
+                    .animateTo(1);
+              },
               onTap2: () {},
             ),
             15.kheightBox,
@@ -76,13 +92,50 @@ class SettingsView extends GetView<SettingsController> {
             SettingTab(
               title: LocaleKeys.account.tr,
               subTitle1: "Delete Account",
-              subTitle2: "Logout",
+              subTitle2: "Reset Password",
               ontap1: () {
                 controller.showDeleteDialog(context);
               },
               onTap2: () {
+                // controller.showLogoutDialog(context);
+                Get.toNamed(Routes.RESET_PASSWORD);
+              },
+            ),
+            15.kheightBox,
+            InkWell(
+              onTap: () {
                 controller.showLogoutDialog(context);
               },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0.ksp),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.0.ksp,
+                    vertical: 8.ksp,
+                  ),
+                  decoration: BoxDecoration(
+                    color: ColorUtil(context).white,
+                    border: Border.all(color: ColorUtil(context).grey),
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(6.ksp),
+                      bottom: Radius.circular(6.ksp),
+                    ), // Rounded corners
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Logout",
+                        style: TextStyleUtil.genSans500(
+                          fontSize: 11.ksp,
+                          color: ColorUtil(context).black,
+                        ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.arrow_forward_ios, size: 12.ksp),
+                    ],
+                  ),
+                ),
+              ),
             ),
             40.kheightBox,
           ],
@@ -486,4 +539,57 @@ class SettingTab4 extends StatelessWidget {
       ],
     );
   }
+}
+
+void showLisenceBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    isScrollControlled: true,
+    context: context,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (context) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(
+            context,
+          ).viewInsets.bottom, // Handle keyboard pushing up
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20.0.ksp),
+            child: Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // Wrap content height
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  16.kheightBox,
+                  Text(
+                    "License Key : ${Get.find<HomeController>().currentUser.value.licensekey}",
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 15.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  30.kheightBox,
+                  // Text(
+                  //   "Expiry Date : ",
+                  //   style: TextStyleUtil.genSans500(
+                  //     fontSize: 15.ksp,
+                  //     color: ColorUtil(context).black,
+                  //   ),
+                  //   textAlign: TextAlign.center,
+                  // ),
+                  16.kheightBox,
+                  30.kheightBox,
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

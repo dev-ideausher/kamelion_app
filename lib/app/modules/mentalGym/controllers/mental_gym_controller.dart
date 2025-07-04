@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -19,14 +21,13 @@ class MentalGymController extends GetxController {
   TextEditingController searchController = TextEditingController();
   RxBool isLoading = false.obs;
   final ScrollController scrollController = ScrollController();
-  List<Widget> screensList =
-      [
-        AllWorkouts(),
-        ActiveWorkouts(),
-        ActiveWorkouts(),
-        ActiveWorkouts(),
-        SavedWorkouts(),
-      ].obs;
+  List<Widget> screensList = [
+    AllWorkouts(),
+    ActiveWorkouts(),
+    ActiveWorkouts(),
+    ActiveWorkouts(),
+    SavedWorkouts(),
+  ].obs;
   RxList activeWorkouts = ["", "", "", "", "", "", ""].obs;
   RxList savedWorkouts = ["", "", "", "", "", "", ""].obs;
   RxList<MentalGymCategoryModel> mentalGymCategoryList =
@@ -74,13 +75,18 @@ class MentalGymController extends GetxController {
       viewAllMentalGymList.value = suggestedMentalGym;
       viewAllTitle.value = "Suggested Mental Gym";
     } else if (index == 3) {
-      viewAllMentalGymList.value ==
-          Get.find<HomeController>().popularMentalGyms;
+      viewAllMentalGymList.value =
+          Get.find<HomeController>().popularMentalGyms.value;
+
       viewAllTitle.value = "Popular Mental Gym";
     } else if (index == 4) {
       await getSavedMentalGym();
       // viewAllMentalGymList == Get.find<HomeController>().popularMentalGyms;
       // viewAllTitle.value = "Popular Mental Gym";
+    } else if (index > 4) {
+      viewAllTitle.value = mentalGymCategoryList[index - 5].title ?? "";
+      await getMentalGymByCategory(
+          categoryId: mentalGymCategoryList[index - 5].sId ?? "");
     }
     scrollController.animateTo(
       0.0,
@@ -122,7 +128,7 @@ class MentalGymController extends GetxController {
   Future<void> getActiveMentalGym() async {
     try {
       var response;
-
+      activeMentalGymList.value = <MentalGymModel>[];
       response = await APIManager.getActiveMentalGym(limit: "10", page: "1");
 
       if (response.data['data'] != null && response.data['status']) {
@@ -214,9 +220,11 @@ class MentalGymController extends GetxController {
         categoryId: categoryId,
       );
       if (response.data['data'] != null && response.data['status']) {
+        viewAllMentalGymList.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           viewAllMentalGymList.add(MentalGymModel.fromJson(data));
         }
+        viewAllMentalGymList.refresh();
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",

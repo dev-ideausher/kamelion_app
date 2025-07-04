@@ -32,84 +32,91 @@ class SuggestedWorkoutCards extends StatelessWidget {
             borderRadius: BorderRadius.circular(4.ksp),
           ),
           color: ColorUtil(context).white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.0.ksp),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(4.ksp),
-                  ),
-                  child: CommonImageView(
-                    url: imageUrl,
-                    // svgPath: ImageConstant.dummyCoverImage,
-                    height: 110.ksp,
-                    width: context.width * 0.9,
-                    fit: BoxFit.cover,
+          child: Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8.0.ksp),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(4.ksp),
+                    ),
+                    child: CommonImageView(
+                      url: imageUrl,
+                      // svgPath: ImageConstant.dummyCoverImage,
+                      height: 110.ksp,
+                      width: context.width * 0.9,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: context.width * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0.ksp),
-                          child: Text(
-                            title,
-                            style: TextStyleUtil.genSans400(
-                              fontSize: 12.ksp,
-                              color: ColorUtil(context).black,
-                              height: 1.2,
+                SizedBox(
+                  width: context.width * 0.9,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0.ksp),
+                            child: Text(
+                              title,
+                              style: TextStyleUtil.genSans400(
+                                fontSize: 12.ksp,
+                                color: ColorUtil(context).black,
+                                height: 1.2,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8.0.ksp,
-                            vertical: 2.ksp,
-                          ),
-                          child: Text(
-                            subtitle,
-                            style: TextStyleUtil.genSans400(
-                              fontSize: 10.ksp,
-                              color: ColorUtil(context).greyDark,
-                              height: 1.2,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.0.ksp,
+                              vertical: 2.ksp,
+                            ),
+                            child: SizedBox(
+                              width: 160.ksp,
+                              child: Text(
+                                subtitle,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyleUtil.genSans400(
+                                  fontSize: 10.ksp,
+                                  color: ColorUtil(context).greyDark,
+                                  height: 1.2,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    InkWell(
-                      onTap: onSaved,
-                      child: Icon(
-                        isSaved
-                            ? Icons.bookmark_outlined
-                            : Icons.bookmark_outline,
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              10.kheightBox,
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0.ksp),
-                child: Text(
-                  "Earn Kalikoins",
-                  style: TextStyleUtil.genSans500(
-                    fontSize: 11.ksp,
-                    color: ColorUtil(context).brandColor1,
-                    height: 1.2,
+                      InkWell(
+                        onTap: onSaved,
+                        child: Icon(
+                          isSaved
+                              ? Icons.bookmark_outlined
+                              : Icons.bookmark_outline,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-              10.kheightBox,
-            ],
+                10.kheightBox,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0.ksp),
+                  child: Text(
+                    "Earn Kalikoins",
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 11.ksp,
+                      color: ColorUtil(context).brandColor1,
+                      height: 1.2,
+                    ),
+                  ),
+                ),
+                10.kheightBox,
+              ],
+            ),
           ),
         ),
       ),

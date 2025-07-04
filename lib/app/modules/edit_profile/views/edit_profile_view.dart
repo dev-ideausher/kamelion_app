@@ -3,12 +3,14 @@ import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
 import 'package:fluttermoji/fluttermojiSaveWidget.dart';
 
 import 'package:get/get.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
+import 'package:kamelion/app/services/snackbar.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
@@ -24,18 +26,17 @@ class EditProfileView extends GetView<EditProfileController> {
         centerTitle: true,
         actions: [
           Obx(
-            () => FluttermojiSaveWidget(
+            () => InkWell(
               onTap: () {
-                // controller.submitAvatar();
+                controller.updateProfile();
               },
               child: Text(
                 LocaleKeys.done.tr,
                 style: TextStyleUtil.genSans500(
                   fontSize: 12.ksp,
-                  color:
-                      controller.enabelLoginBotton.value
-                          ? ColorUtil(context).brandColor1
-                          : ColorUtil(context).grey,
+                  color: controller.enabelLoginBotton.value
+                      ? ColorUtil(context).brandColor1
+                      : ColorUtil(context).grey,
                 ),
               ),
             ),
@@ -43,91 +44,136 @@ class EditProfileView extends GetView<EditProfileController> {
           20.kwidthBox,
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.ksp),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              context.width.kwidthBox,
-              50.kheightBox,
-              Center(
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    FluttermojiCircleAvatar(
-                      backgroundColor: ColorUtil(context).blueBg,
-                      radius: 80,
-                    ),
-                    Positioned(
-                      bottom: -15,
-                      right: 0,
-                      left: 0,
-                      child: InkWell(
+      body: Obx(
+        () => controller.isLoading.value
+            ? Container(
+                child: Center(
+                  child: CircularProgressIndicator(color: context.brandColor1),
+                ),
+              )
+            : Padding(
+                padding: EdgeInsets.all(16.ksp),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      context.width.kwidthBox,
+                      20.kheightBox,
+                      Center(
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            Avatar().showAvatar(
+                              avatarDetails: controller.avatarDetails.value,
+                              radius: 80,
+                              bgColor: ColorUtil(context).blueBg,
+                            ),
+                            // FluttermojiCircleAvatar(
+                            //   backgroundColor: ColorUtil(context).blueBg,
+                            //   radius: 80,
+                            // ),
+                            Positioned(
+                              bottom: -15,
+                              right: 0,
+                              left: 0,
+                              child: InkWell(
+                                onTap: () {
+                                  controller.checkFormValidity();
+                                  Get.toNamed(
+                                    Routes.CREATE_AVATAR,
+                                    arguments: {"from": Routes.EDIT_PROFILE},
+                                  );
+                                },
+                                child: CircleAvatar(
+                                    backgroundColor: ColorUtil(context).greyBg,
+                                    child: CommonImageView(
+                                      height: 18.ksp,
+                                      svgPath: ImageConstant.pencilIconEdit,
+                                    )),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      40.kheightBox,
+                      Text(
+                        " ${LocaleKeys.fullName.tr}",
+                        style: TextStyleUtil.genSans600(
+                          fontSize: 12.ksp,
+                          color: context.black,
+                        ),
+                      ),
+                      3.kheightBox,
+                      CustomTextField(
+                        hintText: LocaleKeys.fullNameHint.tr,
+                        controller: controller.fullNameController,
+                        onChange: (val) => controller.checkFormValidity(),
+                      ),
+                      10.kheightBox,
+                      Text(
+                        " ${LocaleKeys.enterNickname.tr}",
+                        style: TextStyleUtil.genSans600(
+                          fontSize: 12.ksp,
+                          color: context.black,
+                        ),
+                      ),
+                      3.kheightBox,
+                      CustomTextField(
+                        hintText: LocaleKeys.enterNickname.tr,
+                        controller: controller.nicknameController,
+                        onChange: (val) => controller.checkFormValidity(),
+                      ),
+                      10.kheightBox,
+                      Text(
+                        " ${LocaleKeys.email.tr}",
+                        style: TextStyleUtil.genSans600(
+                          fontSize: 12.ksp,
+                          color: context.black,
+                        ),
+                      ),
+                      3.kheightBox,
+                      InkWell(
                         onTap: () {
-                          Get.toNamed(
-                            Routes.CREATE_AVATAR,
-                            arguments: {"from": Routes.EDIT_PROFILE},
-                          );
+                          showMySnackbar(msg: "Email cannot be edited.");
                         },
-                        child: CircleAvatar(
-                          backgroundColor: ColorUtil(context).greyBg,
-                          child: Icon(
-                            Icons.edit_outlined,
-                            color: ColorUtil(context).black,
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 12.ksp, vertical: 8.ksp),
+                          decoration: BoxDecoration(
+                            color: context.white,
+                            borderRadius:
+                                BorderRadius.circular(8.ksp), // 👈 round corner
+
+                            border: Border.all(
+                                width: 1.ksp,
+                                color: ColorUtil(context)
+                                    .grey
+                                    .withOpacity(0.7)), // 👈 grey border
+                          ),
+                          child: Text(
+                            controller.emailController.text,
+                            style: TextStyleUtil.genSans400(
+                              fontSize: 12.ksp,
+                              color: context.greyDark,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      // CustomTextField(
+                      //   onTap: () {
+                      //     showMySnackbar(msg: "Email cannot be edited.");
+                      //   },
+                      //   readOnly: true,
+                      //   hintText: LocaleKeys.emailHint.tr,
+                      //   controller: controller.emailController,
+                      //   onChange: (val) => controller.checkFormValidity(),
+                      // ),
+                      10.kheightBox,
+                    ],
+                  ),
                 ),
               ),
-              40.kheightBox,
-              Text(
-                " ${LocaleKeys.fullName.tr}",
-                style: TextStyleUtil.genSans300(
-                  fontSize: 12.ksp,
-                  color: context.black,
-                ),
-              ),
-              3.kheightBox,
-              CustomTextField(
-                hintText: LocaleKeys.fullNameHint.tr,
-                controller: controller.fullNameController,
-                onChange: (val) => controller.checkFormValidity(val),
-              ),
-              10.kheightBox,
-              Text(
-                " ${LocaleKeys.email.tr}",
-                style: TextStyleUtil.genSans300(
-                  fontSize: 12.ksp,
-                  color: context.black,
-                ),
-              ),
-              3.kheightBox,
-              CustomTextField(
-                hintText: LocaleKeys.emailHint.tr,
-                controller: controller.emailController,
-                onChange: (val) => controller.checkFormValidity(val),
-              ),
-              10.kheightBox,
-              Text(
-                " ${LocaleKeys.password.tr}",
-                style: TextStyleUtil.genSans300(
-                  fontSize: 12.ksp,
-                  color: context.black,
-                ),
-              ),
-              3.kheightBox,
-              CustomTextField(
-                hintText: LocaleKeys.passwordHint.tr,
-                controller: controller.passwordController,
-                onChange: (val) => controller.checkFormValidity(val),
-              ),
-              10.kheightBox,
-            ],
-          ),
-        ),
       ),
     );
   }
