@@ -116,41 +116,42 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                       SizedBox(
                         height: 120.kh,
                       ),
-                      controller.mentalGymDetails!.value.mentalGym!.isActive!
-                          ? (controller.mentalGymDetails!.value.mentalGym!
-                                  .isCompleted!
-                              ? Container()
-                              : Padding(
-                                  padding: EdgeInsets.all(16.0.ksp),
-                                  child: CustomButton.outline(
-                                    onTap: () {
-                                      Get.toNamed(
-                                        Routes.ONBOARDING_QUESTIONS,
-                                        arguments: Routes.COURSE_COMPLETE,
-                                      );
-                                      // Get.toNamed(Routes.COURSE_COMPLETE);
-                                    },
-                                    title: 'Complete',
-                                    color: context.redBg,
-                                    buttonColor: context.redBg,
-                                  ),
-                                ))
-                          : Padding(
-                              padding: EdgeInsets.all(16.0.ksp),
-                              child: CustomButton.outline(
-                                onTap: () {
-                                  controller.joinMentalGym(
-                                    controller.mentalGymDetails!.value
-                                            .mentalGym!.sId ??
-                                        "",
-                                  );
-                                  // Get.toNamed(Routes.COURSE_COMPLETE);
-                                },
-                                title: 'Start Mental Gym',
-                                color: context.redBg,
-                                buttonColor: context.redBg,
-                              ),
-                            ),
+                      // controller.mentalGymDetails!.value.mentalGym!.isActive!
+                      //     ? (controller.mentalGymDetails!.value.mentalGym!
+                      //             .isCompleted!
+                      //         ? Container()
+                      //         : Padding(
+                      //             padding: EdgeInsets.all(16.0.ksp),
+                      //             child: CustomButton.outline(
+                      //               onTap: () {
+                      //                 Get.toNamed(
+                      //                   Routes.QUIZE_COMPLETE,
+                      //                   arguments: [true,],
+                      //                 );
+                      //                 // Get.toNamed(Routes.COURSE_COMPLETE);
+                      //               },
+                      //               title: 'Complete',
+                      //               color: context.redBg,
+                      //               buttonColor: context.redBg,
+                      //             ),
+                      //           ))
+                        //  :
+                        // Padding(
+                        //       padding: EdgeInsets.all(16.0.ksp),
+                        //       child: CustomButton.outline(
+                        //         onTap: () {
+                        //           controller.joinMentalGym(
+                        //             controller.mentalGymDetails!.value
+                        //                     .mentalGym!.sId ??
+                        //                 "",
+                        //           );
+                        //           // Get.toNamed(Routes.COURSE_COMPLETE);
+                        //         },
+                        //         title: 'Start Mental Gym',
+                        //         color: context.redBg,
+                        //         buttonColor: context.redBg,
+                        //       ),
+                        //     ),
                     ],
                   ),
                 ),

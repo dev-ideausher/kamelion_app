@@ -61,7 +61,7 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                             (controller.challengeDetails!.value.totalDuration ??
                                 0)
                         ? Container()
-                        : Flexible(
+                        : controller.challengeDetails!.value.progress == 100 ?Container() :Flexible(
                             child: Padding(
                               padding: EdgeInsets.all(16.0.ksp),
                               child: CustomButton.outline(
@@ -89,7 +89,7 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
                                 (controller.challengeDetails!.value
                                         .totalDuration ??
                                     0))
-                        ? Flexible(
+                        ? controller.challengeDetails!.value.progress == 100 ?Container() : Flexible(
                             child: InkWell(
                               onTap: () {
                                 controller.quiteChallenge();

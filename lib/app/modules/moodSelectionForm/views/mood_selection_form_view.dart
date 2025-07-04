@@ -266,9 +266,11 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                                 .map(
                                   (keyword) => InkWell(
                                     onTap: () {
+
                                       controller.onFeelingSelected(
                                         keyword: keyword,
                                       );
+
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(

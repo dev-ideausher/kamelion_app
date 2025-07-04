@@ -137,7 +137,7 @@ class ProfileView extends GetView<ProfileController> {
                                                       .statesIcon[index],
                                                   value: controller
                                                       .statesValue[index],
-                                                  count: (context == 0
+                                                  count: (index == 0
                                                           ? controller
                                                               .myStatesData
                                                               .value
@@ -146,16 +146,16 @@ class ProfileView extends GetView<ProfileController> {
                                                               ? controller
                                                                   .myStatesData
                                                                   .value
-                                                                  .totalCompletedQuizzes
+                                                                  .totalPostWords
                                                               : index == 2
                                                                   ? controller
                                                                       .myStatesData
                                                                       .value
-                                                                      .totalCompletedQuizzes
+                                                                      .totalMoodEntries
                                                                   : controller
                                                                       .myStatesData
                                                                       .value
-                                                                      .totalCompletedQuizzes)
+                                                                      .totalJournalEntries)
                                                       .toString(),
                                                 );
                                               },
