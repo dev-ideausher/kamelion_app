@@ -5,8 +5,11 @@ import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/constants/link_constants.dart';
 import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/custom_button.dart';
+import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
@@ -31,7 +34,9 @@ class SettingsView extends GetView<SettingsController> {
               ontap1: () {
                 Get.toNamed(Routes.EDIT_PROFILE);
               },
-              onTap2: () {},
+              onTap2: () {
+                showLisenceBottomSheet(context);
+              },
             ),
             // 15.kheightBox,
             // SettingTab1(
@@ -534,4 +539,57 @@ class SettingTab4 extends StatelessWidget {
       ],
     );
   }
+}
+
+void showLisenceBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    isScrollControlled: true,
+    context: context,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    builder: (context) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(
+            context,
+          ).viewInsets.bottom, // Handle keyboard pushing up
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(20.0.ksp),
+            child: Container(
+              width: double.infinity,
+              child: Column(
+                mainAxisSize: MainAxisSize.min, // Wrap content height
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  16.kheightBox,
+                  Text(
+                    "License Key : ${Get.find<HomeController>().currentUser.value.licensekey}",
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 15.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  30.kheightBox,
+                  // Text(
+                  //   "Expiry Date : ",
+                  //   style: TextStyleUtil.genSans500(
+                  //     fontSize: 15.ksp,
+                  //     color: ColorUtil(context).black,
+                  //   ),
+                  //   textAlign: TextAlign.center,
+                  // ),
+                  16.kheightBox,
+                  30.kheightBox,
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }

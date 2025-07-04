@@ -82,8 +82,9 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                       30.kheightBox,
                     ])
                   : Column(
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        50.kheightBox,
+                        80.kheightBox,
                         Center(
                           child: CommonImageView(
                               svgPath: ImageConstant.kamelionGifting),
@@ -98,7 +99,17 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                         ),
                         0.kheightBox,
                         controller.coinsEarned.value == 0
-                            ? Container()
+                            ? Padding(
+                                padding: EdgeInsets.only(top: 12.0.ksp),
+                                child: Text(
+                                  "You have already earned coins for this workout",
+                                  style: TextStyleUtil.genSans400(
+                                    fontSize: 12.ksp,
+                                    color: context.black,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
                             : Text(
                                 LocaleKeys.total_kalicoins.tr,
                                 style: TextStyleUtil.genSans400(
