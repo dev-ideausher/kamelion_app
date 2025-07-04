@@ -87,8 +87,18 @@ class ProfileView extends GetView<ProfileController> {
                                                 ),
                                               ],
                                             ),
-                                            25.kheightBox,
-                                            LeaderboardRow(),
+                                            Get.find<ProfileController>()
+                                                        .leaderBoardList
+                                                        .length <
+                                                    3
+                                                ? Container()
+                                                : 25.kheightBox,
+                                            Get.find<ProfileController>()
+                                                        .leaderBoardList
+                                                        .length <
+                                                    3
+                                                ? Container()
+                                                : LeaderboardRow(),
                                             20.kheightBox,
                                             LeaderList(controller: controller),
                                             50.kheightBox,

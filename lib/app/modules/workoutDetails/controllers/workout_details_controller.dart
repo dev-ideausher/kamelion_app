@@ -36,7 +36,7 @@ class WorkoutDetailsController extends GetxController {
     super.onClose();
   }
 
-  void postWorkoutProg(
+  Future<void> postWorkoutProg(
       {required String workoutID, required currentDuration}) async {
     var response = await APIManager.postWorkoutProgressDuration(
       body: {
@@ -45,7 +45,8 @@ class WorkoutDetailsController extends GetxController {
       },
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      getMentalGymDetails(mentalGymDetails!.value.mentalGym!.sId ?? "");
       print(response.data);
     } else {
       debugPrint(
@@ -71,6 +72,7 @@ class WorkoutDetailsController extends GetxController {
         );
         showMySnackbar(msg: response.data['message'] ?? "");
       }
+      mentalGymDetails?.refresh();
       update();
       // return;
     } on DioException catch (dioError) {

@@ -7,9 +7,10 @@ class MentalGymModel {
   String? createdAt;
   String? updatedAt;
   int? iV;
-  Category? category;
+  // Category? category;
   bool? isSaved;
   num? userProgress;
+  List<Category>? category;
 
   MentalGymModel(
       {this.thumbnail,
@@ -33,7 +34,7 @@ class MentalGymModel {
       String? createdAt,
       String? updatedAt,
       int? iV,
-      Category? category,
+      List<Category>? category,
       bool? isSaved,
       num? userProgress}) {
     return MentalGymModel(
@@ -66,6 +67,12 @@ class MentalGymModel {
         (json['userProgress'] == null || (json['userProgress'] as List).isEmpty)
             ? 0
             : json['userProgress'][0]['progress'];
+    if (json['category'] != null) {
+      category = <Category>[];
+      json['category'].forEach((v) {
+        category!.add(new Category.fromJson(v));
+      });
+    }
     // category =
     //     json['category'] != null
     //         ? new Category.fromJson(json['category'])
@@ -86,7 +93,7 @@ class MentalGymModel {
     data['isSaved'] = this.isSaved;
     data['__v'] = this.iV;
     if (this.category != null) {
-      data['category'] = this.category!.toJson();
+      data['category'] = this.category!.map((v) => v.toJson()).toList();
     }
     return data;
   }

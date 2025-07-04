@@ -38,7 +38,7 @@ class SavedWorkouts extends StatelessWidget {
               isSaved: mood.isSaved ?? true,
               imageUrl: mood.thumbnail?.url ?? "",
               title: mood.title ?? "",
-              subtitle: mood.description ?? "",
+              subtitle: mood.category!.map((c) => c.title).join(', ') ?? "",
               onTap: () {
                 Get.find<MentalGymController>().getWorkoutDetails(
                   mood.sId ?? "",

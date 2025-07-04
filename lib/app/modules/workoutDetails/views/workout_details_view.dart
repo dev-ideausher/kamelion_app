@@ -7,6 +7,7 @@ import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
+import 'package:kamelion/generated/locales.g.dart';
 import '../controllers/workout_details_controller.dart';
 
 class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
@@ -108,6 +109,7 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                                 ...controller.mentalGymDetails!.value.workouts!
                                     .map(
                                       (workout) => VideoCard(
+                                        progress: workout.progress ?? 0,
                                         duration:
                                             workout.totalDuration.toString() ??
                                                 "",
@@ -115,7 +117,15 @@ class WorkoutDetailsView extends GetView<WorkoutDetailsController> {
                                             ? "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                                             : workout.thumbnail?.url ??
                                                 "https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                                        onPlay: () {
+                                        onPlay: () async {
+                                          if (!(controller.mentalGymDetails!
+                                                  .value.mentalGym!.isJoined ??
+                                              false)) {
+                                            await controller.joinMentalGym(
+                                                controller.mentalGymDetails!
+                                                        .value.mentalGym!.sId ??
+                                                    "");
+                                          }
                                           Get.to(VideoPlayerScreen(),
                                               arguments: {
                                                 // "https://kamelion.s3.eu-north-1.amazonaws.com/public/profilePics/27889d38-928d-4ebe-805f-b93023e50bd4-Mental%20Health%20in%20Schools_%20We%E2%80%99re%20Doing%20it%20Wrong%20_%20Maya%20Dawson%20_%20TEDxYouth_CherryCreek.mp4",
@@ -186,14 +196,15 @@ class VideoCard extends StatelessWidget {
   final String title;
   final String duration;
   final VoidCallback onPlay;
+  final num progress;
 
-  const VideoCard({
-    super.key,
-    required this.imageUrl,
-    required this.title,
-    required this.onPlay,
-    required this.duration,
-  });
+  const VideoCard(
+      {super.key,
+      required this.imageUrl,
+      required this.title,
+      required this.onPlay,
+      required this.duration,
+      required this.progress});
 
   @override
   Widget build(BuildContext context) {
@@ -256,24 +267,49 @@ class VideoCard extends StatelessWidget {
                         textAlign: TextAlign.start,
                       ),
                     ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.schedule,
-                          color: context.lightRedBg,
-                          size: 14.ksp,
-                        ),
-                        10.kwidthBox,
-                        Text(
-                          "$duration Mins",
-                          style: TextStyleUtil.genSans400(
-                            fontSize: 10.ksp,
-                            color: context.black,
+                    progress != 0
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 6.0.ksp, vertical: 0),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 92.ksp,
+                                  child: LinearProgressIndicator(
+                                    value: (progress / 100),
+                                    minHeight: 8.ksp,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      context.brandColor1,
+                                    ),
+                                    backgroundColor: context.grey,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12.0.ksp),
+                                    ),
+                                  ),
+                                ),
+                                12.kwidthBox,
+                                Text("$progress% " + LocaleKeys.complete.tr),
+                              ],
+                            ),
+                          )
+                        : Row(
+                            children: [
+                              Icon(
+                                Icons.schedule,
+                                color: context.lightRedBg,
+                                size: 14.ksp,
+                              ),
+                              10.kwidthBox,
+                              Text(
+                                "$duration Mins",
+                                style: TextStyleUtil.genSans400(
+                                  fontSize: 10.ksp,
+                                  color: context.black,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ],

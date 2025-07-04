@@ -31,26 +31,27 @@ class CourseCompleteController extends GetxController {
     try {
       var response;
       String mood = selectedRating == 0
-          ? "unhappy"
+          ? "Unhappy"
           : selectedRating == 1
-              ? "sad"
+              ? "Sad"
               : selectedRating == 2
-                  ? "normal"
+                  ? "Normal"
                   : selectedRating == 3
-                      ? "good"
-                      : "happy";
-
+                      ? "Good"
+                      : "Happy";
       response = await APIManager.submitMgRating(
         body: {
-          "mentalGymIdId": Get.find<WorkoutDetailsController>()
+          "mentalGymId": Get.find<WorkoutDetailsController>()
               .mentalGymDetails!
               .value
               .mentalGym!
               .sId,
-          "rating": mood
+          "rating": "Sad"
         },
       );
       if (response.data['status']) {
+        Get.back();
+        Get.back();
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",
@@ -60,7 +61,7 @@ class CourseCompleteController extends GetxController {
       update();
       // return;
     } on DioException catch (dioError) {
-      showMySnackbar(msg: dioError.message ?? "");
+      showMySnackbar(msg: dioError.response?.data['message'] ?? "");
     } catch (e, s) {
       showMySnackbar(
         // title: LocaleKeys.somethingWentWrong.tr,

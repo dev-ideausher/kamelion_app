@@ -54,7 +54,7 @@ class ActiveWorkouts extends StatelessWidget {
                 }
               },
               title: mood.title ?? "",
-              subtitle: mood.category?.title ?? "",
+              subtitle: mood.category!.map((c) => c.title).join(', ') ?? "",
               imageUrl: mood.thumbnail!.url ?? "",
               onTap: () {
                 Get.find<MentalGymController>().getWorkoutDetails(

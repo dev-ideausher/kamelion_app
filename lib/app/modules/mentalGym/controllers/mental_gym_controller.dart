@@ -75,7 +75,6 @@ class MentalGymController extends GetxController {
       viewAllMentalGymList.value = suggestedMentalGym;
       viewAllTitle.value = "Suggested Mental Gym";
     } else if (index == 3) {
-
       viewAllMentalGymList.value =
           Get.find<HomeController>().popularMentalGyms.value;
 
@@ -84,6 +83,10 @@ class MentalGymController extends GetxController {
       await getSavedMentalGym();
       // viewAllMentalGymList == Get.find<HomeController>().popularMentalGyms;
       // viewAllTitle.value = "Popular Mental Gym";
+    } else if (index > 4) {
+      viewAllTitle.value = mentalGymCategoryList[index - 5].title ?? "";
+      await getMentalGymByCategory(
+          categoryId: mentalGymCategoryList[index - 5].sId ?? "");
     }
     scrollController.animateTo(
       0.0,
@@ -217,9 +220,11 @@ class MentalGymController extends GetxController {
         categoryId: categoryId,
       );
       if (response.data['data'] != null && response.data['status']) {
+        viewAllMentalGymList.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           viewAllMentalGymList.add(MentalGymModel.fromJson(data));
         }
+        viewAllMentalGymList.refresh();
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",
