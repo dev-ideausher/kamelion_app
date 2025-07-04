@@ -108,8 +108,11 @@ class ChallengeDetailsController extends GetxController {
       );
       if (response.data['data'] != null && response.data['status']) {
         Get.back();
+        challengeDetails!.value.isJoined = true;
         await getChallengesDetails(challengeDetails?.value.sId ?? "");
+        challengeDetails!.refresh();
         Get.find<ChallengesController>().getActiveChallenges();
+        Get.find<ChallengesController>().getCompletedChallenges();
         update();
       } else {
         debugPrint(

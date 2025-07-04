@@ -86,10 +86,10 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     isLoading.value = true;
+    userTimezone = timezoneNames[DateTime.now().timeZoneOffset.inMilliseconds];
     await getUser();
     await getTodaysMood();
     await getPopularMentalGym();
-    userTimezone = timezoneNames[DateTime.now().timeZoneOffset.inMilliseconds];
     isLoading.value = false;
     super.onInit();
   }

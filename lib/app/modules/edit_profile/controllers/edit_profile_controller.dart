@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermojiController.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/modules/profile/controllers/profile_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
@@ -76,6 +78,10 @@ class EditProfileController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         Get.find<HomeController>().getUser();
+        Get.find<ProfileController>().getLeaderBoardStats();
+        Get.find<CommunityController>().getYourCommunities();
+        Get.find<CommunityController>().getTrendingCommunities();
+        Get.find<CommunityController>().getSavedCommunities();
         showMySnackbar(msg: response.data['message'] ?? "");
         // Get.offAllNamed(Routes.NAVIGATION_BAR, arguments: true);
       } else {

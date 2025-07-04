@@ -235,6 +235,15 @@ class APIManager {
         isOverlayLoader: true,
       ).post(Endpoints.joinMentalGym, data: body);
 
+  static Future<Response> submitMgRating({
+    required Map body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.submitMgRating, data: body);
+
   static Future<Response> startChallenge({
     required Map body,
   }) async =>
@@ -597,5 +606,4 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: false,
       ).get(Endpoints.searchCommunities(word: word, page: page, limit: limit));
-
 }

@@ -55,112 +55,102 @@ class AllWorkouts extends StatelessWidget {
             ],
           ),
         if (Get.find<MentalGymController>().activeMentalGymList.length > 0)
-          Obx(
-                () => SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...Get.find<MentalGymController>().activeMentalGymList.map((item) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0.0.ksp),
-                      child: ActiveWorkoutCards(
-                        onsaved: () async {
-                          print(
-                            item.isSaved,
-                          );
-                          bool res = await Get.find<MentalGymController>().saveMentalGym(
-                            mentalGymId:
-                            item.sId ??
-                                "",
-                          );
-                          if (res) {
-                           item.isSaved = !item.isSaved!;
-
-                            Get.find<MentalGymController>().activeMentalGymList.refresh();
-                          }
-                        },
-                        isSaved:
-                        item.isSaved ??
-                            false,
-                        title:
-                        item.title ??
-                            "",
-                        subtitle:
-                        item.title ??
-                            "",
-                        imageUrl:
-                        item.thumbnail!
-                            .url ??
-                            "",
-                        onTap: () {
-                          Get.find<MentalGymController>().getWorkoutDetails(
-                            item.sId ??
-                                "",
-                          );
-                        },
-                      ),
-                    );
-                  }),
-                ],
-              ),
-            ),
-          ),
           // Obx(
-          //   () => ActiveWorkoutCards(
-          //     onsaved: () async {
-          //       print(
-          //         Get.find<MentalGymController>()
-          //             .activeMentalGymList[0]
-          //             .isSaved,
-          //       );
-          //       bool res = await Get.find<MentalGymController>().saveMentalGym(
-          //         mentalGymId:
-          //             Get.find<MentalGymController>()
-          //                 .activeMentalGymList[0]
-          //                 .sId ??
-          //             "",
-          //       );
-          //       if (res) {
-          //         Get.find<MentalGymController>()
-          //             .activeMentalGymList[0]
-          //             .isSaved = !Get.find<MentalGymController>()
-          //                 .activeMentalGymList[0]
-          //                 .isSaved!;
-          //
-          //         Get.find<MentalGymController>().activeMentalGymList.refresh();
-          //       }
-          //     },
-          //     isSaved:
-          //         Get.find<MentalGymController>()
-          //             .activeMentalGymList[0]
-          //             .isSaved ??
-          //         false,
-          //     title:
-          //         Get.find<MentalGymController>()
-          //             .activeMentalGymList[0]
-          //             .title ??
-          //         "",
-          //     subtitle:
-          //         Get.find<MentalGymController>()
-          //             .activeMentalGymList[0]
-          //             .title ??
-          //         "",
-          //     imageUrl:
-          //         Get.find<MentalGymController>()
-          //             .activeMentalGymList[0]
-          //             .thumbnail!
-          //             .url ??
-          //         "",
-          //     onTap: () {
-          //       Get.find<MentalGymController>().getWorkoutDetails(
-          //         Get.find<MentalGymController>().activeMentalGymList[0].sId ??
-          //             "",
-          //       );
-          //     },
+          //   () => SingleChildScrollView(
+          //     scrollDirection: Axis.horizontal,
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.start,
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         ...Get.find<MentalGymController>()
+          //             .activeMentalGymList
+          //             .map((item) {
+          //           return Padding(
+          //             padding: EdgeInsets.symmetric(horizontal: 0.0.ksp),
+          //             child: ActiveWorkoutCards(
+          //               onsaved: () async {
+          //                 print(
+          //                   item.isSaved,
+          //                 );
+          //                 bool res = await Get.find<MentalGymController>()
+          //                     .saveMentalGym(
+          //                   mentalGymId: item.sId ?? "",
+          //                 );
+          //                 if (res) {
+          //                   item.isSaved = !item.isSaved!;
+
+          //                   Get.find<MentalGymController>()
+          //                       .activeMentalGymList
+          //                       .refresh();
+          //                 }
+          //               },
+          //               isSaved: item.isSaved ?? false,
+          //               title: item.title ?? "",
+          //               subtitle: item.title ?? "",
+          //               imageUrl: item.thumbnail!.url ?? "",
+          //               onTap: () {
+          //                 Get.find<MentalGymController>().getWorkoutDetails(
+          //                   item.sId ?? "",
+          //                 );
+          //               },
+          //             ),
+          //           );
+          //         }),
+          //       ],
+          //     ),
           //   ),
           // ),
+          Obx(
+            () => ActiveWorkoutCards(
+              progress: Get.find<MentalGymController>()
+                      .activeMentalGymList[0]
+                      .userProgress ??
+                  0,
+              onsaved: () async {
+                bool res = await Get.find<MentalGymController>().saveMentalGym(
+                  mentalGymId: Get.find<MentalGymController>()
+                          .activeMentalGymList[0]
+                          .sId ??
+                      "",
+                );
+                if (res) {
+                  Get.find<MentalGymController>()
+                          .activeMentalGymList[0]
+                          .isSaved =
+                      !Get.find<MentalGymController>()
+                          .activeMentalGymList[0]
+                          .isSaved!;
+
+                  Get.find<MentalGymController>().activeMentalGymList.refresh();
+                }
+              },
+              isSaved: Get.find<MentalGymController>()
+                      .activeMentalGymList[0]
+                      .isSaved ??
+                  false,
+              title: Get.find<MentalGymController>()
+                      .activeMentalGymList[0]
+                      .title ??
+                  "",
+              subtitle: Get.find<MentalGymController>()
+                      .activeMentalGymList
+                      .value
+                      .map((c) => c.title)
+                      .join(', ') ??
+                  "",
+              imageUrl: Get.find<MentalGymController>()
+                      .activeMentalGymList[0]
+                      .thumbnail!
+                      .url ??
+                  "",
+              onTap: () {
+                Get.find<MentalGymController>().getWorkoutDetails(
+                  Get.find<MentalGymController>().activeMentalGymList[0].sId ??
+                      "",
+                );
+              },
+            ),
+          ),
         10.kheightBox,
         MentalGymSelector(
           title: LocaleKeys.categories.tr,
@@ -203,100 +193,89 @@ class AllWorkouts extends StatelessWidget {
           ],
         ),
         if (Get.find<MentalGymController>().suggestedMentalGym.length > 0)
+          //   Obx(
+          //     () => SingleChildScrollView(
+          //       scrollDirection: Axis.horizontal,
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           ...Get.find<MentalGymController>()
+          //               .suggestedMentalGym
+          //               .map((item) {
+          //             return Padding(
+          //               padding: EdgeInsets.symmetric(horizontal: 0.0.ksp),
+          //               child: SuggestedWorkoutCards(
+          //                 isSaved: item.isSaved ?? false,
+          //                 onSaved: () async {
+          //                   bool res = await Get.find<MentalGymController>()
+          //                       .saveMentalGym(
+          //                     mentalGymId: item.sId ?? "",
+          //                   );
+          //                   if (res) {
+          //                     item.isSaved = !item.isSaved!;
+          //                     Get.find<MentalGymController>()
+          //                         .suggestedMentalGym
+          //                         .refresh();
+          //                   }
+          //                 },
+          //                 imageUrl: item.thumbnail!.url ?? "",
+          //                 subtitle: item.title ?? "",
+          //                 title: item.title ?? "",
+          //                 onTap: () {
+          //                   Get.find<MentalGymController>().getWorkoutDetails(
+          //                     item.sId ?? "",
+          //                   );
+          //                 },
+          //               ),
+          //             );
+          //           }),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
           Obx(
-                () => SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ...Get.find<MentalGymController>().suggestedMentalGym.map((item) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0.0.ksp),
-                      child: SuggestedWorkoutCards(
-                        isSaved:
-                        item.isSaved ??
-                            false,
-                        onSaved: () async {
-                          bool res = await Get.find<MentalGymController>().saveMentalGym(
-                            mentalGymId:
-                            item.sId ??
-                                "",
-                          );
-                          if (res) {
-                          item.isSaved = !item.isSaved!;
-                            Get.find<MentalGymController>().suggestedMentalGym.refresh();
-                          }
-                        },
-                        imageUrl:
-                        item.thumbnail!
-                            .url ??
-                            "",
-                        subtitle:
-                        item.title ??
-                            "",
-                        title:
-                        item.title ??
-                            "",
-                        onTap: () {
-                          Get.find<MentalGymController>().getWorkoutDetails(
-                            item.sId ??
-                                "",
-                          );
-                        },
-                      ),
-                    );
-                  }),
-                ],
-              ),
-
+            () => SuggestedWorkoutCards(
+              isSaved: Get.find<MentalGymController>()
+                      .suggestedMentalGym[0]
+                      .isSaved ??
+                  false,
+              onSaved: () async {
+                bool res = await Get.find<MentalGymController>().saveMentalGym(
+                  mentalGymId: Get.find<MentalGymController>()
+                          .suggestedMentalGym[0]
+                          .sId ??
+                      "",
+                );
+                if (res) {
+                  Get.find<MentalGymController>()
+                      .suggestedMentalGym[0]
+                      .isSaved = !(Get.find<MentalGymController>()
+                          .suggestedMentalGym[0]
+                          .isSaved ??
+                      false);
+                  Get.find<MentalGymController>().suggestedMentalGym.refresh();
+                }
+              },
+              imageUrl: Get.find<MentalGymController>()
+                      .suggestedMentalGym[0]
+                      .thumbnail!
+                      .url ??
+                  "",
+              subtitle:
+                  Get.find<MentalGymController>().suggestedMentalGym[0].title ??
+                      "",
+              title:
+                  Get.find<MentalGymController>().suggestedMentalGym[0].title ??
+                      "",
+              onTap: () {
+                Get.find<MentalGymController>().getWorkoutDetails(
+                  Get.find<MentalGymController>().suggestedMentalGym[0].sId ??
+                      "",
+                );
+              },
             ),
           ),
-          // Obx(
-          //   () => SuggestedWorkoutCards(
-          //     isSaved:
-          //         Get.find<MentalGymController>()
-          //             .suggestedMentalGym[0]
-          //             .isSaved ??
-          //         false,
-          //     onSaved: () async {
-          //       bool res = await Get.find<MentalGymController>().saveMentalGym(
-          //         mentalGymId:
-          //             Get.find<MentalGymController>()
-          //                 .suggestedMentalGym[0]
-          //                 .sId ??
-          //             "",
-          //       );
-          //       if (res) {
-          //         Get.find<MentalGymController>()
-          //             .suggestedMentalGym[0]
-          //             .isSaved = !(Get.find<MentalGymController>()
-          //                     .suggestedMentalGym[0]
-          //                     .isSaved ??
-          //                 false);
-          //         Get.find<MentalGymController>().suggestedMentalGym.refresh();
-          //       }
-          //     },
-          //     imageUrl:
-          //         Get.find<MentalGymController>()
-          //             .suggestedMentalGym[0]
-          //             .thumbnail!
-          //             .url ??
-          //         "",
-          //     subtitle:
-          //         Get.find<MentalGymController>().suggestedMentalGym[0].title ??
-          //         "",
-          //     title:
-          //         Get.find<MentalGymController>().suggestedMentalGym[0].title ??
-          //         "",
-          //     onTap: () {
-          //       Get.find<MentalGymController>().getWorkoutDetails(
-          //         Get.find<MentalGymController>().suggestedMentalGym[0].sId ??
-          //             "",
-          //       );
-          //     },
-          //   ),
-          // ),
       ],
     );
   }

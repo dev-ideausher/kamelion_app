@@ -5,8 +5,8 @@ class MindFullHoursController extends GetxController {
   //TODO: Implement MindFullHoursController
 
   final count = 0.obs;
-  final AudioPlayer _player = AudioPlayer();
-  bool isPlaying = true;
+  final AudioPlayer player = AudioPlayer();
+  RxBool isPlaying = true.obs;
   @override
   void onInit() {
     _initAudio();
@@ -15,11 +15,11 @@ class MindFullHoursController extends GetxController {
 
   Future<void> _initAudio() async {
     try {
-      await _player.setUrl(
+      await player.setUrl(
         'https://kamelion.s3.eu-north-1.amazonaws.com/public/workoutVideos/Cloudy+vs.+Clear+Day+Mindset.mp3',
       );
-      await _player.setLoopMode(LoopMode.off);
-      await _player.play();
+      await player.setLoopMode(LoopMode.off);
+      await player.play();
     } catch (e) {
       print("Error loading audio: $e");
     }
@@ -33,15 +33,41 @@ class MindFullHoursController extends GetxController {
 
   @override
   void onClose() {
-    _player.dispose();
+    player.dispose();
     super.onClose();
   }
 
   void increment() => count.value++;
 
   void togglePlayPause() {
-    isPlaying = !isPlaying;
+    isPlaying.value = !(isPlaying.value);
 
-    isPlaying ? _player.play() : _player.pause();
+    isPlaying.value ? player.play() : player.pause();
+  }
+
+  String formatTime(Duration duration) {
+    final hours = duration.inHours;
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return hours > 0 ? '$hours:$minutes:$seconds' : '$minutes:$seconds';
+  }
+
+  void seekForward({Duration offset = const Duration(seconds: 5)}) {
+    final currentPosition = player.position;
+    final newPosition = currentPosition + offset;
+    final duration = player.duration;
+
+    if (duration != null && newPosition > duration) {
+      player.seek(duration);
+    } else {
+      player.seek(newPosition);
+    }
+  }
+
+  void seekBackward({Duration offset = const Duration(seconds: 5)}) {
+    final currentPosition = player.position;
+    final newPosition = currentPosition - offset;
+
+    player.seek(newPosition < Duration.zero ? Duration.zero : newPosition);
   }
 }

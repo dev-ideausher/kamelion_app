@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/workoutDetails/controllers/workout_details_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
@@ -123,8 +124,12 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                           padding: EdgeInsets.all(12.0.ksp),
                           child: CustomButton.outline(
                             onTap: () {
-                              Get.back();
-                              Get.back();
+                              if (true) {
+                                Get.toNamed(Routes.COURSE_COMPLETE);
+                              } else {
+                                Get.back();
+                                Get.back();
+                              }
                             },
                             title: LocaleKeys.collect_kalicoins.tr,
                           ),

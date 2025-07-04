@@ -28,7 +28,7 @@ class CourseCompleteView extends GetView<CourseCompleteController> {
           ),
           30.kheightBox,
           Text(
-            LocaleKeys.course_done.tr,
+            "Mental Gym Done!",
             style: TextStyleUtil.genSans500(
               fontSize: 24.ksp,
               color: context.black,
@@ -46,13 +46,17 @@ class CourseCompleteView extends GetView<CourseCompleteController> {
           30.kheightBox,
           CommonImageView(svgPath: ImageConstant.greenPonter),
           15.kheightBox,
-          ImageSliderSelector(),
+          ImageSliderSelector(
+            onPageChanged: (index) {
+              controller.selectedRating = index;
+            },
+          ),
           15.kheightBox,
           Padding(
             padding: EdgeInsets.all(12.0.ksp),
             child: CustomButton.outline(
               onTap: () {
-                Get.toNamed(Routes.ONBOARDING_QUESTIONS);
+                controller.submitRating();
               },
               title: LocaleKeys.submit_rating.tr,
             ),

@@ -84,59 +84,50 @@ class CommunitiesPage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  for (
-                    int i = 0;
-                    i <
-                        Get.find<CommunityController>()
-                            .yourCommunityList
-                            .length;
-                    i++
-                  )
+                  for (int i = 0;
+                      i <
+                          Get.find<CommunityController>()
+                              .yourCommunityList
+                              .length;
+                      i++)
                     Padding(
                       padding: EdgeInsets.all(4.0.ksp),
                       child: CommmunityCard(
-                        userAvatarDetails:
-                            Get.find<CommunityController>()
+                        userAvatarDetails: Get.find<CommunityController>()
                                 .yourCommunityList[i]
                                 .userId
                                 ?.avatardetails ??
                             "",
-                        review:
-                            Get.find<CommunityController>()
-                                        .yourCommunityList[i]
-                                        .status ==
-                                    "approved"
-                                ? null
-                                : Get.find<CommunityController>()
+                        review: Get.find<CommunityController>()
                                     .yourCommunityList[i]
-                                    .status,
-                        imageURL:
-                            Get.find<CommunityController>()
+                                    .status ==
+                                "approved"
+                            ? null
+                            : Get.find<CommunityController>()
+                                .yourCommunityList[i]
+                                .status,
+                        imageURL: Get.find<CommunityController>()
                                 .yourCommunityList[i]
                                 .profileImage!
                                 .url ??
                             "",
-                        title:
-                            Get.find<CommunityController>()
+                        title: Get.find<CommunityController>()
                                 .yourCommunityList[i]
                                 .name ??
                             "",
-                        ownerName:
-                            Get.find<HomeController>()
-                                .currentUser
-                                .value
+                        ownerName: Get.find<CommunityController>()
+                                .yourCommunityList[i]
+                                .userId!
                                 .nickname ??
                             "",
-                        peopleCount:
-                            Get.find<CommunityController>()
-                                .yourCommunityList[i]
-                                .numberOfMembers
-                                .toString(),
-                        postCount:
-                            Get.find<CommunityController>()
-                                .yourCommunityList[i]
-                                .numberofPosts
-                                .toString(),
+                        peopleCount: Get.find<CommunityController>()
+                            .yourCommunityList[i]
+                            .numberOfMembers
+                            .toString(),
+                        postCount: Get.find<CommunityController>()
+                            .yourCommunityList[i]
+                            .numberofPosts
+                            .toString(),
                         onTap: () {
                           // Get.find<CommunityController>().getYourCommunities();
                           if (Get.find<CommunityController>()
@@ -145,78 +136,70 @@ class CommunitiesPage extends StatelessWidget {
                               "pending") {
                             Get.find<CommunityController>()
                                 .showCommunityStatusPopup(
-                                  id:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .sId ??
-                                      "",
-                                  status:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .status ??
-                                      "",
-                                  context: context,
-                                  image: ImageConstant.highfivePicture,
-                                  title: "Still Under Review!",
-                                  desc:
-                                      "Your request is still in the queue! We're picking out the coolest communities just for you, so hang tight! 🎉",
-                                );
+                              id: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .sId ??
+                                  "",
+                              status: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .status ??
+                                  "",
+                              context: context,
+                              image: ImageConstant.highfivePicture,
+                              title: "Still Under Review!",
+                              desc:
+                                  "Your request is still in the queue! We're picking out the coolest communities just for you, so hang tight! 🎉",
+                            );
                           } else if (Get.find<CommunityController>()
                                   .yourCommunityList[i]
                                   .status ==
                               "rejected") {
                             Get.find<CommunityController>()
                                 .showCommunityStatusPopup(
-                                  id:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .sId ??
-                                      "",
-                                  status:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .status ??
-                                      "",
-                                  context: context,
-                                  image: ImageConstant.highfivePicture,
-                                  title: "Sorry, Not this time. ",
-                                  desc:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .reason ??
-                                      "",
-                                );
+                              id: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .sId ??
+                                  "",
+                              status: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .status ??
+                                  "",
+                              context: context,
+                              image: ImageConstant.highfivePicture,
+                              title: "Sorry, Not this time. ",
+                              desc: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .reason ??
+                                  "",
+                            );
                           } else if (!(Get.find<CommunityController>()
                                   .yourCommunityList[i]
                                   .hasOpened ??
                               true)) {
                             Get.find<CommunityController>()
                                 .showCommunityStatusPopup(
-                                  communitySelected:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i],
-                                  id:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .sId ??
-                                      "",
-                                  status:
-                                      Get.find<CommunityController>()
-                                          .yourCommunityList[i]
-                                          .status ??
-                                      "",
-                                  context: context,
-                                  image: ImageConstant.highfivePicture,
-                                  title: "Awesome, your request is all set!",
-                                  desc:
-                                      "Exciting news! Your community request has been approved. Enjoy! 🎉",
-                                );
+                              communitySelected: Get.find<CommunityController>()
+                                  .yourCommunityList[i],
+                              id: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .sId ??
+                                  "",
+                              status: Get.find<CommunityController>()
+                                      .yourCommunityList[i]
+                                      .status ??
+                                  "",
+                              context: context,
+                              image: ImageConstant.highfivePicture,
+                              title: "Awesome, your request is all set!",
+                              desc:
+                                  "Exciting news! Your community request has been approved. Enjoy! 🎉",
+                            );
                           } else {
                             Get.find<CommunityController>()
                                 .goToCommunityPostsPage(
-                                  Get.find<CommunityController>()
-                                      .yourCommunityList[i],
-                                );
+                              Get.find<CommunityController>()
+                                  .yourCommunityList[i],
+                            );
                           }
                         },
                       ),
@@ -267,8 +250,7 @@ class CommunitiesPage extends StatelessWidget {
           if (Get.find<CommunityController>().savedPost.isNotEmpty)
             SavedPostCard(
               isFromSaved: true,
-              userAvatarDetails:
-                  Get.find<CommunityController>()
+              userAvatarDetails: Get.find<CommunityController>()
                       .savedPost[0]
                       .userId!
                       .avatardetails ??
@@ -276,32 +258,36 @@ class CommunitiesPage extends StatelessWidget {
               communityId: "",
               isMine:
                   Get.find<CommunityController>().savedPost[0].userId?.sId ==
-                  Get.find<HomeController>().currentUser.value,
+                      Get.find<HomeController>().currentUser.value,
               isLiked:
                   Get.find<CommunityController>().savedPost[0].isLiked ?? false,
               postId: Get.find<CommunityController>().savedPost[0].sId ?? "",
-              commentCount:
-                  Get.find<CommunityController>().savedPost[0].commentCount
+              commentCount: Get.find<CommunityController>()
+                      .savedPost[0]
+                      .commentCount
                       .toString() ??
                   "",
-              likecount:
-                  Get.find<CommunityController>().savedPost[0].likeCount
+              likecount: Get.find<CommunityController>()
+                      .savedPost[0]
+                      .likeCount
                       .toString() ??
                   "",
-              date:
-                  DateFormat(' MMM d yyyy').format(
+              date: DateFormat(' MMM d yyyy').format(
                     DateTime.parse(
                       Get.find<CommunityController>().savedPost[0].createdAt ??
                           "",
                     ),
                   ) ??
                   "",
-              name:
-                  Get.find<CommunityController>().savedPost[0].userId?.nickname
+              name: Get.find<CommunityController>()
+                      .savedPost[0]
+                      .userId
+                      ?.nickname
                       .toString() ??
                   "",
-              text:
-                  Get.find<CommunityController>().savedPost[0].description
+              text: Get.find<CommunityController>()
+                      .savedPost[0]
+                      .description
                       .toString() ??
                   "",
             ),
@@ -334,7 +320,8 @@ class CommunitiesPage extends StatelessWidget {
                                 .trendingCommunityList;
                         Get.find<CommunityController>().viewAllTitle.value =
                             "Trending Communities";
-                        Get.find<CommunityController>().scrollController
+                        Get.find<CommunityController>()
+                            .scrollController
                             .animateTo(
                               0.0,
                               duration: Duration(milliseconds: 300),
@@ -362,55 +349,47 @@ class CommunitiesPage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  for (
-                    int i = 0;
-                    i <
-                        Get.find<CommunityController>()
-                            .trendingCommunityList
-                            .length;
-                    i++
-                  )
+                  for (int i = 0;
+                      i <
+                          Get.find<CommunityController>()
+                              .trendingCommunityList
+                              .length;
+                      i++)
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 2.ksp),
                       child: CommmunityCard(
-                        userAvatarDetails:
-                            Get.find<CommunityController>()
+                        userAvatarDetails: Get.find<CommunityController>()
                                 .trendingCommunityList[i]
                                 .userId
                                 ?.avatardetails ??
                             "",
-                        imageURL:
-                            Get.find<CommunityController>()
+                        imageURL: Get.find<CommunityController>()
                                 .trendingCommunityList[i]
                                 .profileImage!
                                 .url ??
                             "",
-                        title:
-                            Get.find<CommunityController>()
+                        title: Get.find<CommunityController>()
                                 .trendingCommunityList[i]
                                 .name ??
                             "",
-                        ownerName:
-                            Get.find<CommunityController>()
+                        ownerName: Get.find<CommunityController>()
                                 .trendingCommunityList[i]
                                 .nickname ??
                             "",
-                        peopleCount:
-                            Get.find<CommunityController>()
-                                .trendingCommunityList[i]
-                                .numberOfMembers
-                                .toString(),
-                        postCount:
-                            Get.find<CommunityController>()
-                                .trendingCommunityList[i]
-                                .numberofPosts
-                                .toString(),
+                        peopleCount: Get.find<CommunityController>()
+                            .trendingCommunityList[i]
+                            .numberOfMembers
+                            .toString(),
+                        postCount: Get.find<CommunityController>()
+                            .trendingCommunityList[i]
+                            .numberofPosts
+                            .toString(),
                         onTap: () {
                           Get.find<CommunityController>()
                               .goToCommunityPostsPage(
-                                Get.find<CommunityController>()
-                                    .trendingCommunityList[i],
-                              );
+                            Get.find<CommunityController>()
+                                .trendingCommunityList[i],
+                          );
                         },
                       ),
                     ),

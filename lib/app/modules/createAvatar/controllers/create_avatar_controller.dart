@@ -9,7 +9,9 @@ import 'package:fluttermoji/fluttermojiFunctions.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/modules/profile/controllers/profile_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
@@ -141,6 +143,10 @@ class CreateAvatarController extends GetxController {
         Get.back();
         Get.back();
         Get.back();
+        Get.find<ProfileController>().getLeaderBoardStats();
+        Get.find<CommunityController>().getYourCommunities();
+        Get.find<CommunityController>().getTrendingCommunities();
+        Get.find<CommunityController>().getSavedCommunities();
         DialogHelper.hideDialog();
         showMySnackbar(msg: response.data['message'] ?? "");
         return;
@@ -153,8 +159,14 @@ class CreateAvatarController extends GetxController {
       }
       update();
       return;
-    } on DioException catch (dioError) {
-      showMySnackbar(msg: dioError.message ?? "");
+    } on DioException catch (e) {
+      if (e.response != null && e.response?.data != null) {
+        showMySnackbar(msg: '${e.response?.data['message']}');
+      } else {
+        // No response received (e.g., network error)
+        showMySnackbar(msg: ' ${e.message}');
+      }
+      // showMySnackbar(msg: dioError.response['message'] ?? "");
       DialogHelper.hideDialog();
     } catch (e) {
       debugPrint("An exception occurred while getting vendor details! $e");

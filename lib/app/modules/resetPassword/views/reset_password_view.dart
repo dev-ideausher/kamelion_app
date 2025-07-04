@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
@@ -14,7 +15,8 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      resizeToAvoidBottomInset: false,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.ksp),
         child: CustomButton.outline(
@@ -69,17 +71,38 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                 CustomTextField(
                   controller: controller.oldPasswordController,
                   hintText: LocaleKeys.passwordHint.tr,
+                  suffixIconConstraints: BoxConstraints(
+                    minHeight: 32,
+                    minWidth: 32,
+                    maxHeight: 32,
+                    maxWidth: 32,
+                  ),
                   suffixIconWidget: controller.isOldPassWordVisible.value
                       ? InkWell(
                           onTap: () {
                             controller.isOldPassWordVisible.value = false;
                           },
-                          child: Icon(Icons.remove_red_eye_outlined))
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 8.0.ksp),
+                            child: SizedBox(
+                              child: SvgPicture.asset(
+                                "assets/svg/eye.svg",
+                              ),
+                            ),
+                          ))
                       : InkWell(
                           onTap: () {
                             controller.isOldPassWordVisible.value = true;
                           },
-                          child: Icon(Icons.visibility_off_outlined)),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 8.0.ksp),
+                            child: SvgPicture.asset(
+                              "assets/svg/eye_hide.svg",
+                              height: 1.ksp,
+                              width: 1.ksp,
+                            ),
+                          ),
+                        ),
                   obscureText: !controller.isOldPassWordVisible.value,
                   // controller: controller.passwordController,
                   // onChange: (val) => controller.checkFormValidity(val),
@@ -96,17 +119,38 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                 CustomTextField(
                   controller: controller.newPasswordController,
                   hintText: LocaleKeys.passwordHint.tr,
+                  suffixIconConstraints: BoxConstraints(
+                    minHeight: 32,
+                    minWidth: 32,
+                    maxHeight: 32,
+                    maxWidth: 32,
+                  ),
                   suffixIconWidget: controller.isNewPassWordVisible.value
                       ? InkWell(
                           onTap: () {
                             controller.isNewPassWordVisible.value = false;
                           },
-                          child: Icon(Icons.remove_red_eye_outlined))
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 8.0.ksp),
+                            child: SizedBox(
+                              child: SvgPicture.asset(
+                                "assets/svg/eye.svg",
+                              ),
+                            ),
+                          ))
                       : InkWell(
                           onTap: () {
                             controller.isNewPassWordVisible.value = true;
                           },
-                          child: Icon(Icons.visibility_off_outlined)),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 8.0.ksp),
+                            child: SvgPicture.asset(
+                              "assets/svg/eye_hide.svg",
+                              height: 1.ksp,
+                              width: 1.ksp,
+                            ),
+                          ),
+                        ),
                   obscureText: !controller.isNewPassWordVisible.value,
                   // controller: controller.passwordController,
                   // onChange: (val) => controller.checkFormValidity(val),
@@ -123,17 +167,38 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                 CustomTextField(
                   controller: controller.reNewPasswordController,
                   hintText: LocaleKeys.passwordHint.tr,
+                  suffixIconConstraints: BoxConstraints(
+                    minHeight: 32,
+                    minWidth: 32,
+                    maxHeight: 32,
+                    maxWidth: 32,
+                  ),
                   suffixIconWidget: controller.isreNewPassWordVisible.value
                       ? InkWell(
                           onTap: () {
                             controller.isreNewPassWordVisible.value = false;
                           },
-                          child: Icon(Icons.remove_red_eye_outlined))
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 8.0.ksp),
+                            child: SizedBox(
+                              child: SvgPicture.asset(
+                                "assets/svg/eye.svg",
+                              ),
+                            ),
+                          ))
                       : InkWell(
                           onTap: () {
                             controller.isreNewPassWordVisible.value = true;
                           },
-                          child: Icon(Icons.visibility_off_outlined)),
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 8.0.ksp),
+                            child: SvgPicture.asset(
+                              "assets/svg/eye_hide.svg",
+                              height: 1.ksp,
+                              width: 1.ksp,
+                            ),
+                          ),
+                        ),
                   obscureText: !controller.isreNewPassWordVisible.value,
                   // controller: controller.passwordController,
                   // onChange: (val) => controller.checkFormValidity(val),

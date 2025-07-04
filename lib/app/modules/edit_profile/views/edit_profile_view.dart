@@ -10,6 +10,7 @@ import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_textfield.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
+import 'package:kamelion/app/services/snackbar.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
@@ -131,12 +132,43 @@ class EditProfileView extends GetView<EditProfileController> {
                         ),
                       ),
                       3.kheightBox,
-                      CustomTextField(
-                        readOnly: true,
-                        hintText: LocaleKeys.emailHint.tr,
-                        controller: controller.emailController,
-                        onChange: (val) => controller.checkFormValidity(),
+                      InkWell(
+                        onTap: () {
+                          showMySnackbar(msg: "Email cannot be edited.");
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 12.ksp, vertical: 8.ksp),
+                          decoration: BoxDecoration(
+                            color: context.white,
+                            borderRadius:
+                                BorderRadius.circular(8.ksp), // 👈 round corner
+
+                            border: Border.all(
+                                width: 1.ksp,
+                                color: ColorUtil(context)
+                                    .grey
+                                    .withOpacity(0.7)), // 👈 grey border
+                          ),
+                          child: Text(
+                            controller.emailController.text,
+                            style: TextStyleUtil.genSans400(
+                              fontSize: 12.ksp,
+                              color: context.greyDark,
+                            ),
+                          ),
+                        ),
                       ),
+                      // CustomTextField(
+                      //   onTap: () {
+                      //     showMySnackbar(msg: "Email cannot be edited.");
+                      //   },
+                      //   readOnly: true,
+                      //   hintText: LocaleKeys.emailHint.tr,
+                      //   controller: controller.emailController,
+                      //   onChange: (val) => controller.checkFormValidity(),
+                      // ),
                       10.kheightBox,
                     ],
                   ),

@@ -73,6 +73,7 @@ class Endpoints {
   static String saveChallenge = "challenges/togglefavouritechallenge";
   static String updateMentalGym(String id) => "mentalgym/update/$id";
   static String joinMentalGym = "mentalgym/joinmentalgym";
+  static String submitMgRating = "savedmentalgym/submitworkoutrating";
   static String updateCommunity(String id) => "community/update/$id";
   static String updatePost(String id) => "post/update/$id";
   static String deletePost(String id) => "post/delete/$id";

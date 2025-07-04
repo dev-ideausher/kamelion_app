@@ -228,7 +228,7 @@ class OnboardingQuestionsController extends GetxController {
       // id: user.data["data"]["_id"],
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       Get.offNamed(Routes.QUIZE_COMPLETE, arguments: [
         response.data['data']['isCompleted'],
         response.data['data']['earnedKalikoins']

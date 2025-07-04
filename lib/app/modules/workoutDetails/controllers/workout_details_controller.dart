@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/models/mental_gym_category_model.dart';
 import 'package:kamelion/app/models/mental_gyms_details_model.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
+import 'package:kamelion/app/modules/workoutDetails/views/video_player.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
 
@@ -38,7 +39,10 @@ class WorkoutDetailsController extends GetxController {
   void postWorkoutProg(
       {required String workoutID, required currentDuration}) async {
     var response = await APIManager.postWorkoutProgressDuration(
-      body: {"workoutId": "${workoutID}", "currentDuration": "00:00:10"},
+      body: {
+        "workoutId": "${workoutID}",
+        "currentDuration": "$currentDuration"
+      },
     );
 
     if (response.statusCode == 200) {
@@ -114,8 +118,17 @@ class WorkoutDetailsController extends GetxController {
         body: {"mentalGymId": id},
       );
       if (response.data['status']) {
+        if (mentalGymDetails!.value.workouts != null &&
+            mentalGymDetails!.value.workouts!.isNotEmpty) {
+          Get.to(VideoPlayerScreen(), arguments: {
+            // "https://kamelion.s3.eu-north-1.amazonaws.com/public/profilePics/27889d38-928d-4ebe-805f-b93023e50bd4-Mental%20Health%20in%20Schools_%20We%E2%80%99re%20Doing%20it%20Wrong%20_%20Maya%20Dawson%20_%20TEDxYouth_CherryCreek.mp4",
+            'videoUrl': mentalGymDetails!.value.workouts![0].video!.url ?? "",
+            'workoutId': mentalGymDetails!.value.workouts![0].sId,
+          });
+        }
         await getMentalGymDetails(id);
-        Get.find<MentalGymController>().getActiveMentalGym();
+        mentalGymDetails!.refresh();
+        await Get.find<MentalGymController>().getActiveMentalGym();
         Get.find<MentalGymController>().activeMentalGymList.refresh();
       } else {
         debugPrint(

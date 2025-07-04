@@ -131,166 +131,179 @@ class ChallengeDetailsView extends GetView<ChallengeDetailsController> {
               : SingleChildScrollView(
                   child: Column(
                     children: [
-                      ChallengeDetailsAppBar(
-                        isSaved: (controller.challengeDetails?.value.isSaved ??
-                                false)
-                            .obs,
-                        title:
-                            controller.challengeDetails?.value.challengeTitle ??
+                      Column(
+                        children: [
+                          ChallengeDetailsAppBar(
+                            isSaved:
+                                (controller.challengeDetails?.value.isSaved ??
+                                        false)
+                                    .obs,
+                            title: controller
+                                    .challengeDetails?.value.challengeTitle ??
                                 "",
-                        days: controller.challengeDetails?.value.totalDuration
-                                .toString() ??
-                            "",
-                      ),
-                      15.kheightBox,
-                      controller.challengeDetails!.value.isJoined! &&
-                              controller.challengeDetails!.value
-                                      .userChallengeProgress ==
-                                  "inProgress"
-                          ? Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 14.ksp),
-                              child: Card(
-                                elevation: 5,
-                                color: context.white,
-                                child: SizedBox(
-                                  width: double.infinity,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0.ksp),
-                                    child: Column(
-                                      children: [
-                                        4.kheightBox,
-                                        Row(
+                            days: controller
+                                    .challengeDetails?.value.totalDuration
+                                    .toString() ??
+                                "",
+                          ),
+                          15.kheightBox,
+                          controller.challengeDetails!.value.isJoined! &&
+                                  controller.challengeDetails!.value
+                                          .userChallengeProgress ==
+                                      "inProgress"
+                              ? Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 14.ksp),
+                                  child: Card(
+                                    elevation: 5,
+                                    color: context.white,
+                                    child: SizedBox(
+                                      width: double.infinity,
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0.ksp),
+                                        child: Column(
                                           children: [
-                                            4.kwidthBox,
-                                            Text(
-                                              "Challenge Progress",
-                                              style: TextStyleUtil.genSans500(
-                                                  fontSize: 14.ksp,
-                                                  color: context.black),
+                                            4.kheightBox,
+                                            Row(
+                                              children: [
+                                                4.kwidthBox,
+                                                Text(
+                                                  "Challenge Progress",
+                                                  style:
+                                                      TextStyleUtil.genSans500(
+                                                          fontSize: 14.ksp,
+                                                          color: context.black),
+                                                ),
+                                              ],
                                             ),
+                                            Padding(
+                                              padding: EdgeInsets.all(11.0.ksp),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child:
+                                                        LinearProgressIndicator(
+                                                      value: ((controller
+                                                                  .challengeDetails!
+                                                                  .value
+                                                                  .progress ??
+                                                              0) /
+                                                          100),
+                                                      minHeight: 8.ksp,
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        context.brandColor1,
+                                                      ),
+                                                      backgroundColor:
+                                                          context.grey,
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(
+                                                            12.0.ksp),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  12.kwidthBox,
+                                                  Text(
+                                                      "${(controller.challengeDetails!.value.progress ?? 0)}% " +
+                                                          LocaleKeys
+                                                              .complete.tr),
+                                                ],
+                                              ),
+                                            ),
+                                            // Icon(
+                                            //   Icons.keyboard_arrow_down,
+                                            //   size: 20.ksp,
+                                            // )
                                           ],
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.all(11.0.ksp),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: LinearProgressIndicator(
-                                                  value: ((controller
-                                                              .challengeDetails!
-                                                              .value
-                                                              .progress ??
-                                                          0) /
-                                                      100),
-                                                  minHeight: 8.ksp,
-                                                  valueColor:
-                                                      AlwaysStoppedAnimation<
-                                                          Color>(
-                                                    context.brandColor1,
-                                                  ),
-                                                  backgroundColor: context.grey,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                    Radius.circular(12.0.ksp),
-                                                  ),
-                                                ),
-                                              ),
-                                              12.kwidthBox,
-                                              Text(
-                                                  "${(controller.challengeDetails!.value.progress ?? 0)}% " +
-                                                      LocaleKeys.complete.tr),
-                                            ],
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.keyboard_arrow_down,
-                                          size: 20.ksp,
-                                        )
-                                      ],
+                                      ),
                                     ),
                                   ),
+                                )
+                              : Container(),
+                          controller.challengeDetails!.value.isActive!
+                              ? 15.kheightBox
+                              : Container(),
+                          Row(
+                            children: [
+                              18.kwidthBox,
+                              Text(
+                                "Introduction",
+                                style: TextStyleUtil.genSans500(
+                                  fontSize: 14.ksp,
+                                  color: context.black,
                                 ),
                               ),
-                            )
-                          : Container(),
-                      controller.challengeDetails!.value.isActive!
-                          ? 15.kheightBox
-                          : Container(),
-                      Row(
-                        children: [
-                          18.kwidthBox,
-                          Text(
-                            "Introduction",
-                            style: TextStyleUtil.genSans500(
-                              fontSize: 14.ksp,
-                              color: context.black,
+                            ],
+                          ),
+                          12.kheightBox,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 14.ksp),
+                            child: Text(
+                              controller
+                                      .challengeDetails?.value.challengeIntro ??
+                                  "",
+                              // "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
+                              style: TextStyleUtil.genSans400(
+                                fontSize: 12.ksp,
+                                color: ColorUtil(context).black,
+                              ),
                             ),
                           ),
+                          // 16.kheightBox,
+                          // Row(
+                          //   children: [
+                          //     18.kwidthBox,
+                          //     Text(
+                          //       "What to do",
+                          //       style: TextStyleUtil.genSans500(
+                          //         fontSize: 14.ksp,
+                          //         color: context.black,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // 12.kheightBox,
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(horizontal: 14.ksp),
+                          //   child: Text(
+                          //     "Capture a thought each day, or aim for 50 characters!",
+                          //     style: TextStyleUtil.genSans400(
+                          //       fontSize: 12.ksp,
+                          //       color: ColorUtil(context).black,
+                          //     ),
+                          //   ),
+                          // ),
+                          // 16.kheightBox,
+                          // Row(
+                          //   children: [
+                          //     18.kwidthBox,
+                          //     Text(
+                          //       "Why it matters",
+                          //       style: TextStyleUtil.genSans500(
+                          //         fontSize: 14.ksp,
+                          //         color: context.black,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // 12.kheightBox,
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(horizontal: 14.ksp),
+                          //   child: Text(
+                          //     "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
+                          //     style: TextStyleUtil.genSans400(
+                          //       fontSize: 12.ksp,
+                          //       color: ColorUtil(context).black,
+                          //     ),
+                          //   ),
+                          // ),
+
+                          // 16.kheightBox,
                         ],
                       ),
-                      12.kheightBox,
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 14.ksp),
-                        child: Text(
-                          controller.challengeDetails?.value.challengeIntro ??
-                              "",
-                          // "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
-                          style: TextStyleUtil.genSans400(
-                            fontSize: 12.ksp,
-                            color: ColorUtil(context).black,
-                          ),
-                        ),
-                      ),
-                      // 16.kheightBox,
-                      // Row(
-                      //   children: [
-                      //     18.kwidthBox,
-                      //     Text(
-                      //       "What to do",
-                      //       style: TextStyleUtil.genSans500(
-                      //         fontSize: 14.ksp,
-                      //         color: context.black,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // 12.kheightBox,
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(horizontal: 14.ksp),
-                      //   child: Text(
-                      //     "Capture a thought each day, or aim for 50 characters!",
-                      //     style: TextStyleUtil.genSans400(
-                      //       fontSize: 12.ksp,
-                      //       color: ColorUtil(context).black,
-                      //     ),
-                      //   ),
-                      // ),
-                      // 16.kheightBox,
-                      // Row(
-                      //   children: [
-                      //     18.kwidthBox,
-                      //     Text(
-                      //       "Why it matters",
-                      //       style: TextStyleUtil.genSans500(
-                      //         fontSize: 14.ksp,
-                      //         color: context.black,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      // 12.kheightBox,
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(horizontal: 14.ksp),
-                      //   child: Text(
-                      //     "Building friendships is an essential part of the human experience. It involves creating bonds with others that can enrich our lives, provide support, and foster a sense of belonging. Whether through shared interests, experiences, or simply spending time together, the journey of forming friendships can lead to lasting connections that bring joy and fulfillment.",
-                      //     style: TextStyleUtil.genSans400(
-                      //       fontSize: 12.ksp,
-                      //       color: ColorUtil(context).black,
-                      //     ),
-                      //   ),
-                      // ),
-
-                      // 16.kheightBox,
                     ],
                   ),
                 );

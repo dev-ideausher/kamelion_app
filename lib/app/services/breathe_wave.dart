@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 class WaveBreathingButton extends StatefulWidget {
   final double size;
   final VoidCallback onTap;
+  final bool isPlaying;
 
-  const WaveBreathingButton({
-    Key? key,
-    this.size = 200,
-    required this.onTap,
-  }) : super(key: key);
+  const WaveBreathingButton(
+      {Key? key, this.size = 200, required this.onTap, this.isPlaying = true})
+      : super(key: key);
 
   @override
   State<WaveBreathingButton> createState() => _WaveBreathingButtonState();
@@ -34,7 +33,28 @@ class _WaveBreathingButtonState extends State<WaveBreathingButton>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
-    _startBreathing();
+    // _startBreathing();
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        setState(() => isBreathingIn = false);
+        _controller.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        setState(() => isBreathingIn = true);
+        _controller.forward();
+      }
+    });
+
+    if (widget.isPlaying) _controller.forward();
+  }
+
+  @override
+  void didUpdateWidget(covariant WaveBreathingButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isPlaying && !_controller.isAnimating) {
+      _controller.forward();
+    } else if (!widget.isPlaying && _controller.isAnimating) {
+      _controller.stop();
+    }
   }
 
   void _startBreathing() {
@@ -90,7 +110,6 @@ class _WaveBreathingButtonState extends State<WaveBreathingButton>
             _buildWave(widget.size * 1.5, 0.3),
             _buildWave(widget.size * 2.0, 0.2),
             _buildWave(widget.size * 2.5, 0.1),
-
             Container(
               width: 80,
               height: 80,
@@ -98,7 +117,6 @@ class _WaveBreathingButtonState extends State<WaveBreathingButton>
                 shape: BoxShape.circle,
                 color: Color(0xFF114B39),
               ),
-
             ),
             Center(
               child: Text(

@@ -37,6 +37,7 @@ class ActiveWorkouts extends StatelessWidget {
           ),
           ...Get.find<MentalGymController>().viewAllMentalGymList.map((mood) {
             return ActiveWorkoutCards(
+              progress: mood.userProgress ?? 0,
               isSaved: mood.isSaved ?? false,
               onsaved: () async {
                 bool res = await Get.find<MentalGymController>().saveMentalGym(
@@ -53,7 +54,7 @@ class ActiveWorkouts extends StatelessWidget {
                 }
               },
               title: mood.title ?? "",
-              subtitle: mood.title ?? "",
+              subtitle: mood.category?.title ?? "",
               imageUrl: mood.thumbnail!.url ?? "",
               onTap: () {
                 Get.find<MentalGymController>().getWorkoutDetails(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -34,7 +35,8 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
             padding: EdgeInsets.only(right: 20.0.ksp),
             child: Text(
               "${LocaleKeys.today.tr},"
-              " ${controller.time != null ? (controller.time) : ("${DateTime.now().hour}:${DateTime.now().minute}")}",
+              // "${DateFormat('HH:mm').format(DateTime.now())}",
+              " ${controller.time != null ? (controller.time) : (DateFormat('HH:mm').format(DateTime.now()))}",
               style: TextStyleUtil.genSans400(
                 fontSize: 10.ksp,
                 color: ColorUtil(context).black,
@@ -140,14 +142,14 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                     20.kheightBox,
                     // Image
                     Obx(
-                          () => CommonImageView(
+                      () => CommonImageView(
                         svgPath: controller.currentMoodImage.value,
                         height: 50.ksp,
                       ),
                     ),
                     5.kheightBox,
                     Obx(
-                          () => Text(
+                      () => Text(
                         controller.currentMoodSelected.value.capitalize ?? "",
                         style: TextStyleUtil.genSans500(
                           fontSize: 12.ksp,
@@ -157,15 +159,13 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                     ),
                     1.kheightBox,
                     Obx(
-                          () => SliderTheme(
+                      () => SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          activeTrackColor:
-                          ColorUtil(
+                          activeTrackColor: ColorUtil(
                             context,
                           ).brandColor1, // Slider active part color
                           inactiveTrackColor: ColorUtil(context).grey,
-                          thumbColor:
-                          ColorUtil(context).white, // Tip color
+                          thumbColor: ColorUtil(context).white, // Tip color
                           overlayColor: ColorUtil(
                             context,
                           ).brandColor1.withOpacity(0.2),
@@ -261,39 +261,37 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
                       Wrap(
                         spacing: 6.ksp,
                         runSpacing: 9.ksp,
-                        children:
-                            controller.feelingsKeywords
-                                .map(
-                                  (keyword) => InkWell(
-                                    onTap: () {
-                                      controller.onFeelingSelected(
-                                        keyword: keyword,
-                                      );
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10.ksp,
-                                        vertical: 3.ksp,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            context
-                                                .lighPitchBg, // background color
-                                        borderRadius: BorderRadius.circular(
-                                          16.ksp,
-                                        ), // round corners
-                                      ),
-                                      child: Text(
-                                        keyword,
-                                        style: TextStyleUtil.genSans400(
-                                          fontSize: 12.ksp,
-                                          color: context.darkRedText,
-                                        ),
-                                      ),
+                        children: controller.feelingsKeywords
+                            .map(
+                              (keyword) => InkWell(
+                                onTap: () {
+                                  controller.onFeelingSelected(
+                                    keyword: keyword,
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10.ksp,
+                                    vertical: 3.ksp,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        context.lighPitchBg, // background color
+                                    borderRadius: BorderRadius.circular(
+                                      16.ksp,
+                                    ), // round corners
+                                  ),
+                                  child: Text(
+                                    keyword,
+                                    style: TextStyleUtil.genSans400(
+                                      fontSize: 12.ksp,
+                                      color: context.darkRedText,
                                     ),
                                   ),
-                                )
-                                .toList(),
+                                ),
+                              ),
+                            )
+                            .toList(),
                       ),
                   ],
                 ),
@@ -315,11 +313,11 @@ class MoodSelectionFormView extends GetView<MoodSelectionFormController> {
               20.kheightBox,
               controller.time == null
                   ? CustomButton.outline(
-                    onTap: () {
-                      controller.addMood();
-                    },
-                    title: LocaleKeys.save_check_in.tr,
-                  )
+                      onTap: () {
+                        controller.addMood();
+                      },
+                      title: LocaleKeys.save_check_in.tr,
+                    )
                   : Container(),
               60.kheightBox,
             ],

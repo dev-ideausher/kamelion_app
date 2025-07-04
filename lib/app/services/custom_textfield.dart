@@ -12,6 +12,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? prefixIconWidget;
   final Widget? suffixIconWidget;
+  final Widget? suffixWidget;
   final Color? fillColor;
   final bool? filled;
   final int? maxLines;
@@ -20,16 +21,21 @@ class CustomTextField extends StatelessWidget {
   final List<TextInputFormatter> inputFormatters;
   final String? Function(String?)? validator;
   final Function(String)? onFieldSubmitted;
+  final VoidCallback? onTap;
+  var suffixIconConstraints;
   FocusNode? focusNode;
 
   CustomTextField(
       {Key? key,
       required this.hintText,
       this.controller,
+      this.suffixIconConstraints,
       this.obscureText,
+      this.onTap,
       this.onChange,
       this.prefixIcon,
       this.fillColor,
+      this.suffixWidget,
       this.filled,
       this.maxLines,
       this.prefixIconWidget,
@@ -42,52 +48,58 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: context.white,
-        borderRadius: BorderRadius.all(Radius.circular(8.ksp)),
-        boxShadow: [
-          BoxShadow(
-            color: context.grey.withOpacity(0.2),
-            blurRadius: 5,
-            offset: Offset(0, 1),
-          ),
-        ],
-      ),
-      child: TextFormField(
-        validator: validator,
-        focusNode: focusNode,
-        obscureText: obscureText ?? false,
-        onFieldSubmitted: onFieldSubmitted,
-        inputFormatters: inputFormatters,
-        readOnly: readOnly ?? false,
-        onChanged: onChange,
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: TextStyleUtil.genSans400(
-            fontSize: 12.ksp,
-            color: context.greyDark,
-          ),
-          fillColor: fillColor,
-          filled: filled,
-          prefix: prefixIcon,
-          prefixIcon: prefixIconWidget,
-          suffixIcon: suffixIconWidget,
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 14.kw, vertical: 10.kh),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide:
-                BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(color: ColorUtil(context).grey),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.ksp),
-            borderSide: BorderSide(color: ColorUtil(context).brandColor1),
+    return Material(
+      color: Colors.transparent,
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.white,
+          borderRadius: BorderRadius.all(Radius.circular(8.ksp)),
+          boxShadow: [
+            BoxShadow(
+              color: context.grey.withOpacity(0.2),
+              blurRadius: 5,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
+        child: TextFormField(
+          onTap: onTap,
+          validator: validator,
+          focusNode: focusNode,
+          obscureText: obscureText ?? false,
+          onFieldSubmitted: onFieldSubmitted,
+          inputFormatters: inputFormatters,
+          readOnly: readOnly ?? false,
+          onChanged: onChange,
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: hintText,
+            hintStyle: TextStyleUtil.genSans400(
+              fontSize: 12.ksp,
+              color: context.greyDark,
+            ),
+            fillColor: fillColor,
+            filled: filled,
+            prefix: prefixIcon,
+            suffix: suffixWidget,
+            prefixIcon: prefixIconWidget,
+            suffixIcon: suffixIconWidget,
+            suffixIconConstraints: suffixIconConstraints,
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 14.kw, vertical: 10.kh),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.ksp),
+              borderSide:
+                  BorderSide(color: ColorUtil(context).grey.withOpacity(0.7)),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.ksp),
+              borderSide: BorderSide(color: ColorUtil(context).grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.ksp),
+              borderSide: BorderSide(color: ColorUtil(context).brandColor1),
+            ),
           ),
         ),
       ),
@@ -180,7 +192,7 @@ class _CustomTextFieldPasswordState extends State<CustomTextFieldPassword> {
                                 _obscureText = !_obscureText;
                               });
                             },
-                            child: _obscureText
+                            child: !_obscureText
                                 ? SizedBox(
                                     height: 14.ksp,
                                     width: 14.ksp,
