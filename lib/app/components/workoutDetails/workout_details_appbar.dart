@@ -93,8 +93,10 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                 ),
               ),
               12.kheightBox,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              Wrap(
+                spacing: 8.ksp, // space between chips horizontally
+                runSpacing: 8.ksp,
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ...Get.find<WorkoutDetailsController>()
                       .mentalGymDetails!
@@ -103,7 +105,7 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                       .category!
                       .map(
                         (calegory) => Padding(
-                          padding: EdgeInsets.only(right: 8.ksp),
+                          padding: EdgeInsets.only(right: 0.ksp),
                           child: Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: 10.ksp,
@@ -116,6 +118,7 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                               ),
                             ),
                             child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 CommonImageView(
                                   url: calegory.image,

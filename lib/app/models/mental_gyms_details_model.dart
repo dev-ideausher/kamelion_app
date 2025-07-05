@@ -68,7 +68,10 @@ class MentalGym {
         : null;
     sId = json['_id'];
     isJoined = json['isJoined'];
-    userProgress = json['userProgress'][0]['progress'];
+    userProgress =
+        (json['userProgress'] == null || (json['userProgress'] as List).isEmpty)
+            ? 0
+            : json['userProgress'][0]['progress'];
     title = json['title'];
     description = json['description'];
     if (json['category'] != null) {

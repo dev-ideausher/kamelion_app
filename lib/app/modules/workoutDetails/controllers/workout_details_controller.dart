@@ -47,6 +47,8 @@ class WorkoutDetailsController extends GetxController {
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       getMentalGymDetails(mentalGymDetails!.value.mentalGym!.sId ?? "");
+      Get.find<MentalGymController>().getActiveMentalGym();
+      Get.find<MentalGymController>().activeMentalGymList.refresh();
       print(response.data);
     } else {
       debugPrint(
