@@ -33,139 +33,166 @@ class ChallengesView extends GetView<ChallengesController> {
                   Container(
                     height: context.height * 0.6,
                     child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          16.kheightBox,
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                15.kwidthBox,
-                                InkWell(
-                                  onTap: () {
-                                    controller.selectedScreenIndex.value = 0;
-                                  },
-                                  child: _buildTag(
-                                    "All Challenges",
-                                    context,
-                                    controller.selectedScreenIndex.value == 0,
-                                  ),
-                                ),
-                                15.kwidthBox,
-                                InkWell(
-                                  onTap: () {
-                                    controller.selectedScreenIndex.value = 1;
-                                  },
-                                  child: _buildTag(
-                                    "Active Challenges",
-                                    context,
-                                    controller.selectedScreenIndex.value == 1,
-                                  ),
-                                ),
-                                15.kwidthBox,
-                                InkWell(
-                                  onTap: () {
-                                    controller.selectedScreenIndex.value = 2;
-                                    controller.viewAllList =
-                                        controller.completedChallenges;
-                                    controller.viewAllTitle.value =
-                                        "Completed Challenges";
-                                  },
-                                  child: _buildTag(
-                                    "Completed Challenges",
-                                    context,
-                                    controller.selectedScreenIndex.value == 2,
-                                  ),
-                                ),
-                                15.kwidthBox,
-                                InkWell(
-                                  onTap: () {
-                                    controller.selectedScreenIndex.value = 3;
-                                    controller.viewAllList =
-                                        controller.savedChallenges;
-                                    controller.viewAllTitle.value =
-                                        "Saved Challenges";
-                                  },
-                                  child: _buildTag(
-                                    "Saved Challenges",
-                                    context,
-                                    controller.selectedScreenIndex.value == 3,
-                                  ),
-                                ),
-                                15.kwidthBox,
-                                InkWell(
-                                  onTap: () {
-                                    controller.selectedScreenIndex.value = 4;
-                                    controller.viewAllList =
-                                        controller.suggestedChallenges;
-                                    controller.viewAllTitle.value =
-                                        "Suggested Challenges";
-                                  },
-                                  child: _buildTag(
-                                    "Suggested Challenges",
-                                    context,
-                                    controller.selectedScreenIndex.value == 4,
-                                  ),
-                                ),
-                                15.kwidthBox,
-                                for (int i = 0;
-                                    i <
-                                        Get.find<MentalGymController>()
-                                            .mentalGymCategoryList
-                                            .length;
-                                    i++)
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 14.0.ksp),
-                                    child: InkWell(
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          await controller.getActiveChallenges();
+                          await controller.getSuggestedChallenges();
+                          await controller.getCompletedChallenges();
+                          await controller.getSavedChallenges();
+                          await controller.getBagdes();
+                        },
+                        color: context.brandColor1,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              16.kheightBox,
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    15.kwidthBox,
+                                    InkWell(
                                       onTap: () {
-                                        controller.getChallengesByCategory(
-                                            id: Get.find<MentalGymController>()
-                                                    .mentalGymCategoryList[i]
-                                                    .sId ??
-                                                "",
-                                            categoryName: Get.find<
-                                                        MentalGymController>()
-                                                    .mentalGymCategoryList[i]
-                                                    .title ??
-                                                "",
-                                            index: i + 5);
                                         controller.selectedScreenIndex.value =
-                                            5 + i;
+                                            0;
+                                      },
+                                      child: _buildTag(
+                                        "All Challenges",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            0,
+                                      ),
+                                    ),
+                                    15.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            1;
+                                      },
+                                      child: _buildTag(
+                                        "Active Challenges",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            1,
+                                      ),
+                                    ),
+                                    15.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            2;
+                                        controller.viewAllList =
+                                            controller.completedChallenges;
+                                        controller.viewAllTitle.value =
+                                            "Completed Challenges";
+                                      },
+                                      child: _buildTag(
+                                        "Completed Challenges",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            2,
+                                      ),
+                                    ),
+                                    15.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            3;
+                                        controller.viewAllList =
+                                            controller.savedChallenges;
+                                        controller.viewAllTitle.value =
+                                            "Saved Challenges";
+                                      },
+                                      child: _buildTag(
+                                        "Saved Challenges",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            3,
+                                      ),
+                                    ),
+                                    15.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.selectedScreenIndex.value =
+                                            4;
                                         controller.viewAllList =
                                             controller.suggestedChallenges;
                                         controller.viewAllTitle.value =
                                             "Suggested Challenges";
-                                        // controller.getCommunitiesByCategory(
-                                        //   categoryName:
-                                        //       Get.find<MentalGymController>()
-                                        //               .mentalGymCategoryList[i]
-                                        //               .title ??
-                                        //           "",
-                                        //   id: Get.find<MentalGymController>()
-                                        //           .mentalGymCategoryList[i]
-                                        //           .sId ??
-                                        //       "",
-                                        //   index: i + 4,
-                                        // );
                                       },
                                       child: _buildTag(
-                                        Get.find<MentalGymController>()
-                                                .mentalGymCategoryList[i]
-                                                .title ??
-                                            "",
+                                        "Suggested Challenges",
                                         context,
                                         controller.selectedScreenIndex.value ==
-                                            i + 5,
+                                            4,
                                       ),
                                     ),
-                                  ),
-                              ],
-                            ),
+                                    15.kwidthBox,
+                                    for (int i = 0;
+                                        i <
+                                            Get.find<MentalGymController>()
+                                                .mentalGymCategoryList
+                                                .length;
+                                        i++)
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.only(right: 14.0.ksp),
+                                        child: InkWell(
+                                          onTap: () {
+                                            controller.getChallengesByCategory(
+                                                id: Get.find<
+                                                            MentalGymController>()
+                                                        .mentalGymCategoryList[
+                                                            i]
+                                                        .sId ??
+                                                    "",
+                                                categoryName: Get.find<
+                                                            MentalGymController>()
+                                                        .mentalGymCategoryList[
+                                                            i]
+                                                        .title ??
+                                                    "",
+                                                index: i + 5);
+                                            controller.selectedScreenIndex
+                                                .value = 5 + i;
+                                            controller.viewAllList =
+                                                controller.suggestedChallenges;
+                                            controller.viewAllTitle.value =
+                                                "Suggested Challenges";
+                                            // controller.getCommunitiesByCategory(
+                                            //   categoryName:
+                                            //       Get.find<MentalGymController>()
+                                            //               .mentalGymCategoryList[i]
+                                            //               .title ??
+                                            //           "",
+                                            //   id: Get.find<MentalGymController>()
+                                            //           .mentalGymCategoryList[i]
+                                            //           .sId ??
+                                            //       "",
+                                            //   index: i + 4,
+                                            // );
+                                          },
+                                          child: _buildTag(
+                                            Get.find<MentalGymController>()
+                                                    .mentalGymCategoryList[i]
+                                                    .title ??
+                                                "",
+                                            context,
+                                            controller.selectedScreenIndex
+                                                    .value ==
+                                                i + 5,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                              controller.screensList[
+                                  controller.selectedScreenIndex.value],
+                            ],
                           ),
-                          controller.screensList[
-                              controller.selectedScreenIndex.value],
-                        ],
+                        ),
                       ),
                     ),
                   ),

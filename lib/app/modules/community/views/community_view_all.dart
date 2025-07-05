@@ -17,61 +17,60 @@ class CommunityViewAll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () =>
-          Get.find<CommunityController>().isLoading.value
-              ? Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  60.kheightBox,
-                  Center(
-                    child: CircularProgressIndicator(
-                      color: context.brandColor1,
-                    ),
+      () => Get.find<CommunityController>().isLoading.value
+          ? Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                60.kheightBox,
+                Center(
+                  child: CircularProgressIndicator(
+                    color: context.brandColor1,
                   ),
-                ],
-              )
-              : Column(
-                children: [
-                  30.kheightBox,
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0.ksp),
-                        child: Text(
-                          Get.find<CommunityController>().viewAllTitle.value ??
-                              "",
-                          style: TextStyleUtil.genSans400(
-                            fontSize: 15.6.ksp,
-                            color: ColorUtil(context).black,
-                            height: 1.2,
-                          ),
+                ),
+              ],
+            )
+          : Column(
+              children: [
+                30.kheightBox,
+                Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0.ksp),
+                      child: Text(
+                        Get.find<CommunityController>().viewAllTitle.value ??
+                            "",
+                        style: TextStyleUtil.genSans400(
+                          fontSize: 15.6.ksp,
+                          color: ColorUtil(context).black,
+                          height: 1.2,
                         ),
                       ),
-                    ],
-                  ),
-                  6.kheightBox,
-                  ...Get.find<CommunityController>().viewAllList.map((mood) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.ksp,
-                        vertical: 2.ksp,
-                      ),
-                      child: CommmunityCard(
-                        userAvatarDetails: mood.userId?.avatardetails ?? "",
-                        title: mood.name ?? "",
-                        ownerName: mood.nickname ?? "",
-                        peopleCount: mood.numberOfMembers.toString(),
-                        postCount: mood.numberofPosts.toString(),
-                        imageURL: mood.profileImage!.url ?? "",
-                        onTap: () {
-                          Get.find<CommunityController>()
-                              .goToCommunityPostsPage(mood);
-                        },
-                      ),
-                    );
-                  }).toList(),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                6.kheightBox,
+                ...Get.find<CommunityController>().viewAllList.map((mood) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.ksp,
+                      vertical: 2.ksp,
+                    ),
+                    child: CommmunityCard(
+                      userAvatarDetails: mood.userId?.avatardetails ?? "",
+                      title: mood.name ?? "",
+                      ownerName: mood.nickname ?? "NA",
+                      peopleCount: mood.numberOfMembers.toString(),
+                      postCount: mood.numberofPosts.toString(),
+                      imageURL: mood.profileImage!.url ?? "",
+                      onTap: () {
+                        Get.find<CommunityController>()
+                            .goToCommunityPostsPage(mood);
+                      },
+                    ),
+                  );
+                }).toList(),
+              ],
+            ),
     );
   }
 }
