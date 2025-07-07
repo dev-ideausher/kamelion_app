@@ -129,7 +129,7 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                               (post) => SavedPostCard(
                                 isFromSaved: false,
                                 userAvatarDetails:
-                                    post.userId!.avatardetails ?? "",
+                                    post.userId?.avatardetails ?? "",
                                 communityId: controller.communityDetails?.value
                                         .community?.sId ??
                                     "",
