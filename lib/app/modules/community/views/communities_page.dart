@@ -116,10 +116,15 @@ class CommunitiesPage extends StatelessWidget {
                                 .name ??
                             "",
                         ownerName: Get.find<CommunityController>()
-                                .yourCommunityList[i]
-                                .userId!
-                                .nickname ??
-                            "",
+                                    .yourCommunityList[i]
+                                    .userId ==
+                                null
+                            ? "NA"
+                            : Get.find<CommunityController>()
+                                    .yourCommunityList[i]
+                                    .userId!
+                                    .nickname ??
+                                "",
                         peopleCount: Get.find<CommunityController>()
                             .yourCommunityList[i]
                             .numberOfMembers
@@ -250,11 +255,14 @@ class CommunitiesPage extends StatelessWidget {
           if (Get.find<CommunityController>().savedPost.isNotEmpty)
             SavedPostCard(
               isFromSaved: true,
-              userAvatarDetails: Get.find<CommunityController>()
-                      .savedPost[0]
-                      .userId!
-                      .avatardetails ??
-                  "",
+              userAvatarDetails:
+                  Get.find<CommunityController>().savedPost[0].userId == null
+                      ? ""
+                      : Get.find<CommunityController>()
+                              .savedPost[0]
+                              .userId!
+                              .avatardetails ??
+                          "",
               communityId: "",
               isMine:
                   Get.find<CommunityController>().savedPost[0].userId?.sId ==

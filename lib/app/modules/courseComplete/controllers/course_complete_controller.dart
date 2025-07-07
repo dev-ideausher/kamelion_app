@@ -49,7 +49,7 @@ class CourseCompleteController extends GetxController {
           "rating": "Sad"
         },
       );
-      if (response.data['status']) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         Get.back();
         Get.back();
       } else {
