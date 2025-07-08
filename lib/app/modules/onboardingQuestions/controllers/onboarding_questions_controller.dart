@@ -83,9 +83,7 @@ class OnboardingQuestionsController extends GetxController {
           onboardingQuestionsList.add(OnBoardingQuestionsModel.fromJson(data));
         }
       } else {
-        debugPrint(
-          "An error occurred while getting vendor profile: ${response.data['message']}",
-        );
+        debugPrint("An error occurred while getting vendor profile: ${response.data['message']}",);
       }
       update();
       return;

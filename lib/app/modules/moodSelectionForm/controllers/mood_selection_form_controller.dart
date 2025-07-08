@@ -25,20 +25,27 @@ class MoodSelectionFormController extends GetxController {
   String timezone = "IST";
   List<String> feelingsKeywords = [
     "Happy",
-    "Sad",
-    "Angry",
     "Excited",
-    "Anxious",
-    "Tired",
-    "Relaxed",
-    "Lonely",
+    "Content",
     "Grateful",
-    "Confused",
-    "Motivated",
-    "Bored",
-    "Overwhelmed",
     "Hopeful",
-    "Stressed",
+    "Relaxed",
+    "Loved",
+    "Peaceful",
+    "Confident",
+    "Motivated",
+    "Sad",
+    "Lonely",
+    "Angry",
+    "Frustrated",
+    "Embarrassed"
+    "Betrayed",
+    "Disappointed",
+    "Rejected",
+    "Overwhelmed",
+    "Annoyed",
+    "Bored",
+    "Confused"
   ];
 
   @override
@@ -113,14 +120,17 @@ class MoodSelectionFormController extends GetxController {
   }
 
   onFeelingSelected({required String keyword}) {
-    if (feelingsController.text.toString().length >= 2 &&
-        (feelingsController.text
-                .toString()[feelingsController.text.toString().length - 2] !=
-            ",")) {
-      feelingsController.text = feelingsController.text + ", ";
+    if(feelingsController.text.contains(keyword)){}else{
+      if (feelingsController.text.toString().length >= 2 &&
+          (feelingsController.text
+              .toString()[feelingsController.text.toString().length - 2] !=
+              ",")) {
+        feelingsController.text = feelingsController.text + ", ";
+      }
+      feelingsController.text = feelingsController.text + keyword + ", ";
+      update();
     }
-    feelingsController.text = feelingsController.text + keyword + ", ";
-    update();
+
   }
 
   Future<void> addMood() async {

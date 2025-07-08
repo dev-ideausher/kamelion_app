@@ -37,7 +37,7 @@ class ProfileController extends GetxController
   ];
   RxList statesCounts = ["9", "1,871", "48", "22"].obs;
   List statesValue = [
-    "Exercises Done",
+    "Workout Done",
     LocaleKeys.words_written.tr,
     LocaleKeys.mood_tracked.tr,
     LocaleKeys.journal_entries.tr,
