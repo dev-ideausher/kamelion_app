@@ -63,9 +63,9 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                   child: Column(
                     children: [
                       CommunityPostsAppBar(
-                        isMember:(controller
-                            .communityDetails?.value.community?.isMember ??
-                            false) ,
+                        isMember: (controller
+                                .communityDetails?.value.community?.isMember ??
+                            false),
                         userAvatarDetails: controller
                                 .communitySelected?.userId!.avatardetails ??
                             "",
@@ -110,7 +110,22 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                       controller.showMembers.value
                           ? MemberList(controller: controller)
                           : Container(),
-                      controller.communityDetails!.value.posts!.isEmpty &&
+                      controller.communityDetails!.value.community!.isMember!
+                          ? Container()
+                          : Padding(
+                              padding: EdgeInsets.all(18.0.ksp),
+                              child: Text(
+                                "Please join the community to view the posts",
+                                style: TextStyleUtil.genSans400(
+                                  fontSize: 14.ksp,
+                                  color: context.black,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                      controller.communityDetails!.value.community!.isMember! &&
+                              controller
+                                  .communityDetails!.value.posts!.isEmpty &&
                               controller.showMembers.value == false
                           ? Padding(
                               padding: EdgeInsets.all(18.0.ksp),
@@ -129,7 +144,7 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                               (post) => SavedPostCard(
                                 isFromSaved: false,
                                 userAvatarDetails:
-                                    post.userId!.avatardetails ?? "",
+                                    post.userId?.avatardetails ?? "",
                                 communityId: controller.communityDetails?.value
                                         .community?.sId ??
                                     "",

@@ -50,6 +50,11 @@ class Endpoints {
     required String limit,
   }) =>
       "community/getcommunitys";
+  static String getAllCommunities({
+    required String page,
+    required String limit,
+  }) =>
+      "community/getallcommunitie?isActive=true&status=approved";
   static String getTrendingMentalGyms({
     required String page,
     required String limit,
@@ -57,6 +62,9 @@ class Endpoints {
       "mentalgym/getallmentalgyms?isTrending=true";
   static String getSuggestedMentalGyms(String id) =>
       "mentalgym/getallsuggestedmentalgyms/$id";
+  static String getAllMentalGyms = "mentalgym/getallmentalgym?isActive=true";
+  static String getCompletedMentalGyms =
+      "mentalgym/getallmentalgyms?status=completed";
   static String getChallengeDetails(String id) => "challenges/getchallenge/$id";
   static String getSavedMentalGyms(String id) => "savedmentalgym/get/$id";
   static String getMentalGymsByCategory(String id) =>

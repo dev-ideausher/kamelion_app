@@ -573,15 +573,15 @@ void showLisenceBottomSheet(BuildContext context) {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  30.kheightBox,
-                  // Text(
-                  //   "Expiry Date : ",
-                  //   style: TextStyleUtil.genSans500(
-                  //     fontSize: 15.ksp,
-                  //     color: ColorUtil(context).black,
-                  //   ),
-                  //   textAlign: TextAlign.center,
-                  // ),
+                  16.kheightBox,
+                  Text(
+                    "Expiry Date : ${Get.find<HomeController>().currentUser.value.licenceExpire?.substring(0, 10)}",
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 15.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                   16.kheightBox,
                   30.kheightBox,
                 ],

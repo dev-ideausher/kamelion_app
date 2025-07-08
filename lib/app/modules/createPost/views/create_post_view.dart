@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:kamelion/app/components/avatar.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
@@ -80,13 +81,21 @@ class CreatePostView extends GetView<CreatePostController> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
+                    Avatar().showAvatar(
+                      avatarDetails: Get.find<HomeController>()
+                              .currentUser
+                              .value
+                              .avatardetails ??
+                          "",
+                      bgColor: context.blueBg,
                       radius: 18.ksp,
-                      backgroundImage: NetworkImage(
-                        "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg",
-                        // 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg',
-                      ), // Replace with NetworkImage if needed
-                    ),
+                    ), // CircleAvatar(
+                    //   radius: 18.ksp,
+                    //   backgroundImage: NetworkImage(
+                    //     "https://thumbs.dreamstime.com/b/vector-illustration-avatar-dummy-logo-collection-image-icon-stock-isolated-object-set-symbol-web-137160339.jpg",
+                    //     // 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Kim_Jong-un_2024.jpg/250px-Kim_Jong-un_2024.jpg',
+                    //   ), // Replace with NetworkImage if needed
+                    // ),
                     10.kwidthBox,
                     Expanded(
                       child: Column(

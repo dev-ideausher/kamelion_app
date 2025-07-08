@@ -174,7 +174,7 @@ class ChallengesController extends GetxController
   }) async {
     try {
       var response;
-      categoryChallenges.value = [];
+
       isLoading.value = true;
       selectedScreenIndex.value = index;
       response = await APIManager.getChallengeByCategory(
@@ -183,6 +183,7 @@ class ChallengesController extends GetxController
         // page: "1",
       );
       if (response.data['data'] != null && response.data['status']) {
+        categoryChallenges.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           categoryChallenges.value.add(ChallengeModel.fromJson(data));
         }

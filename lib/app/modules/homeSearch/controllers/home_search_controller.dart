@@ -1,25 +1,34 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kamelion/app/models/community_model.dart';
 
 import 'package:kamelion/app/models/home_search_model.dart';
-
+import 'package:kamelion/app/models/mental_gym_model.dart';
 
 import '../../../services/dio/api_service.dart';
 
 class HomeSearchController extends GetxController {
   final isLoading = false.obs;
-  final keyword    = ''.obs;
-
+  final keyword = ''.obs;
+  late FocusNode myFocusNode;
   // RxLists for each category
   final communities = <CommunityModel>[].obs;
-  final challenges  = <ChallengeModel>[].obs;
-  final mentalGyms  = <MentalGymModel>[].obs;
-  final workouts    = <WorkoutModel>[].obs;
-  Future<void> getHomeSearch({required String searchQuery }) async {
+  final challenges = <ChallengeModel>[].obs;
+  final mentalGyms = <MentalGymModel>[].obs;
+  final workouts = <WorkoutModel>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    myFocusNode = FocusNode();
+  }
+
+  Future<void> getHomeSearch({required String searchQuery}) async {
     try {
       isLoading.value = true;
-      keyword.value   = searchQuery ?? '';
+      keyword.value = searchQuery ?? '';
       final response = await APIManager.getHomeSearch(query: searchQuery);
-      final data     = response.data['data'];
+      final data = response.data['data'];
 
       // parse and assign each list (you'll need fromJson factories)
       communities.assignAll(

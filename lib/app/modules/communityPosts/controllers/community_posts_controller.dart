@@ -33,7 +33,9 @@ class CommunityPostsController extends GetxController {
   @override
   void onInit() async {
     isLoading.value = true;
+
     communitySelected = Get.arguments;
+
     await getCommunityDetails(
       communitySelected?.sId ?? "",
       isOverlayLoader: false,

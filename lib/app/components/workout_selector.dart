@@ -37,7 +37,7 @@ class WorkoutSelector extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          Get.find<MentalGymController>().changeTab(3);
+                          Get.find<MentalGymController>().changeTab(4);
                           Get.find<NavigationBarController>().changePage(1);
                         },
                         child: Text(

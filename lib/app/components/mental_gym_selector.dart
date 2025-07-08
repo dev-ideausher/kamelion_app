@@ -100,7 +100,7 @@ class MentalGymSelector extends StatelessWidget {
                       Get.find<CommunityController>().getCommunitiesByCategory(
                         id: item.sId ?? "",
                         categoryName: item.title ?? "",
-                        index: index + 3,
+                        index: index + 5,
                       );
                     } else {
                       Get.find<NavigationBarController>().selectedIndex.value =
@@ -109,7 +109,7 @@ class MentalGymSelector extends StatelessWidget {
                           .getMentalGymByCategory(categoryId: item.sId ?? "");
                       Get.find<MentalGymController>().viewAllTitle.value =
                           item.title ?? "";
-                      Get.find<MentalGymController>().changeTab(index + 5);
+                      Get.find<MentalGymController>().changeTab(index + 7);
                     }
                   },
                   child: Column(

@@ -199,6 +199,13 @@ class APIManager {
           Get.find<HomeController>().currentUser.value.sId ?? "",
         ),
       );
+  static Future<Response> getCompletedMentalGyms() async =>
+      await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false)
+          .get(Endpoints.getCompletedMentalGyms);
+
+  static Future<Response> getAllMentalGyms() async =>
+      await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false)
+          .get(Endpoints.getAllMentalGyms);
 
   static Future<Response> getSavedMentalGyms() async =>
       await DioClient(Dio(), showSnakbar: false, isOverlayLoader: true).get(
@@ -339,6 +346,17 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: loader,
       ).get(Endpoints.getYourCommunities(page: page, limit: limit));
+
+  static Future<Response> getAllCommunities({
+    required String page,
+    required String limit,
+    bool loader = false,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: loader,
+      ).get(Endpoints.getAllCommunities(page: page, limit: limit));
 
   static Future<Response> getComments({required String id}) async =>
       await DioClient(

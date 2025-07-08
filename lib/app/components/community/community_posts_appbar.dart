@@ -10,19 +10,18 @@ import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
 class CommunityPostsAppBar extends StatelessWidget {
-  CommunityPostsAppBar({
-    super.key,
-    required this.postCount,
-    required this.memberCount,
-    required this.ownweName,
-    required this.title,
-    required this.category,
-    required this.categoryImage,
-    required this.communityImage,
-    required this.userAvatarDetails,
-    // required this.isSaved,
-    required this.isMember
-  });
+  CommunityPostsAppBar(
+      {super.key,
+      required this.postCount,
+      required this.memberCount,
+      required this.ownweName,
+      required this.title,
+      required this.category,
+      required this.categoryImage,
+      required this.communityImage,
+      required this.userAvatarDetails,
+      // required this.isSaved,
+      required this.isMember});
   String title,
       ownweName,
       postCount,
@@ -144,55 +143,63 @@ class CommunityPostsAppBar extends StatelessWidget {
                       //     ),
                       //   ],
                       // ),
-                      PopupMenuButton<String>(
-                        color: context.white,
-                        icon: Icon(Icons.more_vert, color: context.white),
-                        onSelected: (value) {
-                          if (value == 'Mute') {
-                            // …
-                          } else if (value == 'Leave') {
-                            Get.find<CommunityPostsController>()
-                                .leaveCommunityDialog(context);
-                          }
-                        },
-                        itemBuilder: (BuildContext ctx) {
-                          // always show “Mute”
-                          final items = <PopupMenuEntry<String>>[
-                            PopupMenuItem(
-                              value: 'Mute',
-                              child: Row(
-                                children: [
-                                  Icon(Icons.notifications_off_outlined),
-                                  10.kwidthBox,
-                                  Text('Mute Community'),
-                                ],
-                              ),
-                            ),
-                          ];
-
-                          // only add “Leave” if the user _is_ a member
-                          if (isMember) {
-                            items.add(
-                              PopupMenuItem(
-                                value: 'Leave',
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.logout, color: context.redBg),
-                                    10.kwidthBox,
-                                    Text(
-                                      'Leave Community',
-                                      style: TextStyle(color: context.redBg),
+                      !isMember
+                          ? Container()
+                          : PopupMenuButton<String>(
+                              color: context.white,
+                              icon: Icon(Icons.more_vert, color: context.white),
+                              onSelected: (value) {
+                                if (value == 'Mute') {
+                                  // …
+                                } else if (value == 'Leave') {
+                                  Get.find<CommunityPostsController>()
+                                      .leaveCommunityDialog(context);
+                                }
+                              },
+                              itemBuilder: (BuildContext ctx) {
+                                // always show “Mute”
+                                final items = <PopupMenuEntry<String>>[
+                                  // Get.find<CommunityPostsController>().communityDetails.value.
+                                ];
+                                if (isMember) {
+                                  items.add(
+                                    PopupMenuItem(
+                                      value: 'Mute',
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                              Icons.notifications_off_outlined),
+                                          10.kwidthBox,
+                                          Text('Mute Community'),
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }
+                                  );
+                                }
+                                // only add “Leave” if the user _is_ a member
+                                if (isMember) {
+                                  items.add(
+                                    PopupMenuItem(
+                                      value: 'Leave',
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.logout,
+                                              color: context.redBg),
+                                          10.kwidthBox,
+                                          Text(
+                                            'Leave Community',
+                                            style:
+                                                TextStyle(color: context.redBg),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }
 
-                          return items;
-                        },
-                      ),
-
+                                return items;
+                              },
+                            ),
                     ],
                   ),
                   Text(

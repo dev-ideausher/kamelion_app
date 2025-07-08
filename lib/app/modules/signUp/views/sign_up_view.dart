@@ -78,7 +78,6 @@ class SignUpView extends GetView<SignUpController> {
               ),
               6.kheightBox,
               CustomTextField(
-
                 hintText: LocaleKeys.fullNameHint.tr,
                 controller: controller.fullNameController,
                 onChange: (val) => controller.checkFormValidity(val),
@@ -104,12 +103,10 @@ class SignUpView extends GetView<SignUpController> {
                   fontSize: 12.ksp,
                   color: context.greyScaleText,
                 ),
-
               ),
               6.kheightBox,
               CustomTextFieldPassword(
                 isPassword: true,
-
                 hintText: LocaleKeys.passwordHint.tr,
                 controller: controller.passwordController,
                 onChange: (val) => controller.checkFormValidity(val),

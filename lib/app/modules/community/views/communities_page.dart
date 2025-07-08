@@ -56,7 +56,7 @@ class CommunitiesPage extends StatelessWidget {
                       onTap: () {
                         Get.find<CommunityController>()
                             .selectedScreenIndex
-                            .value = 1;
+                            .value = 2;
                         Get.find<CommunityController>().viewAllList =
                             Get.find<CommunityController>().yourCommunityList;
                         Get.find<CommunityController>().viewAllTitle.value =
@@ -234,7 +234,7 @@ class CommunitiesPage extends StatelessWidget {
                       onTap: () {
                         Get.find<CommunityController>()
                             .selectedScreenIndex
-                            .value = 3;
+                            .value = 4;
                       },
                       child: Text(
                         LocaleKeys.view_all.tr,
@@ -322,7 +322,7 @@ class CommunitiesPage extends StatelessWidget {
                       onTap: () {
                         Get.find<CommunityController>()
                             .selectedScreenIndex
-                            .value = 2;
+                            .value = 3;
                         Get.find<CommunityController>().viewAllList =
                             Get.find<CommunityController>()
                                 .trendingCommunityList;
@@ -397,6 +397,108 @@ class CommunitiesPage extends StatelessWidget {
                               .goToCommunityPostsPage(
                             Get.find<CommunityController>()
                                 .trendingCommunityList[i],
+                          );
+                        },
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          10.kheightBox,
+          if (Get.find<CommunityController>().allCommunityList.isNotEmpty)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 10.0.ksp),
+                  child: Text(
+                    'All Communities',
+                    style: TextStyleUtil.genSans400(
+                      fontSize: 15.6.ksp,
+                      color: ColorUtil(context).black,
+                      height: 1.2,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.find<CommunityController>()
+                            .selectedScreenIndex
+                            .value = 1;
+                        Get.find<CommunityController>().viewAllList =
+                            Get.find<CommunityController>().allCommunityList;
+                        Get.find<CommunityController>().viewAllTitle.value =
+                            "All Communities";
+                        Get.find<CommunityController>()
+                            .scrollController
+                            .animateTo(
+                              0.0,
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                      },
+                      child: Text(
+                        LocaleKeys.view_all.tr,
+                        style: TextStyleUtil.genSans500(
+                          fontSize: 11.ksp,
+                          color: ColorUtil(context).brandColor1,
+                          height: 1.2,
+                        ),
+                      ),
+                    ),
+                    20.kwidthBox,
+                  ],
+                ),
+              ],
+            ),
+          if (Get.find<CommunityController>().allCommunityList.isNotEmpty)
+            10.kheightBox,
+          if (Get.find<CommunityController>().allCommunityList.isNotEmpty)
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  for (int i = 0;
+                      i <
+                          Get.find<CommunityController>()
+                              .allCommunityList
+                              .length;
+                      i++)
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 2.ksp),
+                      child: CommmunityCard(
+                        userAvatarDetails: Get.find<CommunityController>()
+                                .allCommunityList[i]
+                                .userId
+                                ?.avatardetails ??
+                            "",
+                        imageURL: Get.find<CommunityController>()
+                                .allCommunityList[i]
+                                .profileImage!
+                                .url ??
+                            "",
+                        title: Get.find<CommunityController>()
+                                .allCommunityList[i]
+                                .name ??
+                            "",
+                        ownerName: Get.find<CommunityController>()
+                                .allCommunityList[i]
+                                .nickname ??
+                            "",
+                        peopleCount: Get.find<CommunityController>()
+                            .allCommunityList[i]
+                            .numberOfMembers
+                            .toString(),
+                        postCount: Get.find<CommunityController>()
+                            .allCommunityList[i]
+                            .numberofPosts
+                            .toString(),
+                        onTap: () {
+                          Get.find<CommunityController>()
+                              .goToCommunityPostsPage(
+                            Get.find<CommunityController>().allCommunityList[i],
                           );
                         },
                       ),

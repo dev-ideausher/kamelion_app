@@ -101,7 +101,8 @@ class LoginView extends GetView<LoginController> {
                 ),
               ),
               10.kheightBox,
-              CustomTextField(
+              CustomTextFieldPassword(
+                isPassword: true,
                 hintText: LocaleKeys.passwordHint.tr,
                 controller: controller.passwordController,
                 onChange: (val) => controller.checkFormValidity(val),

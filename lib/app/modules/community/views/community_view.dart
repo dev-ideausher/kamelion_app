@@ -55,6 +55,7 @@ class CommunityView extends GetView<CommunityController> {
                             await controller.getYourCommunities();
                             await controller.getTrendingCommunities();
                             await controller.getSavedCommunities();
+                            await controller.getAllCommunities();
                           },
                           color: context.brandColor1,
                           child: SingleChildScrollView(
@@ -73,7 +74,7 @@ class CommunityView extends GetView<CommunityController> {
                                               0;
                                         },
                                         child: _buildTag(
-                                          "All Categories",
+                                          "Communities",
                                           context,
                                           controller
                                                   .selectedScreenIndex.value ==
@@ -86,12 +87,12 @@ class CommunityView extends GetView<CommunityController> {
                                           controller.selectedScreenIndex.value =
                                               1;
                                           controller.viewAllList =
-                                              controller.yourCommunityList;
+                                              controller.allCommunityList;
                                           controller.viewAllTitle.value =
-                                              "Your Communities";
+                                              "All Communities";
                                         },
                                         child: _buildTag(
-                                          "Your Communities",
+                                          "All Communities",
                                           context,
                                           controller
                                                   .selectedScreenIndex.value ==
@@ -104,12 +105,12 @@ class CommunityView extends GetView<CommunityController> {
                                           controller.selectedScreenIndex.value =
                                               2;
                                           controller.viewAllList =
-                                              controller.trendingCommunityList;
+                                              controller.yourCommunityList;
                                           controller.viewAllTitle.value =
-                                              "Trending Communities";
+                                              "Your Communities";
                                         },
                                         child: _buildTag(
-                                          "Trending Communities",
+                                          "Your Communities",
                                           context,
                                           controller
                                                   .selectedScreenIndex.value ==
@@ -124,6 +125,24 @@ class CommunityView extends GetView<CommunityController> {
                                           controller.viewAllList =
                                               controller.trendingCommunityList;
                                           controller.viewAllTitle.value =
+                                              "Trending Communities";
+                                        },
+                                        child: _buildTag(
+                                          "Trending Communities",
+                                          context,
+                                          controller
+                                                  .selectedScreenIndex.value ==
+                                              3,
+                                        ),
+                                      ),
+                                      12.kwidthBox,
+                                      InkWell(
+                                        onTap: () {
+                                          controller.selectedScreenIndex.value =
+                                              4;
+                                          controller.viewAllList =
+                                              controller.trendingCommunityList;
+                                          controller.viewAllTitle.value =
                                               "Saved Post";
                                         },
                                         child: _buildTag(
@@ -131,7 +150,7 @@ class CommunityView extends GetView<CommunityController> {
                                           context,
                                           controller
                                                   .selectedScreenIndex.value ==
-                                              3,
+                                              4,
                                         ),
                                       ),
                                       12.kwidthBox,
@@ -160,7 +179,7 @@ class CommunityView extends GetView<CommunityController> {
                                                             i]
                                                         .sId ??
                                                     "",
-                                                index: i + 4,
+                                                index: i + 5,
                                               );
                                             },
                                             child: _buildTag(
@@ -171,7 +190,7 @@ class CommunityView extends GetView<CommunityController> {
                                               context,
                                               controller.selectedScreenIndex
                                                       .value ==
-                                                  i + 4,
+                                                  i + 5,
                                             ),
                                           ),
                                         ),
@@ -193,15 +212,18 @@ class CommunityView extends GetView<CommunityController> {
                                 controller.selectedScreenIndex.value == 0
                                     ? controller.screensList[
                                         controller.selectedScreenIndex.value]
-                                    : controller.selectedScreenIndex.value ==
+                                    : (controller.selectedScreenIndex.value ==
                                                 1 ||
                                             controller.selectedScreenIndex
                                                     .value ==
-                                                2
+                                                2 ||
+                                            controller.selectedScreenIndex
+                                                    .value ==
+                                                3)
                                         ? controller.screensList[1]
                                         : controller.selectedScreenIndex
                                                     .value ==
-                                                3
+                                                4
                                             ? controller.screensList[2]
                                             : controller.screensList[3],
                               ],

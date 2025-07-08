@@ -57,7 +57,7 @@ class CommunityModel {
     reason = json['reason'];
     sId = json['_id'];
     hasOpened = json['hasOpened'];
-    isMember = json['isMember'];
+    isMember = json['isMember'] == null ? false : json['isMember'];
     userId =
         json['userId'] != null ? new UserId.fromJson(json['userId']) : null;
     name = json['name'];

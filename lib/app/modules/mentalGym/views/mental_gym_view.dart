@@ -28,8 +28,10 @@ class MentalGymView extends GetView<MentalGymController> {
                         color: context.brandColor1,
                         onRefresh: () async {
                           await controller.getMentalGymCategiries();
+                          await controller.getAllMentalGym();
                           await controller.getActiveMentalGym();
                           await controller.getSuggestedMentalGym();
+                          await controller.getCompletedMentalGym();
                           await controller
                               .getMentalGymCounts(); // your refresh logic
                         },
@@ -50,7 +52,7 @@ class MentalGymView extends GetView<MentalGymController> {
                                         controller.changeTab(0);
                                       },
                                       child: _buildTag(
-                                        "All Mental Gym",
+                                        "Mental Gyms",
                                         context,
                                         controller.selectedScreenIndex.value ==
                                             0,
@@ -62,7 +64,7 @@ class MentalGymView extends GetView<MentalGymController> {
                                         controller.changeTab(1);
                                       },
                                       child: _buildTag(
-                                        "Active Mental Gym",
+                                        "All Mental Gyms",
                                         context,
                                         controller.selectedScreenIndex.value ==
                                             1,
@@ -74,7 +76,7 @@ class MentalGymView extends GetView<MentalGymController> {
                                         controller.changeTab(2);
                                       },
                                       child: _buildTag(
-                                        "Suggested Mental Gym",
+                                        "Active Mental Gyms",
                                         context,
                                         controller.selectedScreenIndex.value ==
                                             2,
@@ -86,7 +88,7 @@ class MentalGymView extends GetView<MentalGymController> {
                                         controller.changeTab(3);
                                       },
                                       child: _buildTag(
-                                        "Popular Mental Gym",
+                                        "Suggested Mental Gyms",
                                         context,
                                         controller.selectedScreenIndex.value ==
                                             3,
@@ -98,10 +100,34 @@ class MentalGymView extends GetView<MentalGymController> {
                                         controller.changeTab(4);
                                       },
                                       child: _buildTag(
-                                        "Saved Mental Gym",
+                                        "Popular Mental Gyms",
                                         context,
                                         controller.selectedScreenIndex.value ==
                                             4,
+                                      ),
+                                    ),
+                                    8.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.changeTab(5);
+                                      },
+                                      child: _buildTag(
+                                        "Saved Mental Gyms",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            5,
+                                      ),
+                                    ),
+                                    8.kwidthBox,
+                                    InkWell(
+                                      onTap: () {
+                                        controller.changeTab(6);
+                                      },
+                                      child: _buildTag(
+                                        "Completed Gyms",
+                                        context,
+                                        controller.selectedScreenIndex.value ==
+                                            6,
                                       ),
                                     ),
                                     8.kwidthBox,
@@ -115,7 +141,7 @@ class MentalGymView extends GetView<MentalGymController> {
                                             EdgeInsets.only(right: 9.0.ksp),
                                         child: InkWell(
                                           onTap: () {
-                                            controller.changeTab(5 + i);
+                                            controller.changeTab(7 + i);
                                           },
                                           child: _buildTag(
                                             controller.mentalGymCategoryList[i]
@@ -124,7 +150,7 @@ class MentalGymView extends GetView<MentalGymController> {
                                             context,
                                             controller.selectedScreenIndex
                                                     .value ==
-                                                5 + i,
+                                                7 + i,
                                           ),
                                         ),
                                       ),

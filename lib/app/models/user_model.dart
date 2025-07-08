@@ -24,6 +24,7 @@ class UserModel {
   String? nickname;
   num? rewards;
   int? iV;
+  String? licenceExpire;
 
   UserModel({
     this.sId,
@@ -35,6 +36,7 @@ class UserModel {
     this.userType,
     this.profilePic,
     this.dob,
+    this.licenceExpire,
     this.haveLicensekey,
     this.licensekey,
     this.firebaseUid,
@@ -62,6 +64,7 @@ class UserModel {
     avatardetails = json['avatardetails'];
     userType = json['userType'];
     streakCount = json['streakCount'];
+    licenceExpire = json['licenceExpire'];
     profilePic = json['profilePic'] != null
         ? new ProfilePic.fromJson(json['profilePic'])
         : null;

@@ -52,6 +52,7 @@ class CourseCompleteController extends GetxController {
       if (response.statusCode == 201 || response.statusCode == 200) {
         Get.back();
         Get.back();
+        showMySnackbar(msg: "Thanks for submiting the rating");
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",

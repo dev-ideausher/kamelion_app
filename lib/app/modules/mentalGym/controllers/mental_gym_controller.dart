@@ -26,7 +26,9 @@ class MentalGymController extends GetxController {
     ActiveWorkouts(),
     ActiveWorkouts(),
     ActiveWorkouts(),
+    ActiveWorkouts(),
     SavedWorkouts(),
+    ActiveWorkouts(),
   ].obs;
   RxList activeWorkouts = ["", "", "", "", "", "", ""].obs;
   RxList savedWorkouts = ["", "", "", "", "", "", ""].obs;
@@ -34,6 +36,8 @@ class MentalGymController extends GetxController {
       <MentalGymCategoryModel>[].obs;
   RxList<MentalGymModel> activeMentalGymList = <MentalGymModel>[].obs;
   RxList<MentalGymModel> suggestedMentalGym = <MentalGymModel>[].obs;
+  RxList<MentalGymModel> completedMentalGym = <MentalGymModel>[].obs;
+  RxList<MentalGymModel> allMentalGym = <MentalGymModel>[].obs;
   RxList<MentalGymModel> savedMentalGym = <MentalGymModel>[].obs;
   RxList<MentalGymModel> viewAllMentalGymList = <MentalGymModel>[].obs;
   RxString viewAllTitle = "".obs;
@@ -43,9 +47,11 @@ class MentalGymController extends GetxController {
   void onInit() async {
     isLoading.value = true;
     await getMentalGymCategiries();
+    await getAllMentalGym();
     await getActiveMentalGym();
     await getSuggestedMentalGym();
     await getMentalGymCounts();
+    await getCompletedMentalGym();
     isLoading.value = false;
     super.onInit();
   }
@@ -69,24 +75,29 @@ class MentalGymController extends GetxController {
   changeTab(int index) async {
     selectedScreenIndex.value = index;
     if (index == 1) {
-      viewAllMentalGymList = RxList<MentalGymModel>.from(activeMentalGymList);
-      viewAllTitle.value = "Active Mental Gym";
+      viewAllMentalGymList = RxList<MentalGymModel>.from(allMentalGym);
+      viewAllTitle.value = "All Mental Gyms";
     } else if (index == 2) {
-      viewAllMentalGymList.value = suggestedMentalGym;
-      viewAllTitle.value = "Suggested Mental Gym";
+      viewAllMentalGymList = RxList<MentalGymModel>.from(activeMentalGymList);
+      viewAllTitle.value = "Active Mental Gyms";
     } else if (index == 3) {
+      viewAllMentalGymList.value = suggestedMentalGym;
+      viewAllTitle.value = "Suggested Mental Gyms";
+    } else if (index == 4) {
       viewAllMentalGymList.value =
           Get.find<HomeController>().popularMentalGyms.value;
-
-      viewAllTitle.value = "Popular Mental Gym";
-    } else if (index == 4) {
+      viewAllTitle.value = "Popular Mental Gyms";
+    } else if (index == 5) {
       await getSavedMentalGym();
       // viewAllMentalGymList == Get.find<HomeController>().popularMentalGyms;
       // viewAllTitle.value = "Popular Mental Gym";
-    } else if (index > 4) {
-      viewAllTitle.value = mentalGymCategoryList[index - 5].title ?? "";
+    } else if (index == 6) {
+      viewAllMentalGymList = RxList<MentalGymModel>.from(completedMentalGym);
+      viewAllTitle.value = "Completed Mental Gyms";
+    } else if (index > 6) {
+      viewAllTitle.value = mentalGymCategoryList[index - 7].title ?? "";
       await getMentalGymByCategory(
-          categoryId: mentalGymCategoryList[index - 5].sId ?? "");
+          categoryId: mentalGymCategoryList[index - 7].sId ?? "");
     }
     scrollController.animateTo(
       0.0,
@@ -103,6 +114,7 @@ class MentalGymController extends GetxController {
       response = await APIManager.getMentalGymCategiries();
 
       if (response.data['data'] != null && response.data['status']) {
+        mentalGymCategoryList.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           mentalGymCategoryList.add(MentalGymCategoryModel.fromJson(data));
           screensList.add(ActiveWorkouts());
@@ -128,10 +140,11 @@ class MentalGymController extends GetxController {
   Future<void> getActiveMentalGym() async {
     try {
       var response;
-      activeMentalGymList.value = <MentalGymModel>[];
-      response = await APIManager.getActiveMentalGym(limit: "10", page: "1");
+      // activeMentalGymList.value = <MentalGymModel>[];
+      response = await APIManager.getActiveMentalGym(limit: "100", page: "1");
 
       if (response.data['data'] != null && response.data['status']) {
+        activeMentalGymList.value = <MentalGymModel>[];
         for (Map<String, dynamic> data in response.data['data']) {
           activeMentalGymList.add(MentalGymModel.fromJson(data));
         }
@@ -191,8 +204,65 @@ class MentalGymController extends GetxController {
 
       response = await APIManager.getSuggestedMentalGyms();
       if (response.data['data'] != null && response.data['status']) {
+        suggestedMentalGym.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           suggestedMentalGym.add(MentalGymModel.fromJson(data));
+        }
+      } else {
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
+        showMySnackbar(msg: response.data['message'] ?? "");
+      }
+      update();
+      // return;
+    } on DioException catch (dioError) {
+      showMySnackbar(msg: dioError.message ?? "");
+    } catch (e, s) {
+      showMySnackbar(
+        // title: LocaleKeys.somethingWentWrong.tr,
+        msg: e.toString(),
+      );
+    }
+  }
+
+  Future<void> getCompletedMentalGym() async {
+    try {
+      var response;
+
+      response = await APIManager.getCompletedMentalGyms();
+      if (response.data['data'] != null && response.data['status']) {
+        completedMentalGym.value = [];
+        for (Map<String, dynamic> data in response.data['data']) {
+          completedMentalGym.add(MentalGymModel.fromJson(data));
+        }
+      } else {
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
+        showMySnackbar(msg: response.data['message'] ?? "");
+      }
+      update();
+      // return;
+    } on DioException catch (dioError) {
+      showMySnackbar(msg: dioError.message ?? "");
+    } catch (e, s) {
+      showMySnackbar(
+        // title: LocaleKeys.somethingWentWrong.tr,
+        msg: e.toString(),
+      );
+    }
+  }
+
+  Future<void> getAllMentalGym() async {
+    try {
+      var response;
+
+      response = await APIManager.getAllMentalGyms();
+      if (response.data['data'] != null && response.data['status']) {
+        allMentalGym.value = [];
+        for (Map<String, dynamic> data in response.data['data']['gyms']) {
+          allMentalGym.add(MentalGymModel.fromJson(data));
         }
       } else {
         debugPrint(
@@ -282,6 +352,12 @@ class MentalGymController extends GetxController {
         // Get.back();
 
         showMySnackbar(msg: res.data['message']);
+        getActiveMentalGym();
+        getSuggestedMentalGym();
+        getAllMentalGym();
+        getCompletedMentalGym();
+        await Get.find<HomeController>().getPopularMentalGym();
+        Get.find<HomeController>().popularMentalGyms.refresh();
         return true;
       } else {
         return false;

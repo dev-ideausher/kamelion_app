@@ -24,6 +24,7 @@ class CommunityController extends GetxController {
 
   final count = 0.obs;
   RxInt selectedScreenIndex = 0.obs;
+  RxList<CommunityModel> allCommunityList = <CommunityModel>[].obs;
   RxList<CommunityModel> yourCommunityList = <CommunityModel>[].obs;
   RxList<CommunityModel> trendingCommunityList = <CommunityModel>[].obs;
   RxList<Posts> savedPost = <Posts>[].obs;
@@ -33,14 +34,13 @@ class CommunityController extends GetxController {
   RxBool isLoading = false.obs;
   RxString categoryTitle = "".obs;
   RxString viewAllTitle = "".obs;
-  TextEditingController searchController=TextEditingController();
-  List<Widget> screensList =
-      [
-        CommunitiesPage(),
-        CommunityViewAll(),
-        SavedPost(),
-        CommunityCategoriesPage(),
-      ].obs;
+  TextEditingController searchController = TextEditingController();
+  List<Widget> screensList = [
+    CommunitiesPage(),
+    CommunityViewAll(),
+    SavedPost(),
+    CommunityCategoriesPage(),
+  ].obs;
   // RxList categoryCommunityList = ["", "", "", "", "", "", ""].obs;
   @override
   void onInit() async {
@@ -48,6 +48,7 @@ class CommunityController extends GetxController {
     await getYourCommunities();
     await getTrendingCommunities();
     await getSavedCommunities();
+    await getAllCommunities();
     isLoading.value = false;
     super.onInit();
   }
@@ -81,8 +82,8 @@ class CommunityController extends GetxController {
       var response;
 
       final index = Get.find<CommunityController>().savedPost.value.indexWhere(
-        (post) => post.sId == id,
-      );
+            (post) => post.sId == id,
+          );
       Get.find<CommunityController>().savedPost[index!].isLiked =
           !(Get.find<CommunityController>().savedPost[index].isLiked!)!;
       if (Get.find<CommunityController>().savedPost[index!]!.isLiked!) {
@@ -132,6 +133,38 @@ class CommunityController extends GetxController {
         yourCommunityList.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           yourCommunityList.add(CommunityModel.fromJson(data));
+        }
+      } else {
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
+        showMySnackbar(msg: response.data['message'] ?? "");
+      }
+      update();
+      // return;
+    } on DioException catch (dioError) {
+      showMySnackbar(msg: dioError.message ?? "");
+    } catch (e, s) {
+      showMySnackbar(
+        // title: LocaleKeys.somethingWentWrong.tr,
+        msg: e.toString(),
+      );
+    }
+  }
+
+  Future<void> getAllCommunities({bool loader = false}) async {
+    try {
+      var response;
+      // allCommunityList.value = [];
+      response = await APIManager.getAllCommunities(
+        limit: "100",
+        page: "1",
+        loader: loader,
+      );
+      if (response.data['data'] != null && response.data['status']) {
+        allCommunityList.value = [];
+        for (Map<String, dynamic> data in response.data['data']) {
+          allCommunityList.add(CommunityModel.fromJson(data));
         }
       } else {
         debugPrint(
@@ -261,75 +294,72 @@ class CommunityController extends GetxController {
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder:
-          (context) => Dialog(
-            insetPadding: EdgeInsets.symmetric(horizontal: 8.ksp),
-            backgroundColor: Colors.transparent,
-            child: Container(
-              decoration: BoxDecoration(
-                color: context.white,
-                borderRadius: BorderRadius.circular(20.ksp), // Rounded corners
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(12.ksp),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CommonImageView(
-                      svgPath: image,
-                      // ImageConstant.highfivePicture
-                    ),
-
-                    Text(
-                      title,
-                      style: TextStyleUtil.genSans400(
-                        fontSize: 16.ksp,
-                        color: context.black,
-                      ),
-                    ),
-                    6.kheightBox,
-                    Text(
-                      desc,
-                      // "Your request is still in the queue! We're picking out the coolest communities just for you, so hang tight! 🎉",
-                      textAlign: TextAlign.center,
-                    ),
-                    10.kheightBox,
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.ksp),
-                      child: CustomButton.outline(
-                        onTap: () async {
-                          if (status == "pending") {
-                            Get.back();
-                          } else if (status == "rejected") {
-                            Get.back();
-                            getYourCommunities();
-                            update();
-                          } else {
-                            Get.back();
-
-                            goToCommunityPostsPage(communitySelected!);
-                            var response =
-                                await APIManager.markedCommunityAsOpen(id: id);
-
-                            await getYourCommunities();
-
-                            update();
-                          }
-                        },
-                        height: 30.ksp,
-                        title:
-                            status == "pending"
-                                ? "Sure thing!"
-                                : status == "rejected"
-                                ? "I’ll try it next time!"
-                                : "Go to community ",
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ), // your custom widget here
+      builder: (context) => Dialog(
+        insetPadding: EdgeInsets.symmetric(horizontal: 8.ksp),
+        backgroundColor: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: context.white,
+            borderRadius: BorderRadius.circular(20.ksp), // Rounded corners
           ),
+          child: Padding(
+            padding: EdgeInsets.all(12.ksp),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CommonImageView(
+                  svgPath: image,
+                  // ImageConstant.highfivePicture
+                ),
+                Text(
+                  title,
+                  style: TextStyleUtil.genSans400(
+                    fontSize: 16.ksp,
+                    color: context.black,
+                  ),
+                ),
+                6.kheightBox,
+                Text(
+                  desc,
+                  // "Your request is still in the queue! We're picking out the coolest communities just for you, so hang tight! 🎉",
+                  textAlign: TextAlign.center,
+                ),
+                10.kheightBox,
+                Padding(
+                  padding: EdgeInsets.only(right: 10.ksp),
+                  child: CustomButton.outline(
+                    onTap: () async {
+                      if (status == "pending") {
+                        Get.back();
+                      } else if (status == "rejected") {
+                        Get.back();
+                        getYourCommunities();
+                        update();
+                      } else {
+                        Get.back();
+
+                        goToCommunityPostsPage(communitySelected!);
+                        var response =
+                            await APIManager.markedCommunityAsOpen(id: id);
+
+                        await getYourCommunities();
+
+                        update();
+                      }
+                    },
+                    height: 30.ksp,
+                    title: status == "pending"
+                        ? "Sure thing!"
+                        : status == "rejected"
+                            ? "I’ll try it next time!"
+                            : "Go to community ",
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ), // your custom widget here
+      ),
     );
   }
 }

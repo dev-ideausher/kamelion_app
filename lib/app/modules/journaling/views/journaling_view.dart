@@ -29,144 +29,160 @@ class JournalingView extends GetView<JournalingController> {
       floatingActionButton: Obx(() {
         return controller.selectedDate.value == todayStr
             ? FloatingActionButton(
-          onPressed: () => Get.toNamed(Routes.CREATE_TIME_LINE),
-          backgroundColor: context.brandColor1,
-          shape: const CircleBorder(),
-          child: Icon(Icons.add, size: 20.ksp, color: context.white),
-        )
+                onPressed: () => Get.toNamed(Routes.CREATE_TIME_LINE),
+                backgroundColor: context.brandColor1,
+                shape: const CircleBorder(),
+                child: Icon(Icons.add, size: 20.ksp, color: context.white),
+              )
             : SizedBox.shrink();
       }),
       body: SafeArea(
-        child:
-        DefaultTabController(
+        child: DefaultTabController(
           length: 2,
           child: NestedScrollView(
             // ── 1) BUILD THE COLLAPSIBLE HEADER ──
             headerSliverBuilder: (_, __) => [
-            Obx(()=>  SliverAppBar(automaticallyImplyLeading: false,
-                pinned: true,
-                stretch: true,
-                elevation: 0,
-                backgroundColor: context.brandColor1,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24),bottomRight: Radius.circular(24))),
-                expandedHeight:   controller.currentCatenderIndex.value == 1
-                    ? 460.ksp
-                    : 270.ksp,    // same as your “calendar” height
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  background: Column(
-                    children: [
-                      // — your back button + search + title + total journals —
-                      Padding(
-                        padding: EdgeInsets.all(16.ksp),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Container(
-                                height: 25.ksp,
-                                width: 25.ksp,
-                                decoration: BoxDecoration(
-                                  color: context.lightBrandColor,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 4.0.ksp),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      size: 11.ksp,
-                                      color: context.white,
+              Obx(
+                () => SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  pinned: true,
+                  stretch: true,
+                  elevation: 0,
+                  backgroundColor: context.brandColor1,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(24),
+                          bottomRight: Radius.circular(24))),
+                  expandedHeight: controller.currentCatenderIndex.value == 1
+                      ? 460.ksp
+                      : 270.ksp, // same as your “calendar” height
+                  flexibleSpace: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.pin,
+                    background: Column(
+                      children: [
+                        // — your back button + search + title + total journals —
+                        Padding(
+                          padding: EdgeInsets.all(16.ksp),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Container(
+                                  height: 25.ksp,
+                                  width: 25.ksp,
+                                  decoration: BoxDecoration(
+                                    color: context.lightBrandColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 4.0.ksp),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.arrow_back_ios,
+                                        size: 11.ksp,
+                                        color: context.white,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            10.kheightBox,
-                        CustomTextField(
-                              filled: true,
-                              hintText: "Search by word",
-                              controller: controller.searchController,
-                             suffixIconWidget: controller.searchController.text.isEmpty
-                                 ? null
-                                 : IconButton(
-                               icon: Icon(Icons.clear),
-                               onPressed: () {
-                                 controller.searchController.clear();
-                                 controller.getSavedJournals(date: controller.selectedDate.value);
-                               },
-                             ),
-                          onFieldSubmitted: (value) {
-                            // When the user taps “Search” on keyboard
-                            controller.getSavedJournals(searchQuery: value);
-                          },
-                          onChange: (value) {
-                            // Optionally debounce and call
+                              10.kheightBox,
+                              CustomTextField(
+                                filled: true,
+                                hintText: "Search by word",
+                                controller: controller.searchController,
+                                suffixIconWidget: controller
+                                        .searchController.text.isEmpty
+                                    ? null
+                                    : IconButton(
+                                        icon: Icon(Icons.clear),
+                                        onPressed: () {
+                                          controller.searchController.clear();
+                                          controller.getSavedJournals(
+                                              date: controller
+                                                  .selectedDate.value);
+                                        },
+                                      ),
+                                onFieldSubmitted: (value) {
+                                  // When the user taps “Search” on keyboard
+                                  controller.getSavedJournals(
+                                      searchQuery: value);
+                                },
+                                onChange: (value) {
+                                  // Optionally debounce and call
 
-                            if (value.trim().isEmpty) {
-                              log("selected33${controller.selectedDate.value}");
-                              controller.getSavedJournals(date: controller.selectedDate.value);
-                            };
-                            controller.getSavedJournals(searchQuery: value);
-                          },
-                            ),
-                            18.kheightBox,
-                            Row(
-                              children: [
-                                Text(
-                                  'My Journals',
-                                  style: TextStyleUtil.genSans500(fontSize: 21.ksp),
-                                ),
-                                Spacer(),
-                                CalenderTabBar(
-                                  backgroundColor: context.lightBrand3Color,
-                                  selectedTabColor: context.lightBrand2Color,
-                                  tabController:controller.tabController,
-                                  title1: "",
-                                  title2: "",
-                                  labelColor: ColorUtil(context).lightBrand3Color,
-                                  unselectedLabelColor: ColorUtil(context).white,
-                                  height: MediaQuery.of(context).size.height * 0.043,
-                                  width: MediaQuery.of(context).size.width * 0.2,
-                                ),
-                              ],
-                            ),
-                            6.kheightBox,
-                         Obx(()=>   Text(
-                              'Total journals this year - ${controller.totalJournal.value}',
-                              style: TextStyleUtil.genSans400(fontSize: 10.5.ksp),
-                            )),
+                                  if (value.trim().isEmpty) {
+                                    log("selected33${controller.selectedDate.value}");
+                                    controller.getSavedJournals(
+                                        date: controller.selectedDate.value);
+                                  }
+                                  ;
+                                  controller.getSavedJournals(
+                                      searchQuery: value);
+                                },
+                              ),
+                              18.kheightBox,
+                              Row(
+                                children: [
+                                  Text(
+                                    'My Journals',
+                                    style: TextStyleUtil.genSans500(
+                                        fontSize: 21.ksp),
+                                  ),
+                                  Spacer(),
+                                  CalenderTabBar(
+                                    backgroundColor: context.lightBrand3Color,
+                                    selectedTabColor: context.lightBrand2Color,
+                                    tabController: controller.tabController,
+                                    title1: "",
+                                    title2: "",
+                                    labelColor:
+                                        ColorUtil(context).lightBrand3Color,
+                                    unselectedLabelColor:
+                                        ColorUtil(context).white,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.043,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                  ),
+                                ],
+                              ),
+                              6.kheightBox,
+                              Obx(() => Text(
+                                    'Total journals this year - ${controller.totalJournal.value}',
+                                    style: TextStyleUtil.genSans400(
+                                        fontSize: 10.5.ksp),
+                                  )),
 
-                            10.kheightBox,
-                            // ── HERE is your CalendarSection ──
-                            // Only shows when “Month” tab is active, but we can just leave it:
-                            // if (controller.currentCatenderIndex.value == 1)
-                            //   SizedBox(
-                            //       height: 490.ksp,
-                            //       child: CustomCalendarSection()),
-                            // // If it’s “Week” you could instead show WeekCalenderRow()
-                            // if (controller.currentCatenderIndex.value == 0)
-                            //   SizedBox(
-                            //       height:250.ksp,       child: WeekCalenderRow()),
-                            if (controller.currentCatenderIndex.value == 1)
-                              CustomCalendarSection(),
-                            // If it’s “Week” you could instead show WeekCalenderRow()
-                            if (controller.currentCatenderIndex.value == 0)
-                              WeekCalenderRow(),
-                          ],
+                              10.kheightBox,
+                              // ── HERE is your CalendarSection ──
+                              // Only shows when “Month” tab is active, but we can just leave it:
+                              // if (controller.currentCatenderIndex.value == 1)
+                              //   SizedBox(
+                              //       height: 490.ksp,
+                              //       child: CustomCalendarSection()),
+                              // // If it’s “Week” you could instead show WeekCalenderRow()
+                              // if (controller.currentCatenderIndex.value == 0)
+                              //   SizedBox(
+                              //       height:250.ksp,       child: WeekCalenderRow()),
+                              if (controller.currentCatenderIndex.value == 1)
+                                CustomCalendarSection(),
+                              // If it’s “Week” you could instead show WeekCalenderRow()
+                              if (controller.currentCatenderIndex.value == 0)
+                                WeekCalenderRow(),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
+                  // ── 2) PIN THE TAB BAR at the bottom of the AppBar ──
                 ),
-                // ── 2) PIN THE TAB BAR at the bottom of the AppBar ──
-
-
-              ),)
+              )
             ],
 
             // ── 3) THE SCROLLABLE BODY ──
@@ -174,8 +190,8 @@ class JournalingView extends GetView<JournalingController> {
               if (controller.isLoading.value) {
                 return Center(child: CircularProgressIndicator());
               }
-
               return TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 controller: controller.calanderTabController,
                 children: [
                   // ── WEEK TAB ──
@@ -201,12 +217,14 @@ class JournalingView extends GetView<JournalingController> {
                         height: context.height,
                         child: ListView.builder(
                           itemCount: items.length,
-                          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16, horizontal: 20),
                           itemBuilder: (context, index) {
                             final item = items[index];
 
                             if (item is DateHeader) {
-                              final dateStr = DateFormat.yMMMMd().format(item.date); // e.g. June 25, 2025
+                              final dateStr = DateFormat.yMMMMd()
+                                  .format(item.date); // e.g. June 25, 2025
                               return Padding(
                                 padding: EdgeInsets.symmetric(vertical: 12),
                                 child: Text(
@@ -219,7 +237,8 @@ class JournalingView extends GetView<JournalingController> {
                                 ),
                               );
                             }
-                            final nextIsHeader = (index + 1 < items.length && items[index + 1] is DateHeader);
+                            final nextIsHeader = (index + 1 < items.length &&
+                                items[index + 1] is DateHeader);
                             final lineHeight = nextIsHeader ? 40.0 : 80.0;
                             final entry = (item as EntryItem).entry;
                             final isLast = index == items.length - 1;
@@ -227,7 +246,6 @@ class JournalingView extends GetView<JournalingController> {
                               key: ValueKey(entry.id), // or index
 
                               // 1) Define the slide‐pane that appears on the left
-
 
                               // 2) Define the slide‐pane that appears on the right
                               endActionPane: ActionPane(
@@ -237,12 +255,20 @@ class JournalingView extends GetView<JournalingController> {
                                 children: [
                                   CustomSlidableAction(
                                     onPressed: (_) async {
-                                      final confirmed = await Get.dialog(AlertDialog(
+                                      final confirmed =
+                                          await Get.dialog(AlertDialog(
                                         title: Text("Confirm Delete"),
-                                        content: Text("Are you sure you want to delete this journal entry?"),
+                                        content: Text(
+                                            "Are you sure you want to delete this journal entry?"),
                                         actions: [
-                                          TextButton(onPressed: () => Get.back(result: false), child: Text("Cancel")),
-                                          TextButton(onPressed: () => Get.back(result: true), child: Text("Delete")),
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Get.back(result: false),
+                                              child: Text("Cancel")),
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Get.back(result: true),
+                                              child: Text("Delete")),
                                         ],
                                       ));
 
@@ -254,31 +280,37 @@ class JournalingView extends GetView<JournalingController> {
                                     foregroundColor: Colors.transparent,
                                     padding: EdgeInsets.zero,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Expanded(
                                           child: Container(
-
                                             width: 64.kw,
                                             decoration: BoxDecoration(
                                               color: Colors.red,
                                               shape: BoxShape.circle,
                                             ),
-                                            child: CommonImageView(svgPath: ImageConstant.deleteIcon,fit: BoxFit.none,),
+                                            child: CommonImageView(
+                                              svgPath: ImageConstant.deleteIcon,
+                                              fit: BoxFit.none,
+                                            ),
                                           ),
                                         ),
                                         8.kheightBox,
                                         Expanded(
                                           child: GestureDetector(
-                                            onTap: () => controller.onEdit(entry),
+                                            onTap: () =>
+                                                controller.onEdit(entry),
                                             child: Container(
-
                                               width: 64.kw,
                                               decoration: BoxDecoration(
                                                 color: Colors.green,
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: CommonImageView(svgPath: ImageConstant.editIcon,fit: BoxFit.none,),
+                                              child: CommonImageView(
+                                                svgPath: ImageConstant.editIcon,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -321,15 +353,20 @@ class JournalingView extends GetView<JournalingController> {
                                   // ● Card
                                   Expanded(
                                     child: GestureDetector(
-                                      onTap:(){
-                                        Get.toNamed(Routes.UPDATE_TIMELINE,arguments: {'id':entry.id,'viewOnly':true});
+                                      onTap: () {
+                                        Get.toNamed(Routes.UPDATE_TIMELINE,
+                                            arguments: {
+                                              'id': entry.id,
+                                              'viewOnly': true
+                                            });
                                       },
                                       child: Container(
                                         margin: EdgeInsets.only(bottom: 20),
                                         padding: EdgeInsets.all(12),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(14),
+                                          borderRadius:
+                                              BorderRadius.circular(14),
                                           boxShadow: [
                                             BoxShadow(
                                               color: Colors.grey.shade300,
@@ -339,15 +376,18 @@ class JournalingView extends GetView<JournalingController> {
                                           ],
                                         ),
                                         child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             CommonImageView(
-                                              svgPath: controller.getMoodImagePath(entry.mood),
+                                              svgPath: controller
+                                                  .getMoodImagePath(entry.mood),
                                             ),
                                             SizedBox(width: 10),
                                             Expanded(
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Row(
                                                     children: [
@@ -355,21 +395,30 @@ class JournalingView extends GetView<JournalingController> {
                                                         child: Text(
                                                           entry.title,
                                                           style: TextStyle(
-                                                            fontWeight: FontWeight.w600,
+                                                            fontWeight:
+                                                                FontWeight.w600,
                                                           ),
                                                         ),
                                                       ),
                                                       Container(
-                                                        padding: EdgeInsets.symmetric(
+                                                        padding: EdgeInsets
+                                                            .symmetric(
                                                           horizontal: 8,
                                                           vertical: 4,
                                                         ),
-                                                        decoration: BoxDecoration(
-                                                          color: controller.getMoodColor(entry.mood),
-                                                          borderRadius: BorderRadius.circular(20),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: controller
+                                                              .getMoodColor(
+                                                                  entry.mood),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
                                                         ),
                                                         child: Text(
-                                                          entry.mood.capitalizeFirst??'',
+                                                          entry.mood
+                                                                  .capitalizeFirst ??
+                                                              '',
                                                           style: TextStyle(
                                                             fontSize: 10,
                                                             color: Colors.white,
@@ -386,7 +435,8 @@ class JournalingView extends GetView<JournalingController> {
                                                       fontSize: 13,
                                                     ),
                                                     maxLines: 2,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                   ),
                                                 ],
                                               ),
@@ -401,116 +451,116 @@ class JournalingView extends GetView<JournalingController> {
                             );
                           },
                         )
-                      // ListView.builder(
-                      //   itemCount: controller.entries.length,
-                      //   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                      //   itemBuilder: (context, index) {
-                      //     final entry = controller.entries[index];
-                      //     final isLast = index == controller.entries.length - 1;
-                      //
-                      //     return Row(
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       children: [
-                      //         // Timeline line and time
-                      //         Column(
-                      //           children: [
-                      //             Text(
-                      //               entry.time,
-                      //               style: TextStyle(
-                      //                 fontWeight: FontWeight.bold,
-                      //                 color: Colors.grey[700],
-                      //               ),
-                      //             ),
-                      //             Container(
-                      //               width: 2,
-                      //               height: isLast ? 40 : 80,
-                      //               color: Colors.green,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         SizedBox(width: 12),
-                      //
-                      //         // Card
-                      //         Expanded(
-                      //           child: Container(
-                      //             margin: EdgeInsets.only(bottom: 20),
-                      //             padding: EdgeInsets.all(12),
-                      //             decoration: BoxDecoration(
-                      //               color: Colors.white,
-                      //               borderRadius: BorderRadius.circular(14),
-                      //               boxShadow: [
-                      //                 BoxShadow(
-                      //                   color: Colors.grey.shade300,
-                      //                   blurRadius: 6,
-                      //                   offset: Offset(0, 3),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             child: Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                      //               children: [
-                      //                 // Image
-                      //                 CommonImageView(
-                      //                   svgPath: controller.getMoodImagePath(entry.mood), // Dynamic image based on mood
-                      //                 ),
-                      //                 SizedBox(width: 10),
-                      //                 // Text content
-                      //                 Expanded(
-                      //                   child: Column(
-                      //                     crossAxisAlignment: CrossAxisAlignment.start,
-                      //                     children: [
-                      //                       Row(
-                      //                         children: [
-                      //                           Expanded(
-                      //                             child: Text(
-                      //                               entry.title,
-                      //                               style: TextStyle(
-                      //                                 fontWeight: FontWeight.w600,
-                      //                               ),
-                      //                             ),
-                      //                           ),
-                      //                           Container(
-                      //                             padding: EdgeInsets.symmetric(
-                      //                               horizontal: 8,
-                      //                               vertical: 4,
-                      //                             ),
-                      //                             decoration: BoxDecoration(
-                      //                               color: controller.getMoodColor(entry.mood),
-                      //                               borderRadius: BorderRadius.circular(20),
-                      //                             ),
-                      //                             child: Text(
-                      //                               entry.mood,
-                      //                               style: TextStyle(
-                      //                                 fontSize: 10,
-                      //                                 color: Colors.white,
-                      //                               ),
-                      //                             ),
-                      //                           ),
-                      //                         ],
-                      //                       ),
-                      //                       SizedBox(height: 4),
-                      //                       Text(
-                      //                         entry.description,
-                      //                         style: TextStyle(
-                      //                           color: Colors.grey[600],
-                      //                           fontSize: 13,
-                      //                         ),
-                      //                         maxLines: 2,
-                      //                         overflow: TextOverflow.ellipsis,
-                      //                       ),
-                      //
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     );
-                      //   },
-                      // ),
-                    );
+                        // ListView.builder(
+                        //   itemCount: controller.entries.length,
+                        //   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                        //   itemBuilder: (context, index) {
+                        //     final entry = controller.entries[index];
+                        //     final isLast = index == controller.entries.length - 1;
+                        //
+                        //     return Row(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         // Timeline line and time
+                        //         Column(
+                        //           children: [
+                        //             Text(
+                        //               entry.time,
+                        //               style: TextStyle(
+                        //                 fontWeight: FontWeight.bold,
+                        //                 color: Colors.grey[700],
+                        //               ),
+                        //             ),
+                        //             Container(
+                        //               width: 2,
+                        //               height: isLast ? 40 : 80,
+                        //               color: Colors.green,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         SizedBox(width: 12),
+                        //
+                        //         // Card
+                        //         Expanded(
+                        //           child: Container(
+                        //             margin: EdgeInsets.only(bottom: 20),
+                        //             padding: EdgeInsets.all(12),
+                        //             decoration: BoxDecoration(
+                        //               color: Colors.white,
+                        //               borderRadius: BorderRadius.circular(14),
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   color: Colors.grey.shade300,
+                        //                   blurRadius: 6,
+                        //                   offset: Offset(0, 3),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             child: Row(
+                        //               crossAxisAlignment: CrossAxisAlignment.start,
+                        //               children: [
+                        //                 // Image
+                        //                 CommonImageView(
+                        //                   svgPath: controller.getMoodImagePath(entry.mood), // Dynamic image based on mood
+                        //                 ),
+                        //                 SizedBox(width: 10),
+                        //                 // Text content
+                        //                 Expanded(
+                        //                   child: Column(
+                        //                     crossAxisAlignment: CrossAxisAlignment.start,
+                        //                     children: [
+                        //                       Row(
+                        //                         children: [
+                        //                           Expanded(
+                        //                             child: Text(
+                        //                               entry.title,
+                        //                               style: TextStyle(
+                        //                                 fontWeight: FontWeight.w600,
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                           Container(
+                        //                             padding: EdgeInsets.symmetric(
+                        //                               horizontal: 8,
+                        //                               vertical: 4,
+                        //                             ),
+                        //                             decoration: BoxDecoration(
+                        //                               color: controller.getMoodColor(entry.mood),
+                        //                               borderRadius: BorderRadius.circular(20),
+                        //                             ),
+                        //                             child: Text(
+                        //                               entry.mood,
+                        //                               style: TextStyle(
+                        //                                 fontSize: 10,
+                        //                                 color: Colors.white,
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                       SizedBox(height: 4),
+                        //                       Text(
+                        //                         entry.description,
+                        //                         style: TextStyle(
+                        //                           color: Colors.grey[600],
+                        //                           fontSize: 13,
+                        //                         ),
+                        //                         maxLines: 2,
+                        //                         overflow: TextOverflow.ellipsis,
+                        //                       ),
+                        //
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     );
+                        //   },
+                        // ),
+                        );
                   }),
 
                   // ── MONTH TAB: journal list (scrolls to collapse header) ──
@@ -535,16 +585,17 @@ class JournalingView extends GetView<JournalingController> {
                         height: context.height,
                         child: ListView.builder(
                           itemCount: controller.entries.length,
-                          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 16, horizontal: 20),
                           itemBuilder: (context, index) {
                             final entry = controller.entries[index];
-                            final isLast = index == controller.entries.length - 1;
+                            final isLast =
+                                index == controller.entries.length - 1;
 
                             return Slidable(
                               key: ValueKey(entry.id), // or index
 
                               // 1) Define the slide‐pane that appears on the left
-
 
                               // 2) Define the slide‐pane that appears on the right
                               endActionPane: ActionPane(
@@ -554,12 +605,20 @@ class JournalingView extends GetView<JournalingController> {
                                 children: [
                                   CustomSlidableAction(
                                     onPressed: (_) async {
-                                      final confirmed = await Get.dialog(AlertDialog(
+                                      final confirmed =
+                                          await Get.dialog(AlertDialog(
                                         title: Text("Confirm Delete"),
-                                        content: Text("Are you sure you want to delete this journal entry?"),
+                                        content: Text(
+                                            "Are you sure you want to delete this journal entry?"),
                                         actions: [
-                                          TextButton(onPressed: () => Get.back(result: false), child: Text("Cancel")),
-                                          TextButton(onPressed: () => Get.back(result: true), child: Text("Delete")),
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Get.back(result: false),
+                                              child: Text("Cancel")),
+                                          TextButton(
+                                              onPressed: () =>
+                                                  Get.back(result: true),
+                                              child: Text("Delete")),
                                         ],
                                       ));
 
@@ -571,31 +630,37 @@ class JournalingView extends GetView<JournalingController> {
                                     foregroundColor: Colors.transparent,
                                     padding: EdgeInsets.zero,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Expanded(
                                           child: Container(
-
                                             width: 64.kw,
                                             decoration: BoxDecoration(
                                               color: Colors.red,
                                               shape: BoxShape.circle,
                                             ),
-                                            child: CommonImageView(svgPath: ImageConstant.deleteIcon,fit: BoxFit.none,),
+                                            child: CommonImageView(
+                                              svgPath: ImageConstant.deleteIcon,
+                                              fit: BoxFit.none,
+                                            ),
                                           ),
                                         ),
                                         8.kheightBox,
                                         Expanded(
                                           child: GestureDetector(
-                                            onTap: () => controller.onEdit(entry),
+                                            onTap: () =>
+                                                controller.onEdit(entry),
                                             child: Container(
-
                                               width: 64.kw,
                                               decoration: BoxDecoration(
                                                 color: Colors.green,
                                                 shape: BoxShape.circle,
                                               ),
-                                              child: CommonImageView(svgPath: ImageConstant.editIcon,fit: BoxFit.none,),
+                                              child: CommonImageView(
+                                                svgPath: ImageConstant.editIcon,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -652,15 +717,18 @@ class JournalingView extends GetView<JournalingController> {
                                         ],
                                       ),
                                       child: Row(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           CommonImageView(
-                                            svgPath: controller.getMoodImagePath(entry.mood),
+                                            svgPath: controller
+                                                .getMoodImagePath(entry.mood),
                                           ),
                                           SizedBox(width: 10),
                                           Expanded(
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
@@ -668,21 +736,29 @@ class JournalingView extends GetView<JournalingController> {
                                                       child: Text(
                                                         entry.title,
                                                         style: TextStyle(
-                                                          fontWeight: FontWeight.w600,
+                                                          fontWeight:
+                                                              FontWeight.w600,
                                                         ),
                                                       ),
                                                     ),
                                                     Container(
-                                                      padding: EdgeInsets.symmetric(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
                                                         horizontal: 8,
                                                         vertical: 4,
                                                       ),
                                                       decoration: BoxDecoration(
-                                                        color: controller.getMoodColor(entry.mood),
-                                                        borderRadius: BorderRadius.circular(20),
+                                                        color: controller
+                                                            .getMoodColor(
+                                                                entry.mood),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
                                                       ),
                                                       child: Text(
-                                                        entry.mood.capitalizeFirst??'',
+                                                        entry.mood
+                                                                .capitalizeFirst ??
+                                                            '',
                                                         style: TextStyle(
                                                           fontSize: 10,
                                                           color: Colors.white,
@@ -699,7 +775,8 @@ class JournalingView extends GetView<JournalingController> {
                                                     fontSize: 13,
                                                   ),
                                                   maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ],
                                             ),
@@ -713,116 +790,116 @@ class JournalingView extends GetView<JournalingController> {
                             );
                           },
                         )
-                      // ListView.builder(
-                      //   itemCount: controller.entries.length,
-                      //   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-                      //   itemBuilder: (context, index) {
-                      //     final entry = controller.entries[index];
-                      //     final isLast = index == controller.entries.length - 1;
-                      //
-                      //     return Row(
-                      //       crossAxisAlignment: CrossAxisAlignment.start,
-                      //       children: [
-                      //         // Timeline line and time
-                      //         Column(
-                      //           children: [
-                      //             Text(
-                      //               entry.time,
-                      //               style: TextStyle(
-                      //                 fontWeight: FontWeight.bold,
-                      //                 color: Colors.grey[700],
-                      //               ),
-                      //             ),
-                      //             Container(
-                      //               width: 2,
-                      //               height: isLast ? 40 : 80,
-                      //               color: Colors.green,
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         SizedBox(width: 12),
-                      //
-                      //         // Card
-                      //         Expanded(
-                      //           child: Container(
-                      //             margin: EdgeInsets.only(bottom: 20),
-                      //             padding: EdgeInsets.all(12),
-                      //             decoration: BoxDecoration(
-                      //               color: Colors.white,
-                      //               borderRadius: BorderRadius.circular(14),
-                      //               boxShadow: [
-                      //                 BoxShadow(
-                      //                   color: Colors.grey.shade300,
-                      //                   blurRadius: 6,
-                      //                   offset: Offset(0, 3),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             child: Row(
-                      //               crossAxisAlignment: CrossAxisAlignment.start,
-                      //               children: [
-                      //                 // Image
-                      //                 CommonImageView(
-                      //                   svgPath: controller.getMoodImagePath(entry.mood), // Dynamic image based on mood
-                      //                 ),
-                      //                 SizedBox(width: 10),
-                      //                 // Text content
-                      //                 Expanded(
-                      //                   child: Column(
-                      //                     crossAxisAlignment: CrossAxisAlignment.start,
-                      //                     children: [
-                      //                       Row(
-                      //                         children: [
-                      //                           Expanded(
-                      //                             child: Text(
-                      //                               entry.title,
-                      //                               style: TextStyle(
-                      //                                 fontWeight: FontWeight.w600,
-                      //                               ),
-                      //                             ),
-                      //                           ),
-                      //                           Container(
-                      //                             padding: EdgeInsets.symmetric(
-                      //                               horizontal: 8,
-                      //                               vertical: 4,
-                      //                             ),
-                      //                             decoration: BoxDecoration(
-                      //                               color: controller.getMoodColor(entry.mood),
-                      //                               borderRadius: BorderRadius.circular(20),
-                      //                             ),
-                      //                             child: Text(
-                      //                               entry.mood,
-                      //                               style: TextStyle(
-                      //                                 fontSize: 10,
-                      //                                 color: Colors.white,
-                      //                               ),
-                      //                             ),
-                      //                           ),
-                      //                         ],
-                      //                       ),
-                      //                       SizedBox(height: 4),
-                      //                       Text(
-                      //                         entry.description,
-                      //                         style: TextStyle(
-                      //                           color: Colors.grey[600],
-                      //                           fontSize: 13,
-                      //                         ),
-                      //                         maxLines: 2,
-                      //                         overflow: TextOverflow.ellipsis,
-                      //                       ),
-                      //
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ],
-                      //     );
-                      //   },
-                      // ),
-                    );
+                        // ListView.builder(
+                        //   itemCount: controller.entries.length,
+                        //   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                        //   itemBuilder: (context, index) {
+                        //     final entry = controller.entries[index];
+                        //     final isLast = index == controller.entries.length - 1;
+                        //
+                        //     return Row(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         // Timeline line and time
+                        //         Column(
+                        //           children: [
+                        //             Text(
+                        //               entry.time,
+                        //               style: TextStyle(
+                        //                 fontWeight: FontWeight.bold,
+                        //                 color: Colors.grey[700],
+                        //               ),
+                        //             ),
+                        //             Container(
+                        //               width: 2,
+                        //               height: isLast ? 40 : 80,
+                        //               color: Colors.green,
+                        //             ),
+                        //           ],
+                        //         ),
+                        //         SizedBox(width: 12),
+                        //
+                        //         // Card
+                        //         Expanded(
+                        //           child: Container(
+                        //             margin: EdgeInsets.only(bottom: 20),
+                        //             padding: EdgeInsets.all(12),
+                        //             decoration: BoxDecoration(
+                        //               color: Colors.white,
+                        //               borderRadius: BorderRadius.circular(14),
+                        //               boxShadow: [
+                        //                 BoxShadow(
+                        //                   color: Colors.grey.shade300,
+                        //                   blurRadius: 6,
+                        //                   offset: Offset(0, 3),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             child: Row(
+                        //               crossAxisAlignment: CrossAxisAlignment.start,
+                        //               children: [
+                        //                 // Image
+                        //                 CommonImageView(
+                        //                   svgPath: controller.getMoodImagePath(entry.mood), // Dynamic image based on mood
+                        //                 ),
+                        //                 SizedBox(width: 10),
+                        //                 // Text content
+                        //                 Expanded(
+                        //                   child: Column(
+                        //                     crossAxisAlignment: CrossAxisAlignment.start,
+                        //                     children: [
+                        //                       Row(
+                        //                         children: [
+                        //                           Expanded(
+                        //                             child: Text(
+                        //                               entry.title,
+                        //                               style: TextStyle(
+                        //                                 fontWeight: FontWeight.w600,
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                           Container(
+                        //                             padding: EdgeInsets.symmetric(
+                        //                               horizontal: 8,
+                        //                               vertical: 4,
+                        //                             ),
+                        //                             decoration: BoxDecoration(
+                        //                               color: controller.getMoodColor(entry.mood),
+                        //                               borderRadius: BorderRadius.circular(20),
+                        //                             ),
+                        //                             child: Text(
+                        //                               entry.mood,
+                        //                               style: TextStyle(
+                        //                                 fontSize: 10,
+                        //                                 color: Colors.white,
+                        //                               ),
+                        //                             ),
+                        //                           ),
+                        //                         ],
+                        //                       ),
+                        //                       SizedBox(height: 4),
+                        //                       Text(
+                        //                         entry.description,
+                        //                         style: TextStyle(
+                        //                           color: Colors.grey[600],
+                        //                           fontSize: 13,
+                        //                         ),
+                        //                         maxLines: 2,
+                        //                         overflow: TextOverflow.ellipsis,
+                        //                       ),
+                        //
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     );
+                        //   },
+                        // ),
+                        );
                   }),
                 ],
               );

@@ -17,89 +17,88 @@ class SearchMentalGymView extends GetView<SearchMentalGymController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(
-        () =>
-            controller.isLoading.value
-                ? Center(
-                  child: CircularProgressIndicator(color: context.brandColor1),
-                )
-                : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: ColorUtil(context).brandColor1,
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(30),
-                            bottomRight: Radius.circular(30),
-                          ),
-                        ),
-                        child: SafeArea(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Get.back();
-                                    },
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      color: context.white,
-                                      size: 16.ksp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              10.kheightBox,
-                              Row(
-                                children: [
-                                  2.kwidthBox,
-                                  Text(
-                                    LocaleKeys.mentalGyms.tr,
-                                    style: TextStyleUtil.genSans500(
-                                      color: ColorUtil(context).white,
-                                      fontSize: 19.5.ksp,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              0.kheightBox,
-                            ],
-                          ),
+        () => controller.isLoading.value
+            ? Center(
+                child: CircularProgressIndicator(color: context.brandColor1),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: ColorUtil(context).brandColor1,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(30),
+                          bottomRight: Radius.circular(30),
                         ),
                       ),
-                      20.kheightBox,
-                      controller.searchedMentalGymList.isEmpty
-                          ? Text(
+                      child: SafeArea(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Get.back();
+                                  },
+                                  child: Icon(
+                                    Icons.arrow_back_ios,
+                                    color: context.white,
+                                    size: 16.ksp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            10.kheightBox,
+                            Row(
+                              children: [
+                                2.kwidthBox,
+                                Text(
+                                  LocaleKeys.mentalGyms.tr,
+                                  style: TextStyleUtil.genSans500(
+                                    color: ColorUtil(context).white,
+                                    fontSize: 19.5.ksp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            0.kheightBox,
+                          ],
+                        ),
+                      ),
+                    ),
+                    20.kheightBox,
+                    controller.searchedMentalGymList.isEmpty
+                        ? Text(
                             "No Mental Gym Found",
                             style: TextStyleUtil.genSans400(
                               fontSize: 14.ksp,
                               color: context.black,
                             ),
                           )
-                          : Container(),
-                      ...controller.searchedMentalGymList.map((mood) {
-                        return ActiveWorkoutCards(
-                          isSaved: true,
-                          title: mood.title ?? "",
-                          subtitle: mood.title ?? "",
-                          imageUrl: mood.thumbnail!.url ?? "",
-                          onTap: () {
-                            Get.find<MentalGymController>().getWorkoutDetails(
-                              mood.sId ?? "",
-                            );
-                          },
-                        );
-                      }).toList(),
-                    ],
-                  ),
+                        : Container(),
+                    ...controller.searchedMentalGymList.map((mood) {
+                      return ActiveWorkoutCards(
+                        isSaved: true,
+                        title: mood.title ?? "",
+                        subtitle: mood.title ?? "",
+                        imageUrl: mood.thumbnail!.url ?? "",
+                        onTap: () {
+                          Get.find<MentalGymController>().getWorkoutDetails(
+                            mood.sId ?? "",
+                          );
+                        },
+                      );
+                    }).toList(),
+                  ],
                 ),
+              ),
       ),
     );
   }

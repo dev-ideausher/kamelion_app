@@ -10,7 +10,7 @@ class ChallengeDetailsController extends GetxController {
   //TODO: Implement ChallengeDetailsController
 
   final count = 0.obs;
-  Rx<ChallengeDetailsModel>? challengeDetails;
+  Rx<ChallengeDetailsModel>? challengeDetails = ChallengeDetailsModel().obs;
   RxBool isLoading = false.obs;
   String? challengeId;
   @override
@@ -41,8 +41,8 @@ class ChallengeDetailsController extends GetxController {
       response = await APIManager.getChallengesDetails(id: id);
 
       if (response.data['data'] != null && response.data['status']) {
-        challengeDetails =
-            ChallengeDetailsModel.fromJson(response.data['data']).obs;
+        challengeDetails!.value =
+            ChallengeDetailsModel.fromJson(response.data['data']);
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",

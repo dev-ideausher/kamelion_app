@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/models/mental_gyms_details_model.dart';
 import 'package:kamelion/app/models/onBoardingQuestionsModel.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
+import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
 import 'package:kamelion/app/modules/workoutDetails/controllers/workout_details_controller.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
@@ -234,6 +235,15 @@ class OnboardingQuestionsController extends GetxController {
         response.data['data']['earnedKalikoins']
       ]);
       Get.find<HomeController>().getUser();
+      Get.find<MentalGymController>().getActiveMentalGym();
+      Get.find<MentalGymController>().getCompletedMentalGym();
+      Get.find<WorkoutDetailsController>().getMentalGymDetails(
+          Get.find<WorkoutDetailsController>()
+                  .mentalGymDetails!
+                  .value
+                  .mentalGym!
+                  .sId ??
+              "");
     } else {
       debugPrint(
         "An error occurred while getting vendor profile: ${response.data['message']}",

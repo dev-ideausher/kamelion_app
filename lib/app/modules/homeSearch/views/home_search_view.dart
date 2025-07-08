@@ -21,7 +21,6 @@ class HomeSearchView extends GetView<HomeSearchController> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
         body: DefaultTabController(
           length: 4,
           child: Column(
@@ -64,6 +63,7 @@ class HomeSearchView extends GetView<HomeSearchController> {
                     ).paddingOnly(bottom: 8.ksp),
                     // search field
                     TextFormField(
+                      focusNode: controller.myFocusNode,
                       onFieldSubmitted: (val) {
                         controller.getHomeSearch(searchQuery: val);
                       },
@@ -73,7 +73,7 @@ class HomeSearchView extends GetView<HomeSearchController> {
                         filled: true,
                         prefixIcon: Icon(Icons.search),
                         contentPadding:
-                        EdgeInsets.symmetric(vertical: 0, horizontal: 12),
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 12),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide.none,
@@ -88,7 +88,6 @@ class HomeSearchView extends GetView<HomeSearchController> {
               TabBar(
                 labelColor: context.black,
                 unselectedLabelColor: Colors.grey,
-
                 tabs: [
                   Tab(text: 'Communities'),
                   Tab(text: 'Challenges'),
@@ -111,9 +110,17 @@ class HomeSearchView extends GetView<HomeSearchController> {
                         itemCount: controller.communities.length,
                         itemBuilder: (_, i) {
                           final c = controller.communities[i];
-                          return CommmunityCard(ownerName: 'test', peopleCount: c.numberOfMembers.toString(), title: c.name, postCount: c.numberOfPosts.toString(), imageURL: c.profileImage!.url ?? "",userAvatarDetails:  "",);
-
-
+                          return CommmunityCard(
+                            onTap: () {
+                              Get.toNamed(Routes.COMMUNITY_POSTS, arguments: c);
+                            },
+                            ownerName: 'test',
+                            peopleCount: c.numberOfMembers.toString(),
+                            title: c.name ?? "",
+                            postCount: c.numberofPosts.toString(),
+                            imageURL: c.profileImage!.url ?? "",
+                            userAvatarDetails: "",
+                          );
                         },
                       ),
 
@@ -123,16 +130,16 @@ class HomeSearchView extends GetView<HomeSearchController> {
                         itemCount: controller.challenges.length,
                         itemBuilder: (_, i) {
                           final ch = controller.challenges[i];
-                          return  SuggestedWorkoutCards(
+                          return SuggestedWorkoutCards(
                             isSaved: false,
-                            imageUrl: "",
-                            subtitle:ch.challengeIntro?? "",
-                            title:ch.challengeTitle ,
+                            imageUrl: ch.image,
+                            subtitle: ch.challengeIntro ?? "",
+                            title: ch.challengeTitle,
                             onTap: () {
-                              Get.toNamed(Routes.CHALLENGE_DETAILS, arguments: ch.id);
+                              Get.toNamed(Routes.CHALLENGE_DETAILS,
+                                  arguments: ch.id);
                             },
                           );
-
                         },
                       ),
 
@@ -144,18 +151,14 @@ class HomeSearchView extends GetView<HomeSearchController> {
                           final mg = controller.mentalGyms[i];
                           return ActiveWorkoutCards(
                             isSaved: true,
-                            title:
-                            mg.title,
+                            title: mg.title ?? "",
                             subtitle:
-                            mg.description,
-                            imageUrl:
-                            Get.find<MentalGymController>()
-                                .activeMentalGymList[0]
-                                .thumbnail!
-                                .url ??
-                                "",
+                                mg.category!.map((c) => c.title).join(', ') ??
+                                    "",
+                            imageUrl: mg.thumbnail!.url ?? "",
                             onTap: () {
-                              Get.toNamed(Routes.CHALLENGE_DETAILS);
+                              Get.toNamed(Routes.WORKOUT_DETAILS,
+                                  arguments: mg.sId);
                             },
                           );
                         },
@@ -173,10 +176,7 @@ class HomeSearchView extends GetView<HomeSearchController> {
                             shape: RoundedRectangleBorder(
                               side: BorderSide(color: context.greyBorder),
                               borderRadius: BorderRadius.circular(4.ksp),
-
-
                             ),
-
                             color: ColorUtil(context).white,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,18 +198,18 @@ class HomeSearchView extends GetView<HomeSearchController> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: EdgeInsets.symmetric(
                                             horizontal: 8.0.ksp,
                                           ),
                                           child: Text(
-                                           w.title ?? "",
+                                            w.title ?? "",
                                             style: TextStyleUtil.genSans400(
                                               fontSize: 12.ksp,
                                               color: ColorUtil(context).black,
@@ -226,7 +226,8 @@ class HomeSearchView extends GetView<HomeSearchController> {
                                             w.title ?? "",
                                             style: TextStyleUtil.genSans400(
                                               fontSize: 10.ksp,
-                                              color: ColorUtil(context).greyDark,
+                                              color:
+                                                  ColorUtil(context).greyDark,
                                               height: 1.2,
                                             ),
                                           ),
@@ -234,14 +235,12 @@ class HomeSearchView extends GetView<HomeSearchController> {
                                       ],
                                     ),
                                     InkWell(
-
                                       child: Icon(
                                         Icons.bookmark_outline,
                                       ),
                                     ),
                                   ],
                                 ),
-
                                 10.kheightBox,
                                 Row(
                                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -263,7 +262,8 @@ class HomeSearchView extends GetView<HomeSearchController> {
                                       ),
                                       decoration: BoxDecoration(
                                         color: ColorUtil(context).lighPitchBg,
-                                        borderRadius: BorderRadius.circular(20.ksp),
+                                        borderRadius:
+                                            BorderRadius.circular(20.ksp),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -271,14 +271,16 @@ class HomeSearchView extends GetView<HomeSearchController> {
                                           Icon(
                                             Icons.trending_up,
                                             size: 12.ksp,
-                                            color: ColorUtil(context).darkRedText,
+                                            color:
+                                                ColorUtil(context).darkRedText,
                                           ),
                                           5.kwidthBox,
                                           Text(
                                             LocaleKeys.trending.tr,
                                             style: TextStyleUtil.genSans500(
                                               fontSize: 10.ksp,
-                                              color: ColorUtil(context).darkRedText,
+                                              color: ColorUtil(context)
+                                                  .darkRedText,
                                               // fontWeight: FontWeight.bold,
                                             ),
                                           ),

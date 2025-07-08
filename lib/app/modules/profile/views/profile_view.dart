@@ -40,129 +40,118 @@ class ProfileView extends GetView<ProfileController> {
                     child: TabBarView(
                       controller: controller.profilePageTabController,
                       children: [
-                        Container(
-                          height: context.height * 0.6,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                30.kheightBox,
-                                CustomTabBar(
-                                  backgroundColor:
-                                      ColorUtil(context).brandColor5,
-                                  selectedTabColor:
-                                      ColorUtil(context).brandColor1,
-                                  tabController:
-                                      controller.leaderboardTabController,
-                                  title1: LocaleKeys.leaderboard.tr,
-                                  title2: LocaleKeys.my_stats.tr,
-                                  labelColor: ColorUtil(context).white,
-                                  unselectedLabelColor:
-                                      ColorUtil(context).brandColor1,
-                                  height: MediaQuery.of(context).size.height *
-                                      0.045,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.65,
-                                ),
-                                Container(
-                                  height: context.height * 0.7,
-                                  child: TabBarView(
-                                    controller:
-                                        controller.leaderboardTabController,
-                                    children: [
-                                      SingleChildScrollView(
-                                        child: Column(
+                        Column(
+                          children: [
+                            30.kheightBox,
+                            CustomTabBar(
+                              backgroundColor: ColorUtil(context).brandColor5,
+                              selectedTabColor: ColorUtil(context).brandColor1,
+                              tabController:
+                                  controller.leaderboardTabController,
+                              title1: LocaleKeys.leaderboard.tr,
+                              title2: LocaleKeys.my_stats.tr,
+                              labelColor: ColorUtil(context).white,
+                              unselectedLabelColor:
+                                  ColorUtil(context).brandColor1,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.045,
+                              width: MediaQuery.of(context).size.width * 0.65,
+                            ),
+                            Expanded(
+                              child: TabBarView(
+                                controller: controller.leaderboardTabController,
+                                children: [
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        30.kheightBox,
+                                        Row(
                                           children: [
-                                            30.kheightBox,
-                                            Row(
-                                              children: [
-                                                16.kwidthBox,
-                                                Text(
-                                                  LocaleKeys.leaderboard.tr,
-                                                  style:
-                                                      TextStyleUtil.genSans500(
-                                                    fontSize: 14.5.ksp,
-                                                    color: ColorUtil(context)
-                                                        .black,
-                                                  ),
-                                                ),
-                                              ],
+                                            16.kwidthBox,
+                                            Text(
+                                              LocaleKeys.leaderboard.tr,
+                                              style: TextStyleUtil.genSans500(
+                                                fontSize: 14.5.ksp,
+                                                color: ColorUtil(context).black,
+                                              ),
                                             ),
-                                            Get.find<ProfileController>()
-                                                        .leaderBoardList
-                                                        .length <
-                                                    3
-                                                ? Container()
-                                                : 25.kheightBox,
-                                            Get.find<ProfileController>()
-                                                        .leaderBoardList
-                                                        .length <
-                                                    3
-                                                ? Container()
-                                                : LeaderboardRow(),
-                                            20.kheightBox,
-                                            LeaderList(controller: controller),
-                                            50.kheightBox,
                                           ],
                                         ),
-                                      ),
-                                      Column(
-                                        children: [
-                                          20.kheightBox,
-                                          Row(
-                                            children: [
-                                              16.kwidthBox,
-                                              Text(
-                                                LocaleKeys.my_stats.tr,
-                                                style: TextStyleUtil.genSans400(
-                                                  fontSize: 14.5.ksp,
-                                                  color:
-                                                      ColorUtil(context).black,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: context.height * 0.6,
-                                            child: GridView.builder(
-                                              padding: EdgeInsets.all(12.ksp),
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount:
-                                                    2, // Number of columns
-                                                crossAxisSpacing: 12.ksp,
-                                                mainAxisSpacing: 12.ksp,
-                                                childAspectRatio:
-                                                    1.6, // Adjust if needed
-                                              ),
-                                              itemCount: 4, // Your image list
-                                              itemBuilder: (context, index) {
-                                                return StateCard(
-                                                  color: [
-                                                    ColorUtil(context)
-                                                        .greenCardBg,
-                                                    ColorUtil(context)
-                                                        .brandColor3,
-                                                    ColorUtil(context).redBg,
-                                                    ColorUtil(context).pitcgBg,
-                                                  ][index],
-                                                  icon: controller
-                                                      .statesIcon[index],
-                                                  value: controller
-                                                      .statesValue[index],
-                                                  count:
-                                                      "${(index == 0 ? controller.myStatesData.value.totalCompletedQuizzes : index == 1 ? controller.myStatesData.value.totalPostWords : index == 2 ? controller.myStatesData.value.totalMoodEntries : controller.myStatesData.value.totalJournalEntries)}",
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                        Get.find<ProfileController>()
+                                                    .leaderBoardList
+                                                    .length <
+                                                3
+                                            ? Container()
+                                            : 25.kheightBox,
+                                        Get.find<ProfileController>()
+                                                    .leaderBoardList
+                                                    .length <
+                                                3
+                                            ? Container()
+                                            : LeaderboardRow(),
+                                        20.kheightBox,
+                                        LeaderList(controller: controller),
+                                        50.kheightBox,
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        20.kheightBox,
+                                        Row(
+                                          children: [
+                                            16.kwidthBox,
+                                            Text(
+                                              LocaleKeys.my_stats.tr,
+                                              style: TextStyleUtil.genSans400(
+                                                fontSize: 14.5.ksp,
+                                                color: ColorUtil(context).black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          height: context.height * 0.6,
+                                          child: GridView.builder(
+                                            padding: EdgeInsets.all(12.ksp),
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount:
+                                                  2, // Number of columns
+                                              crossAxisSpacing: 12.ksp,
+                                              mainAxisSpacing: 12.ksp,
+                                              childAspectRatio:
+                                                  1.6, // Adjust if needed
+                                            ),
+                                            itemCount: 4, // Your image list
+                                            itemBuilder: (context, index) {
+                                              return StateCard(
+                                                color: [
+                                                  ColorUtil(context)
+                                                      .greenCardBg,
+                                                  ColorUtil(context)
+                                                      .brandColor3,
+                                                  ColorUtil(context).redBg,
+                                                  ColorUtil(context).pitcgBg,
+                                                ][index],
+                                                icon: controller
+                                                    .statesIcon[index],
+                                                value: controller
+                                                    .statesValue[index],
+                                                count:
+                                                    "${(index == 0 ? controller.myStatesData.value.totalCompletedQuizzes : index == 1 ? controller.myStatesData.value.totalPostWords : index == 2 ? controller.myStatesData.value.totalMoodEntries : controller.myStatesData.value.totalJournalEntries)}",
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                         SingleChildScrollView(
                           child: Column(
@@ -200,22 +189,24 @@ class ProfileView extends GetView<ProfileController> {
 
                                       return InkWell(
                                         onTap: () async {
-                                          FluttermojiController controller =
-                                              FluttermojiController();
-                                          await controller.setFluttermoji(
-                                              fluttermojiNew:
-                                                  Get.find<HomeController>()
-                                                          .currentUser
-                                                          .value
-                                                          .avatardetails ??
-                                                      "");
+                                          if (index == 0) {
+                                            FluttermojiController controller =
+                                                FluttermojiController();
+                                            await controller.setFluttermoji(
+                                                fluttermojiNew:
+                                                    Get.find<HomeController>()
+                                                            .currentUser
+                                                            .value
+                                                            .avatardetails ??
+                                                        "");
 
-                                          Get.toNamed(
-                                            Routes.CREATE_AVATAR,
-                                            arguments: {
-                                              "from": Routes.EDIT_PROFILE
-                                            },
-                                          );
+                                            Get.toNamed(
+                                              Routes.CREATE_AVATAR,
+                                              arguments: {
+                                                "from": Routes.EDIT_PROFILE
+                                              },
+                                            );
+                                          }
                                         },
                                         child: ClipRRect(
                                           borderRadius:
@@ -549,7 +540,7 @@ class LeaderList extends StatelessWidget {
                     ),
                   ],
                 ),
-                ((controller.leaderboardList.length - 1) != index)
+                ((controller.leaderboardList.length) != index - 1)
                     ? Divider(color: ColorUtil(context).brandBorderColor)
                     : Container(),
               ],

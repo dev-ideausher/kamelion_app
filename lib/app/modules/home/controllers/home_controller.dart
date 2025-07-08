@@ -184,6 +184,7 @@ class HomeController extends GetxController {
 
       response = await APIManager.getPopularMentalGyms(limit: "100", page: "1");
       if (response.data['data'] != null && response.data['status']) {
+        popularMentalGyms.value = [];
         for (Map<String, dynamic> data in response.data['data']) {
           popularMentalGyms.add(MentalGymModel.fromJson(data));
         }

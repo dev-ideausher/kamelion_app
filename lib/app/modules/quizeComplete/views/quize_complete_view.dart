@@ -151,7 +151,6 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                                 Get.offNamed(Routes.COURSE_COMPLETE);
                               } else {
                                 Get.back();
-                                Get.back();
                               }
                             },
                             title: controller.coinsEarned.value == 0

@@ -84,16 +84,16 @@ class CreateTimeLineController extends GetxController {
       currentMoodSelected.value = Mood.unhappy.name;
     } else if (val <= 40) {
       currentMoodImage.value = ImageConstant.sadMood;
-      currentMoodSelected.value =Mood.sad.name;
+      currentMoodSelected.value = Mood.sad.name;
     } else if (val <= 60) {
       currentMoodImage.value = ImageConstant.normalMood;
       currentMoodSelected.value = Mood.normal.name;
     } else if (val <= 80) {
-      currentMoodImage.value = ImageConstant.happyMood;
-      currentMoodSelected.value =Mood.happy.name;
-    } else {
       currentMoodImage.value = ImageConstant.goodMood;
       currentMoodSelected.value = Mood.good.name;
+    } else {
+      currentMoodImage.value = ImageConstant.happyMood;
+      currentMoodSelected.value = Mood.happy.name;
     }
   }
 
@@ -107,9 +107,8 @@ class CreateTimeLineController extends GetxController {
     feelingsController.text = feelingsController.text + keyword + ", ";
     update();
   }
+
   Future<void> postJournalSave() async {
-
-
     try {
       isLoading.value = true;
 
@@ -168,5 +167,4 @@ class CreateTimeLineController extends GetxController {
     currentMoodImage.value = ImageConstant.happyMood;
     moodSliderLeval.value = 50.0;
   }
-
 }

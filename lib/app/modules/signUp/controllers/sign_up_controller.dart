@@ -60,8 +60,7 @@ class SignUpController extends GetxController {
     final isNameValid = name.isNotEmpty;
     final isConfirmPasswordValid = confirmPassword.length > 0;
 
-    enabelSignUpBotton.value =
-        isNameValid &&
+    enabelSignUpBotton.value = isNameValid &&
         isEmailValid &&
         isPasswordValid &&
         isConfirmPasswordValid;
@@ -108,10 +107,9 @@ class SignUpController extends GetxController {
         builder: (context) {
           return Padding(
             padding: EdgeInsets.only(
-              bottom:
-                  MediaQuery.of(
-                    context,
-                  ).viewInsets.bottom, // Handle keyboard pushing up
+              bottom: MediaQuery.of(
+                context,
+              ).viewInsets.bottom, // Handle keyboard pushing up
             ),
             child: SingleChildScrollView(
               child: Padding(
@@ -184,10 +182,9 @@ class SignUpController extends GetxController {
       builder: (context) {
         return Padding(
           padding: EdgeInsets.only(
-            bottom:
-                MediaQuery.of(
-                  context,
-                ).viewInsets.bottom, // Handle keyboard pushing up
+            bottom: MediaQuery.of(
+              context,
+            ).viewInsets.bottom, // Handle keyboard pushing up
           ),
           child: SingleChildScrollView(
             child: Padding(
@@ -235,25 +232,23 @@ class SignUpController extends GetxController {
                         child: SizedBox(
                           height: 12.ksp,
                           width: 12.ksp,
-                          child:
-                              verifyingLisenceKey.value
-                                  ? CircularProgressIndicator(
-                                    color: ColorUtil(context).white,
-                                    strokeWidth: 2.ksp,
-                                  )
-                                  : licenseKeyVerified.value
+                          child: verifyingLisenceKey.value
+                              ? CircularProgressIndicator(
+                                  color: ColorUtil(context).white,
+                                  strokeWidth: 2.ksp,
+                                )
+                              : licenseKeyVerified.value
                                   ? Icon(
-                                    Icons.check,
-                                    weight: 2,
-                                    color: ColorUtil(context).white,
-                                  )
+                                      Icons.check,
+                                      weight: 2,
+                                      color: ColorUtil(context).white,
+                                    )
                                   : Container(),
                         ),
                       ),
-                      title:
-                          !licenseKeyVerified.value
-                              ? LocaleKeys.verify.tr
-                              : LocaleKeys.verified.tr,
+                      title: !licenseKeyVerified.value
+                          ? LocaleKeys.verify.tr
+                          : LocaleKeys.verified.tr,
                     ),
                   ),
                   30.kheightBox,
@@ -329,6 +324,7 @@ class SignUpController extends GetxController {
             body: {
               "name": fullNameController.text.trim(),
               "email": emailController.text.trim(),
+              "licensekey": lisenceKeyController.value.text.trim(),
             },
           );
           if (resSignUp.data['data'] != null && resSignUp.data['status']) {
