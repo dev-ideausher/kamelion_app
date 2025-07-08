@@ -146,7 +146,7 @@ class WorkoutModel {
   final String id;
   final String title;
   final String description;
-
+  final String mentalGymId;
   final List<String> category;
   var totalDuration;
   final bool isActive;
@@ -166,6 +166,7 @@ class WorkoutModel {
     required this.isTrending,
     this.createdAt,
     this.updatedAt,
+    required this.mentalGymId,
     required this.version,
   });
 
@@ -175,12 +176,13 @@ class WorkoutModel {
           ? Thumbnail.fromJson(json['thumbnail'])
           : null,
       id: json['_id'] ?? '',
-      title: json['title'] ?? '',
+      title: json['workoutTitle'] ?? '',
       description: json['description'] ?? '',
       category: (json['category'] as List<dynamic>?)
               ?.map((e) => e.toString())
               .toList() ??
           [],
+      mentalGymId: json['mentalGym'],
       totalDuration: json['totalDuration'] ?? 0,
       isActive: json['isActive'] ?? false,
       isTrending: json['isTrending'] ?? false,

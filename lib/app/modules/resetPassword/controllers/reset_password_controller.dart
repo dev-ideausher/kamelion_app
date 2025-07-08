@@ -93,8 +93,11 @@ class ResetPasswordController extends GetxController {
         });
       }).catchError((e) {
         DialogHelper.hideDialog();
-        showMySnackbar(msg: e.message.toString());
-        // print(err);
+        if (e.code == "invalid-credential") {
+          showMySnackbar(msg: "You’ve entered the wrong password.");
+        } else {
+          showMySnackbar(msg: e.message.toString());
+        }
       });
     } catch (e) {
       DialogHelper.hideDialog();

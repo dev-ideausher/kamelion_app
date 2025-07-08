@@ -45,16 +45,17 @@ class ChallengesController extends GetxController
     super.onInit();
     isLoading.value = true;
     challengePageTabController = TabController(length: 2, vsync: this);
-    await getActiveChallenges();
-    await getSuggestedChallenges();
-    await getCompletedChallenges();
-    await getSavedChallenges();
-    await getBagdes();
     for (int i = 0;
         i < Get.find<MentalGymController>().mentalGymCategoryList.length;
         i++) {
       screensList.add(CompletedChallenges());
     }
+
+    await getActiveChallenges();
+    await getSuggestedChallenges();
+    await getCompletedChallenges();
+    await getSavedChallenges();
+    await getBagdes();
 
     // Get.find<MentalGymController>().mentalGymCategoryList.map(f)
     isLoading.value = false;

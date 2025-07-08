@@ -10,7 +10,9 @@ import '../../../services/dio/api_service.dart';
 class HomeSearchController extends GetxController {
   final isLoading = false.obs;
   final keyword = ''.obs;
-  late FocusNode myFocusNode;
+  final FocusNode focusNode = FocusNode();
+  TextEditingController searchController = TextEditingController();
+  RxBool isSearched = false.obs;
   // RxLists for each category
   final communities = <CommunityModel>[].obs;
   final challenges = <ChallengeModel>[].obs;
@@ -20,7 +22,13 @@ class HomeSearchController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    myFocusNode = FocusNode();
+    focusNode.requestFocus();
+  }
+
+  @override
+  void onClose() {
+    focusNode.dispose();
+    super.onClose();
   }
 
   Future<void> getHomeSearch({required String searchQuery}) async {
@@ -51,6 +59,8 @@ class HomeSearchController extends GetxController {
             .map((e) => WorkoutModel.fromJson(e))
             .toList(),
       );
+      isSearched.value = true;
+      isSearched.refresh();
     } catch (e) {
       print(e.toString());
       Get.snackbar('Error', e.toString());

@@ -128,7 +128,7 @@ class APIManager {
     required String comment,
     String parentCommentId = "",
   }) async =>
-      await DioClient(Dio(), showSnakbar: false, isOverlayLoader: false).post(
+      await DioClient(Dio(), showSnakbar: false, isOverlayLoader: true).post(
         Endpoints.addComment(id),
         data: {
           "userId": Get.find<HomeController>().currentUser.value.sId,

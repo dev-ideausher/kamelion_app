@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/modules/profile/views/profile_view.dart';
 import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
@@ -51,7 +52,16 @@ class ChallengesAppBar extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.back();
+                    if (Get.find<ChallengesController>()
+                            .selectedScreenIndex
+                            .value !=
+                        0) {
+                      Get.find<ChallengesController>()
+                          .selectedScreenIndex
+                          .value = 0;
+                    } else {
+                      Get.back();
+                    }
                   },
                   child: Container(
                     height: 25.ksp,

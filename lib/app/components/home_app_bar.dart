@@ -195,6 +195,8 @@ class HomeAppBar extends StatelessWidget {
               onTap: () {
                 Get.toNamed(Routes.HOME_SEARCH);
               },
+              readOnly: true,
+              enableInteractiveSelection: false,
               decoration: InputDecoration(
                 hintText: LocaleKeys.search_for_anything.tr,
                 filled: true,

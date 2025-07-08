@@ -540,7 +540,7 @@ class LeaderList extends StatelessWidget {
                     ),
                   ],
                 ),
-                ((controller.leaderboardList.length) != index - 1)
+                ((controller.leaderBoardList.length) != index + 1)
                     ? Divider(color: ColorUtil(context).brandBorderColor)
                     : Container(),
               ],

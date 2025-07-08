@@ -49,7 +49,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     .mentalGym!
                     .sId ??
                 "");
-        Get.offNamed(
+        Get.toNamed(
           Routes.ONBOARDING_QUESTIONS,
           arguments: workoutId,
         );
