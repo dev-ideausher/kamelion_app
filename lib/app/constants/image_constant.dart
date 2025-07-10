@@ -75,6 +75,7 @@ class ImageConstant {
   static String lioCrying = 'assets/svg/lio_crying.svg';
   static String pencilIconEdit = 'assets/svg/pencil_edit_icon.svg';
   static String smileIconBordered = 'assets/svg/smile_icon_bordered.svg';
+  static String klioBulb = 'assets/svg/kleo_bulb.svg';
   //PNGs
   static String pngNewsBanner = 'assets/images/news_banner.png';
   static String splashScreenBg = 'assets/png/splash_screen_bg.png';

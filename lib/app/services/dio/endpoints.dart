@@ -9,7 +9,10 @@ class Endpoints {
   static const String signUp = "auth/register";
   static const String login = "auth/login";
   static const String getOnboardingQuestions = "question/getallquestions";
+  static const String personalityQuestionsType = "personalitytest/getall";
   static String getMentalGymQuestions(String id) => "quizmodule/allquizes/$id";
+  static String getPersonalityQuestions(String id) =>
+      "personalitytest/getquestions/$id";
   static String markOpenedCommunity(String id) => "community/markopened/$id";
   static const String getUser = "users/getUser";
   static const String getMyStats = "postinteraction/stats";
@@ -21,8 +24,8 @@ class Endpoints {
 
   static String updateUser(String id) => "users/updateuser/$id";
   static String submitQuize = "completequiz/save";
-  static String getMood(String id, String timezone) =>
-      "/mood/getmoods/$id?timezone=$timezone";
+  static String submitPersonalityAnswers = "personalitytest/complete";
+  static String getMood(String id, String timezone) => "/mood/getmoods/$id";
   static const String addMood = "mood/save";
   static String deleteAccount(String id) => "users/deleteuser/$id";
   static const String getMentalGymCategiries = "category/all-category";
@@ -31,7 +34,7 @@ class Endpoints {
   static const String getBadges = "badge/getAllBadges";
   static const String getLeaderboard = "postinteraction/leaderboard";
   static const String getCompletedChallenges =
-      "challenges/getchallengeprogress";
+      "challenges/getchallenges?status=completed";
   static const String getSavedChallenges = "challenges/getfavouritechallenges";
   static const String getSuggestedChallenges = "challenges/getchallenges?";
   static String getActiveMentalGym({

@@ -1,10 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/home_app_bar.dart';
+import 'package:kamelion/app/modules/challenges/controllers/challenges_controller.dart';
 import 'package:kamelion/app/modules/workoutDetails/views/video_player.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
+import 'package:kamelion/app/services/snackbar.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../components/common_image_view.dart';
@@ -137,7 +141,8 @@ class HomeSearchView extends GetView<HomeSearchController> {
                   return TabBarView(
                     children: [
                       // 1) Communities
-                      controller.communities.isEmpty
+                      controller.communities.isEmpty &&
+                              controller.isSearched.value
                           ? Padding(
                               padding: EdgeInsets.all(8.0.ksp),
                               child: Text(
@@ -168,7 +173,8 @@ class HomeSearchView extends GetView<HomeSearchController> {
                             ),
 
                       // 2) Challenges
-                      controller.challenges.isEmpty
+                      controller.challenges.isEmpty &&
+                              controller.isSearched.value
                           ? Padding(
                               padding: EdgeInsets.all(8.0.ksp),
                               child: Text(
@@ -184,7 +190,40 @@ class HomeSearchView extends GetView<HomeSearchController> {
                               itemBuilder: (_, i) {
                                 final ch = controller.challenges[i];
                                 return SuggestedWorkoutCards(
-                                  isSaved: false,
+                                  isSaved: ch.isSaved ?? false,
+                                  onSaved: () async {
+                                    try {
+                                      var res = await APIManager.saveChallenge(
+                                        body: {
+                                          "challengeId": ch.id,
+                                          // "userId": Get.find<HomeController>().currentUser.value.sId,
+                                        },
+                                      );
+                                      if (res.statusCode == 200 ||
+                                          res.statusCode == 201) {
+                                        // Get.back();
+                                        ch.isSaved = !ch.isSaved!;
+
+                                        controller.challenges.refresh();
+                                        showMySnackbar(
+                                            msg: res.data['message']);
+
+                                        return true;
+                                      } else {
+                                        return false;
+                                      }
+                                    } on DioException catch (dioError) {
+                                      showMySnackbar(
+                                          msg: dioError.message ?? "");
+                                      return false;
+                                    } catch (e, s) {
+                                      showMySnackbar(
+                                        // title: LocaleKeys.somethingWentWrong.tr,
+                                        msg: e.toString(),
+                                      );
+                                      return false;
+                                    }
+                                  },
                                   imageUrl: ch.image,
                                   subtitle: ch.challengeIntro ?? "",
                                   title: ch.challengeTitle,
@@ -198,7 +237,8 @@ class HomeSearchView extends GetView<HomeSearchController> {
 
                       // 3) Mental Gyms
 
-                      controller.mentalGyms.isEmpty
+                      controller.mentalGyms.isEmpty &&
+                              controller.isSearched.value
                           ? Padding(
                               padding: EdgeInsets.all(8.0.ksp),
                               child: Text(
@@ -213,24 +253,43 @@ class HomeSearchView extends GetView<HomeSearchController> {
                               itemCount: controller.mentalGyms.length,
                               itemBuilder: (_, i) {
                                 final mg = controller.mentalGyms[i];
-                                return ActiveWorkoutCards(
-                                  isSaved: true,
-                                  title: mg.title ?? "",
-                                  subtitle: mg.category!
-                                          .map((c) => c.title)
-                                          .join(', ') ??
-                                      "",
-                                  imageUrl: mg.thumbnail!.url ?? "",
-                                  onTap: () {
-                                    Get.toNamed(Routes.WORKOUT_DETAILS,
-                                        arguments: mg.sId);
-                                  },
+                                return Container(
+                                  // color: context.redBg,
+                                  child: ActiveWorkoutCards(
+                                    horizontalPadding: 2.ksp,
+                                    progress: mg.userProgress ?? 0,
+                                    isSaved: mg.isSaved ?? false,
+                                    onsaved: () async {
+                                      bool res =
+                                          await Get.find<MentalGymController>()
+                                              .saveMentalGym(
+                                        mentalGymId: mg.sId ?? "",
+                                      );
+                                      if (res) {
+                                        mg.isSaved = !mg.isSaved!;
+                                        controller.mentalGyms.refresh();
+                                        Get.find<MentalGymController>()
+                                            .completedMentalGym
+                                            .refresh();
+                                      }
+                                    },
+                                    title: mg.title ?? "",
+                                    subtitle: mg.category!
+                                            .map((c) => c.title)
+                                            .join(', ') ??
+                                        "",
+                                    imageUrl: mg.thumbnail!.url ?? "",
+                                    onTap: () {
+                                      Get.toNamed(Routes.WORKOUT_DETAILS,
+                                          arguments: mg.sId);
+                                    },
+                                  ),
                                 );
                               },
                             ),
 
                       // 4) Workouts
-                      controller.workouts.isEmpty
+                      controller.workouts.isEmpty && controller.isSearched.value
                           ? Padding(
                               padding: EdgeInsets.all(8.0.ksp),
                               child: Text(

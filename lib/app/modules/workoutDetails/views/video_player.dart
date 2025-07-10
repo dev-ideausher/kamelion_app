@@ -49,12 +49,17 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     .mentalGym!
                     .sId ??
                 "");
-        Get.toNamed(
-          Routes.ONBOARDING_QUESTIONS,
+
+        Get.offNamed(
+          Routes.START_QUIZE,
           arguments: workoutId,
         );
+        setState(() {
+          SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+        });
       }
-      setState(() {}); // Update UI for progress bar
+      setState(() {});
+      // Update UI for progress bar
     });
     setState(() {});
   }
@@ -87,7 +92,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     return WillPopScope(
       onWillPop: () async {
-        print('Hello');
         Get.find<WorkoutDetailsController>().postWorkoutProg(
             workoutID: workoutId.toString(),
             currentDuration: _videoPlayerController.value.position);

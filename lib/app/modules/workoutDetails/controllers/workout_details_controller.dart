@@ -48,6 +48,7 @@ class WorkoutDetailsController extends GetxController {
     if (response.statusCode == 200 || response.statusCode == 201) {
       getMentalGymDetails(mentalGymDetails!.value.mentalGym!.sId ?? "");
       await Get.find<MentalGymController>().getActiveMentalGym();
+      await Get.find<MentalGymController>().getAllMentalGym();
       await Get.find<MentalGymController>().getCompletedMentalGym();
       Get.find<MentalGymController>().activeMentalGymList.refresh();
       Get.find<MentalGymController>().completedMentalGym.refresh();

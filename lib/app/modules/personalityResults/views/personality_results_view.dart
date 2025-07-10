@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kamelion/app/components/activities/personality_test_appbar.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -18,7 +19,13 @@ class PersonalityResultsView extends GetView<PersonalityResultsController> {
     return Scaffold(
       floatingActionButton: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.0.ksp, vertical: 4.ksp),
-        child: CustomButton.outline(title: 'Go Home'),
+        child: CustomButton.outline(
+            onTap: () {
+              Get.back();
+              Get.back();
+              Get.find<NavigationBarController>().selectedIndex.value = 0;
+            },
+            title: 'Go Home'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Column(
@@ -40,11 +47,18 @@ class PersonalityResultsView extends GetView<PersonalityResultsController> {
                 ),
                 10.kheightBox,
                 Text(
-                  "Your personality is AAAAAAA",
+                  "Your personality is ${controller.personalityType.value}",
+                  textAlign: TextAlign.center,
                   style: TextStyleUtil.genNunitoSans500(
-                      fontSize: 14.ksp, color: context.black),
+                      fontSize: 12.5.ksp, color: context.black),
                 ),
                 10.kheightBox,
+                Text(
+                  "${controller.personalityDesc.value}",
+                  textAlign: TextAlign.center,
+                  style: TextStyleUtil.genNunitoSans500(
+                      fontSize: 12.5.ksp, color: context.black),
+                ),
               ],
             ),
           ),

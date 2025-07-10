@@ -44,12 +44,25 @@ class APIManager {
         isOverlayLoader: false,
       ).get(Endpoints.getOnboardingQuestions);
 
+  static Future<Response> personalityQuestionsType() async => await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.personalityQuestionsType);
+
   static Future<Response> getMentalGymQuestions(String id) async =>
       await DioClient(
         Dio(),
         showSnakbar: false,
         isOverlayLoader: false,
       ).get(Endpoints.getMentalGymQuestions(id));
+
+  static Future<Response> getPersonalityQuestions(String id) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: false,
+      ).get(Endpoints.getPersonalityQuestions(id));
 
   static Future<Response> getUser() async => await DioClient(
         Dio(),
@@ -426,6 +439,15 @@ class APIManager {
         showSnakbar: false,
         isOverlayLoader: true,
       ).post(Endpoints.submitQuize, data: body);
+
+  static Future<Response> submitPersonalityAnswers({
+    required var body,
+  }) async =>
+      await DioClient(
+        Dio(),
+        showSnakbar: false,
+        isOverlayLoader: true,
+      ).post(Endpoints.submitPersonalityAnswers, data: body);
 
   static Future<Response> postWorkoutProgressDuration({
     required var body,

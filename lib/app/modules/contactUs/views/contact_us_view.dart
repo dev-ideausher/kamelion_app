@@ -65,11 +65,28 @@ class ContactUsView extends GetView<ContactUsController> {
                   elevation: 4,
                   child: Padding(
                     padding: EdgeInsets.all(8.0.ksp),
-                    child: Text(
-                      "Write your suggestions and we will get back to you asap.",
+                    child: RichText(
                       textAlign: TextAlign.center,
-                      style: TextStyleUtil.genNunitoSans500(
-                          fontSize: 10.ksp, color: context.black),
+                      text: TextSpan(
+                        style: TextStyleUtil.genNunitoSans500(
+                          fontSize: 11.ksp,
+                          color: context.black,
+                        ),
+                        children: [
+                          const TextSpan(
+                            text:
+                                "Please write to us if you have any concern or email us at : ",
+                          ),
+                          TextSpan(
+                            text: "hello@kamelion.co",
+                            style: TextStyleUtil.genNunitoSans500(
+                              fontSize: 11.ksp,
+                              color: context.black,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

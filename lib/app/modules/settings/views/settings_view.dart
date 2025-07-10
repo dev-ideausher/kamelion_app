@@ -69,6 +69,7 @@ class SettingsView extends GetView<SettingsController> {
               title: "Help & Support",
               subTitle1: "FAQs",
               subTitle2: "Contact Us",
+              subTitle2B: "Make a suggestion",
               subTitle3: "Terms of Service",
               subTitle4: "Privacy Policy",
               ontap1: () {
@@ -76,6 +77,9 @@ class SettingsView extends GetView<SettingsController> {
               },
               onTap2: () {
                 Get.toNamed(Routes.CONTACT_US);
+              },
+              onTap2B: () {
+                Get.toNamed(Routes.SUGGESTION_FORM);
               },
               ontap3: () {
                 controller.openWebLink(
@@ -380,16 +384,18 @@ class SettingTab4 extends StatelessWidget {
     required this.title,
     required this.subTitle1,
     required this.subTitle2,
+    required this.subTitle2B,
     required this.subTitle3,
     required this.subTitle4,
     required this.onTap2,
+    required this.onTap2B,
     required this.ontap1,
     required this.ontap3,
     required this.onTap4,
   });
 
-  String title, subTitle1, subTitle2, subTitle3, subTitle4;
-  Function ontap1, onTap2, ontap3, onTap4;
+  String title, subTitle1, subTitle2, subTitle2B, subTitle3, subTitle4;
+  Function ontap1, onTap2, onTap2B, ontap3, onTap4;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -460,6 +466,38 @@ class SettingTab4 extends StatelessWidget {
                 children: [
                   Text(
                     subTitle2,
+                    style: TextStyleUtil.genSans500(
+                      fontSize: 11.ksp,
+                      color: ColorUtil(context).black,
+                    ),
+                  ),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios, size: 12.ksp),
+                ],
+              ),
+            ),
+          ),
+        ),
+        InkWell(
+          onTap: () => onTap2B(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0.ksp),
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 12.0.ksp,
+                vertical: 8.ksp,
+              ),
+              decoration: BoxDecoration(
+                color: ColorUtil(context).white,
+                border: Border.all(color: ColorUtil(context).grey),
+                borderRadius: BorderRadius.vertical(
+                    // top: Radius.circular(6.ksp),
+                    ), // Rounded corners
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    subTitle2B,
                     style: TextStyleUtil.genSans500(
                       fontSize: 11.ksp,
                       color: ColorUtil(context).black,

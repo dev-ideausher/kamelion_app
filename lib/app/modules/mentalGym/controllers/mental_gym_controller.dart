@@ -171,7 +171,7 @@ class MentalGymController extends GetxController {
       var response;
 
       response = await APIManager.searchMentalGym(
-        limit: "10",
+        limit: "100",
         page: "1",
         word: searchController.text,
       );

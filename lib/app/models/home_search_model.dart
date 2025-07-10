@@ -37,9 +37,11 @@ class ChallengeModel {
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final int version;
+  bool? isSaved;
 
   ChallengeModel({
     required this.id,
+    required this.isSaved,
     required this.challengeTitle,
     required this.image,
     required this.challengeIntro,
@@ -71,6 +73,7 @@ class ChallengeModel {
       status: json['status'] ?? '',
       categories: parsedCategories,
       type: json['type'] ?? '',
+      isSaved: json['isSaved'],
       totalDuration: json['totalDuration'] ?? 0,
       totalXP: json['totalXP'] ?? 0,
       isActive: json['isActive'] ?? false,

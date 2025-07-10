@@ -81,6 +81,10 @@ import '../modules/signUp/bindings/sign_up_binding.dart';
 import '../modules/signUp/views/sign_up_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/startQuize/bindings/start_quize_binding.dart';
+import '../modules/startQuize/views/start_quize_view.dart';
+import '../modules/suggestionForm/bindings/suggestion_form_binding.dart';
+import '../modules/suggestionForm/views/suggestion_form_view.dart';
 import '../modules/support/bindings/support_binding.dart';
 import '../modules/support/views/support_view.dart';
 import '../modules/update_timeline/bindings/update_timeline_binding.dart';
@@ -330,6 +334,16 @@ class AppPages {
       name: _Paths.RESET_PASSWORD,
       page: () => const ResetPasswordView(),
       binding: ResetPasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUGGESTION_FORM,
+      page: () => const SuggestionFormView(),
+      binding: SuggestionFormBinding(),
+    ),
+    GetPage(
+      name: _Paths.START_QUIZE,
+      page: () => const StartQuizeView(),
+      binding: StartQuizeBinding(),
     ),
   ];
 }

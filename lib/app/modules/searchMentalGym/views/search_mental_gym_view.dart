@@ -1,11 +1,15 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/mentalGyms/active_workout_card.dart';
 import 'package:kamelion/app/components/mentalGyms/mental_gyms_appbar.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
+import 'package:kamelion/app/services/snackbar.dart';
 import 'package:kamelion/app/services/text_style_util.dart';
 import 'package:kamelion/generated/locales.g.dart';
 
@@ -85,10 +89,30 @@ class SearchMentalGymView extends GetView<SearchMentalGymController> {
                         : Container(),
                     ...controller.searchedMentalGymList.map((mood) {
                       return ActiveWorkoutCards(
-                        isSaved: true,
+                        progress: mood.userProgress ?? 0,
+                        isSaved: mood.isSaved ?? false,
                         title: mood.title ?? "",
                         subtitle: mood.title ?? "",
                         imageUrl: mood.thumbnail!.url ?? "",
+                        onsaved: () async {
+                          bool res = await Get.find<MentalGymController>()
+                              .saveMentalGym(
+                            mentalGymId: mood.sId ?? "",
+                          );
+                          if (res) {
+                            mood.isSaved = !mood.isSaved!;
+                            controller.searchedMentalGymList.refresh();
+                            Get.find<MentalGymController>()
+                                .getActiveMentalGym();
+                            Get.find<MentalGymController>().getAllMentalGym();
+                            Get.find<MentalGymController>()
+                                .getCompletedMentalGym();
+                            Get.find<MentalGymController>().getSavedMentalGym();
+                            Get.find<MentalGymController>()
+                                .getSuggestedMentalGym();
+                            Get.find<HomeController>().getPopularMentalGym();
+                          }
+                        },
                         onTap: () {
                           Get.find<MentalGymController>().getWorkoutDetails(
                             mood.sId ?? "",

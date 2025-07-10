@@ -32,7 +32,6 @@ class TextStyleUtil {
     // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
   }
 
-
   static TextStyle genNunitoSans400({
     Color color = Colors.white,
     required double fontSize,
@@ -47,7 +46,6 @@ class TextStyleUtil {
 
     // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
   }
-
 
   static TextStyle genNunitoSans600({
     Color color = Colors.white,
@@ -64,23 +62,20 @@ class TextStyleUtil {
     // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
   }
 
-
-
-  static TextStyle genNunitoSans500({
-    Color color = Colors.white,
-    required double fontSize,
-    double? height,
-  }) {
+  static TextStyle genNunitoSans500(
+      {Color color = Colors.white,
+      required double fontSize,
+      double? height,
+      var decoration}) {
     return GoogleFonts.nunitoSans(
-      color: color,
-      fontSize: fontSize,
-      fontWeight: FontWeight.w500,
-      height: height,
-    );
+        color: color,
+        fontSize: fontSize,
+        fontWeight: FontWeight.w500,
+        height: height,
+        decoration: decoration);
 
     // TextStyle(fontFamily: GoogleFonts.getFont('Quicksand'));
   }
-
 
   static TextStyle genNunitoSans700({
     Color color = Colors.white,
@@ -93,7 +88,6 @@ class TextStyleUtil {
       fontWeight: FontWeight.w700,
       height: height,
     );
-
   }
 
   static TextStyle genSans500({
@@ -108,8 +102,6 @@ class TextStyleUtil {
     );
   }
 
-
-
   static TextStyle genSans700({
     Color color = Colors.white,
     required double fontSize,
@@ -122,8 +114,6 @@ class TextStyleUtil {
     );
   }
 
-
-
   static TextStyle genSans800({
     Color color = Colors.white,
     required double fontSize,
@@ -135,7 +125,6 @@ class TextStyleUtil {
       fontWeight: FontWeight.w800,
     );
   }
-
 
   static TextStyle genSans900({
     Color color = Colors.white,
@@ -159,11 +148,7 @@ class TextStyleUtil {
       fontWeight: FontWeight.w600,
     );
   }
-
 }
-
-
-
 
 extension AppText on String {
   String get string => this;
@@ -172,62 +157,65 @@ extension AppText on String {
     double fontSize, {
     Color color = Colors.black,
     TextAlign? textAlign,
-  }) => Text(
-    string,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontFamily: 'General Sans',
-      color: color,
-      fontSize: fontSize,
-      fontWeight: FontWeight.w300,
-    ),
-  );
+  }) =>
+      Text(
+        string,
+        textAlign: textAlign,
+        style: TextStyle(
+          fontFamily: 'General Sans',
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w300,
+        ),
+      );
 
   Widget text400(
     double fontSize, {
     Color color = Colors.black,
     TextAlign? textAlign,
-  }) => Text(
-    string,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontFamily: 'General Sans',
-      color: color,
-      fontSize: fontSize,
-      fontWeight: FontWeight.w400,
-    ),
-  );
+  }) =>
+      Text(
+        string,
+        textAlign: textAlign,
+        style: TextStyle(
+          fontFamily: 'General Sans',
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w400,
+        ),
+      );
 
   Widget text500(
     double fontSize, {
     Color color = Colors.black,
     TextAlign? textAlign,
-  }) => Text(
-    string,
-    textAlign: textAlign,
-    style: TextStyle(
-      fontFamily: 'General Sans',
-      color: color,
-      fontSize: fontSize,
-      fontWeight: FontWeight.w500,
-    ),
-  );
+  }) =>
+      Text(
+        string,
+        textAlign: textAlign,
+        style: TextStyle(
+          fontFamily: 'General Sans',
+          color: color,
+          fontSize: fontSize,
+          fontWeight: FontWeight.w500,
+        ),
+      );
 
   Widget text600(
     double fontSize, {
     Color color = Colors.black,
     TextAlign? textAlign,
     TextStyle? style,
-  }) => Text(
-    string,
-    textAlign: textAlign,
-    style:
-        style ??
-        TextStyle(
-          fontFamily: 'General Sans',
-          color: color,
-          fontSize: fontSize,
-          fontWeight: FontWeight.w600,
-        ),
-  );
+  }) =>
+      Text(
+        string,
+        textAlign: textAlign,
+        style: style ??
+            TextStyle(
+              fontFamily: 'General Sans',
+              color: color,
+              fontSize: fontSize,
+              fontWeight: FontWeight.w600,
+            ),
+      );
 }

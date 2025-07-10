@@ -140,7 +140,15 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                         Padding(
                           padding: EdgeInsets.all(12.0.ksp),
                           child: CustomButton.outline(
-                            onTap: () {
+                            onTap: () async {
+                              await Get.find<WorkoutDetailsController>()
+                                  .getMentalGymDetails(
+                                      Get.find<WorkoutDetailsController>()
+                                              .mentalGymDetails!
+                                              .value
+                                              .mentalGym!
+                                              .sId ??
+                                          "");
                               if ((Get.find<WorkoutDetailsController>()
                                           .mentalGymDetails!
                                           .value
@@ -150,6 +158,7 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                                   100) {
                                 Get.offNamed(Routes.COURSE_COMPLETE);
                               } else {
+                                Get.back();
                                 Get.back();
                               }
                             },

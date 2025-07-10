@@ -38,7 +38,7 @@ class MoodSelectionFormController extends GetxController {
     "Lonely",
     "Angry",
     "Frustrated",
-    "Embarrassed"
+    "Embarrassed",
     "Betrayed",
     "Disappointed",
     "Rejected",
@@ -120,17 +120,17 @@ class MoodSelectionFormController extends GetxController {
   }
 
   onFeelingSelected({required String keyword}) {
-    if(feelingsController.text.contains(keyword)){}else{
+    if (feelingsController.text.contains(keyword)) {
+    } else {
       if (feelingsController.text.toString().length >= 2 &&
           (feelingsController.text
-              .toString()[feelingsController.text.toString().length - 2] !=
+                  .toString()[feelingsController.text.toString().length - 2] !=
               ",")) {
         feelingsController.text = feelingsController.text + ", ";
       }
       feelingsController.text = feelingsController.text + keyword + ", ";
       update();
     }
-
   }
 
   Future<void> addMood() async {

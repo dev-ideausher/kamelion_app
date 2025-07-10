@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/routes/app_pages.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/custom_button.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -53,6 +54,9 @@ class PersonalInsightBox extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 150..ksp),
                   child: CustomButton.outline(
+                    onTap: () {
+                      Get.toNamed(Routes.PERSONALITY_TESTS);
+                    },
                     height: 30.ksp,
                     title: LocaleKeys.start_quiz.tr,
                   ),

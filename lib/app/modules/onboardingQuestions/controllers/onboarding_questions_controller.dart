@@ -21,11 +21,11 @@ class OnboardingQuestionsController extends GetxController {
       <OnBoardingQuestionsModel>[].obs;
   // RxList<List<int?>> selectedQuestionsIndexes = <List<int?>>[].obs;
   RxInt currentQuetionIndex = 0.obs;
-
+  String fromPage = "";
   @override
   void onInit() async {
     super.onInit();
-    String fromPage = Get.arguments ?? "";
+    fromPage = Get.arguments ?? "";
     if (fromPage == Routes.GET_STARTED) {
       await getOnboardingQuestions();
     } else {
@@ -83,7 +83,9 @@ class OnboardingQuestionsController extends GetxController {
           onboardingQuestionsList.add(OnBoardingQuestionsModel.fromJson(data));
         }
       } else {
-        debugPrint("An error occurred while getting vendor profile: ${response.data['message']}",);
+        debugPrint(
+          "An error occurred while getting vendor profile: ${response.data['message']}",
+        );
       }
       update();
       return;
@@ -100,13 +102,34 @@ class OnboardingQuestionsController extends GetxController {
     required int questionIndex,
     required int answerIndex,
   }) async {
-    if (onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] ==
-        0) {
-      onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] = 1;
+    if (fromPage == Routes.GET_STARTED) {
+      if (onboardingQuestionsList[questionIndex]
+              .isOptionSelected[answerIndex] ==
+          0) {
+        onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] =
+            1;
+      } else {
+        onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] =
+            0;
+      }
+      update();
     } else {
-      onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] = 0;
+      for (int i = 0;
+          i < onboardingQuestionsList[questionIndex].isOptionSelected.length;
+          i++) {
+        onboardingQuestionsList[questionIndex].isOptionSelected[i] = 0;
+      }
+
+      if (onboardingQuestionsList[questionIndex]
+              .isOptionSelected[answerIndex] ==
+          0) {
+        onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] =
+            1;
+      } else {
+        onboardingQuestionsList[questionIndex].isOptionSelected[answerIndex] =
+            0;
+      }
     }
-    update();
   }
 
   void goToNextQuestion() {
@@ -234,6 +257,7 @@ class OnboardingQuestionsController extends GetxController {
       ]);
       Get.find<HomeController>().getUser();
       Get.find<MentalGymController>().getActiveMentalGym();
+      Get.find<MentalGymController>().getAllMentalGym();
       Get.find<MentalGymController>().getCompletedMentalGym();
       Get.find<WorkoutDetailsController>().getMentalGymDetails(
           Get.find<WorkoutDetailsController>()

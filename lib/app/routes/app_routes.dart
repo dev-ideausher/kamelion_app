@@ -48,6 +48,8 @@ abstract class Routes {
   static const CONTACT_US = _Paths.CONTACT_US;
   static const FAQS = _Paths.FAQS;
   static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
+  static const SUGGESTION_FORM = _Paths.SUGGESTION_FORM;
+  static const START_QUIZE = _Paths.START_QUIZE;
 }
 
 abstract class _Paths {
@@ -97,4 +99,6 @@ abstract class _Paths {
   static const CONTACT_US = '/contact-us';
   static const FAQS = '/faqs';
   static const RESET_PASSWORD = '/reset-password';
+  static const SUGGESTION_FORM = '/suggestion-form';
+  static const START_QUIZE = '/start-quize';
 }

@@ -18,16 +18,18 @@ class ActiveWorkoutCards extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.isSaved,
+    this.horizontalPadding = 10.0,
     this.progress = 0,
   });
   Function()? onTap, onsaved;
   String imageUrl, title, subtitle;
   bool isSaved;
-  num progress;
+  num progress, horizontalPadding;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.0.ksp, vertical: 8.ksp),
+      padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding.ksp, vertical: 8.ksp),
       child: InkWell(
         onTap: onTap,
         child: Card(
@@ -106,7 +108,9 @@ class ActiveWorkoutCards extends StatelessWidget {
                   ),
                 ),
                 Get.find<MentalGymController>().selectedScreenIndex != 1 &&
-                        Get.find<MentalGymController>().selectedScreenIndex != 0
+                        Get.find<MentalGymController>().selectedScreenIndex !=
+                            0 &&
+                        Get.find<MentalGymController>().selectedScreenIndex != 2
                     ? Padding(
                         padding: EdgeInsets.symmetric(horizontal: 8.0.ksp),
                         child: Text(
@@ -118,28 +122,40 @@ class ActiveWorkoutCards extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Padding(
-                        padding: EdgeInsets.all(11.0.ksp),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: LinearProgressIndicator(
-                                value: (progress / 100),
-                                minHeight: 8.ksp,
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  context.brandColor1,
-                                ),
-                                backgroundColor: context.grey,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(12.0.ksp),
-                                ),
+                    : progress == 0
+                        ? Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0.ksp),
+                            child: Text(
+                              "Earn Kalikoins",
+                              style: TextStyleUtil.genSans500(
+                                fontSize: 11.ksp,
+                                color: ColorUtil(context).brandColor1,
+                                height: 1.2,
                               ),
                             ),
-                            12.kwidthBox,
-                            Text("$progress% " + LocaleKeys.complete.tr),
-                          ],
-                        ),
-                      ),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.all(11.0.ksp),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: LinearProgressIndicator(
+                                    value: (progress / 100),
+                                    minHeight: 8.ksp,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      context.brandColor1,
+                                    ),
+                                    backgroundColor: context.grey,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(12.0.ksp),
+                                    ),
+                                  ),
+                                ),
+                                12.kwidthBox,
+                                Text("$progress% " + LocaleKeys.complete.tr),
+                              ],
+                            ),
+                          ),
                 if (false)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 11.0.ksp),
