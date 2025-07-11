@@ -53,14 +53,15 @@ class SettingsView extends GetView<SettingsController> {
               subTitle2: "Redeemed Savings ",
               ontap1: () async {
                 Get.toNamed(Routes.CHALLENGES);
+
                 final challengeController =
                     Get.isRegistered<ChallengesController>()
                         ? Get.find<ChallengesController>()
                         : Get.put(ChallengesController());
-                await Get.find<ChallengesController>().getBagdes();
                 Get.find<ChallengesController>()
                     .challengePageTabController
                     .animateTo(1);
+                await Get.find<ChallengesController>().getBagdes();
               },
               onTap2: () {},
             ),

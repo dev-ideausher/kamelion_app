@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>539673187116-v83dk4fslcdqlm5v37kr19tqbvm36s34.apps.googleusercontent.com</string>
+	<string>539673187116-v5d2c30rdgmc0fl54i53qsvfils38tro.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.539673187116-v83dk4fslcdqlm5v37kr19tqbvm36s34</string>
+	<string>com.googleusercontent.apps.539673187116-v5d2c30rdgmc0fl54i53qsvfils38tro</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDhnGSTot7LnF7nrMAYj6gPtKd4RhqdWsg</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.kamelion</string>
+	<string>com.iu.kamelion</string>
 	<key>PROJECT_ID</key>
 	<string>kamelion-f5ff8</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:539673187116:ios:a40da2454265e27f7ad289</string>
+	<string>1:539673187116:ios:ad7e2825f235f1967ad289</string>
 </dict>
 </plist>

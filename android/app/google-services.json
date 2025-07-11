@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "539673187116-v83dk4fslcdqlm5v37kr19tqbvm36s34.apps.googleusercontent.com",
+              "client_id": "539673187116-v5d2c30rdgmc0fl54i53qsvfils38tro.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.kamelion"
+                "bundle_id": "com.iu.kamelion"
               }
             }
           ]
@@ -67,10 +67,10 @@
               "client_type": 3
             },
             {
-              "client_id": "539673187116-v83dk4fslcdqlm5v37kr19tqbvm36s34.apps.googleusercontent.com",
+              "client_id": "539673187116-v5d2c30rdgmc0fl54i53qsvfils38tro.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.kamelion"
+                "bundle_id": "com.iu.kamelion"
               }
             }
           ]
