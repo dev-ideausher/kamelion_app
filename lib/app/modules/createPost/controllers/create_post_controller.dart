@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/models/community_model.dart';
 import 'package:kamelion/app/modules/communityPosts/controllers/community_posts_controller.dart';
+import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/services/dialog_helper.dart';
 import 'package:kamelion/app/services/dio/api_service.dart';
 import 'package:kamelion/app/services/snackbar.dart';
@@ -65,8 +66,17 @@ class CreatePostController extends GetxController {
           await Get.find<CommunityPostsController>().getCommunityDetails(
             communitySelected?.sId ?? "",
           );
+          update();
           Get.back();
+          // await Get.find<CommunityPostsController>().getCommunityDetails(
+          //     Get.find<CommunityPostsController>().communitySelected?.sId ??
+          //         "");
+          // Get.find<CommunityPostsController>().refresh();
+          update();
+          await Get.find<HomeController>().getUser();
+          Get.find<HomeController>().currentUser.refresh();
           DialogHelper.hideDialog();
+
           showMySnackbar(msg: response.data['message']);
         } else {
           showMySnackbar(msg: response.data['message'] ?? "");

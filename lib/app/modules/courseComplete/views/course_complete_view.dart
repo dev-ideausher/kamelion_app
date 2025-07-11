@@ -19,7 +19,15 @@ class CourseCompleteView extends GetView<CourseCompleteController> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorUtil(context).completionScreenBg,
-      appBar: AppBar(backgroundColor: ColorUtil(context).completionScreenBg),
+      appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back(); // example action
+              Get.back(); // Navigate back
+            },
+          ),
+          backgroundColor: ColorUtil(context).completionScreenBg),
       body: Column(
         children: [
           50.kheightBox,

@@ -15,6 +15,13 @@ class MindFullHoursController extends GetxController {
 
   Future<void> _initAudio() async {
     try {
+      // await player.setAndroidAudioAttributes(
+      //   const AndroidAudioAttributes(
+      //     contentType: AndroidAudioContentType.music,
+      //     usage: AndroidAudioUsage.media,
+      //     flags: AndroidAudioFlags.none,
+      //   ),
+      // );
       await player.setUrl(
         'https://kamelion.s3.eu-north-1.amazonaws.com/public/workoutVideos/Cloudy+vs.+Clear+Day+Mindset.mp3',
       );

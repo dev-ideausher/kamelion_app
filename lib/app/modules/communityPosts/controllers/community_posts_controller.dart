@@ -26,7 +26,7 @@ class CommunityPostsController extends GetxController {
 
   final count = 0.obs;
   CommunityModel? communitySelected;
-  Rx<CommunityDetailsModel>? communityDetails;
+  Rx<CommunityDetailsModel>? communityDetails = CommunityDetailsModel().obs;
   RxList<CommuntyMembersModel> membersList = <CommuntyMembersModel>[].obs;
   RxBool isLoading = false.obs;
   RxBool showMembers = false.obs;
@@ -40,6 +40,7 @@ class CommunityPostsController extends GetxController {
       communitySelected?.sId ?? "",
       isOverlayLoader: false,
     );
+    isLoading.value = true;
     await getMembersOfList(communitySelected?.sId ?? "");
     isLoading.value = false;
     super.onInit();
@@ -68,10 +69,11 @@ class CommunityPostsController extends GetxController {
         id: id,
         isOverlayLoader: isOverlayLoader,
       );
-
+      isLoading.value = true;
       if (response.data['data'] != null && response.data['status']) {
-        communityDetails =
-            CommunityDetailsModel.fromJson(response.data['data']).obs;
+        communityDetails!.value =
+            CommunityDetailsModel.fromJson(response.data['data']);
+        isLoading.value = false;
       } else {
         debugPrint(
           "An error occurred while getting vendor profile: ${response.data['message']}",
@@ -260,6 +262,7 @@ class CommunityPostsController extends GetxController {
                   Get.back();
                   showMySnackbar(msg: res.data['message']);
                   getCommunityDetails(communitySelected?.sId ?? "");
+                  Get.find<HomeController>().getUser();
                 }
               } on DioException catch (dioError) {
                 showMySnackbar(msg: dioError.message ?? "");

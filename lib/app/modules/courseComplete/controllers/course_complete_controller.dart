@@ -62,6 +62,8 @@ class CourseCompleteController extends GetxController {
       update();
       // return;
     } on DioException catch (dioError) {
+      Get.back();
+      Get.back();
       showMySnackbar(msg: dioError.response?.data['message'] ?? "");
     } catch (e, s) {
       showMySnackbar(

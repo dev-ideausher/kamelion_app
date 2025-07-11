@@ -62,35 +62,39 @@ class CommunityPostsView extends GetView<CommunityPostsController> {
                 body: SingleChildScrollView(
                   child: Column(
                     children: [
-                      CommunityPostsAppBar(
-                        isMember: (controller
-                                .communityDetails?.value.community?.isMember ??
-                            false),
-                        userAvatarDetails: controller
-                                .communitySelected?.userId!.avatardetails ??
-                            "",
-                        // isSaved:    controller.communitySelected?,
-                        communityImage:
-                            controller.communitySelected?.profileImage?.url ??
-                                "",
-                        title: controller.communitySelected?.name ?? "",
-                        ownweName:
-                            controller.communitySelected?.userId?.nickname ??
-                                "",
-                        memberCount: controller
-                                .communitySelected?.numberOfMembers
-                                .toString() ??
-                            "",
-                        postCount: controller.communitySelected?.numberofPosts
-                                .toString() ??
-                            "",
-                        category: controller.communitySelected?.category?.title
-                                .toString() ??
-                            "",
-                        categoryImage: controller
-                                .communitySelected?.category?.image
-                                .toString() ??
-                            "",
+                      Obx(
+                        () => CommunityPostsAppBar(
+                          isMember: (controller.communityDetails?.value
+                                  .community?.isMember ??
+                              false),
+                          userAvatarDetails: controller
+                                  .communitySelected?.userId!.avatardetails ??
+                              "",
+                          // isSaved:    controller.communitySelected?,
+                          communityImage:
+                              controller.communitySelected?.profileImage?.url ??
+                                  "",
+                          title: controller.communitySelected?.name ?? "",
+                          ownweName:
+                              controller.communitySelected?.userId?.nickname ??
+                                  "",
+                          memberCount: controller
+                                  .communitySelected?.numberOfMembers
+                                  .toString() ??
+                              "",
+                          postCount: controller.communityDetails?.value
+                                  .community!.numberofPosts
+                                  .toString() ??
+                              "",
+                          category: controller
+                                  .communitySelected?.category?.title
+                                  .toString() ??
+                              "",
+                          categoryImage: controller
+                                  .communitySelected?.category?.image
+                                  .toString() ??
+                              "",
+                        ),
                       ),
                       controller.showMembers.value
                           ? Padding(

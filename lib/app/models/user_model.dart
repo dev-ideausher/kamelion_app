@@ -24,6 +24,7 @@ class UserModel {
   String? nickname;
   num? rewards;
   int? iV;
+  num? numberofPosts;
   String? licenceExpire;
 
   UserModel({
@@ -39,6 +40,7 @@ class UserModel {
     this.licenceExpire,
     this.haveLicensekey,
     this.licensekey,
+    this.numberofPosts,
     this.firebaseUid,
     this.firebaseSignInProvider,
     this.rechargePreference,
@@ -58,6 +60,7 @@ class UserModel {
   UserModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
+    numberofPosts = json['numberofPosts'];
     rewards = json['rewards'];
     moodStreakCount = json['moodStreakCount'];
     email = json['email'];
@@ -97,6 +100,7 @@ class UserModel {
     if (this.profilePic != null) {
       data['profilePic'] = this.profilePic!.toJson();
     }
+    data['numberofPosts'] = this.numberofPosts;
     data['dob'] = this.dob;
     data['haveLicensekey'] = this.haveLicensekey;
     data['licensekey'] = this.licensekey;

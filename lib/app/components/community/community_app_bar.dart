@@ -140,7 +140,7 @@ class CommunityAppBar extends StatelessWidget {
                         CommonImageView(svgPath: ImageConstant.postIcon),
                         4.kwidthBox,
                         Text(
-                          "25" + " " + "Total Posts",
+                          "${Get.find<HomeController>().currentUser.value.numberofPosts ?? 0} Total Posts",
                           style: TextStyleUtil.genSans400(
                             color: ColorUtil(context).white,
                             fontSize: 12.ksp,
@@ -166,7 +166,7 @@ class CommunityAppBar extends StatelessWidget {
                 Get.toNamed(
                   Routes.SEARCH_COMMUNITY,
                   arguments:
-                  Get.find<CommunityController>().searchController.text,
+                      Get.find<CommunityController>().searchController.text,
                 );
                 Get.find<CommunityController>().searchController.text = "";
               },

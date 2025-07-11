@@ -75,9 +75,27 @@ class OnboardingQuestionsController extends GetxController {
 
       if (response.data['data'] == null ||
           (response.data['data'] is List && response.data['data'].isEmpty)) {
-        Get.back();
-        showMySnackbar(
-            title: "Message", msg: "No quiz is available for this page");
+        await Get.find<WorkoutDetailsController>().getMentalGymDetails(
+            Get.find<WorkoutDetailsController>()
+                    .mentalGymDetails!
+                    .value
+                    .mentalGym!
+                    .sId ??
+                "",
+            isOverlayLoader: false);
+        if ((Get.find<WorkoutDetailsController>()
+                    .mentalGymDetails!
+                    .value
+                    .mentalGym!
+                    .userProgress ??
+                0) ==
+            100) {
+          Get.offNamed(Routes.COURSE_COMPLETE);
+        } else {
+          Get.back();
+          showMySnackbar(
+              title: "Message", msg: "No quiz is available for this page");
+        }
       } else if (response.data['data'] != null && response.data['status']) {
         for (Map<String, dynamic> data in response.data['data']) {
           onboardingQuestionsList.add(OnBoardingQuestionsModel.fromJson(data));
