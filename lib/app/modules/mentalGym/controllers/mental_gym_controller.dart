@@ -270,6 +270,10 @@ class MentalGymController extends GetxController {
         );
         showMySnackbar(msg: response.data['message'] ?? "");
       }
+      if (selectedScreenIndex == 1) {
+        viewAllMentalGymList.value = allMentalGym.value;
+        viewAllMentalGymList.refresh();
+      }
       update();
       // return;
     } on DioException catch (dioError) {

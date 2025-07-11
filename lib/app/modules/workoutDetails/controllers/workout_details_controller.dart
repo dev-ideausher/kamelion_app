@@ -62,11 +62,12 @@ class WorkoutDetailsController extends GetxController {
 
   void increment() => count.value++;
 
-  Future<void> getMentalGymDetails(String id) async {
+  Future<void> getMentalGymDetails(String id, {isOverlayLoader = false}) async {
     try {
       var response;
 
-      response = await APIManager.getMentalGymsDetails(id: id);
+      response = await APIManager.getMentalGymsDetails(
+          id: id, isOverlayLoader: isOverlayLoader);
 
       if (response.data['data'] != null && response.data['status']) {
         mentalGymDetails =

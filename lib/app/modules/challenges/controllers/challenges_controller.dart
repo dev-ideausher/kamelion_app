@@ -50,14 +50,12 @@ class ChallengesController extends GetxController
         i++) {
       screensList.add(CompletedChallenges());
     }
-
     await getActiveChallenges();
+    isLoading.value = true;
     await getSuggestedChallenges();
     await getCompletedChallenges();
     await getSavedChallenges();
     await getBagdes();
-
-    // Get.find<MentalGymController>().mentalGymCategoryList.map(f)
     isLoading.value = false;
   }
 

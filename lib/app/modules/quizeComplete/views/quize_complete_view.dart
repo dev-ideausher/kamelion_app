@@ -148,7 +148,8 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                                               .value
                                               .mentalGym!
                                               .sId ??
-                                          "");
+                                          "",
+                                      isOverlayLoader: true);
                               if ((Get.find<WorkoutDetailsController>()
                                           .mentalGymDetails!
                                           .value

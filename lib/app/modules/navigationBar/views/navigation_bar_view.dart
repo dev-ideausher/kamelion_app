@@ -20,84 +20,88 @@ class NavigationBarView extends GetView<NavigationBarController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Scaffold(
-        body: IndexedStack(
-          index: controller.selectedIndex.value,
-          children: [
-            HomeView(),
-            MentalGymView(),
-            ActivitiesView(),
-            CommunityView(),
-            ProfileView(),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: controller.selectedIndex.value,
-          onTap: controller.changePage,
-          type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: TextStyleUtil.genSans400(
-            fontSize: 8.ksp,
-            color: ColorUtil(context).brandColor1,
+      () => WillPopScope(
+        onWillPop: () async {
+          if (controller.selectedIndex.value != 0) {
+            controller.selectedIndex.value != 1;
+            return false;
+          }
+          return true;
+        },
+        child: Scaffold(
+          body: IndexedStack(
+            index: controller.selectedIndex.value,
+            children: [
+              HomeView(),
+              MentalGymView(),
+              ActivitiesView(),
+              CommunityView(),
+              ProfileView(),
+            ],
           ),
-          unselectedLabelStyle: TextStyleUtil.genSans400(
-            fontSize: 8.ksp,
-            color: ColorUtil(context).grey,
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: controller.selectedIndex.value,
+            onTap: controller.changePage,
+            type: BottomNavigationBarType.fixed,
+            selectedLabelStyle: TextStyleUtil.genSans400(
+              fontSize: 8.ksp,
+              color: ColorUtil(context).brandColor1,
+            ),
+            unselectedLabelStyle: TextStyleUtil.genSans400(
+              fontSize: 8.ksp,
+              color: ColorUtil(context).grey,
+            ),
+            selectedItemColor: ColorUtil(context).brandColor1,
+            backgroundColor: ColorUtil(context).white,
+            items: [
+              BottomNavigationBarItem(
+                icon: CommonImageView(
+                  svgPath: controller.selectedIndex.value == 0
+                      ? ImageConstant.homeSelected
+                      : ImageConstant.homeUnselected,
+                ),
+                label: LocaleKeys.home.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 2.0.ksp),
+                  child: CommonImageView(
+                    svgPath: controller.selectedIndex.value == 1
+                        ? ImageConstant.mentalGymSelected
+                        : ImageConstant.mentalGymUnselected,
+                  ),
+                ),
+                label: LocaleKeys.mentalGyms.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: CommonImageView(
+                  svgPath: controller.selectedIndex.value == 2
+                      ? ImageConstant.activitySelected
+                      : ImageConstant.activityUnselected,
+                ),
+                label: LocaleKeys.activities.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: EdgeInsets.only(bottom: 3.ksp),
+                  child: CommonImageView(
+                    svgPath: controller.selectedIndex.value == 3
+                        ? ImageConstant.communitySelected
+                        : ImageConstant.communityUnselected,
+                  ),
+                ),
+                label: LocaleKeys.community.tr,
+              ),
+              BottomNavigationBarItem(
+                icon: CommonImageView(
+                  svgPath: controller.selectedIndex.value == 4
+                      ? ImageConstant.profielSelected
+                      : ImageConstant.profielUnselected,
+                ),
+                label: LocaleKeys.profile.tr,
+              ),
+            ],
           ),
-          selectedItemColor: ColorUtil(context).brandColor1,
-          backgroundColor: ColorUtil(context).white,
-          items: [
-            BottomNavigationBarItem(
-              icon: CommonImageView(
-                svgPath:
-                    controller.selectedIndex.value == 0
-                        ? ImageConstant.homeSelected
-                        : ImageConstant.homeUnselected,
-              ),
-              label: LocaleKeys.home.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(bottom: 2.0.ksp),
-                child: CommonImageView(
-                  svgPath:
-                      controller.selectedIndex.value == 1
-                          ? ImageConstant.mentalGymSelected
-                          : ImageConstant.mentalGymUnselected,
-                ),
-              ),
-              label: LocaleKeys.mentalGyms.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: CommonImageView(
-                svgPath:
-                    controller.selectedIndex.value == 2
-                        ? ImageConstant.activitySelected
-                        : ImageConstant.activityUnselected,
-              ),
-              label: LocaleKeys.activities.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(bottom: 3.ksp),
-                child: CommonImageView(
-                  svgPath:
-                      controller.selectedIndex.value == 3
-                          ? ImageConstant.communitySelected
-                          : ImageConstant.communityUnselected,
-                ),
-              ),
-              label: LocaleKeys.community.tr,
-            ),
-            BottomNavigationBarItem(
-              icon: CommonImageView(
-                svgPath:
-                    controller.selectedIndex.value == 4
-                        ? ImageConstant.profielSelected
-                        : ImageConstant.profielUnselected,
-              ),
-              label: LocaleKeys.profile.tr,
-            ),
-          ],
         ),
       ),
     );

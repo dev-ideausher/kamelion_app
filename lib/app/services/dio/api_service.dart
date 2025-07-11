@@ -96,11 +96,12 @@ class APIManager {
         isOverlayLoader: false,
       ).get(Endpoints.getMentalGymCategiries);
 
-  static Future<Response> getMentalGymsDetails({required String id}) async =>
+  static Future<Response> getMentalGymsDetails(
+          {required String id, required bool isOverlayLoader}) async =>
       await DioClient(
         Dio(),
         showSnakbar: false,
-        isOverlayLoader: false,
+        isOverlayLoader: isOverlayLoader,
       ).get(Endpoints.getMentalGymsDetails(id));
 
   static Future<Response> getChallengesDetails({required String id}) async =>
