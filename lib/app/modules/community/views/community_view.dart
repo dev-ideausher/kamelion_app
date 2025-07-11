@@ -31,6 +31,9 @@ class CommunityView extends GetView<CommunityController> {
                     Get.toNamed(Routes.CREATE_COMMUNITY)?.then((result) async {
                       if (result == true) {
                         await controller.getYourCommunities();
+                        await controller.getTrendingCommunities();
+                        await controller.getSavedCommunities();
+                        await controller.getAllCommunities();
                       }
                     });
                   },

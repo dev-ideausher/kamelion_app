@@ -10,8 +10,10 @@ class CourseCompleteController extends GetxController {
 
   final count = 0.obs;
   int selectedRating = 2;
+  bool doesNotHaveQuize = false;
   @override
   void onInit() {
+    doesNotHaveQuize = Get.arguments ?? false;
     super.onInit();
   }
 
@@ -51,7 +53,10 @@ class CourseCompleteController extends GetxController {
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
         Get.back();
-        Get.back();
+        // Get.back();
+        if (!doesNotHaveQuize) {
+          Get.back();
+        }
         showMySnackbar(msg: "Thanks for submiting the rating");
       } else {
         debugPrint(
@@ -63,7 +68,10 @@ class CourseCompleteController extends GetxController {
       // return;
     } on DioException catch (dioError) {
       Get.back();
-      Get.back();
+      // Get.back();
+      if (!doesNotHaveQuize) {
+        Get.back();
+      }
       showMySnackbar(msg: dioError.response?.data['message'] ?? "");
     } catch (e, s) {
       showMySnackbar(

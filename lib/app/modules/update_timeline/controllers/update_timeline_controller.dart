@@ -22,8 +22,8 @@ class UpdateTimelineController extends GetxController {
   RxString currentMoodImage = ImageConstant.normalMood.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final RxBool isLoading = false.obs;
-  var journalId=''.obs;
-  var viewOnly=false.obs;
+  var journalId = ''.obs;
+  var viewOnly = false.obs;
   List<String> feelingsKeywords = [
     "Happy",
     "Sad",
@@ -46,7 +46,7 @@ class UpdateTimelineController extends GetxController {
   void onInit() {
     super.onInit();
     journalId.value = Get.arguments['id'] as String;
-    viewOnly.value=Get.arguments['viewOnly']??false;
+    viewOnly.value = Get.arguments['viewOnly'] ?? false;
     _loadJournalDetails();
   }
 
@@ -78,30 +78,29 @@ class UpdateTimelineController extends GetxController {
       currentMoodSelected.value = Mood.unhappy.name;
     } else if (val <= 40) {
       currentMoodImage.value = ImageConstant.sadMood;
-      currentMoodSelected.value =Mood.sad.name;
+      currentMoodSelected.value = Mood.sad.name;
     } else if (val <= 60) {
       currentMoodImage.value = ImageConstant.normalMood;
       currentMoodSelected.value = Mood.normal.name;
     } else if (val <= 80) {
-      currentMoodImage.value = ImageConstant.happyMood;
-      currentMoodSelected.value =Mood.happy.name;
-    } else {
       currentMoodImage.value = ImageConstant.goodMood;
       currentMoodSelected.value = Mood.good.name;
+    } else {
+      currentMoodImage.value = ImageConstant.happyMood;
+      currentMoodSelected.value = Mood.happy.name;
     }
   }
 
   onFeelingSelected({required String keyword}) {
     if (feelingsController.text.toString().length >= 2 &&
         (feelingsController.text
-            .toString()[feelingsController.text.toString().length - 2] !=
+                .toString()[feelingsController.text.toString().length - 2] !=
             ",")) {
       feelingsController.text = feelingsController.text + ", ";
     }
     feelingsController.text = feelingsController.text + keyword + ", ";
     update();
   }
-
 
   // Clear form data
   void clearForm() {
@@ -113,6 +112,7 @@ class UpdateTimelineController extends GetxController {
     currentMoodImage.value = ImageConstant.happyMood;
     moodSliderLeval.value = 50.0;
   }
+
   Future<void> _loadJournalDetails() async {
     isLoading.value = true;
     try {
@@ -123,10 +123,10 @@ class UpdateTimelineController extends GetxController {
         final details = JournalDetailsData.fromJson(body['data']);
 
         // populate controllers
-        titleController.text      = details.title      ?? "";
-        entryController.text      = details.description ?? "";
-        feelingsController.text   = details.feelings    ?? "";
-        activitiesController.text = details.activities  ?? "";
+        titleController.text = details.title ?? "";
+        entryController.text = details.description ?? "";
+        feelingsController.text = details.feelings ?? "";
+        activitiesController.text = details.activities ?? "";
 
         // populate mood (map your emotion string back to slider + image)
         final emotion = details.emotion ?? "";
@@ -143,46 +143,44 @@ class UpdateTimelineController extends GetxController {
   void _setMoodFromString(String mood) {
     switch (mood.toLowerCase()) {
       case 'sad':
-        moodSliderLeval.value     = 0;
-        currentMoodImage.value    = ImageConstant.sadMood;
+        moodSliderLeval.value = 0;
+        currentMoodImage.value = ImageConstant.sadMood;
         currentMoodSelected.value = 'sad';
         break;
       case 'unhappy':
-        moodSliderLeval.value     = 25;
-        currentMoodImage.value    = ImageConstant.unHappyMood;
+        moodSliderLeval.value = 25;
+        currentMoodImage.value = ImageConstant.unHappyMood;
         currentMoodSelected.value = 'unHappy';
         break;
       case 'normal':
-        moodSliderLeval.value     = 50;
-        currentMoodImage.value    = ImageConstant.normalMood;
+        moodSliderLeval.value = 50;
+        currentMoodImage.value = ImageConstant.normalMood;
         currentMoodSelected.value = 'Normal';
         break;
-      case 'happy':
-        moodSliderLeval.value     = 75;
-        currentMoodImage.value    = ImageConstant.happyMood;
-        currentMoodSelected.value = 'Happy';
-        break;
       case 'good':
-        moodSliderLeval.value     = 100;
-        currentMoodImage.value    = ImageConstant.goodMood;
+        moodSliderLeval.value = 75;
+        currentMoodImage.value = ImageConstant.goodMood;
         currentMoodSelected.value = 'Good';
         break;
+      case 'happy':
+        moodSliderLeval.value = 100;
+        currentMoodImage.value = ImageConstant.happyMood;
+        currentMoodSelected.value = 'Happy';
+        break;
       default:
-      // fallback
-        moodSliderLeval.value     = 50;
-        currentMoodImage.value    = ImageConstant.normalMood;
+        // fallback
+        moodSliderLeval.value = 50;
+        currentMoodImage.value = ImageConstant.normalMood;
         currentMoodSelected.value = mood.capitalize ?? "Normal";
     }
   }
+
   Future<void> updateJournal() async {
-
-
     try {
       isLoading.value = true;
 
-      final response = await APIManager.updateJournal(
-          id: journalId.value,
-          body: {
+      final response =
+          await APIManager.updateJournal(id: journalId.value, body: {
         "title": titleController.text.trim(),
         "description": entryController.text.trim(),
         "emotion": currentMoodSelected.value,
@@ -204,7 +202,8 @@ class UpdateTimelineController extends GetxController {
 
         // Refresh the journal list
         if (Get.isRegistered<JournalingController>()) {
-          Get.find<JournalingController>().getSavedJournals(date:Get.find<JournalingController>().selectedDate.value);
+          Get.find<JournalingController>().getSavedJournals(
+              date: Get.find<JournalingController>().selectedDate.value);
         }
       } else {
         Get.snackbar(

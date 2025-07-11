@@ -27,6 +27,7 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
           : Scaffold(
               backgroundColor: ColorUtil(context).completionScreenBg,
               appBar: AppBar(
+                  leading: Container(),
                   backgroundColor: ColorUtil(context).completionScreenBg),
               body: !controller.isQuizeComplete!.value
                   ? Column(children: [
@@ -61,7 +62,7 @@ class QuizeCompleteView extends GetView<QuizeCompleteController> {
                             // Get.back();
                             Get.back();
                           },
-                          title: "Retry Workout",
+                          title: "Retry Quiz",
                         ),
                       ),
                       // .kheightBox,

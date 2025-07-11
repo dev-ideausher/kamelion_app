@@ -35,7 +35,7 @@ class StartQuizeController extends GetxController {
                   .userProgress ??
               0) ==
           100) {
-        Get.offNamed(Routes.COURSE_COMPLETE);
+        Get.offNamed(Routes.COURSE_COMPLETE, arguments: true);
       } else {
         Get.back();
       }

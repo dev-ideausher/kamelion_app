@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/models/community_model.dart';
+import 'package:kamelion/app/modules/community/controllers/community_controller.dart';
 import 'package:kamelion/app/modules/communityPosts/controllers/community_posts_controller.dart';
 import 'package:kamelion/app/modules/home/controllers/home_controller.dart';
 import 'package:kamelion/app/services/dialog_helper.dart';
@@ -66,8 +67,12 @@ class CreatePostController extends GetxController {
           await Get.find<CommunityPostsController>().getCommunityDetails(
             communitySelected?.sId ?? "",
           );
+
           update();
           Get.back();
+          await Get.find<CommunityController>().getTrendingCommunities();
+          await Get.find<CommunityController>().getSavedCommunities();
+          await Get.find<CommunityController>().getAllCommunities();
           // await Get.find<CommunityPostsController>().getCommunityDetails(
           //     Get.find<CommunityPostsController>().communitySelected?.sId ??
           //         "");

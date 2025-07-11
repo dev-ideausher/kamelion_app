@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/components/common_image_view.dart';
 import 'package:kamelion/app/constants/image_constant.dart';
+import 'package:kamelion/app/models/mental_gyms_details_model.dart';
 import 'package:kamelion/app/modules/mentalGym/controllers/mental_gym_controller.dart';
+import 'package:kamelion/app/modules/navigationBar/controllers/navigation_bar_controller.dart';
 import 'package:kamelion/app/modules/workoutDetails/controllers/workout_details_controller.dart';
 import 'package:kamelion/app/services/colors.dart';
 import 'package:kamelion/app/services/responsive_size.dart';
@@ -42,7 +45,7 @@ class WorkoutDetailsAppBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       Get.back();
                     },
                     child: Container(
