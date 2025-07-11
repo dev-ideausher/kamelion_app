@@ -101,6 +101,7 @@ class ChallengesAppBar extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.055,
               width: MediaQuery.of(context).size.width * 0.9,
             ),
+            20.kheightBox
           ],
         ),
       ),

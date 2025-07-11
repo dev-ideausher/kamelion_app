@@ -40,6 +40,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539673187116:android:5ae7897996f9d6897ad289",
+        "android_client_info": {
+          "package_name": "com.iu.kamelion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539673187116-dgemqbe32i8jjearm1egog1210m0ff2d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR4uidRZ6BhAISh98JjnwlfbMlFuYOnNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539673187116-dgemqbe32i8jjearm1egog1210m0ff2d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "539673187116-v83dk4fslcdqlm5v37kr19tqbvm36s34.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kamelion"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

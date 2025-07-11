@@ -23,7 +23,7 @@ class NavigationBarView extends GetView<NavigationBarController> {
       () => WillPopScope(
         onWillPop: () async {
           if (controller.selectedIndex.value != 0) {
-            controller.selectedIndex.value != 1;
+            controller.selectedIndex.value = 0;
             return false;
           }
           return true;

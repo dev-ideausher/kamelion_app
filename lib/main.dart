@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:kamelion/app/modules/splash/bindings/splash_binding.dart';
 import 'package:kamelion/app/services/colors.dart';
+import 'package:kamelion/firebase_options.dart';
 import 'package:kamelion/generated/locales.g.dart';
 import 'app/routes/app_pages.dart';
 import 'app/services/storage.dart';
@@ -16,7 +17,7 @@ Future<void> main() async {
   final avatar = prefs.getString("fluttermoji") ?? "{}";
   // await FluttermojiInitializer().initialize();
   await initGetServices();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   return runApp(
     GestureDetector(

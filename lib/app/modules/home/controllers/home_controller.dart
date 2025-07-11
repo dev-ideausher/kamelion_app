@@ -88,6 +88,7 @@ class HomeController extends GetxController {
     isLoading.value = true;
     userTimezone = timezoneNames[DateTime.now().timeZoneOffset.inMilliseconds];
     await getUser();
+    await Future.delayed(Duration(milliseconds: 500));
     await getTodaysMood();
     await getPopularMentalGym();
     isLoading.value = false;
@@ -152,7 +153,7 @@ class HomeController extends GetxController {
       update();
       // return;
     } on DioException catch (dioError) {
-      showMySnackbar(msg: dioError.message ?? "");
+      // showMySnackbar(msg: dioError.message ?? "");
     } catch (e, s) {
       showMySnackbar(
         // title: LocaleKeys.somethingWentWrong.tr,
